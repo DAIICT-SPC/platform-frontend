@@ -1,0 +1,137 @@
+<template lang="html">
+  <div class="body">
+    <section class="hero is-fullheight is-dark">
+      <div class="hero-head">
+        <header class="nav">
+          <div class="container">
+            <div class="nav-left">
+              <a class="nav-item">
+                DA-IICT
+              </a>
+            </div>
+            <span class="nav-toggle">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+
+            <div class="nav-right nav-menu">
+              <span class="nav-item">
+
+
+
+                <!-- input fields -->
+                <div class="field" id="field-input-signin">
+                  <p class="control" id="input-control">
+                    <input v-model="email" name="email" v-valiadte="'required'" class="input is-small" type="text" placeholder="Email">
+                  </p>
+
+                </div>
+                <div class="field" id="field-input-signin">
+                  <p class="control" id="input-control">
+                    <input v-model="password" name="password" v-valiadte="'required'" class="input is-small" type="text" placeholder="Password">
+                  </p>
+                </div>
+
+                <!-- <router-link to="/home">     or :to="{ name : 'Navbar' }" -->
+                  <div>
+                      <input class="button is-info is-outlined is-inverted" type="submit" value="Login" @click="redirect" />
+                  </div>
+                <!-- </router-link> -->
+
+              </span>
+            </div>
+          </div>
+        </header>
+      </div>
+
+
+
+      <div class="hero-body">
+        <div class="container has-text-centered">
+          <div class="columns is-mobile">
+            <div class="column is-6 is-offset-3">
+              <p>
+                <img src="../../images/daiict1.png" id="imgdaSignin" />
+              </p>
+              <h1 class="title is-2">
+                Student Placement Cell
+                <div>
+                  {{$data}}
+                </div>
+              </h1>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+</template>
+
+<script>
+import axios from 'axios';
+export default {
+  data() {
+    return {
+      email: '',
+      password: ''
+    }
+  },
+  methods: {
+    redirect() {
+
+      this.$validator.validateAll().then(() => {
+        this.$router.push({
+          name: 'Home',
+          params: {
+            email: this.email
+          }
+        }) // push ends
+      }) // then ends
+      .catch(() => {
+        alert('Please fill all the required details');
+      }) // catch ends
+    }
+  }
+}
+</script>
+
+<style lang="css">
+.hero.is-dark{
+  background-image: linear-gradient(rgba(25, 181, 254, 0.6),rgba(246, 36, 89, 0.3)),linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.1))
+}
+
+.hero-body{
+  padding-top: 0px;
+}
+
+.container.has-text-centered{
+  bottom: 70px;
+}
+
+.column.is-6{
+  -webkit-border-radius: 1em;
+  outline: grey;
+  outline-width:  medium;
+  outline-offset: 0px, glow;
+  outline-color: grey;
+  outline-style: double;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+#imgdaSignin{
+  width: 30%;
+}
+
+#field-input-signin{
+  margin-bottom: 0px;
+  padding-right: 10px;
+}
+
+#input-control{
+  opacity: 0.7;
+}
+</style>
