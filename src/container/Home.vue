@@ -13,7 +13,6 @@
           <div class="media-content" >
             <div class="content">
               <strong>Placement cycle 2016-2017</strong> Open for registrations <br><small>4 days ago</small> <br>
-
               <p id="pcontent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing
                 elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor
                 vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.

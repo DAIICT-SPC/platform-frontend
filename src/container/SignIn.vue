@@ -22,21 +22,27 @@
 
                 <!-- input fields -->
                 <div class="field" id="field-input-signin">
-                  <p class="control" id="input-control">
+                  <p class="control has-icons-left" id="input-control">
                     <input v-model="email" name="email" v-valiadte="'required'" class="input is-small" type="text" placeholder="Email">
+                    <span class="icon is-small is-left">
+                      <i class="fa fa-envelope"></i>
+                    </span>
                   </p>
-
+                  
                 </div>
                 <div class="field" id="field-input-signin">
-                  <p class="control" id="input-control">
+                  <p class="control has-icons-left" id="input-control">
                     <input v-model="password" name="password" v-valiadte="'required'" class="input is-small" type="text" placeholder="Password">
+                    <span class="icon is-small is-left">
+                          <i class="fa fa-lock"></i>
+                        </span>
                   </p>
                 </div>
 
                 <!-- <router-link to="/home">     or :to="{ name : 'Navbar' }" -->
-                  <div>
-                      <input class="button is-info is-outlined is-inverted" type="submit" value="Login" @click="redirect" />
-                  </div>
+                <div>
+                  <input class="button is-info is-outlined is-inverted" type="submit" value="Login" @click="redirect" />
+                </div>
                 <!-- </router-link> -->
 
               </span>
@@ -133,5 +139,9 @@ export default {
 
 #input-control{
   opacity: 0.7;
+}
+
+.fa{
+    padding-left: 27px;
 }
 </style>

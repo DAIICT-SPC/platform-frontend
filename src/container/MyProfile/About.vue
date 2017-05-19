@@ -1,9 +1,9 @@
 <template lang="html">
-  <div id="aboutmaindiv">
+  <div class="is-narrow-mobile" id="aboutmaindiv">
 
-    <div id="heading">
+    <div id="heading-1">
       <h3 id="h3over">Overview</h3>
-      <hr id="h3hr">
+      <hr>
     </div>
 
     <!-- dummy data -->
@@ -20,7 +20,7 @@
           </div>
         </div>
       </div>
-      <hr style="margin-left: 1px; margin-right: 50px;margin-top: 10px;">
+      <hr>
 
       <div class="field is-horizontal">
         <div class="field-label" id="feild">
@@ -34,7 +34,7 @@
           </div>
         </div>
       </div>
-      <hr style="margin-left: 1px; margin-right: 50px;margin-top: 10px;">
+      <hr>
 
       <div class="field is-horizontal">
         <div class="field-label" id="feild">
@@ -48,7 +48,7 @@
           </div>
         </div>
       </div>
-      <hr style="margin-left: 1px; margin-right: 50px;margin-top: 10px;">
+      <hr>
 
       <div class="field is-horizontal">
         <div class="field-label" id="feild">
@@ -62,7 +62,7 @@
           </div>
         </div>
       </div>
-      <hr style="margin-left: 1px; margin-right: 50px;margin-top: 10px;">
+      <hr>
 
       <div class="field is-horizontal">
         <div class="field-label" id="feild">
@@ -76,7 +76,7 @@
           </div>
         </div>
       </div>
-      <hr style="margin-left: 1px; margin-right: 50px;margin-top: 10px;">
+      <hr>
 
 
       <div class="field is-horizontal">
@@ -91,7 +91,7 @@
           </div>
         </div>
       </div>
-      <hr style="margin-left: 1px; margin-right: 50px;margin-top: 10px;">
+      <hr>
 
       <div class="field is-horizontal">
         <div class="field-label" id="feild">
@@ -105,7 +105,7 @@
           </div>
         </div>
       </div>
-      <hr style="margin-left: 1px; margin-right: 50px;margin-top: 10px;">
+      <hr>
 
       <div class="field is-horizontal">
         <div class="field-label" id="feild">
@@ -122,7 +122,7 @@
       <br>
       <div>
         <h3>Address</h3>
-        <hr style="margin-left: 0px; margin-right: 50px;margin-top: 10px;">
+        <hr>
       </div>
 
       <div class="field is-horizontal">
@@ -137,7 +137,7 @@
           </div>
         </div>
       </div>
-      <hr style="margin-left: 1px; margin-right: 50px;margin-top: 10px;">
+      <hr>
 
       <div class="field is-horizontal">
         <div class="field-label" id="feild">
@@ -164,16 +164,15 @@ export default {}
 
 <style lang="css">
 
-
+#heading-1 {
+  margin-top: 28px;
+  margin-left: 15px;
+}
+/*
 #feild{
   margin-right: 10px;
 }
 
-#heading{
-  width: 150px;
-  margin-left: 0px;
-
-}
 
 hr{
   margin-top: 0px;
@@ -191,6 +190,6 @@ hr{
 #aboutmaindiv{
   margin-left: 15px;
   margin-top: 15px;
-}
+}*/
 
 </style>

@@ -32,6 +32,9 @@
 
         <!-- <hr id="hracademic"> -->
 
+        <div class="divider2">
+            <hr >
+        </div>
 
         <div style="overflow-x: auto;">  <!-- table starts -->
             <table class="table" id="tableacademic">
@@ -64,58 +67,59 @@
 
         <!-- previous ed -->
         <div id="prevedacademic">
-            <div>
-                <h2>Previous Education</h2>
-                <div class="columns">
-                    <!-- col 1 -->
-                    <div class="column is-one-third">
-                        <p>
-                            <b>St. Xavier's High School</b> <br>
-                            Karnataka Board <br>
-                            <small>Senior Secondary Certificate</small> <br>
-                            2010-2011
-                        </p>
-                    </div>
-                    <div class="column"></div> <!-- col 2 -->
-                    <div class="column"> <!-- col 3 -->
-                        <p style="">
-                            72.88%  <br>
-                            Score
-                        </p>
-                    </div>
-                </div>
 
-                <div class="columns">
-                    <!-- col 1 -->
-                    <div class="column is-one-third">
-                        <p>
-                            <b>Vagdevi High School</b> <br>
-                            Karnataka Board <br>
-                            <small>High School Certificate</small> <br>
-                            2008-2009
-                        </p>
-                    </div>
-                    <div class="column"></div> <!-- col 2 -->
-                    <div class="column"> <!-- col 3 -->
-                        <p>
-                            95.04%  <br>
-                            Score
-                        </p>
-                    </div>
-                </div>
-
+            <strong>Previous Education</strong>
+            <div class="divider">
+                <hr>
             </div>
+
+
+            <div class="columns">
+                <!-- col 1 -->
+                <div class="column is-one-third">
+                    <p>
+                        <b>St. Xavier's High School</b> <br>
+                        Karnataka Board <br>
+                        <small>Senior Secondary Certificate</small> <br>
+                        2010-2011
+                    </p>
+                </div>
+                <div class="column"></div> <!-- col 2 -->
+                <div class="column"> <!-- col 3 -->
+                    <p style="">
+                        72.88%  <br>
+                        Score
+                    </p>
+                </div>
+            </div>
+
+            <div class="columns">
+                <!-- col 1 -->
+                <div class="column is-one-third">
+                    <p>
+                        <b>Vagdevi High School</b> <br>
+                        Karnataka Board <br>
+                        <small>High School Certificate</small> <br>
+                        2008-2009
+                    </p>
+                </div>
+                <div class="column"></div> <!-- col 2 -->
+                <div class="column"> <!-- col 3 -->
+                    <p>
+                        95.04%  <br>
+                        Score
+                    </p>
+                </div>
+            </div>
+
+
         </div>
-
-
-
 
     </div>
 </template>
 
 <script>
-export default {
-}
+export default {}
 </script>
 
 <style lang="css">
@@ -143,4 +147,23 @@ export default {
     margin-left: 20px;
     margin-top: 10px;
 }
+
+.divider {
+    text-align:center;
+    font-family: 'montserrat';
+}
+
+.divider hr {
+    margin-right:auto;
+    width:88%;
+}
+.divider2 hr {
+    margin-right:auto;
+    margin-left: 20px;
+    padding-left: 10px;
+    padding-right: 29px;
+    width: 88%;
+
+}
+
 </style>
