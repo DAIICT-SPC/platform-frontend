@@ -1,10 +1,9 @@
 <template lang="html">
-  <div>
 
-    <div class="columns is-multiline"> <!-- main div -->
+    <div class="columns is-narrow-mobile" id="columns-my-profile"> <!-- main div -->
 
       <!-- is-hidden-mobile -->
-      <div class="column card is-one-quarter" id="col-1">
+      <div class="column card is-narrow is-one-quarter-mobile" id="col-1">
         <div class="box" id="box-image">
           <figure class="image is-square">
             <img src="../../images/lotus.jpg" alt="Image">
@@ -39,7 +38,7 @@
         </div>
       </div>
 
-      <div class="column is-narrow-mobile">
+      <div class="column">
         <div class="box" id="col-2-tab">
           <div class="tabs" id="tabs-myprofile">
             <ul>
@@ -52,10 +51,8 @@
         </div>
       </div>
 
-</div> <!-- main div -->
+    </div> <!-- main div -->
 
-
-</div>
 </template>
 
 <script>
@@ -63,7 +60,7 @@ export default {}
 </script>
 
 <style lang="css">
-.columns.is-multiline{
+#columns-my-profile{
   margin-top: 0px;
 }
 

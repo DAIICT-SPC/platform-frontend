@@ -23,25 +23,31 @@
                 <!-- input fields -->
                 <div class="field" id="field-input-signin">
                   <p class="control has-icons-left" id="input-control">
-                    <input v-model="email" name="email" v-valiadte="'required'" class="input is-small" type="text" placeholder="Email">
+                    <input v-model="email" name="email" v-validate="'required|email'" class="input is-small" type="text" placeholder="Email">
                     <span class="icon is-small is-left">
                       <i class="fa fa-envelope"></i>
                     </span>
+                    <div v-show="errors.has('email')">
+                      {{ errors.first('email') }}
+                    </div>
                   </p>
-                  
+
                 </div>
                 <div class="field" id="field-input-signin">
                   <p class="control has-icons-left" id="input-control">
-                    <input v-model="password" name="password" v-valiadte="'required'" class="input is-small" type="text" placeholder="Password">
+                    <input v-model="password" name="password" v-validate="'required|min:6'" class="input is-small" type="text" placeholder="Password">
                     <span class="icon is-small is-left">
-                          <i class="fa fa-lock"></i>
-                        </span>
+                      <i class="fa fa-lock"></i>
+                    </span>
+                    <div v-show="errors.has('password')">
+                      {{ errors.first('password') }}
+                    </div>
                   </p>
                 </div>
 
                 <!-- <router-link to="/home">     or :to="{ name : 'Navbar' }" -->
                 <div>
-                  <input class="button is-info is-outlined is-inverted" type="submit" value="Login" @click="redirect" />
+                  <input class="button is-info is-outlined is-inverted" type="submit" value="Login" @click="login" />
                 </div>
                 <!-- </router-link> -->
 
@@ -86,19 +92,34 @@ export default {
     }
   },
   methods: {
-    redirect() {
+    login() {
+      this.validate().then(this.fetchUser().then(this.storeUser).then(this.redirect()));
+    },
+    validate() {
+      return this.$validator.validateAll();
+    },
+    fetchUser() {
+      return new Promise((resolve, reject) => {
+        // Make axios request
+        let user = {
+          id: 1,
+          name: "Kunal Varma"
+        };
 
-      this.$validator.validateAll().then(() => {
-        this.$router.push({
-          name: 'Home',
-          params: {
-            email: this.email
-          }
-        }) // push ends
-      }) // then ends
-      .catch(() => {
-        alert('Please fill all the required details');
-      }) // catch ends
+        resolve(user);
+      });
+    },
+    storeUser(user) {
+      window.localStorage.setItem('user', user);
+    },
+    redirect() {
+      this.$router.push({
+        name: 'Home',
+        params: {
+          email: this.email
+        }
+      }); // push ends
+
     }
   }
 }
@@ -142,6 +163,6 @@ export default {
 }
 
 .fa{
-    padding-left: 27px;
+  padding-left: 27px;
 }
 </style>
