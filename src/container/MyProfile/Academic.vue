@@ -119,7 +119,9 @@
 </template>
 
 <script>
-export default {}
+export default {
+    name: 'academic'
+}
 </script>
 
 <style lang="css">

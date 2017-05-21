@@ -1,12 +1,12 @@
 <template lang="html">
   <div>
-    <div class="site" id="site-job" >
+    <div class="container">
 
       <!-- main div starts -->
-      <div class="columns is-multiline is-mobile">
+      <div class="columns is-multiline">
 
         <!-- 1/3 col -->
-        <div class="column">
+        <div class="column is-one-third">
           <div class="card" id="card-job">
             <header class="card-header">
               <p class="card-header-title">
@@ -32,62 +32,58 @@
         </div>
         <!-- 1/3 col -->
 
-        <div class="column">
-                <div class="card" id="card-job">
-                  <header class="card-header">
-                    <p class="card-header-title">
-                      Software Developer
-                    </p>
-                    <a class="card-header-icon">
-                      <span class="icon">
-                        <span class="tag is-info">Open</span>
-                      </span>
-                    </a>
-                  </header>
-                  <div class="card-content">
-                    <div class="content">
-                      Compony:&nbsp;<b>MAQ</b><br>
-                      Location:&nbsp;<b>Hydrabad, India</b>
-                    </div>
-                  </div>
-                  <footer class="card-footer">
-                    <a class="card-footer-item">View</a>
-                    <a class="card-footer-item">Apply</a>
-                  </footer>
-                </div>
+        <div class="column is-one-third">
+          <div class="card" id="card-job">
+            <header class="card-header">
+              <p class="card-header-title">
+                Software Developer
+              </p>
+              <a class="card-header-icon">
+                <span class="icon">
+                  <span class="tag is-info">Applied</span>
+                </span>
+              </a>
+            </header>
+            <div class="card-content">
+              <div class="content">
+                Compony:&nbsp;<b>MAQ</b><br>
+                Location:&nbsp;<b>Hydrabad, India</b>
               </div>
+            </div>
+            <footer class="card-footer">
+              <a class="card-footer-item">View</a>
+              <a class="card-footer-item">Apply</a>
+            </footer>
+          </div>
+        </div>
 
-              <div class="column">
-                      <div class="card" id="card-job">
-                        <header class="card-header">
-                          <p class="card-header-title">
-                            Software Developer
-                          </p>
-                          <a class="card-header-icon">
-                            <span class="icon">
-                              <span class="tag is-info">Open</span>
-                            </span>
-                          </a>
-                        </header>
-                        <div class="card-content">
-                          <div class="content">
-                            Compony:&nbsp;<b>MAQ</b><br>
-                            Location:&nbsp;<b>Hydrabad, India</b>
-                          </div>
-                        </div>
-                        <footer class="card-footer">
-                          <a class="card-footer-item">View</a>
-                          <a class="card-footer-item">Apply</a>
-                        </footer>
-                      </div>
-                    </div>
-      </div>
-      <!-- main div ends -->
-      <!-- main div starts -->
-      <div class="columns is-multiline is-mobile">
+        <div class="column is-one-third">
+          <div class="card" id="card-job">
+            <header class="card-header">
+              <p class="card-header-title">
+                Software Developer
+              </p>
+              <a class="card-header-icon">
+                <span class="icon">
+                  <span class="tag is-info">Applied</span>
+                </span>
+              </a>
+            </header>
+            <div class="card-content">
+              <div class="content">
+                Compony:&nbsp;<b>MAQ</b><br>
+                Location:&nbsp;<b>Hydrabad, India</b>
+              </div>
+            </div>
+            <footer class="card-footer">
+              <a class="card-footer-item">View</a>
+              <a class="card-footer-item">Apply</a>
+            </footer>
+          </div>
+        </div>
 
         <!-- 1/3 col -->
-        <div class="column">
+        <div class="column is-one-third">
           <div class="card" id="card-job">
             <header class="card-header">
               <p class="card-header-title">
@@ -113,55 +109,55 @@
         </div>
         <!-- 1/3 col -->
 
-        <div class="column">
-                <div class="card" id="card-job">
-                  <header class="card-header">
-                    <p class="card-header-title">
-                      Software Developer
-                    </p>
-                    <a class="card-header-icon">
-                      <span class="icon">
-                        <span class="tag is-info">Open</span>
-                      </span>
-                    </a>
-                  </header>
-                  <div class="card-content">
-                    <div class="content">
-                      Compony:&nbsp;<b>MAQ</b><br>
-                      Location:&nbsp;<b>Hydrabad, India</b>
-                    </div>
-                  </div>
-                  <footer class="card-footer">
-                    <a class="card-footer-item">View</a>
-                    <a class="card-footer-item">Apply</a>
-                  </footer>
-                </div>
+        <div class="column is-one-third">
+          <div class="card" id="card-job">
+            <header class="card-header">
+              <p class="card-header-title">
+                Software Developer
+              </p>
+              <a class="card-header-icon">
+                <span class="icon">
+                  <span class="tag is-info">Applied</span>
+                </span>
+              </a>
+            </header>
+            <div class="card-content">
+              <div class="content">
+                Compony:&nbsp;<b>MAQ</b><br>
+                Location:&nbsp;<b>Hydrabad, India</b>
               </div>
+            </div>
+            <footer class="card-footer">
+              <a class="card-footer-item">View</a>
+              <a class="card-footer-item">Apply</a>
+            </footer>
+          </div>
+        </div>
 
-              <div class="column">
-                      <div class="card">
-                        <header class="card-header">
-                          <p class="card-header-title">
-                            Software Developer
-                          </p>
-                          <a class="card-header-icon">
-                            <span class="icon">
-                              <span class="tag is-info">Open</span>
-                            </span>
-                          </a>
-                        </header>
-                        <div class="card-content">
-                          <div class="content">
-                            Compony:&nbsp;<b>MAQ</b><br>
-                            Location:&nbsp;<b>Hydrabad, India</b>
-                          </div>
-                        </div>
-                        <footer class="card-footer">
-                          <a class="card-footer-item">View</a>
-                          <a class="card-footer-item">Apply</a>
-                        </footer>
-                      </div>
-                    </div>
+        <div class="column is-one-third">
+          <div class="card">
+            <header class="card-header">
+              <p class="card-header-title">
+                Software Developer
+              </p>
+              <a class="card-header-icon">
+                <span class="icon">
+                  <span class="tag">Closed</span>
+                </span>
+              </a>
+            </header>
+            <div class="card-content">
+              <div class="content">
+                Compony:&nbsp;<b>MAQ</b><br>
+                Location:&nbsp;<b>Hydrabad, India</b>
+              </div>
+            </div>
+            <footer class="card-footer">
+              <a class="card-footer-item">View</a>
+              <a class="card-footer-item">Apply</a>
+            </footer>
+          </div>
+        </div>
       </div>
       <!-- main div ends -->
     </div>
@@ -169,18 +165,12 @@
 </template>
 
 <script>
-export default {}
+export default {
+name: 'jobprofile'
+}
 </script>
 
 <style lang="css">
-/*job profile css*/
-
-#site-job{
-  margin-left: 0px;
-  margin-top: 15px;
-  padding-right: 100px;
-  padding-left: 100px;
-}
 
 #card-job{
   border-radius: 4px;

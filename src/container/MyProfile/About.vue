@@ -159,7 +159,9 @@
 </template>
 
 <script>
-export default {}
+export default {
+name: 'about'
+}
 </script>
 
 <style lang="css">
