@@ -9,7 +9,7 @@
     <!-- dummy data -->
     <div class="form" style="margin-left: 25px;">
       <div class="field is-horizontal">
-        <div class="field-label" id="feild">
+        <div class="field-label" id="field">
           <p align="left">Student Id</p>
         </div>
         <div class="field-body">
@@ -23,7 +23,7 @@
       <hr>
 
       <div class="field is-horizontal">
-        <div class="field-label" id="feild">
+        <div class="field-label" id="field">
           <p align="left">Name</p>
         </div>
         <div class="field-body">
@@ -37,7 +37,7 @@
       <hr>
 
       <div class="field is-horizontal">
-        <div class="field-label" id="feild">
+        <div class="field-label" id="field">
           <p align="left">Programe Name</p>
         </div>
         <div class="field-body">
@@ -51,7 +51,7 @@
       <hr>
 
       <div class="field is-horizontal">
-        <div class="field-label" id="feild">
+        <div class="field-label" id="field">
           <p align="left">Enrollment Date</p>
         </div>
         <div class="field-body">
@@ -65,7 +65,7 @@
       <hr>
 
       <div class="field is-horizontal">
-        <div class="field-label" id="feild">
+        <div class="field-label" id="field">
           <p align="left">Contact No</p>
         </div>
         <div class="field-body">
@@ -80,7 +80,7 @@
 
 
       <div class="field is-horizontal">
-        <div class="field-label" id="feild">
+        <div class="field-label" id="field">
           <p align="left">Date of birth</p>
         </div>
         <div class="field-body">
@@ -94,7 +94,7 @@
       <hr>
 
       <div class="field is-horizontal">
-        <div class="field-label" id="feild">
+        <div class="field-label" id="field">
           <p align="left">Gender</p>
         </div>
         <div class="field-body">
@@ -108,7 +108,7 @@
       <hr>
 
       <div class="field is-horizontal">
-        <div class="field-label" id="feild">
+        <div class="field-label" id="field">
           <p align="left">Category</p>
         </div>
         <div class="field-body">
@@ -126,7 +126,7 @@
       </div>
 
       <div class="field is-horizontal">
-        <div class="field-label" id="feild">
+        <div class="field-label" id="field">
           <p align="left">Primary Address</p>
         </div>
         <div class="field-body">
@@ -140,7 +140,7 @@
       <hr>
 
       <div class="field is-horizontal">
-        <div class="field-label" id="feild">
+        <div class="field-label" id="field">
           <p align="left">Current Address</p>
         </div>
         <div class="field-body">
@@ -160,7 +160,7 @@
 
 <script>
 export default {
-name: 'about'
+  name: 'about'
 }
 </script>
 
@@ -171,27 +171,27 @@ name: 'about'
   margin-left: 15px;
 }
 /*
-#feild{
-  margin-right: 10px;
+#field{
+margin-right: 10px;
 }
 
 
 hr{
-  margin-top: 0px;
-  margin-bottom: 24px;
-  width: 700px;
+margin-top: 0px;
+margin-bottom: 24px;
+width: 700px;
 }
 
 
 #h3hr{
-  margin-top: 0px;
-  margin-bottom: 24px;
-  width: 726px;
+margin-top: 0px;
+margin-bottom: 24px;
+width: 726px;
 }
 
 #aboutmaindiv{
-  margin-left: 15px;
-  margin-top: 15px;
+margin-left: 15px;
+margin-top: 15px;
 }*/
 
 </style>

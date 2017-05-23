@@ -11,8 +11,14 @@
     Auto <span class="is-pulled-right tag is-success">Open</span>
   </div> -->
 
+</div>
+<div class="columns" id="columns-my-profile"> <!-- main div -->
+
   <!-- is-hidden-mobile card is-narrow is-one-quarter-mobile -->
   <div class="column is-one-quarter" id="col-1">
+
+
+
     <div class="box" id="box-image">
       <figure class="image is-square">
         <img src="../../images/lotus.jpg" alt="Image">
@@ -70,8 +76,8 @@ export default {
 </script>
 
 <style lang="css">
-/*
-.column{
+
+/*.column{
 background-color: red;
 margin-left: 10px;
 }
@@ -80,33 +86,35 @@ margin-left: 10px;
 background-color: blue;
 }*/
 
-/*
+
 #col-1{
-width: 240px;
-height: 100%;
-border-radius: 4px;
-box-shadow: 0px 4px 5px #d0cfcf;
+  margin-top: 12px;
+  width: 240px;
+  height: 100%;
+  border-radius: 4px;
+  box-shadow: 0px 4px 5px #d0cfcf;
+  background-color: white;
 }
 
 
 #box-image{
-height: 18%;
-width: 80%;
-margin-left: 20px;
-box-shadow: none;
-margin-bottom: 0px;
+  height: 18%;
+  width: 80%;
+  margin-left: 20px;
+  box-shadow: none;
+  margin-bottom: 0px;
 }
 
 
 #col-2-tab{
-/*margin-left: 25px;*/
-/*border-top-width: 30px;*/
-/*margin-top: 4px;*/
-/*width: 877px;*/
-/*height: 100%;*/
-/*border-radius: 4px;*/
-/*box-shadow: 0px 4px 5px #d0cfcf;
-}*/
+  margin-left: 25px;
+  border-top-width: 30px;
+  /*margin-top: 4px;*/
+  /*width: 877px;*/
+  /*height: 100%;*/
+  border-radius: 4px;
+  box-shadow: 0px 4px 5px #d0cfcf;
+}
 
 /*#columns-my-profile{
 margin-top: 0px;
