@@ -121,10 +121,6 @@ export default {
   margin-right: 15px;
 }
 
-.placement-courses{
-
-}
-
 .pagination.is-centered{
   margin-top: 15px;
 }

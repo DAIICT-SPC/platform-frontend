@@ -44,8 +44,6 @@
                     </div>
                   </p>
                 </div>
-
-                <!-- <router-link to="/home">     or :to="{ name : 'Navbar' }" -->
                 <div>
                   <input class="button is-info is-outlined is-inverted" type="submit" value="Login" @click="login" />
                 </div>
@@ -57,8 +55,6 @@
         </header>
       </div>
 
-
-
       <div class="hero-body">
         <div class="container has-text-centered">
           <div class="columns is-mobile">
@@ -68,9 +64,6 @@
               </p>
               <h1 class="title is-2">
                 Student Placement Cell
-                <div>
-                  {{$data}}
-                </div>
               </h1>
             </div>
           </div>
@@ -93,6 +86,7 @@ export default {
       password: ''
     }
   },
+  // before coming to '/'' or home or signin page, if u have a token, go to dashboard page
   beforeRouteEnter: (to, from, next) => {
     if (window.localStorage.getItem('token') != null) {
       next({

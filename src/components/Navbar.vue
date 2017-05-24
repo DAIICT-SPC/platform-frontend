@@ -8,8 +8,8 @@
             <img src="../../images/daiict.jpg" alt="daiict"> &nbsp; DA-IICT
           </router-link>
           <router-link :to="{ name: 'dashboard' }" class="nav-item is-tab is-hidden-mobile">Home</router-link>
-          <router-link :to="{ name: 'JobProfile' }" class="nav-item is-tab is-hidden-mobile">Job Profile</router-link>
-          <router-link :to="{ name: 'About' }" class="nav-item is-tab is-hidden-mobile">My Profile</router-link>
+          <router-link :to="{ name: 'jobprofile' }" class="nav-item is-tab is-hidden-mobile">Job Profile</router-link>
+          <router-link :to="{ name: 'about' }" class="nav-item is-tab is-hidden-mobile">My Profile</router-link>
         </div>
         <span class="nav-toggle">
           <span></span>
@@ -30,6 +30,7 @@ export default {
   name: 'navbar',
   methods:{
     logout(){
+      // this.$auth.destroyToken();
       window.localStorage.removeItem('token');
       window.localStorage.removeItem('user');
       this.$router.push({ name: 'home' })
@@ -39,5 +40,5 @@ export default {
 </script>
 
 <style lang="css">
-  
+
 </style>

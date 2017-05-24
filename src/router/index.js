@@ -7,6 +7,7 @@ import JobProfile from '@/container/JobProfile'
 import MyProfile from '@/container/MyProfile'
 import About from '@/container/MyProfile/About'
 import Academic from '@/container/MyProfile/Academic'
+import Resume from '@/container/MyProfile/Resume'
 
 
 Vue.use(Router)
@@ -16,41 +17,46 @@ let router = new Router({
   linkActiveClass: 'active',
   linkExactActiveClass: 'is-active',
   routes: [{
-      path: '/',
-      name: 'home',
-      component: Home,
+    path: '/',
+    name: 'home',
+    component: Home
+  },
+  {
+    path: '/dashboard',
+    component: Dashboard,
+    children: [{
+      path: 'feed',
+      name: 'dashboard',
+      component: Feed
     },
     {
-      path: '/dashboard',
-      component: Dashboard,
+      path: 'job-profile',
+      name: 'jobprofile',
+      component: JobProfile
+    },
+    {
+      path: 'profile',
+      component: MyProfile,
       children: [{
-          path: '/',
-          name: 'dashboard',
-          component: Feed
-        },
-        {
-          path: 'job-profile',
-          name: 'JobProfile',
-          component: JobProfile
-        },
-        {
-          path: 'profile',
-          component: MyProfile,
-          children: [{
-              path: '/',
-              name: 'About',
-              component: About
-            },
-            {
-              path: 'academic',
-              name: 'Academic',
-              component: Academic
-            }
-          ]
-        }
-      ]
-    }
-  ]
+        path: 'about',
+        name: 'about',
+        component: About
+      },
+      {
+        path: 'academic',
+        name: 'academic',
+        component: Academic
+      },
+      {
+        path: 'resume',
+        name: 'resume',
+        component: Resume
+      }
+    ]
+  }
+]
+}
+]
 });
 
 router.afterEach((to, from) => {
@@ -59,7 +65,30 @@ router.afterEach((to, from) => {
       name: 'home'
     });
   }
-
 });
+
+// router.beforeEach((to, from, next) => {
+//   if(to.matched.some(record => record.meta.forVisitors)){
+//     if(Vue.auth.isAuthenticated()){
+//       next({
+//         name: 'dashboard'
+//       })
+//     }else{
+//       next();
+//     }
+//   }
+//   else if(to.matched.some(record => record.meta.forAuth)){
+//     if(!Vue.auth.isAuthenticated()){
+//       next({
+//         path: '/'
+//       })
+//     }else{
+//       next();
+//     }
+//   }
+//   else{
+//     next();
+//   }
+// })
 
 export default router;

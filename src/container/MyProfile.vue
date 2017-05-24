@@ -2,16 +2,6 @@
   <div class="container">
 
     <!-- is-narrow-mobile -->
-    <div class="columns" id="columns-my-profile"> <!-- main div -->
-
-      <!-- <div class="column is-one-quarter">
-      <code>is-one-quarter</code>
-    </div>
-    <div class="column">
-    Auto <span class="is-pulled-right tag is-success">Open</span>
-  </div> -->
-
-</div>
 <div class="columns" id="columns-my-profile"> <!-- main div -->
 
   <!-- is-hidden-mobile card is-narrow is-one-quarter-mobile -->
@@ -30,7 +20,7 @@
           <p class="title is-4" align="center">Navin Chattopadhyay</p>
         </div>
       </div>
-      <div class="content">
+      <div class="content" id="content-extras">
         <p style="font-size: 13px;" align="center">
           2018 Passout Batch 3AX12ED042087<br>
           4th Semester, M.Tech. <br>
@@ -56,9 +46,9 @@
     <div class="box" id="col-2-tab">
       <div class="tabs" id="tabs-myprofile">
         <ul>
-          <li><router-link :to="{name:'About'}">About</router-link></li>
-          <li><router-link :to="{ name: 'Academic' }">Academic Details</router-link></li>
-          <li><a>Resume</a></li>
+          <li><router-link :to="{name:'about'}">About</router-link></li>
+          <li><router-link :to="{ name: 'academic' }">Academic Details</router-link></li>
+          <li><router-link :to="{ name: 'resume' }">Resume</router-link></li>
         </ul>
       </div>
       <router-view></router-view>
@@ -77,15 +67,9 @@ export default {
 
 <style lang="css">
 
-/*.column{
-background-color: red;
-margin-left: 10px;
+#content-extras{
+  padding-top: 15px;
 }
-
-.column.is-one-quarter{
-background-color: blue;
-}*/
-
 
 #col-1{
   margin-top: 12px;
@@ -96,7 +80,6 @@ background-color: blue;
   background-color: white;
 }
 
-
 #box-image{
   height: 18%;
   width: 80%;
@@ -104,7 +87,6 @@ background-color: blue;
   box-shadow: none;
   margin-bottom: 0px;
 }
-
 
 #col-2-tab{
   margin-left: 25px;
@@ -115,36 +97,4 @@ background-color: blue;
   border-radius: 4px;
   box-shadow: 0px 4px 5px #d0cfcf;
 }
-
-/*#columns-my-profile{
-margin-top: 0px;
-}
-
-#card-content-my-profile{
-padding-top: 5px;
-}
-
-#tabs-myprofile{
-margin-top: 0px;
-margin-bottom: 10px;
-}
-
-.feild-label{
-margin-right: 0px;
-}
-
-
-#col-2-tab{
-margin-left: 25px;
-border-top-width: 30px;
-margin-top: 4px;
-width: 877px;
-height: auto;
-border-radius: 4px;
-box-shadow: 0px 4px 5px #d0cfcf;
-}
-
-.tabs li a.is-active{
-border-bottom: solid 2px #00d1b2;
-}*/
 </style>

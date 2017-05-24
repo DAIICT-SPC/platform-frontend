@@ -1,15 +1,18 @@
 <template lang="html">
-  <div class="is-narrow-mobile" id="aboutmaindiv">
+  <div>
 
-    <div id="heading-1">
-      <h3 id="h3over">Overview</h3>
-      <hr>
+
+    <div class="columns is-mobile">
+      <div class="column"><h1 id="head1"><b>Overview</b></h1></div>
+      <div class="column"></div>
+      <div class="column"></div>
+      <div class="column"></div>
     </div>
-
-    <!-- dummy data -->
-    <div class="form" style="margin-left: 25px;">
+    <hr id="hr1-resume">
+    <!-- form data starts -->
+    <div class="form" style="margin-left: 50px;">
       <div class="field is-horizontal">
-        <div class="field-label" id="field">
+        <div class="field-label">
           <p align="left">Student Id</p>
         </div>
         <div class="field-body">
@@ -20,10 +23,10 @@
           </div>
         </div>
       </div>
-      <hr>
+      <hr id="hr2">
 
       <div class="field is-horizontal">
-        <div class="field-label" id="field">
+        <div class="field-label">
           <p align="left">Name</p>
         </div>
         <div class="field-body">
@@ -34,10 +37,10 @@
           </div>
         </div>
       </div>
-      <hr>
+      <hr id="hr2">
 
       <div class="field is-horizontal">
-        <div class="field-label" id="field">
+        <div class="field-label">
           <p align="left">Programe Name</p>
         </div>
         <div class="field-body">
@@ -48,10 +51,10 @@
           </div>
         </div>
       </div>
-      <hr>
+      <hr id="hr2">
 
       <div class="field is-horizontal">
-        <div class="field-label" id="field">
+        <div class="field-label">
           <p align="left">Enrollment Date</p>
         </div>
         <div class="field-body">
@@ -62,10 +65,10 @@
           </div>
         </div>
       </div>
-      <hr>
+      <hr id="hr2">
 
       <div class="field is-horizontal">
-        <div class="field-label" id="field">
+        <div class="field-label">
           <p align="left">Contact No</p>
         </div>
         <div class="field-body">
@@ -76,11 +79,11 @@
           </div>
         </div>
       </div>
-      <hr>
+      <hr id="hr2">
 
 
       <div class="field is-horizontal">
-        <div class="field-label" id="field">
+        <div class="field-label">
           <p align="left">Date of birth</p>
         </div>
         <div class="field-body">
@@ -91,10 +94,10 @@
           </div>
         </div>
       </div>
-      <hr>
+      <hr id="hr2">
 
       <div class="field is-horizontal">
-        <div class="field-label" id="field">
+        <div class="field-label">
           <p align="left">Gender</p>
         </div>
         <div class="field-body">
@@ -105,10 +108,10 @@
           </div>
         </div>
       </div>
-      <hr>
+      <hr id="hr2">
 
       <div class="field is-horizontal">
-        <div class="field-label" id="field">
+        <div class="field-label">
           <p align="left">Category</p>
         </div>
         <div class="field-body">
@@ -120,13 +123,21 @@
         </div>
       </div>
       <br>
-      <div>
-        <h3>Address</h3>
-        <hr>
-      </div>
+    </div>
+    <!-- form data ends -->
 
+    <div class="columns is-mobile">
+      <div class="column"  id="address-column"><h1 id="head1"><b>Address</b></h1></div>
+      <div class="column"></div>
+      <div class="column"></div>
+      <div class="column"></div>
+    </div>
+    <hr id="hr1-resume">
+
+
+    <div class="form" style="margin-left: 50px;">
       <div class="field is-horizontal">
-        <div class="field-label" id="field">
+        <div class="field-label">
           <p align="left">Primary Address</p>
         </div>
         <div class="field-body">
@@ -137,10 +148,10 @@
           </div>
         </div>
       </div>
-      <hr>
+      <hr id="hr2">
 
       <div class="field is-horizontal">
-        <div class="field-label" id="field">
+        <div class="field-label is-right">
           <p align="left">Current Address</p>
         </div>
         <div class="field-body">
@@ -152,10 +163,8 @@
         </div>
       </div>
     </div>
-    <!-- dummy data -->
-
-
   </div>
+  <!-- box ends -->
 </template>
 
 <script>
@@ -166,32 +175,55 @@ export default {
 
 <style lang="css">
 
-#heading-1 {
-  margin-top: 28px;
-  margin-left: 15px;
-}
-/*
-#field{
-margin-right: 10px;
-}
-
-
-hr{
-margin-top: 0px;
-margin-bottom: 24px;
-width: 700px;
+#box{
+  margin-top: 22px;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  box-shadow: 0px 4px 5px #d0cfcf;
+  padding: 0px 0px 0px 0px;
 }
 
-
-#h3hr{
-margin-top: 0px;
-margin-bottom: 24px;
-width: 726px;
+#col1{
+  width: 224px;
 }
 
-#aboutmaindiv{
-margin-left: 15px;
-margin-top: 15px;
-}*/
+#head1{
+  font-size: 20px;
+  margin-left: 25px;
+}
+
+#hr2{
+  margin-top: 0px;
+  margin-right: 50px;
+}
+
+#profile-card{
+  width: 240px;
+  height: 650px;
+  border-radius: 4px;
+  box-shadow: 0px 4px 5px #d0cfcf;
+}
+
+#image{
+  width: 200px;
+  height: 200px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#name{
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+#address-column{
+
+    padding-top: 4px;
+
+}
 
 </style>

@@ -24,8 +24,8 @@ export default {
 html, body {
   min-height: 100%;
   background: #fafcfd;
-  /*background: #f5f5f5*/
 }
+
 .dashboard{
   margin-bottom: 20px;
 }
