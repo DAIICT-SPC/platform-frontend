@@ -25,7 +25,7 @@
               </div>
             </div>
             <footer class="card-footer">
-              <a class="card-footer-item">View</a>
+              <router-link :to="{ name: 'view-job-profile', params: { id: 1 } }" class="card-footer-item">View</router-link>
               <a class="card-footer-item">Apply</a>
             </footer>
           </div>
@@ -160,6 +160,7 @@
         </div>
       </div>
       <!-- main div ends -->
+
     </div>
   </div>
 </template>

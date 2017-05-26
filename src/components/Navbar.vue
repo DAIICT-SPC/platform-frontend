@@ -1,5 +1,5 @@
 <template lang="html">
-  <div>
+  <div class="navbar-page">
     <!-- navbar starts -->
     <nav class="nav has-shadow">
       <div class="container">
@@ -17,7 +17,7 @@
           <span></span>
         </span>
         <div class="nav-right nav-menu">
-          <a class="nav-item is-tab" @click="logout">Logout!</a>
+          <div class="nav-item is-tab" @click="logout"><a class="button">Logout!</a></div>
         </div>
       </div>
     </nav>
@@ -36,6 +36,8 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="scss">
+.navbar-page {
 
+}
 </style>

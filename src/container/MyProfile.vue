@@ -19,7 +19,7 @@
             </ul>
           </div>
           <div class="profile-tab-content">
-            <router-view></router-view>
+            <router-view :user="user"></router-view>
           </div>
         </div>
       </div>
@@ -60,17 +60,6 @@ export default {
 
   .profile-box .profile-tab-content {
     padding: 1.5rem 2rem;
-  }
-
-  .profile-sidebar {
-    font-weight: normal;
-    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
-    border-radius: 4px;
-    text-align: center;
-    .title {
-      margin-top: 0;
-      font-weight: normal;
-    }
   }
 
   .profile-image {

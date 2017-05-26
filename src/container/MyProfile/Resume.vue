@@ -40,7 +40,7 @@ export default {
 
 <style lang="scss">
 .resume-page {
-  
+
   .resume-top {
     display: flex;
     justify-content: space-between;
@@ -67,48 +67,4 @@ export default {
     }
   }
 }
-
-
-/*
-#hr1-resume{
-margin-top: -15px;
-margin-left: 30px;
-margin-right: 60px;
-}
-
-#hr2-resume{
-margin-top: 5px;
-margin-left: 30px;
-margin-right: 60px;
-}
-
-#head1{
-margin-top: 5px;
-}
-
-#button{
-position: absolute;
-top: 90px;
-left: 900px;
-}
-
-#one-quarter {
-padding-left: 100px;
-}
-
-#parent-resume-data{
-padding-left: 30px;
-margin-bottom: 45px;
-}
-
-#child-one-img-resume{
-float: left;
-width: 80px;
-}
-
-#child-two-data-resume{
-padding-left: 90px;
-padding-top: 10px;
-}*/
-
 </style>

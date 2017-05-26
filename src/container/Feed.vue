@@ -3,7 +3,7 @@
     <!-- media content starts -->
     <div class="columns is-multiline">
       <div class="column is-full">
-        <article class="media">
+        <article class="media media-card">
           <figure class="media-left">
             <p class="image is-64x64">
               <img src="../../images/daiict.jpg">
@@ -29,7 +29,7 @@
       </div>
 
       <div class="column is-full">
-        <article class="media">
+        <article class="media media-card">
           <figure class="media-left">
             <p class="image is-64x64">
               <img src="../../images/daiict.jpg">
@@ -55,7 +55,7 @@
       </div>
 
       <div class="column is-full">
-        <article class="media">
+        <article class="media media-card">
           <figure class="media-left">
             <p class="image is-64x64">
               <img src="../../images/daiict.jpg">
@@ -102,7 +102,7 @@ export default {
   padding-left: 15px;
 
   .column {
-    .media {
+    .media.media-card {
       margin-top: 15px;
       background: white;
       padding: 15px;

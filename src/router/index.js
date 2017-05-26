@@ -4,6 +4,7 @@ import Home from '@/container/Home'
 import Dashboard from '@/container/Dashboard'
 import Feed from '@/container/Feed'
 import JobProfile from '@/container/JobProfile'
+import Placement from '@/container/Placement'
 import MyProfile from '@/container/MyProfile'
 import About from '@/container/MyProfile/About'
 import Academic from '@/container/MyProfile/Academic'
@@ -30,9 +31,14 @@ let router = new Router({
       component: Feed
     },
     {
-      path: 'job-profile',
+      path: 'job-profiles',
       name: 'jobprofile',
-      component: JobProfile
+      component: JobProfile,
+    },
+    {
+      path: 'job-profiles/:id',
+      name: 'view-job-profile',
+      component: Placement
     },
     {
       path: 'profile',
