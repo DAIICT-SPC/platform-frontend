@@ -28,7 +28,7 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="scss">
 html, body {
   min-height: 100%;
   background: #fafcfd;
@@ -36,9 +36,9 @@ html, body {
 
 .dashboard{
   margin-bottom: 20px;
+  .dashboard-inner {
+    margin-top: 20px;
+  }
 }
 
-.dashboard-inner {
-  margin-top: 20px;
-}
 </style>

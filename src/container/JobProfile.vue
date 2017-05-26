@@ -1,5 +1,5 @@
 <template lang="html">
-  <div>
+  <div class="jobprofile-page">
     <div class="container">
 
       <!-- main div starts -->
@@ -7,7 +7,7 @@
 
         <!-- 1/3 col -->
         <div class="column is-one-third">
-          <div class="card" id="card-job">
+          <div class="card">
             <header class="card-header">
               <p class="card-header-title">
                 Civil Engineer
@@ -33,7 +33,7 @@
         <!-- 1/3 col -->
 
         <div class="column is-one-third">
-          <div class="card" id="card-job">
+          <div class="card">
             <header class="card-header">
               <p class="card-header-title">
                 Software Developer
@@ -58,7 +58,7 @@
         </div>
 
         <div class="column is-one-third">
-          <div class="card" id="card-job">
+          <div class="card">
             <header class="card-header">
               <p class="card-header-title">
                 Software Developer
@@ -84,7 +84,7 @@
 
         <!-- 1/3 col -->
         <div class="column is-one-third">
-          <div class="card" id="card-job">
+          <div class="card">
             <header class="card-header">
               <p class="card-header-title">
                 Civil Engineer
@@ -110,7 +110,7 @@
         <!-- 1/3 col -->
 
         <div class="column is-one-third">
-          <div class="card" id="card-job">
+          <div class="card">
             <header class="card-header">
               <p class="card-header-title">
                 Software Developer
@@ -170,19 +170,19 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss">
+.jobprofile-page {
+  .column .card{
+    border-radius: 4px;
+    box-shadow: 0px 4px 5px #d0cfcf;
+  }
+  .tag.is-success, .is-info{
+    padding-bottom: 3px;
+  }
 
-#card-job{
-  border-radius: 4px;
-  box-shadow: 0px 4px 5px #d0cfcf;
-}
-
-.tag.is-success, .is-info{
-  padding-bottom: 3px;
-}
-
-.icon {
-  padding-right: 25px;
+  .icon {
+    padding-right: 25px;
+  }
 }
 
 </style>

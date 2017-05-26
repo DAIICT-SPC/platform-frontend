@@ -8,6 +8,7 @@
         <sidebar :user="user"></sidebar>
 
       </div>
+
       <div class="column is-auto">
         <div class="profile-box box col-2-tab">
           <div class="tabs profile-tabs">
@@ -44,59 +45,61 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="scss">
+.container {
 
-.profile-box {
-  padding: 0;
+  .profile-box {
+    padding: 0;
+    border-radius: 4px;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
+  }
+
+  .profile-box .profile-tabs {
+    margin-bottom: 0;
+  }
+
+  .profile-box .profile-tab-content {
+    padding: 1.5rem 2rem;
+  }
+
+  .profile-sidebar {
+    font-weight: normal;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    text-align: center;
+    .title {
+      margin-top: 0;
+      font-weight: normal;
+    }
+  }
+
+  .profile-image {
+    padding: 1rem;
+    padding-bottom: 0;
+    img {
+      border-radius: 4px;
+    }
+  }
+
+  .main-content{
+    margin-top: 20px;
+  }
+
+  .profile-meta {
+    font-size: 0.9rem;
+  }
+
+  .profile-info .info {
+    margin-bottom: 1rem;
+    .content-value {
+      display: block;
+      color: #3273dc;
+    }
+    .content-label {
+      font-size: 0.8rem;
+    }
+  }
+
 }
 
-.profile-box .profile-tabs {
-  margin-bottom: 0;
-}
-
-.profile-box .profile-tab-content {
-  padding: 1.5rem 2rem;
-}
-
-.profile-sidebar {
-  font-weight: normal;
-  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
-  border-radius: 4px;
-  text-align: center;
-}
-
-.profile-sidebar .title {
-  margin-top: 0;
-  font-weight: normal;
-}
-
-.profile-image {
-  padding: 1rem;
-  padding-bottom: 0;
-}
-
-.profile-image img {
-  border-radius: 4px;
-}
-
-.main-content{
-  margin-top: 20px;
-}
-
-.profile-meta {
-  font-size: 0.9rem;
-}
-
-.profile-info .info {
-  margin-bottom: 1rem;
-}
-
-.profile-info .info .content-value {
-  display: block;
-  color: #3273dc;
-}
-
-.profile-info .info .content-label {
-  font-size: 0.8rem;
-}
 </style>

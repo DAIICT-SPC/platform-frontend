@@ -152,16 +152,19 @@ export default {
 }
 </script>
 
-<style lang="css">
-.about-tab .field {
-  border-bottom: solid 1px #ddd;
-  margin-bottom: 1rem;
-  padding-bottom: 1rem;
+<style lang="scss">
+.about-tab
+{
+  .field
+  {
+    border-bottom: solid 1px #ddd;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    .field-label
+    {
+      text-align: left;
+      font-weight: bold;
+    }
+  }
 }
-
-.about-tab .field .field-label {
-  text-align: left;
-  font-weight: bold;
-}
-
 </style>

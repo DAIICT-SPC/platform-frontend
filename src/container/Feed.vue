@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="container" id="container-home">
+  <div class="container">
     <!-- media content starts -->
     <div class="columns is-multiline">
       <div class="column is-full">
@@ -15,13 +15,13 @@
                 <strong>Placement cycle 2016-2017</strong> <span class="is-pulled-right tag is-success">Open</span>
               </div>
               <small>4 days ago</small> <br>
-              <p id="pcontent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing
+              <p class="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing
                 elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor
                 vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
               </p>
               <div class="placement-courses">
-                  <span class="tag is-info">Msc.IT</span>
-                  <span class="tag is-info">B.Tech</span>
+                <span class="tag is-info">Msc.IT</span>
+                <span class="tag is-info">B.Tech</span>
               </div>
             </div>
           </div>
@@ -41,13 +41,13 @@
                 <strong>Placement cycle 2016-2017</strong> <span class="is-pulled-right tag is-success">Open</span>
               </div>
               <small>4 days ago</small> <br>
-              <p id="pcontent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing
+              <p class="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing
                 elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor
                 vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
               </p>
               <div class="placement-courses">
-                  <span class="tag is-info">Msc.IT</span>
-                  <span class="tag is-info">B.Tech</span>
+                <span class="tag is-info">Msc.IT</span>
+                <span class="tag is-info">B.Tech</span>
               </div>
             </div>
           </div>
@@ -68,13 +68,13 @@
                 <strong>Placement cycle 2016-2017</strong> <span class="is-pulled-right tag is-success">Open</span>
               </div>
               <small>4 days ago</small> <br>
-              <p id="pcontent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing
+              <p class="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing
                 elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor
                 vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
               </p>
               <div class="placement-courses">
-                  <span class="tag is-info">Msc.IT</span>
-                  <span class="tag is-info">B.Tech</span>
+                <span class="tag is-info">Msc.IT</span>
+                <span class="tag is-info">B.Tech</span>
               </div>
             </div>
           </div>
@@ -96,11 +96,18 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="scss">
 
-.container{
+.container {
   padding-left: 15px;
+  .content{
+    padding-top: 10px;
+  }
+  .pagination.is-centered{
+    margin-top: 15px;
+  }
 }
+
 
 #pcontent{
   padding-top: 10px;
@@ -121,7 +128,5 @@ export default {
   margin-right: 15px;
 }
 
-.pagination.is-centered{
-  margin-top: 15px;
-}
+
 </style>

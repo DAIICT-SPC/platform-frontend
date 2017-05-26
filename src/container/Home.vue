@@ -9,36 +9,28 @@
                 DA-IICT
               </a>
             </div>
-            <span class="nav-toggle">
-              <span></span>
-              <span></span>
-              <span></span>
-            </span>
+
 
             <div class="nav-right nav-menu">
               <form @submit.prevent="login" class="nav-item">
                 <!-- input fields -->
-                <div class="field" id="field-input-signin">
-                  <p class="control has-icons-left" id="input-control">
+                <div class="field">
+                  <p class="control has-icons-left">
                     <input v-model="email" name="email" v-validate="'required|email'" class="input is-small" type="text" placeholder="Email">
                     <span class="icon is-small is-left">
                       <i class="fa fa-envelope"></i>
                     </span>
-                    <div v-show="errors.has('email')">
-                      {{ errors.first('email') }}
-                    </div>
-                  </p>
 
+                  </p>
                 </div>
-                <div class="field" id="field-input-signin">
-                  <p class="control has-icons-left" id="input-control">
+
+                <div class="field">
+                  <p class="control has-icons-left">
                     <input v-model="password" name="password" v-validate="'required|min:6'" class="input is-small" type="text" placeholder="Password">
                     <span class="icon is-small is-left">
                       <i class="fa fa-lock"></i>
                     </span>
-                    <div v-show="errors.has('password')">
-                      {{ errors.first('password') }}
-                    </div>
+
                   </p>
                 </div>
                 <div>
@@ -52,21 +44,14 @@
         </header>
       </div>
 
-      <div class="hero-body">
-        <div class="container has-text-centered">
-          <div class="columns is-mobile">
-            <div class="column is-6 is-offset-3">
-              <p>
-                <img src="../../images/daiict1.png" id="imgdaSignin" />
-              </p>
-              <h1 class="title is-2">
-                Student Placement Cell
-              </h1>
-            </div>
-          </div>
-        </div>
-      </div>
 
+      
+      <div v-show="errors.has('email')">
+        {{ errors.first('email') }}
+      </div>
+      <div v-show="errors.has('password')">
+        {{ errors.first('password') }}
+      </div>
     </section>
 
   </div>
@@ -134,44 +119,35 @@ export default {
 }
 </script>
 
-<style lang="css">
-.hero.is-dark{
-  background-image: linear-gradient(rgba(25, 181, 254, 0.6),rgba(246, 36, 89, 0.3)),linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.1))
+<style lang="scss">
+.body {
+
+  .hero.is-dark{
+    background-image: linear-gradient(rgba(25, 181, 254, 0.6),rgba(246, 36, 89, 0.3)),linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.1))
+  }
+
+
+  .column.is-6 {
+    -webkit-border-radius: 1em;
+    outline: grey;
+    outline-width:  medium;
+    outline-offset: 0px, glow;
+    outline-color: grey;
+    outline-style: double;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    .home-image{
+      width: 30%;
+    }
+  }
+
+  .field {
+    margin-bottom: 0px;
+    padding-right: 10px;
+    .control {
+      opacity: 0.7;
+    }
+  }
 }
 
-.hero-body{
-  padding-top: 0px;
-}
-
-.container.has-text-centered{
-  bottom: 70px;
-}
-
-.column.is-6{
-  -webkit-border-radius: 1em;
-  outline: grey;
-  outline-width:  medium;
-  outline-offset: 0px, glow;
-  outline-color: grey;
-  outline-style: double;
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
-
-#imgdaSignin{
-  width: 30%;
-}
-
-#field-input-signin{
-  margin-bottom: 0px;
-  padding-right: 10px;
-}
-
-#input-control{
-  opacity: 0.7;
-}
-
-.fa{
-  padding-left: 27px;
-}
 </style>
