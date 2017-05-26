@@ -1,121 +1,107 @@
 <template lang="html">
-  <div>
+  <div class="about-tab">
+    <h2 class="title">Overview</h2>
 
-
-    <div class="columns is-mobile">
-      <div class="column"><h1 id="head1"><b>Overview</b></h1></div>
-      <div class="column"></div>
-      <div class="column"></div>
-      <div class="column"></div>
-    </div>
-    <hr id="hr1-resume">
     <!-- form data starts -->
-    <div class="form" style="margin-left: 50px;">
+    <div class="form">
       <div class="field is-horizontal">
         <div class="field-label">
-          <p align="left">Student Id</p>
+          <p>Student Id</p>
         </div>
         <div class="field-body">
-          <div class="field is-grouped">
+          <div>
             <p class="control ">
               201612065
             </p>
           </div>
         </div>
       </div>
-      <hr id="hr2">
 
       <div class="field is-horizontal">
         <div class="field-label">
-          <p align="left">Name</p>
+          <p>Name</p>
         </div>
         <div class="field-body">
-          <div class="field is-grouped">
+          <div>
             <p class="control ">
               Vamsi Krishna
             </p>
           </div>
         </div>
       </div>
-      <hr id="hr2">
 
       <div class="field is-horizontal">
         <div class="field-label">
-          <p align="left">Programe Name</p>
+          <p>Programe Name</p>
         </div>
         <div class="field-body">
-          <div class="field is-grouped">
+          <div>
             <p class="control ">
               Msc.IT
             </p>
           </div>
         </div>
       </div>
-      <hr id="hr2">
 
       <div class="field is-horizontal">
         <div class="field-label">
-          <p align="left">Enrollment Date</p>
+          <p>Enrollment Date</p>
         </div>
         <div class="field-body">
-          <div class="field is-grouped">
+          <div>
             <p class="control ">
               01/08/2016
             </p>
           </div>
         </div>
       </div>
-      <hr id="hr2">
 
       <div class="field is-horizontal">
         <div class="field-label">
-          <p align="left">Contact No</p>
+          <p>Contact No</p>
         </div>
         <div class="field-body">
-          <div class="field is-grouped">
+          <div>
             <p class="control ">
               9898441324
             </p>
           </div>
         </div>
       </div>
-      <hr id="hr2">
 
 
       <div class="field is-horizontal">
         <div class="field-label">
-          <p align="left">Date of birth</p>
+          <p>Date of birth</p>
         </div>
         <div class="field-body">
-          <div class="field is-grouped">
+          <div>
             <p class="control ">
               01/01/1995
             </p>
           </div>
         </div>
       </div>
-      <hr id="hr2">
 
       <div class="field is-horizontal">
         <div class="field-label">
-          <p align="left">Gender</p>
+          <p>Gender</p>
         </div>
         <div class="field-body">
-          <div class="field is-grouped">
+          <div>
             <p class="control ">
               Male
             </p>
           </div>
         </div>
       </div>
-      <hr id="hr2">
 
       <div class="field is-horizontal">
         <div class="field-label">
-          <p align="left">Category</p>
+          <p>Category</p>
         </div>
         <div class="field-body">
-          <div class="field is-grouped">
+          <div>
             <p class="control ">
               General
             </p>
@@ -126,36 +112,29 @@
     </div>
     <!-- form data ends -->
 
-    <div class="columns is-mobile">
-      <div class="column"  id="address-column"><h1 id="head1"><b>Address</b></h1></div>
-      <div class="column"></div>
-      <div class="column"></div>
-      <div class="column"></div>
-    </div>
-    <hr id="hr1-resume">
+    <h2 class="title">Address</h2>
 
 
-    <div class="form" style="margin-left: 50px;">
+    <div class="form">
       <div class="field is-horizontal">
         <div class="field-label">
-          <p align="left">Primary Address</p>
+          <p>Primary Address</p>
         </div>
         <div class="field-body">
-          <div class="field is-grouped">
+          <div>
             <p class="control ">
               Gandhidham
             </p>
           </div>
         </div>
       </div>
-      <hr id="hr2">
 
       <div class="field is-horizontal">
         <div class="field-label is-right">
-          <p align="left">Current Address</p>
+          <p>Current Address</p>
         </div>
         <div class="field-body">
-          <div class="field is-grouped">
+          <div>
             <p class="control ">
               Gandhinagar
             </p>
@@ -174,56 +153,15 @@ export default {
 </script>
 
 <style lang="css">
-
-#box{
-  margin-top: 22px;
-  width: 100%;
-  height: 100%;
-  margin-bottom: 20px;
-  border-radius: 4px;
-  box-shadow: 0px 4px 5px #d0cfcf;
-  padding: 0px 0px 0px 0px;
+.about-tab .field {
+  border-bottom: solid 1px #ddd;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
 }
 
-#col1{
-  width: 224px;
-}
-
-#head1{
-  font-size: 20px;
-  margin-left: 25px;
-}
-
-#hr2{
-  margin-top: 0px;
-  margin-right: 50px;
-}
-
-#profile-card{
-  width: 240px;
-  height: 650px;
-  border-radius: 4px;
-  box-shadow: 0px 4px 5px #d0cfcf;
-}
-
-#image{
-  width: 200px;
-  height: 200px;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-
-#name{
-  font-size: 20px;
-  margin-top: 20px;
-}
-
-#address-column{
-
-    padding-top: 4px;
-
+.about-tab .field .field-label {
+  text-align: left;
+  font-weight: bold;
 }
 
 </style>

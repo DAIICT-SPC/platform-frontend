@@ -16,10 +16,7 @@
             </span>
 
             <div class="nav-right nav-menu">
-              <span class="nav-item">
-
-
-
+              <form @submit.prevent="login" class="nav-item">
                 <!-- input fields -->
                 <div class="field" id="field-input-signin">
                   <p class="control has-icons-left" id="input-control">
@@ -45,11 +42,11 @@
                   </p>
                 </div>
                 <div>
-                  <input class="button is-info is-outlined is-inverted" type="submit" value="Login" @click="login" />
+                  <input class="button is-info is-outlined is-inverted" type="submit" value="Login" />
                 </div>
                 <!-- </router-link> -->
 
-              </span>
+              </form>
             </div>
           </div>
         </header>
@@ -76,7 +73,8 @@
 </template>
 
 <script>
-import axios from 'axios';
+import Auth from '@/packages/auth/Auth'
+import axios from 'axios'
 
 export default {
   name: 'home',
@@ -88,7 +86,7 @@ export default {
   },
   // before coming to '/'' or home or signin page, if u have a token, go to dashboard page
   beforeRouteEnter: (to, from, next) => {
-    if (window.localStorage.getItem('token') != null) {
+    if (Auth.isAuthenticated()) {
       next({
         name: 'dashboard'
       });
@@ -98,12 +96,14 @@ export default {
   },
   methods: {
     login() {
-      this.validate().then(this.fetchUser().then(this.storeUser).then(this.redirect));
+      this.validate().then(this.loginUser).catch(() => {
+        alert("Error");
+      });
     },
     validate() {
       return this.$validator.validateAll();
     },
-    fetchUser() {
+    loginUser() {
       return new Promise((resolve, reject) => {
         // Make axios request
         let user = {
@@ -112,17 +112,17 @@ export default {
         };
 
         let token = "abcd123456789";
+
         resolve({
           token: token,
           user: user
         });
-      });
+      }).then(this.storeUser).then(this.redirect);
     },
     storeUser: (tokenUser) => {
       let userStr = JSON.stringify(tokenUser.user);
 
-      window.localStorage.setItem('token', tokenUser.token);
-      window.localStorage.setItem('user', userStr);
+      Auth.setToken(tokenUser.token, userStr);
     },
     redirect() {
       this.$router.push({

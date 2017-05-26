@@ -1,100 +1,102 @@
 <template lang="html">
-  <div class="container">
-
+  <div class="container profile-page">
     <!-- is-narrow-mobile -->
-<div class="columns" id="columns-my-profile"> <!-- main div -->
+    <div class="columns">
+      <!-- is-hidden-mobile card is-narrow is-one-quarter-mobile -->
+      <div class="column is-one-quarter">
 
-  <!-- is-hidden-mobile card is-narrow is-one-quarter-mobile -->
-  <div class="column is-one-quarter" id="col-1">
+        <sidebar :user="user"></sidebar>
 
-
-
-    <div class="box" id="box-image">
-      <figure class="image is-square">
-        <img src="../../images/lotus.jpg" alt="Image">
-      </figure>
-    </div>
-    <div class="card-content" id="card-content-my-profile">
-      <div class="media">
-        <div class="media-content">
-          <p class="title is-4" align="center">Navin Chattopadhyay</p>
+      </div>
+      <div class="column is-auto">
+        <div class="profile-box box col-2-tab">
+          <div class="tabs profile-tabs">
+            <ul>
+              <li><router-link :to="{name:'about'}">About</router-link></li>
+              <li><router-link :to="{ name: 'academic' }">Academic Details</router-link></li>
+              <li><router-link :to="{ name: 'resume' }">Resume</router-link></li>
+            </ul>
+          </div>
+          <div class="profile-tab-content">
+            <router-view></router-view>
+          </div>
         </div>
       </div>
-      <div class="content" id="content-extras">
-        <p style="font-size: 13px;" align="center">
-          2018 Passout Batch 3AX12ED042087<br>
-          4th Semester, M.Tech. <br>
-          Department of Computer Science <br>
-          <br>
-          <p align="center" style="font-size: 20px;">7.10 <br>
-            CGPA
-          </p>
-          <br>
-          <p align="center" style="font-size: 20px;">0 <br>
-            APPLICATIONS
-          </p>
-          <br>
-          <p align="center" style="font-size: 20px;">0 <br>
-            OFFERS
-          </p>
-        </p>
-      </div>
-    </div>
-  </div>
 
-  <div class="column is-auto">
-    <div class="box" id="col-2-tab">
-      <div class="tabs" id="tabs-myprofile">
-        <ul>
-          <li><router-link :to="{name:'about'}">About</router-link></li>
-          <li><router-link :to="{ name: 'academic' }">Academic Details</router-link></li>
-          <li><router-link :to="{ name: 'resume' }">Resume</router-link></li>
-        </ul>
-      </div>
-      <router-view></router-view>
-    </div>
+    </div> <!-- main div -->
   </div>
-
-</div> <!-- main div -->
-</div>
 </template>
 
 <script>
+import Sidebar from '@/components/Sidebar'
+import User from '@/stubs/user'
+
 export default {
-  name: 'myprofile'
+  name: 'myprofile',
+  data() {
+    return {
+      user: User
+    };
+  },
+  components: {
+    'sidebar' : Sidebar
+  }
 }
 </script>
 
 <style lang="css">
 
-#content-extras{
-  padding-top: 15px;
+.profile-box {
+  padding: 0;
 }
 
-#col-1{
-  margin-top: 12px;
-  width: 240px;
-  height: 100%;
+.profile-box .profile-tabs {
+  margin-bottom: 0;
+}
+
+.profile-box .profile-tab-content {
+  padding: 1.5rem 2rem;
+}
+
+.profile-sidebar {
+  font-weight: normal;
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
   border-radius: 4px;
-  box-shadow: 0px 4px 5px #d0cfcf;
-  background-color: white;
+  text-align: center;
 }
 
-#box-image{
-  height: 18%;
-  width: 80%;
-  margin-left: 20px;
-  box-shadow: none;
-  margin-bottom: 0px;
+.profile-sidebar .title {
+  margin-top: 0;
+  font-weight: normal;
 }
 
-#col-2-tab{
-  margin-left: 25px;
-  border-top-width: 30px;
-  /*margin-top: 4px;*/
-  /*width: 877px;*/
-  /*height: 100%;*/
+.profile-image {
+  padding: 1rem;
+  padding-bottom: 0;
+}
+
+.profile-image img {
   border-radius: 4px;
-  box-shadow: 0px 4px 5px #d0cfcf;
+}
+
+.main-content{
+  margin-top: 20px;
+}
+
+.profile-meta {
+  font-size: 0.9rem;
+}
+
+.profile-info .info {
+  margin-bottom: 1rem;
+}
+
+.profile-info .info .content-value {
+  display: block;
+  color: #3273dc;
+}
+
+.profile-info .info .content-label {
+  font-size: 0.8rem;
 }
 </style>

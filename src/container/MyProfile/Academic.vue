@@ -1,6 +1,7 @@
 <template lang="html">
-  <div>
-
+  <div class="academic-tab">
+    <h2 class="title">Current Course</h2>
+    
     <div class="card" id="info-card1">
       <header class="card-header">
         <p class="card-header-title">
@@ -34,6 +35,8 @@
       </footer>
     </div>
 
+
+    <h2 class="title">Previous Education</h2>
     <div class="card" id="info-card3">
       <header class="card-header">
         <p class="card-header-title">
@@ -80,98 +83,7 @@ export default {
 </script>
 
 <style lang="css">
-#info-card1{
-  margin-top: 0px;
-  border-radius: 4px;
-  /*box-shadow: 0px 4px 5px #d0cfcf;*/
-  width: 98%;
-  margin-left: 10px;
-}
+.academic-tab .title {
 
-#info-card2{
-  margin-top: 30px;
-  border-radius: 4px;
-  /*box-shadow: 0px 4px 5px #d0cfcf;*/
-  width: 98%;
-  margin-left: 10px;
-}
-
-#info-card3{
-  margin-top: 30px;
-  border-radius: 4px;
-  /*box-shadow: 0px 4px 5px #d0cfcf;*/
-  width: 98%;
-  margin-left: 10px;
-}
-
-#info-card4{
-  margin-top: 30px;
-  border-radius: 4px;
-  /*box-shadow: 0px 4px 5px #d0cfcf;*/
-  width: 98%;
-  margin-left: 10px;
-}
-
-#card{
-  width: 220px;
-  margin-top: 20px;
-  height: 600px;
-  border-radius: 4px;
-  box-shadow: 0px 4px 5px #d0cfcf;
-}
-
-
-#box{
-  margin-top: 22px;
-  width: 100%;
-  height: 100%;
-  margin-bottom: 20px;
-  border-radius: 4px;
-  box-shadow: 0px 4px 5px #d0cfcf;
-  padding: 0px 0px 0px 0px;
-}
-
-#col1{
-  width: 224px;
-}
-
-#image{
-  width: 200px;
-  height: 200px;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-
-#name{
-  font-size: 20px;
-  margin-top: 20px;
-}
-
-#info{
-  width: 424px;
-  margin-left: 25px;
-}
-
-#marks1{
-  width: 174px;
-  margin-left: 30px;
-  height: 74px;
-}
-
-#marks2{
-  width: 174px;
-  margin-left: 30px;
-  height: 74px;
-}
-
-#score-box{
-  width: 40%;
-}
-
-#date{
-  padding-top: 10px;
-  padding-right: 10px;
 }
 </style>

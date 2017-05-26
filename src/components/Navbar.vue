@@ -28,12 +28,9 @@
 <script>
 export default {
   name: 'navbar',
-  methods:{
-    logout(){
-      // this.$auth.destroyToken();
-      window.localStorage.removeItem('token');
-      window.localStorage.removeItem('user');
-      this.$router.push({ name: 'home' })
+  methods: {
+    logout() {
+      this.$bus.$emit('logout');
     }
   }
 }

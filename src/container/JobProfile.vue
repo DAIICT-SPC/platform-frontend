@@ -166,11 +166,11 @@
 
 <script>
 export default {
-name: 'jobprofile'
+  name: 'jobprofile'
 }
 </script>
 
-<style lang="css">
+<style scoped>
 
 #card-job{
   border-radius: 4px;
@@ -181,7 +181,7 @@ name: 'jobprofile'
   padding-bottom: 3px;
 }
 
-span{
+.icon {
   padding-right: 25px;
 }
 
