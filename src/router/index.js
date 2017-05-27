@@ -9,6 +9,7 @@ import MyProfile from '@/container/MyProfile'
 import About from '@/container/MyProfile/About'
 import Academic from '@/container/MyProfile/Academic'
 import Resume from '@/container/MyProfile/Resume'
+import SignUp from '@/container/SignUp'
 
 
 Vue.use(Router)
@@ -21,6 +22,11 @@ let router = new Router({
     path: '/',
     name: 'home',
     component: Home
+  },
+  {
+    path: '/signup/:code',
+    name: 'signup',
+    component: SignUp,
   },
   {
     path: '/dashboard',
