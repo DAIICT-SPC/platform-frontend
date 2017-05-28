@@ -13,10 +13,10 @@
                 <div class="field">
                   <label class="label">Name</label>
                   <p class="control">
-                    <input class="input" name="student_name" v-validate="'required|alpha'" type="text" placeholder="Name">
+                    <input class="input" name="student_name" v-validate="'required|regex:^[A-Z][a-zA-Z ]*$|length:4'" type="text" placeholder="Name">
                   </p>
                   <div v-show="errors.has('student_name')" class="help is-danger">
-                    {{ errors.first('student_name') }}
+                    The Student Name is required and.
                   </div>
                 </div>
               </div>
@@ -41,7 +41,7 @@
                     <input class="input" name="student_password" v-validate="'required|min:8'" type="password" placeholder="Password">
                   </p>
                   <div v-show="errors.has('student_password')" class="help is-danger">
-                    {{ errors.first('student_password') }}
+                    The Password is required and should be greater than 8 characters.
                   </div>
                 </div>
               </div>
@@ -52,7 +52,7 @@
                     <input class="input" name="confirm_student_password" v-validate="'required|min:8'" type="password" placeholder="Confirm Password">
                   </p>
                   <div v-show="errors.has('confirm_student_password')" class="help is-danger">
-                    {{ errors.first('confirm_student_password') }}
+                    The Password is required and should match the Password field.
                   </div>
                 </div>
               </div>
@@ -141,11 +141,24 @@
                 <div class="field">
                   <label class="label">DOB</label>
                   <p class="control">
-                    <input class="input" type="text" placeholder="DOB">
+                    <datepicker placeholder="Date of Birth" :config="{ dateFormat: 'Y-m-d', wrap: true, maxDate: 'today' }">
+                    </datepicker>
                   </p>
                 </div>
               </div>
             </div>
+
+
+              <div class="field">
+                <label class="label">Profile Picture</label>
+                <p class="control">
+                  <input class="input" name="student_profile" v-validate.reject="'mimes:image/*|size:2048'" type="file" placeholder="Please insert only the JPEG format picture">
+                </p>
+                <div v-show="errors.has('student_profile')" class="help is-danger">
+                  {{ errors.first('student_profile') }}
+                </div>
+              </div>
+
 
             <p class="control">
               <input class="input" type="hidden" :value="code">
@@ -200,7 +213,7 @@
                   <div class="field">
                     <label class="label">Password</label>
                     <p class="control">
-                      <input class="input" name="user_password" v-validate="'required|min:8|alpha_num'" type="password" placeholder="Password">
+                      <input class="input" name="user_password" v-validate="'required|length:8|alpha_num'" type="password" placeholder="Password">
                     </p>
                     <div class="help is-danger" v-show="errors.has('user_password')">
                       {{errors.first('user_password')}}
@@ -303,8 +316,27 @@
 
 <script>
 import activation from '@/stubs/activation'
+import Datepicker from 'vue-bulma-datepicker'
+import Auth from '@/packages/auth/Auth'
+
+
 export default {
   name: 'signup',
+  components: {
+    'datepicker':Datepicker
+  },
+  // beforeRouteEnter (to, from, next) {
+  //   // if user has registered once, do not access this page ever
+  //   // if user has token, do not access this page
+  //
+  //   if (Auth.isAuthenticated()) {
+  //     next({
+  //       name: 'page-404'
+  //     });
+  //   } else {
+  //     next();
+  //   }
+  // },
   data(){
     return {
       role: '',

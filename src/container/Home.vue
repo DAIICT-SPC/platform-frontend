@@ -45,11 +45,11 @@
       </div>
 
 
-      
-      <div v-show="errors.has('email')">
+
+      <div class="notification is-danger" v-show="errors.has('email')">
         {{ errors.first('email') }}
       </div>
-      <div v-show="errors.has('password')">
+      <div class="notification is-danger" v-show="errors.has('password')">
         {{ errors.first('password') }}
       </div>
     </section>
@@ -147,6 +147,14 @@ export default {
     .control {
       opacity: 0.7;
     }
+  }
+
+  .notification.is-danger {
+    display: table;  //content accordingly
+    margin-bottom: 0;
+    margin-right: 0;
+    margin-left: auto;
+    background-color: #b31d1d;
   }
 }
 

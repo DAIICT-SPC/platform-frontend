@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/container/Home'
+import SignUp from '@/container/SignUp'
+import Page404 from '@/container/Page404'
 import Dashboard from '@/container/Dashboard'
 import Feed from '@/container/Feed'
 import JobProfile from '@/container/JobProfile'
@@ -9,7 +11,6 @@ import MyProfile from '@/container/MyProfile'
 import About from '@/container/MyProfile/About'
 import Academic from '@/container/MyProfile/Academic'
 import Resume from '@/container/MyProfile/Resume'
-import SignUp from '@/container/SignUp'
 
 
 Vue.use(Router)
@@ -27,6 +28,11 @@ let router = new Router({
     path: '/signup/:code',
     name: 'signup',
     component: SignUp,
+  },
+  {
+    path: '/404-page-not-found',
+    name: 'page-404',
+    component: Page404,
   },
   {
     path: '/dashboard',
