@@ -26,7 +26,7 @@
 
                 <div class="field">
                   <p class="control has-icons-left">
-                    <input v-model="password" name="password" v-validate="'required|min:6'" class="input is-small" type="text" placeholder="Password">
+                    <input v-model="password" name="password" v-validate="'required'" class="input is-small" type="text" placeholder="Password">
                     <span class="icon is-small is-left">
                       <i class="fa fa-lock"></i>
                     </span>
@@ -59,7 +59,7 @@
 
 <script>
 import Auth from '@/packages/auth/Auth'
-import axios from 'axios'
+import user from '@/api/user'
 
 export default {
   name: 'home',
@@ -89,25 +89,10 @@ export default {
       return this.$validator.validateAll();
     },
     loginUser() {
-      return new Promise((resolve, reject) => {
-        // Make axios request
-        let user = {
-          id: 1,
-          name: "Kunal Varma"
-        };
-
-        let token = "abcd123456789";
-
-        resolve({
-          token: token,
-          user: user
-        });
-      }).then(this.storeUser).then(this.redirect);
+      user.login(this.email, this.password).then(this.storeToken).then(this.redirect);
     },
-    storeUser: (tokenUser) => {
-      let userStr = JSON.stringify(tokenUser.user);
-
-      Auth.setToken(tokenUser.token, userStr);
+    storeToken: (response) => {
+      Auth.setToken(response.data.token);
     },
     redirect() {
       this.$router.push({
@@ -122,40 +107,39 @@ export default {
 <style lang="scss">
 .body {
 
-  .hero.is-dark{
-    background-image: linear-gradient(rgba(25, 181, 254, 0.6),rgba(246, 36, 89, 0.3)),linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.1))
-  }
-
-
-  .column.is-6 {
-    -webkit-border-radius: 1em;
-    outline: grey;
-    outline-width:  medium;
-    outline-offset: 0px, glow;
-    outline-color: grey;
-    outline-style: double;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    .home-image{
-      width: 30%;
+    .hero.is-dark {
+        background-image: linear-gradient(rgba(25, 181, 254, 0.6),rgba(246, 36, 89, 0.3)),linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.1));
     }
-  }
 
-  .field {
-    margin-bottom: 0px;
-    padding-right: 10px;
-    .control {
-      opacity: 0.7;
+    .column.is-6 {
+        -webkit-border-radius: 1em;
+        outline: grey;
+        outline-width: medium;
+        outline-offset: 0px, glow;
+        outline-color: grey;
+        outline-style: double;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        .home-image {
+            width: 30%;
+        }
     }
-  }
 
-  .notification.is-danger {
-    display: table;  //content accordingly
-    margin-bottom: 0;
-    margin-right: 0;
-    margin-left: auto;
-    background-color: #b31d1d;
-  }
+    .field {
+        margin-bottom: 0;
+        padding-right: 10px;
+        .control {
+            opacity: 0.7;
+        }
+    }
+
+    .notification.is-danger {
+        display: table;
+        //content accordingly
+        margin-bottom: 0;
+        margin-right: 0;
+        margin-left: auto;
+        background-color: #b31d1d;
+    }
 }
-
 </style>

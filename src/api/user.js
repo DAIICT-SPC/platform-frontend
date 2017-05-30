@@ -1,7 +1,11 @@
-import axios from 'axios';
+import HTTP from '@/packages/http';
+import Auth from '@/packages/auth/Auth';
 
 export default {
-  login() {
-
+  login(email, password) {
+    return HTTP.post('/authenticate', {
+      email: email,
+      password: password
+    });
   }
 };
