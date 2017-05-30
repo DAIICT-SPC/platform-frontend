@@ -7,5 +7,9 @@ export default {
       email: email,
       password: password
     });
+  },
+
+  register(code, enroll_no, category_id, temp_address, perm_address, gender, dob) {
+    return HTTP.post('/users/registerUser');
   }
 };
