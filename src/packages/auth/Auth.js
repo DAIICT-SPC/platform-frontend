@@ -1,13 +1,11 @@
 export default {
   //setToken
-  setToken(token, user) {
+  setToken(token) {
     window.localStorage.setItem('token', token);
-    window.localStorage.setItem('user', user);
   },
 
   getToken() {
     var token = window.localStorage.getItem('token');
-    var user = window.localStorage.getItem('user');
 
     if (window.localStorage.getItem('token') != null) {
       return token
@@ -19,7 +17,6 @@ export default {
   //destroyToken
   destroyToken() {
     window.localStorage.removeItem('token');
-    window.localStorage.removeItem('user');
   },
 
   isAuthenticated() {
