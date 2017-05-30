@@ -11,7 +11,7 @@
         <div class="field-body">
           <div>
             <p class="control ">
-              201612065
+              {{user.erno}}
             </p>
           </div>
         </div>
@@ -24,7 +24,7 @@
         <div class="field-body">
           <div>
             <p class="control ">
-              Vamsi Krishna
+              {{user.name}}
             </p>
           </div>
         </div>
@@ -37,7 +37,7 @@
         <div class="field-body">
           <div>
             <p class="control ">
-              Msc.IT
+              {{user.course}}
             </p>
           </div>
         </div>
@@ -50,7 +50,7 @@
         <div class="field-body">
           <div>
             <p class="control ">
-              01/08/2016
+              {{user.erdate}}
             </p>
           </div>
         </div>
@@ -63,7 +63,7 @@
         <div class="field-body">
           <div>
             <p class="control ">
-              9898441324
+              {{user.contact}}
             </p>
           </div>
         </div>
@@ -77,7 +77,7 @@
         <div class="field-body">
           <div>
             <p class="control ">
-              01/01/1995
+              {{user.dob}}
             </p>
           </div>
         </div>
@@ -90,7 +90,7 @@
         <div class="field-body">
           <div>
             <p class="control ">
-              Male
+              {{user.gender}}
             </p>
           </div>
         </div>
@@ -103,7 +103,7 @@
         <div class="field-body">
           <div>
             <p class="control ">
-              General
+              {{user.category}}
             </p>
           </div>
         </div>
@@ -123,7 +123,7 @@
         <div class="field-body">
           <div>
             <p class="control ">
-              Gandhidham
+              {{user.address.primary}}
             </p>
           </div>
         </div>
@@ -136,7 +136,7 @@
         <div class="field-body">
           <div>
             <p class="control ">
-              Gandhinagar
+              {{user.address.temporary}}
             </p>
           </div>
         </div>
@@ -148,7 +148,13 @@
 
 <script>
 export default {
-  name: 'about'
+  name: 'about',
+  props: {
+    user: {
+      required: true,
+      type: Object
+    }
+  }
 }
 </script>
 

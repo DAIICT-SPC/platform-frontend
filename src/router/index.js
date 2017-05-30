@@ -11,6 +11,9 @@ import MyProfile from '@/container/MyProfile'
 import About from '@/container/MyProfile/About'
 import Academic from '@/container/MyProfile/Academic'
 import Resume from '@/container/MyProfile/Resume'
+import PlacementDrive from '@/container/Company/PlacementDrive'
+import ViewAllPlacement from '@/container/Company/ViewAllPlacement'
+import ViewPlacementDetail from '@/container/Company/ViewPlacementDetail'
 
 
 Vue.use(Router)
@@ -73,7 +76,22 @@ let router = new Router({
     ]
   }
 ]
-}
+},
+{
+  path: '/placement-primary',
+  name: 'placement',
+  component: PlacementDrive
+},
+{
+  path: '/view-all-placements',
+  name: 'view-all-placement',
+  component: ViewAllPlacement
+},
+{
+  path: '/view-placement-detail/:id',
+  name: 'view-placement-detail',
+  component: ViewPlacementDetail
+},
 ]
 });
 

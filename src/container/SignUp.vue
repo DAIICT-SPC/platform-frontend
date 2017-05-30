@@ -13,10 +13,10 @@
                 <div class="field">
                   <label class="label">Name</label>
                   <p class="control">
-                    <input class="input" name="student_name" v-validate="'required|regex:^[A-Z][a-zA-Z ]*$|length:4'" type="text" placeholder="Name">
+                    <input v-model="student.name" class="input" name="student_name" v-validate="'required|alpha_spaces'" type="text" placeholder="Name">
                   </p>
                   <div v-show="errors.has('student_name')" class="help is-danger">
-                    The Student Name is required and.
+                    The Student Name is required and should contain only letters.
                   </div>
                 </div>
               </div>
@@ -24,10 +24,10 @@
                 <div class="field">
                   <label class="label">Email</label>
                   <p class="control">
-                    <input class="input" name="student_email" :value="email" v-validate="'required|email'" type="email" disabled placeholder="Email">
+                    <input v-model="email" class="input" name="student_email" :value="email" v-validate="'required|email'" type="email" disabled placeholder="Email">
                   </p>
                   <div v-show="errors.has('student_email')" class="help is-danger">
-                    {{ errors.first('student_email') }}
+                    The Student Email is required and should be a valid Email address.
                   </div>
                 </div>
               </div>
@@ -38,7 +38,7 @@
                 <div class="field">
                   <label class="label">Password</label>
                   <p class="control">
-                    <input class="input" name="student_password" v-validate="'required|min:8'" type="password" placeholder="Password">
+                    <input v-model="student.password" name="student_password" v-validate="'required|min:8|alpha_dash'" type="password" placeholder="Password" class="input">
                   </p>
                   <div v-show="errors.has('student_password')" class="help is-danger">
                     The Password is required and should be greater than 8 characters.
@@ -49,10 +49,10 @@
                 <div class="field">
                   <label class="label">Confirm Password</label>
                   <p class="control">
-                    <input class="input" name="confirm_student_password" v-validate="'required|min:8'" type="password" placeholder="Confirm Password">
+                    <input data-vv-as="password" class="input" name="confirm_student_password" v-validate="'required|confirmed:student_password'" type="password" placeholder="Confirm Password">
                   </p>
                   <div v-show="errors.has('confirm_student_password')" class="help is-danger">
-                    The Password is required and should match the Password field.
+                    The Confirm Password field is required and should match the Password field.
                   </div>
                 </div>
               </div>
@@ -64,10 +64,10 @@
                 <div class="field">
                   <label class="label">Contact No</label>
                   <p class="control">
-                    <input class="input" name="contact_number" v-validate="'required|numeric|min:10|max:11'" type="number" placeholder="Contact No">
+                    <input v-model="student.contact" class="input" name="contact_number" v-validate="'required|numeric|min:8'" type="number" placeholder="Contact No">
                   </p>
                   <div v-show="errors.has('contact_number')" class="help is-danger">
-                    {{ errors.first('contact_number') }}
+                    The Contact Number field is required and should contain at least 8 numeric values.
                   </div>
                 </div>
               </div>
@@ -76,7 +76,7 @@
                   <label class="label">Category</label>
                   <p class="control">
                     <span class="select is-fullwidth">
-                      <select name="category" v-validate="'required'">
+                      <select v-model="student.category" name="category" v-validate="'required'">
                         <option value="">Select dropdown</option>
                         <option>B.Tech</option>
                         <option>M.Tech</option>
@@ -97,10 +97,10 @@
                 <div class="field">
                   <label class="label">Temporary Address</label>
                   <p class="control">
-                    <textarea name="temp_address" v-validate="'required'" class="textarea" placeholder="Temporary Address"></textarea>
+                    <textarea v-model="student.temporaryAddress" name="temp_address" v-validate="'required|min:10'" class="textarea" placeholder="Temporary Address"></textarea>
                   </p>
                   <div v-show="errors.has('temp_address')" class="help is-danger">
-                    {{ errors.first('temp_address') }}
+                    The Temporary Address is a required field with minimum of 10 letters.
                   </div>
                 </div>
               </div>
@@ -108,10 +108,10 @@
                 <div class="field">
                   <label class="label">Permanent Address</label>
                   <p class="control">
-                    <textarea class="textarea" name="perm_address" v-validate="'required'" placeholder="Permanent Address"></textarea>
+                    <textarea v-model="student.permanentAddress" class="textarea" name="perm_address" v-validate="'required|min:10'" placeholder="Permanent Address"></textarea>
                   </p>
                   <div v-show="errors.has('perm_address')" class="help is-danger">
-                    {{ errors.first('perm_address') }}
+                    The Permanent Address is a required field with minimum of 10 letters.
                   </div>
                 </div>
               </div>
@@ -124,11 +124,11 @@
                   <label class="label">Gender</label>
                   <p class="control">
                     <label class="radio">
-                      <input type="radio" v-validate="'required'" name="gender" value="male">
+                      <input v-model="student.gener" type="radio" v-validate="'required'" name="gender" value="Male">
                       Male
                     </label>
                     <label class="radio">
-                      <input type="radio" v-validate="'required'" name="gender" value="female">
+                      <input v-model="student.gener" type="radio" name="gender" value="Female">
                       Female
                     </label>
                   </p>
@@ -141,23 +141,27 @@
                 <div class="field">
                   <label class="label">DOB</label>
                   <p class="control">
-                    <datepicker placeholder="Date of Birth" :config="{ dateFormat: 'Y-m-d', wrap: true, maxDate: 'today' }">
+                    <!-- <input type="date" name="student_dob" value=""> -->
+                    <datepicker v-model="student.dob" name="student_dob" placeholder="Date of Birth" :config="{ dateFormat: 'Y-m-d', wrap: true, maxDate: 'today', static: true }">
                     </datepicker>
                   </p>
+                  <div v-show="errors.has('student_dob')" class="help is-danger">
+                    {{ errors.first('student_dob') }}
+                  </div>
                 </div>
               </div>
             </div>
 
 
-              <div class="field">
-                <label class="label">Profile Picture</label>
-                <p class="control">
-                  <input class="input" name="student_profile" v-validate.reject="'mimes:image/*|size:2048'" type="file" placeholder="Please insert only the JPEG format picture">
-                </p>
-                <div v-show="errors.has('student_profile')" class="help is-danger">
-                  {{ errors.first('student_profile') }}
-                </div>
+            <div class="field">
+              <label class="label">Profile Picture</label>
+              <p class="control">
+                <input v-on:change="student.image" name="student_profile" v-validate.reject="'mimes:image/*|size:2048'" type="file">
+              </p>
+              <div v-show="errors.has('student_profile')" class="help is-danger">
+                The Image must be of type JPEG only.
               </div>
+            </div>
 
 
             <p class="control">
@@ -167,7 +171,7 @@
 
             <div class="field">
               <p class="has-text-centered">
-                <button class="button is-success submit-button">
+                <button name="student" class="button is-success submit-button" @click="registerAndValidate('student')">
                   Register
                 </button>
               </p>
@@ -188,10 +192,10 @@
                   <div class="field">
                     <label class="label">Name</label>
                     <p class="control">
-                      <input class="input" name="user_name" v-validate="'required|alpha'" type="text" placeholder="Name">
+                      <input v-model="company.user_name" name="user_name" v-validate="'required|alpha_spaces'" type="text" placeholder="Name" class="input">
                     </p>
                     <div class="help is-danger" v-show="errors.has('user_name')">
-                      {{errors.first('user_name')}}
+                      The Name is required and should contain only letters.
                     </div>
                   </div>
                 </div>
@@ -199,10 +203,10 @@
                   <div class="field">
                     <label class="label">Email</label>
                     <p class="control">
-                      <input class="input" :value="email" name="user_email" v-validate="'required|email'" disabled type="email" placeholder="Email">
+                      <input v-model="this.email" :value="email" name="user_email" v-validate="'required|email'" disabled type="email" placeholder="Email" class="input">
                     </p>
                     <div class="help is-danger" v-show="errors.has('user_email')">
-                      {{errors.first('user_email')}}
+                      The Email is required and should be a valid Email address.
                     </div>
                   </div>
                 </div>
@@ -213,10 +217,10 @@
                   <div class="field">
                     <label class="label">Password</label>
                     <p class="control">
-                      <input class="input" name="user_password" v-validate="'required|length:8|alpha_num'" type="password" placeholder="Password">
+                      <input v-model="company.password" name="user_password" v-validate="'required|min:8|alpha_dash'" type="password" placeholder="Password" class="input">
                     </p>
                     <div class="help is-danger" v-show="errors.has('user_password')">
-                      {{errors.first('user_password')}}
+                      The Password is required and should be greater than 8 characters.
                     </div>
                   </div>
                 </div>
@@ -224,10 +228,10 @@
                   <div class="field">
                     <label class="label">Confirm Password</label>
                     <p class="control">
-                      <input class="input" name="confirm_user_password" v-validate="'required|min:8|alpha_num'" type="password" placeholder="Confirm Password">
+                      <input name="confirm_user_password" v-validate="'required|confirmed:user_password'" type="password" placeholder="Confirm Password" class="input">
                     </p>
                     <div class="help is-danger" v-show="errors.has('confirm_user_password')">
-                      {{errors.first('confirm_user_password')}}
+                      The Confirm Password field is required and should match the Password field.
                     </div>
                   </div>
                 </div>
@@ -240,10 +244,10 @@
                   <div class="field">
                     <label class="label">Company Name</label>
                     <p class="control">
-                      <input class="input" name="company_name" v-validate="'required'" type="text" placeholder="Company Name">
+                      <input v-model="company.companyName" name="company_name" v-validate="'required|alpha_spaces'" type="text" placeholder="Company Name" class="input">
                     </p>
                     <div class="help is-danger" v-show="errors.has('company_name')">
-                      {{errors.first('company_name')}}
+                      The Company Name is required and should contain only letters.
                     </div>
                   </div>
                 </div>
@@ -251,24 +255,25 @@
                   <div class="field">
                     <label class="label">Contact No</label>
                     <p class="control">
-                      <input class="input" name="company_contact_number" v-validate="'required|min:10|max:11'" type="text" placeholder="Contact No">
+                      <input v-model="company.contact" name="company_contact_number" v-validate="'required|numeric|min:8'" type="number" placeholder="Contact No" class="input">
                     </p>
                     <div class="help is-danger" v-show="errors.has('company_contact_number')">
-                      {{errors.first('company_contact_number')}}
+                      The Contact Number field is required and should contain at least 8 numeric values.
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+
+
             <div class="columns">
               <div class="column">
                 <div class="field">
                   <label class="label">Company Address</label>
                   <p class="control">
-                    <textarea class="textarea" name="company_address" v-validate="'required'" placeholder="Company Address"></textarea>
+                    <textarea v-model="company.companyAddress" name="company_address" v-validate="'required|min:10'" placeholder="Company Address" class="textarea"></textarea>
                   </p>
                   <div class="help is-danger" v-show="errors.has('company_address')">
-                    {{errors.first('company_address')}}
+                    The Company Address is required.
                   </div>
                 </div>
               </div>
@@ -276,10 +281,10 @@
                 <div class="field">
                   <label class="label">Company Description</label>
                   <p class="control">
-                    <textarea class="textarea" name="company_description" v-validate="'required'" placeholder="Company Description"></textarea>
+                    <textarea v-model="company.companyDescription" name="company_description" v-validate="'required|min:10'" placeholder="Company Description" class="textarea"></textarea>
                   </p>
                   <div class="help is-danger" v-show="errors.has('company_description')">
-                    {{errors.first('company_description')}}
+                    The Company Description is required.
                   </div>
                 </div>
               </div>
@@ -288,20 +293,22 @@
             <div class="field">
               <label class="label">Company Url</label>
               <p class="control">
-                <input class="input" name="company_url" v-validate="'required|url'" type="text" placeholder="Company Url">
+                <input v-model="company.companyURL" name="company_url" v-validate="'required|url'" type="text" placeholder="Company URL" class="input">
               </p>
               <div class="help is-danger" v-show="errors.has('company_url')">
-                {{errors.first('company_url')}}
+                The Company URL is required and should be a valid URL.
               </div>
+            </div>
             </div>
 
 
             <p class="control">
               <input class="input" type="hidden" :value="code">
             </p>
+
             <div class="field">
               <p class="has-text-centered">
-                <button class="button is-success submit-button">
+                <button name="company" class="button is-success submit-button" @click="registerAndValidate('company')">
                   Register
                 </button>
               </p>
@@ -311,6 +318,7 @@
         </div>
       </div>
     </div>
+    <!-- <pre>{{$data}}</pre> -->
   </div>
 </template>
 
@@ -323,7 +331,7 @@ import Auth from '@/packages/auth/Auth'
 export default {
   name: 'signup',
   components: {
-    'datepicker':Datepicker
+    'datepicker': Datepicker
   },
   // beforeRouteEnter (to, from, next) {
   //   // if user has registered once, do not access this page ever
@@ -337,34 +345,80 @@ export default {
   //     next();
   //   }
   // },
-  data(){
+  data() {
     return {
       role: '',
       email: '',
-      code: ''
+      code: '',
+      student: {
+        name: '',
+        password: '',
+        contact: 1234567890,
+        category: '',
+        temporaryAddress: '',
+        permanentAddress: '',
+        gender: '',
+        dob: '',
+        image: ''
+      },
+      company: {
+        user_name: '',
+        password: '',
+        companyName: '',
+        contact: 1234567890,
+        companyAddress: '',
+        companyDescription: '',
+        companyURL: ''
+      }
     }
   },
-  created(){
+  created() {
     this.fetchActivation();
   },
   computed: {
-    isStudent(){
+    isStudent() {
       return this.role === 'student';
     },
-    isCompany(){
+    isCompany() {
       return this.role === 'company';
     },
-    activationCode(){
-      return this.code=this.$route.params.code;
+    activationCode() {
+      return this.code = this.$route.params.code;
     }
   },
   methods: {
-    fetchActivation(){
+    fetchActivation() {
       this.role = activation[this.activationCode].role;
       this.email = activation[this.activationCode].email;
+    },
+    registerAndValidate(str) {
+      this.checkUserValidation(str);
+    },
+    checkUserValidation(str) {
+      if (str === 'student') {
+        this.validateStudent().then(() => {
+          alert('student validated');
+          // this.$router.push({ name:'dashboard' });
+        }).catch(() => {
+          alert('error student validation')
+        })
+      } else if (str === 'company') {
+        this.validateCompany().then(() => {
+          alert('company validated')
+        }).catch(() => {
+          alert('error company validation')
+        })
+      }
+    },
+    validateStudent() {
+      return this.$validator.validateAll();
+    },
+    validateCompany() {
+      return this.$validator.validateAll();
     }
   }
 }
+
 </script>
 
 <style lang="scss">
@@ -382,7 +436,7 @@ export default {
   .box {
     padding: 0;
   }
-  .title{
+  .title {
     border-bottom: solid 1px #ddd;
     margin-bottom: 1rem;
     padding: 1rem;
@@ -394,6 +448,9 @@ export default {
   }
   .form-content {
     padding: 1rem;
+    .student-name {
+      text-transform: capitalize;
+    }
   }
 }
 </style>

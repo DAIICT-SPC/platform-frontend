@@ -1,5 +1,5 @@
-<template>
-  <div class="placement-page">
+<template lang="html">
+  <div class="view-detail-page">
     <div class="container box">
 
       <div class="job-header job-section">
@@ -94,20 +94,18 @@
           </div>
         </div>
       </div>
-      </div>
     </div>
   </template>
 
   <script>
   export default {
-    name: 'placement'
   }
   </script>
 
   <style lang="scss">
-  .placement-page {
+  .view-detail-page {
+    margin: 1.5rem;
     padding: 0.5rem 1.5rem;
-
     .container.box {
       border-radius: 4px;
       box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
