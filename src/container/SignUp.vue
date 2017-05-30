@@ -76,13 +76,7 @@
                 <label class="label">Category</label>
                 <p class="control">
                   <span class="select is-fullwidth">
-                      <select v-model="student.category" name="category" v-validate="'required'">
-                        <option value="">Select dropdown</option>
-                        <option>B.Tech</option>
-                        <option>M.Tech</option>
-                        <option>M.Des</option>
-                        <option>MSc.IT</option>
-                      </select>
+                      <category-dropdown></category-dropdown>
                     </span>
                 </p>
                 <div v-show="errors.has('category')" class="help is-danger">
@@ -326,12 +320,14 @@
 import activation from '@/api/activation'
 import Datepicker from 'vue-bulma-datepicker'
 import Auth from '@/packages/auth/Auth'
+import CategoryDropdown from '@/components/CategoryDropdown'
 
 
 export default {
   name: 'signup',
   components: {
-    'datepicker': Datepicker
+    'datepicker': Datepicker,
+    CategoryDropdown
   },
   // before coming to '/'' or home or signin page, if u have a token, go to dashboard page
   beforeRouteEnter: (to, from, next) => {
@@ -371,6 +367,11 @@ export default {
     }
   },
   created() {
+
+    this.$bus.$on('category-change', (category) => {
+      this.student.category = category.id;
+    });
+
     this.fetchActivation();
   },
   computed: {
