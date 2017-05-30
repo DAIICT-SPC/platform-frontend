@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Auth from '@/packages/auth/Auth'
 import Home from '@/container/Home'
 import SignUp from '@/container/SignUp'
 import Page404 from '@/container/Page404'
@@ -46,36 +47,54 @@ let router = new Router({
     path: '/dashboard',
     component: Dashboard,
     children: [{
-      path: 'feed',
+      path: '/',
       name: 'dashboard',
+      meta: {
+        requiresAuth: true
+      },
       component: Feed
     },
     {
       path: 'job-profiles',
       name: 'jobprofile',
+      meta: {
+        requiresAuth: true
+      },
       component: JobProfile
     },
     {
       path: 'job-profiles/:id',
       name: 'view-job-profile',
+      meta: {
+        requiresAuth: true
+      },
       component: Placement
     },
     {
       path: 'profile',
       component: MyProfile,
       children: [{
-        path: 'about',
+        path: '/',
         name: 'about',
+        meta: {
+          requiresAuth: true
+        },
         component: About
       },
       {
         path: 'academic',
         name: 'academic',
+        meta: {
+          requiresAuth: true
+        },
         component: Academic
       },
       {
         path: 'resume',
         name: 'resume',
+        meta: {
+          requiresAuth: true
+        },
         component: Resume
       }
     ]
@@ -84,42 +103,64 @@ let router = new Router({
 },
 {
   path: '/company',
-  name: 'company',
+  meta: {
+    requiresAuth: true
+  },
   component: CompanyDashboard,
   children: [
     {
-      path: 'home',
+      path: '/',
       name: 'company-home',
+      meta: {
+        requiresAuth: true
+      },
       component: ViewAllPlacement
     },
     {
       path: 'view-placement-detail/:id',
       name: 'view-placement-detail',
+      meta: {
+        requiresAuth: true
+      },
       component: ViewPlacementDetail
     },
     {
       path: 'new-placement',
-      name: 'new-placement',
+      meta: {
+        requiresAuth: true
+      },
       component: NewPlacement,
       children: [
         {
-          path: 'placement-primary',
+          path: '/',
           name: 'placement-primary',
+          meta: {
+            requiresAuth: true
+          },
           component: PlacementPrimary
         },
         {
           path: 'select-category',
           name: 'select-category',
+          meta: {
+            requiresAuth: true
+          },
           component: SelectCategory
         },
         {
           path: 'select-round-details',
           name: 'select-round-details',
+          meta: {
+            requiresAuth: true
+          },
           component: SelectRoundDetails
         },
         {
           path: 'placement-criteria',
           name: 'placement-criteria',
+          meta: {
+            requiresAuth: true
+          },
           component: PlacementCriteria
         },
       ]
@@ -129,36 +170,21 @@ let router = new Router({
 ]
 });
 
-router.afterEach((to, from) => {
-  if (window.localStorage.getItem('token') == null) {
-    router.push({
-      name: 'home'
-    });
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    // this route requires auth, check if logged in
+    // if not, redirect to home page.
+    if (!Auth.isAuthenticated()) {
+      next({
+        name: 'home'
+      });
+    } else {
+      next();
+    }
+  } else {
+    next(); // make sure to always call next()!
   }
 });
-
-// router.beforeEach((to, from, next) => {
-//   if(to.matched.some(record => record.meta.forVisitors)){
-//     if(Vue.auth.isAuthenticated()){
-//       next({
-//         name: 'dashboard'
-//       })
-//     }else{
-//       next();
-//     }
-//   }
-//   else if(to.matched.some(record => record.meta.forAuth)){
-//     if(!Vue.auth.isAuthenticated()){
-//       next({
-//         path: '/'
-//       })
-//     }else{
-//       next();
-//     }
-//   }
-//   else{
-//     next();
-//   }
-// })
 
 export default router;

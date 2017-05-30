@@ -333,18 +333,16 @@ export default {
   components: {
     'datepicker': Datepicker
   },
-  // beforeRouteEnter (to, from, next) {
-  //   // if user has registered once, do not access this page ever
-  //   // if user has token, do not access this page
-  //
-  //   if (Auth.isAuthenticated()) {
-  //     next({
-  //       name: 'page-404'
-  //     });
-  //   } else {
-  //     next();
-  //   }
-  // },
+  // before coming to '/'' or home or signin page, if u have a token, go to dashboard page
+  beforeRouteEnter: (to, from, next) => {
+    if (Auth.isAuthenticated()) {
+      next({
+        name: 'dashboard'
+      });
+    } else {
+      next();
+    }
+  },
   data() {
     return {
       role: '',
