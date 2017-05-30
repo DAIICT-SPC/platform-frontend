@@ -387,8 +387,8 @@ export default {
   methods: {
     fetchActivation() {
       activation.getByCode(this.activationCode).then((response) => {
-        this.email = response.email;
-        this.role = response.role;
+        this.email = response.data.email;
+        this.role = response.data.role;
       });
     },
     registerAndValidate(str) {
