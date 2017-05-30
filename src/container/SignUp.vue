@@ -142,7 +142,7 @@
                   <label class="label">DOB</label>
                   <p class="control">
                     <!-- <input type="date" name="student_dob" value=""> -->
-                    <datepicker v-model="student.dob" name="student_dob" placeholder="Date of Birth" :config="{ dateFormat: 'Y-m-d', wrap: true, maxDate: 'today', static: true }">
+                    <datepicker v-validate="'required'" v-model="student.dob" name="student_dob" placeholder="Date of Birth" :config="{ dateFormat: 'Y-m-d', wrap: true, maxDate: 'today', static: true }">
                     </datepicker>
                   </p>
                   <div v-show="errors.has('student_dob')" class="help is-danger">

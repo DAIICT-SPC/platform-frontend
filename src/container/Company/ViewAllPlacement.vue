@@ -25,7 +25,7 @@
               </div>
             </div>
             <footer class="card-footer">
-              <router-link :to="{ name: 'view-placement-details', params: { id: 1 } }" class="card-footer-item">View</router-link>
+              <router-link :to="{ name: 'view-placement-detail', params: { id: 1 } }" class="card-footer-item">View</router-link>
             </footer>
           </div>
         </div>
@@ -154,7 +154,6 @@
         </div>
       </div>
       <!-- main div ends -->
-
     </div>
   </div>
 </template>
