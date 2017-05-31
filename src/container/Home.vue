@@ -26,7 +26,7 @@
 
                 <div class="field">
                   <p class="control has-icons-left">
-                    <input v-model="password" name="password" v-validate="'required'" class="input is-small" type="text" placeholder="Password">
+                    <input v-model="password" name="password" v-validate="'required'" class="input is-small" type="password" placeholder="Password">
                     <span class="icon is-small is-left">
                       <i class="fa fa-lock"></i>
                     </span>
@@ -89,7 +89,14 @@ export default {
       return this.$validator.validateAll();
     },
     loginUser() {
-      user.login(this.email, this.password).then(this.storeToken).then(this.redirect);
+      user.login(this.email, this.password).then(this.storeToken).catch((error) => {
+        if(error.response.status == 404){
+          alert(error.response.data.message)
+        }
+        else {
+          alert(error)
+        }
+      }).then(this.redirect);
     },
     storeToken: (response) => {
       Auth.setToken(response.data.token);
@@ -98,7 +105,6 @@ export default {
       this.$router.push({
         name: 'dashboard'
       });
-
     }
   }
 }
@@ -107,39 +113,39 @@ export default {
 <style lang="scss">
 .body {
 
-    .hero.is-dark {
-        background-image: linear-gradient(rgba(25, 181, 254, 0.6),rgba(246, 36, 89, 0.3)),linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.1));
-    }
+  .hero.is-dark {
+    background-image: linear-gradient(rgba(25, 181, 254, 0.6),rgba(246, 36, 89, 0.3)),linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.1));
+  }
 
-    .column.is-6 {
-        -webkit-border-radius: 1em;
-        outline: grey;
-        outline-width: medium;
-        outline-offset: 0px, glow;
-        outline-color: grey;
-        outline-style: double;
-        padding-top: 20px;
-        padding-bottom: 20px;
-        .home-image {
-            width: 30%;
-        }
+  .column.is-6 {
+    -webkit-border-radius: 1em;
+    outline: grey;
+    outline-width: medium;
+    outline-offset: 0px, glow;
+    outline-color: grey;
+    outline-style: double;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    .home-image {
+      width: 30%;
     }
+  }
 
-    .field {
-        margin-bottom: 0;
-        padding-right: 10px;
-        .control {
-            opacity: 0.7;
-        }
+  .field {
+    margin-bottom: 0;
+    padding-right: 10px;
+    .control {
+      opacity: 0.7;
     }
+  }
 
-    .notification.is-danger {
-        display: table;
-        //content accordingly
-        margin-bottom: 0;
-        margin-right: 0;
-        margin-left: auto;
-        background-color: #b31d1d;
-    }
+  .notification.is-danger {
+    display: table;
+    //content accordingly
+    margin-bottom: 0;
+    margin-right: 0;
+    margin-left: auto;
+    background-color: #b31d1d;
+  }
 }
 </style>
