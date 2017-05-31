@@ -4,60 +4,39 @@
     <div class="dashboard-body">
 
       <div class="columns is-multiline">
-
-        <div class="column is-full" v-for="feed in feeds">
-          <article class="media media-card">
-            <figure class="media-left">
-              <p class="image is-64x64">
-                <img src="../../images/daiict.jpg">
-              </p>
-            </figure>
-            <div class="media-content" >
-              <div class="content">
-                <div>
-                  <strong>Placement cycle {{ feed.placement_season.title }}</strong> <span class="is-pulled-right tag is-success">{{ feed.placement_season.status }}</span>
-                </div>
-                <small>{{ feed.created_at }}</small> <br>
-                <p class="p-content"><b>Job Title: </b>{{ feed.job_title }}
-                <br>
-                <b>Job Description: </b>{{ feed.job_description }}
+        <div v-if="!feedsNull">
+          <div class="column is-full" v-for="feed in feeds">
+            <article class="media media-card">
+              <figure class="media-left">
+                <p class="image is-64x64">
+                  <img src="../../images/daiict.jpg">
                 </p>
-                <div class="placement-courses" v-for="cat in feed.categories">
-                  <span class="tag is-info">{{ cat.name }}</span>
+              </figure>
+              <div class="media-content" >
+                <div class="content">
+                  <div>
+                    <strong>Placement cycle {{ feed.placement_season.title }}</strong> <span class="is-pulled-right tag is-success">{{ feed.placement_season.status }}</span>
+                  </div>
+                  <small>{{ feed.created_at }}</small> <br>
+                  <p class="p-content"><b>Job Title: </b>{{ feed.job_title }}
+                    <br>
+                    <b>Job Description: </b>{{ feed.job_description }}
+                  </p>
+                  <div class="placement-courses" v-for="cat in feed.categories">
+                    <span class="tag is-info">{{ cat.name }}</span>
+                  </div>
                 </div>
               </div>
-            </div>
-          </article>
+            </article>
+          </div>
         </div>
 
-
-
-        <div class="column is-full">
-          <article class="media media-card">
-            <figure class="media-left">
-              <p class="image is-64x64">
-                <img src="../../images/daiict.jpg">
-              </p>
-            </figure>
-
-            <div class="media-content" >
-              <div class="content">
-                <div>
-                  <strong>Dummy Placement cycle 2016-2017</strong> <span class="is-pulled-right tag is-success">Open</span>
-                </div>
-                <small>4 days ago</small> <br>
-                <p class="p-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing
-                  elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor
-                  vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
-                </p>
-                <div class="placement-courses">
-                  <span class="tag is-info">Msc.IT</span>
-                  <span class="tag is-info">B.Tech</span>
-                </div>
-              </div>
-            </div>
-          </article>
+        <div class="column is-full" v-if="feedsNull">
+          <div class="media media-card">
+            There are no posts to follow.
+          </div>
         </div>
+
       </div>
 
       <!-- <nav class="pagination is-centered">
@@ -76,14 +55,23 @@ export default {
   name: 'feed',
   data() {
     return {
-      feeds: { }
+      feeds: { },
+      feedsNull: false
     }
   },
   created(){
     user.getHomeDashboard().then((response) => {
-      this.feeds = response.data;
-      console.log(this.feeds);
+      this.presentFeeds(response);
     })
+  },
+  methods: {
+    presentFeeds(response) {
+      if(response.data[0] == null){
+        this.feedsNull = true;
+      } else {
+        this.feeds = response.data;
+      }
+    }
   }
 }
 </script>
