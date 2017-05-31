@@ -21,8 +21,8 @@
       <div class="field">
         <label class="label">Last Date of Registration</label>
         <p class="control is-fullwidth">
-          <datepicker placeholder="Date" :config="{ dateFormat: 'Y-m-d', static: true }"
-          v-model="placementDrive.lastDateofRegistration"></datepicker>
+          <!-- <datepicker placeholder="Date" :config="{ dateFormat: 'Y-m-d', static: true }"
+          v-model="placementDrive.lastDateofRegistration"></datepicker> -->
         </p>
       </div>
 
@@ -88,11 +88,11 @@
 </template>
 
 <script>
-import Datepicker from 'vue-bulma-datepicker'
+// import Datepicker from 'vue-bulma-datepicker'
 export default {
   name: 'hello',
   components:{
-    Datepicker
+    // Datepicker
   },
   data(){
     return{

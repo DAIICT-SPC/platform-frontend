@@ -136,8 +136,8 @@
                   <label class="label">DOB</label>
                   <p class="control">
                     <!-- <input type="date" name="student_dob" value=""> -->
-                    <datepicker v-validate="'required'" v-model="student.dob" name="student_dob" placeholder="Date of Birth" :config="{ dateFormat: 'Y-m-d', wrap: true, maxDate: 'today', static: true }">
-                    </datepicker>
+                    <!-- <datepicker v-validate="'required'" v-model="student.dob" name="student_dob" placeholder="Date of Birth" :config="{ dateFormat: 'Y-m-d', wrap: true, maxDate: 'today', static: true }">
+                    </datepicker> -->
                   </p>
                   <div v-show="errors.has('student_dob')" class="help is-danger">
                     {{ errors.first('student_dob') }}
@@ -335,7 +335,7 @@
 
 <script>
 import activation from '@/api/activation'
-import Datepicker from 'vue-bulma-datepicker'
+// import Datepicker from 'vue-bulma-datepicker'
 import Auth from '@/packages/auth/Auth'
 import CategoryDropdown from '@/components/CategoryDropdown'
 import user from '@/api/user'
@@ -343,7 +343,7 @@ import user from '@/api/user'
 export default {
   name: 'signup',
   components: {
-    'datepicker': Datepicker,
+    // 'datepicker': Datepicker,
     CategoryDropdown
   },
   // before coming to '/'' or home or signin page, if u have a token, go to dashboard page
