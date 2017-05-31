@@ -60,13 +60,15 @@
 <script>
 import Auth from '@/packages/auth/Auth'
 import user from '@/api/user'
+import jwtDecode from 'jwt-decode'
 
 export default {
   name: 'home',
   data() {
     return {
       email: '',
-      password: ''
+      password: '',
+      decodedToken: ''
     }
   },
   // before coming to '/'' or home or signin page, if u have a token, go to dashboard page
@@ -79,6 +81,7 @@ export default {
       next();
     }
   },
+
   methods: {
     login() {
       this.validate().then(this.loginUser).catch(() => {
@@ -99,7 +102,9 @@ export default {
       }).then(this.redirect);
     },
     storeToken: (response) => {
-      Auth.setToken(response.data.token);
+      this.decodedToken = jwtDecode(response.data.token)
+      Auth.setUserToken(this.decodedToken.sub)
+      Auth.setToken(response.data.token)
     },
     redirect() {
       this.$router.push({

@@ -37,7 +37,7 @@ html, body {
 .dashboard{
   margin-bottom: 20px;
   .dashboard-inner {
-    margin-top: 20px;
+    margin-top: 1rem;
   }
 }
 

@@ -34,11 +34,13 @@ export default {
       company_expertise: company_expertise,
       company_url: company_url,
       code: code
-    })
+    });
   },
 
-  homeDashboard(){
-    let url=''
-    return HTTP.get('/users/2/student/dashboard')
+  getHomeDashboard(){
+    // users/2/student/dashboard
+    let id = Auth.getUserToken();
+    let url = 'users/' + id + '/student/dashboard'
+    return HTTP.get(url);
   }
 };
