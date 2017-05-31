@@ -328,7 +328,8 @@
 </div>
 </div>
 </div>
-<pre>{{$data}}</pre>
+<pre class="">{{$data}}
+</pre>
 </div>
 </template>
 
@@ -388,7 +389,7 @@ export default {
       this.student.category = category.id;
     });
 
-    this.push404();
+    // this.push404();
 
     this.fetchActivation();
   },

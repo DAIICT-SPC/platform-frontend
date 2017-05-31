@@ -35,5 +35,10 @@ export default {
       company_url: company_url,
       code: code
     })
+  },
+
+  homeDashboard(){
+    let url=''
+    return HTTP.get('/users/2/student/dashboard')
   }
 };
