@@ -6,183 +6,75 @@
       <div class="columns is-multiline">
 
         <!-- 1/3 col -->
-        <div class="column is-one-third">
+        <div class="column is-one-third" v-for="jobs in jobProfiles">
           <div class="card">
-            <header class="card-header">
-              <p class="card-header-title">
-                Civil Engineer
-              </p>
-              <a class="card-header-icon">
-                <span class="icon">
-                  <span class="tag is-success">Open</span>
-                </span>
-              </a>
-            </header>
-            <div class="card-content">
-              <div class="content">
-                Compony:&nbsp;<b>DLF</b><br>
-                Location:&nbsp;<b>Banglore, India</b>
-              </div>
-            </div>
-            <footer class="card-footer">
-              <router-link :to="{ name: 'view-job-profile', params: { id: 1 } }" class="card-footer-item">View</router-link>
-              <a class="card-footer-item">Apply</a>
-            </footer>
-          </div>
-        </div>
-        <!-- 1/3 col -->
 
-        <div class="column is-one-third">
-          <div class="card">
-            <header class="card-header">
+            <div class="card-header">
               <p class="card-header-title">
-                Software Developer
+                {{ jobs.job_title }}
               </p>
-              <a class="card-header-icon">
-                <span class="icon">
-                  <span class="tag is-info">Applied</span>
-                </span>
-              </a>
-            </header>
+
+              <span>
+                <span class="tag is-success">{{jobs.status}}</span>
+              </span>
+
+            </div>
             <div class="card-content">
               <div class="content">
-                Compony:&nbsp;<b>MAQ</b><br>
-                Location:&nbsp;<b>Hydrabad, India</b>
+                Company:&nbsp;<b>{{jobs.company.company_name}}</b><br>
+                Location:&nbsp;<b>{{jobs.company.address}}</b>
               </div>
             </div>
             <footer class="card-footer">
-              <a class="card-footer-item">View</a>
+              <router-link :to="{ name: 'view-job-profile', params: { id: jobs.placement_id } }" class="card-footer-item">View</router-link>
               <a class="card-footer-item">Apply</a>
             </footer>
           </div>
+          <!-- 1/3 col -->
+          <!-- <pre>
+            {{ jobs }}
+          </pre> -->
         </div>
 
-        <div class="column is-one-third">
-          <div class="card">
-            <header class="card-header">
-              <p class="card-header-title">
-                Software Developer
-              </p>
-              <a class="card-header-icon">
-                <span class="icon">
-                  <span class="tag is-info">Applied</span>
-                </span>
-              </a>
-            </header>
-            <div class="card-content">
-              <div class="content">
-                Compony:&nbsp;<b>MAQ</b><br>
-                Location:&nbsp;<b>Hydrabad, India</b>
-              </div>
-            </div>
-            <footer class="card-footer">
-              <a class="card-footer-item">View</a>
-              <a class="card-footer-item">Apply</a>
-            </footer>
-          </div>
-        </div>
-
-        <!-- 1/3 col -->
-        <div class="column is-one-third">
-          <div class="card">
-            <header class="card-header">
-              <p class="card-header-title">
-                Civil Engineer
-              </p>
-              <a class="card-header-icon">
-                <span class="icon">
-                  <span class="tag is-success">Open</span>
-                </span>
-              </a>
-            </header>
-            <div class="card-content">
-              <div class="content">
-                Compony:&nbsp;<b>DLF</b><br>
-                Location:&nbsp;<b>Banglore, India</b>
-              </div>
-            </div>
-            <footer class="card-footer">
-              <a class="card-footer-item">View</a>
-              <a class="card-footer-item">Apply</a>
-            </footer>
-          </div>
-        </div>
-        <!-- 1/3 col -->
-
-        <div class="column is-one-third">
-          <div class="card">
-            <header class="card-header">
-              <p class="card-header-title">
-                Software Developer
-              </p>
-              <a class="card-header-icon">
-                <span class="icon">
-                  <span class="tag is-info">Applied</span>
-                </span>
-              </a>
-            </header>
-            <div class="card-content">
-              <div class="content">
-                Compony:&nbsp;<b>MAQ</b><br>
-                Location:&nbsp;<b>Hydrabad, India</b>
-              </div>
-            </div>
-            <footer class="card-footer">
-              <a class="card-footer-item">View</a>
-              <a class="card-footer-item">Apply</a>
-            </footer>
-          </div>
-        </div>
-
-        <div class="column is-one-third">
-          <div class="card">
-            <header class="card-header">
-              <p class="card-header-title">
-                Software Developer
-              </p>
-              <a class="card-header-icon">
-                <span class="icon">
-                  <span class="tag">Closed</span>
-                </span>
-              </a>
-            </header>
-            <div class="card-content">
-              <div class="content">
-                Compony:&nbsp;<b>MAQ</b><br>
-                Location:&nbsp;<b>Hydrabad, India</b>
-              </div>
-            </div>
-            <footer class="card-footer">
-              <a class="card-footer-item">View</a>
-              <a class="card-footer-item">Apply</a>
-            </footer>
-          </div>
-        </div>
       </div>
-      <!-- main div ends -->
-
     </div>
   </div>
 </template>
 
 <script>
+import user from '@/api/user'
+
 export default {
-  name: 'jobprofile'
+  name: 'jobprofile',
+  created() {
+    user.getHomeDashboard().then((response) => {
+      this.jobProfiles = response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+  },
+  data() {
+    return {
+      jobProfiles: []
+    }
+  },
 }
 </script>
 
 <style lang="scss">
 .jobprofile-page {
-  .column .card{
+  .column .card {
     border-radius: 4px;
     box-shadow: 0px 4px 5px #d0cfcf;
   }
-  .tag.is-success, .is-info{
-    padding-bottom: 3px;
-  }
-
-  .icon {
-    padding-right: 25px;
+  .card-header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    .tag.is-success{
+      margin: 0.2rem;
+    }
   }
 }
 

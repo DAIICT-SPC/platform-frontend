@@ -4,18 +4,17 @@
 
       <div class="job-header job-section">
         <div class="heading-main">
-          <p class="title is-3 job-title">Software Developer</p>
-          <p class="subtitle is-6 company-details">DLF India Pvt. Ltd. Noida, India</p>
+          <p class="title is-3 job-title">{{jobProfile.job_title}}</p>
+          <p class="subtitle is-6 company-details">{{jobProfile.company.company_name}}, {{jobProfile.company.address}}</p>
         </div>
         <div class="header-action is-pulled-right">
-          <span class="tag">Full Time</span>
+          <span class="tag"></span>
         </div>
       </div>
 
       <div class="job-description job-section">
         <b class="section-header">Job Description</b>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-          dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p> {{jobProfile.job_description}} </p>
         </div>
 
         <div class="eligibility-criteria job-section">
@@ -99,8 +98,25 @@
   </template>
 
   <script>
+  import placement from '@/api/placement'
   export default {
-    name: 'placement'
+    name: 'placement',
+    data() {
+      return {
+        placement_id: null,
+        jobProfile: {}
+      }
+    },
+    created() {
+      this.placement_id = this.$route.params.id;
+      placement.getPlacementById(this.placement_id)
+      .then((response) => {
+        this.jobProfile = response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    }
   }
   </script>
 

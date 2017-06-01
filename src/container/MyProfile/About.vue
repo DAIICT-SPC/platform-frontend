@@ -11,7 +11,7 @@
         <div class="field-body">
           <div>
             <p class="control ">
-              {{user.erno}}
+              {{ userMainDetails.enroll_no }}
             </p>
           </div>
         </div>
@@ -24,7 +24,7 @@
         <div class="field-body">
           <div>
             <p class="control ">
-              {{user.name}}
+
             </p>
           </div>
         </div>
@@ -37,7 +37,7 @@
         <div class="field-body">
           <div>
             <p class="control ">
-              {{user.course}}
+              {{ userMainDetails.category }}
             </p>
           </div>
         </div>
@@ -50,7 +50,7 @@
         <div class="field-body">
           <div>
             <p class="control ">
-              {{user.erdate}}
+
             </p>
           </div>
         </div>
@@ -63,7 +63,7 @@
         <div class="field-body">
           <div>
             <p class="control ">
-              {{user.contact}}
+              {{userMainDetails.contact_no}}
             </p>
           </div>
         </div>
@@ -77,7 +77,7 @@
         <div class="field-body">
           <div>
             <p class="control ">
-              {{user.dob}}
+              {{userMainDetails.dob}}
             </p>
           </div>
         </div>
@@ -90,7 +90,7 @@
         <div class="field-body">
           <div>
             <p class="control ">
-              {{user.gender}}
+              {{userMainDetails.gender}}
             </p>
           </div>
         </div>
@@ -103,7 +103,7 @@
         <div class="field-body">
           <div>
             <p class="control ">
-              {{user.category}}
+
             </p>
           </div>
         </div>
@@ -123,7 +123,7 @@
         <div class="field-body">
           <div>
             <p class="control ">
-              {{user.address.primary}}
+              {{userMainDetails.perm_address}}
             </p>
           </div>
         </div>
@@ -136,7 +136,7 @@
         <div class="field-body">
           <div>
             <p class="control ">
-              {{user.address.temporary}}
+              {{userMainDetails.temp_address}}
             </p>
           </div>
         </div>
@@ -149,8 +149,13 @@
 <script>
 export default {
   name: 'about',
+  data() {
+    return {
+
+    }
+  },
   props: {
-    user: {
+    userMainDetails: {
       required: true,
       type: Object
     }

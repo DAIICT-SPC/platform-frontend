@@ -30,16 +30,6 @@
             <span class="content-label">CPI</span>
           </div>
 
-          <div class="info">
-            <span class="content-value">{{ user.apps }}</span>
-            <span class="content-label">APPLICATIONS</span>
-          </div>
-
-          <div class="info">
-            <span class="content-value">{{ user.offers }}</span>
-            <span class="content-label">OFFERS</span>
-          </div>
-
         </div>
       </div>
     </div>
@@ -58,7 +48,7 @@ export default {
     userEducationcpi: null
   },
   created() {
-    
+
   }
 }
 </script>

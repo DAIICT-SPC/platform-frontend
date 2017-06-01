@@ -40,17 +40,17 @@ export default {
   },
 
   getHomeDashboard() {
-    // users/2/student/dashboard
-    let url = '/users/' + id + '/student/dashboard'
+    let url = '/users/' + id + '/student/dashboard';
     return HTTP.get(url);
   },
 
   getUserDetails() {
-
+    let url = '/users/' + id + '/student/show';
+    return HTTP.get(url);
   },
 
   getUserEducation() {
-    let url = '/users/' + id + '/student/education'
+    let url = '/users/' + id + '/student/education';
     return HTTP.get(url);
   }
 };

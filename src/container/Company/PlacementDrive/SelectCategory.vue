@@ -15,8 +15,7 @@
 
 			<div class="field is-grouped">
 				<p class="control">
-					<button class="button is-primary">Save And New</button>
-					<button class="button is-primary">Next</button>
+					<button class="button is-primary">Save And Next</button>
 				</p>
 			</div>
 		</div>

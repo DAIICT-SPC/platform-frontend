@@ -19,7 +19,7 @@
             </ul>
           </div>
           <div class="profile-tab-content">
-            <router-view :user="user" :userEducationDetails="userEducationDetails"></router-view>
+            <router-view :user="user" :userEducationDetails="userEducationDetails" :userMainDetails="userMainDetails"></router-view>
           </div>
         </div>
       </div>
@@ -39,7 +39,8 @@ export default {
     return {
       user: User,
       userEducationcpi: null,
-      userEducationDetails: []
+      userEducationDetails: [],
+      userMainDetails: { }
     }
   },
   components: {
@@ -49,6 +50,12 @@ export default {
     userApi.getUserEducation().then((response) => {
       this.userEducationcpi = response.data[0].cpi;
       this.userEducationDetails = response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+    userApi.getUserDetails().then((response) => {
+      this.userMainDetails = response.data;
     })
     .catch((error) => {
       console.log(error);
