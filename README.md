@@ -1,6 +1,17 @@
 # project-spc
 
-> A Vue.js project
+> Frontend for the Placement Platform.
+
+## Installation
+```bash
+git clone https://github.com/DAIICT-SPC/platform-frontend.git
+cd platform-frontend
+npm install
+# Rename Environment file
+cp src/.env.example.js src/env.js
+# Edit Environment file
+atom src/env.js
+```
 
 ## Build Setup
 
@@ -17,5 +28,3 @@ npm run build
 # build for production and view the bundle analyzer report
 npm run build --report
 ```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
