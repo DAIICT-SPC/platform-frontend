@@ -97,8 +97,8 @@ export default {
         noOfStudents: '',
         package: 0,
         jobTypeId: null
-      },
-      isError: false
+      }
+      // isError: false
     }
   },
   created() {
@@ -123,7 +123,7 @@ export default {
           console.log(response);
         })
         .catch((error) => {
-          isError = true;
+          // this.isError = true;
           console.log(error);
         })
     },

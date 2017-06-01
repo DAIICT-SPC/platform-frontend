@@ -35,9 +35,11 @@ export default {
 		}
 	},
 	created() {
-		category.all().then((response) => {
-			this.categories = response.data;
-		})
+		if (this.categories.length < 1) {
+			category.all().then((response) => {
+				this.categories = response.data;
+			});
+		}
 	}
 }
 </script>

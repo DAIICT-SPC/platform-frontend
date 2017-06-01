@@ -13,13 +13,13 @@
         </header>
         <div class="card-content">
           <div class="content">
-            {{user.course}}, Information Technology, <br>
-            {{user.someText}} <br>
+             Information Technology, <br>
+             <br>
             3AX12ED042087 | 2018 Passout Batch <br>
           </div>
         </div>
         <footer class="card-footer">
-          <span class="card-footer-item">{{user.cpi}} CPI</span>
+          <span class="card-footer-item"> CPI</span>
           <span class="card-footer-item">71% Score</span>
         </footer>
       </div>
@@ -30,21 +30,21 @@
 
       <h2 class="title">Previous Education</h2>
 
-      <div class="card" v-for="education in user.previousEducation">
+      <div class="card" v-for="userEd in userEducationDetails">
         <header class="card-header">
           <p class="card-header-title">
-            {{ education.name }}
+            {{ userEd.clg_school }}
           </p>
-          <span class="academic-year">{{education.startYear}} - {{education.endYear}}</span>
+          <span class="academic-year">{{ userEd.start_year.slice(0, 4) }} - {{ userEd.end_year.slice(0, 4) }}</span>
         </header>
         <div class="card-content">
           <div class="content">
-            {{education.board}}<br>
+            No Board<br>
             Senior Secondary Certificate
           </div>
         </div>
         <footer class="card-footer">
-          <span class="card-footer-item">{{education.score}}% Score</span>
+          <span class="card-footer-item">{{ userEd.cpi }} CPI</span>
         </footer>
       </div>
 
@@ -54,13 +54,28 @@
 </template>
 
 <script>
+import user from '@/api/user'
 export default {
   name: 'academic',
   props: {
-    user: {
+    userEducationDetails: {
       required: true,
-      type: Object
+      type: Array
     }
+  },
+  data() {
+    return {
+      userEducation: { }
+    }
+  },
+  created() {
+
+    user.getUserEducation().then((response) => {
+      this.userEducation = response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+    })
   }
 }
 </script>
@@ -68,17 +83,17 @@ export default {
 <style lang="scss">
 .academic-tab {
 
-    .academic-year {
-        padding: 1rem;
+  .academic-year {
+    padding: 1rem;
+  }
+
+  .section-bottom {
+    margin-top: 1rem;
+
+    .card {
+      margin-top: 1rem;
     }
 
-    .section-bottom {
-        margin-top: 1rem;
-
-        .card {
-            margin-top: 1rem;
-        }
-
-    }
+  }
 }
 </style>

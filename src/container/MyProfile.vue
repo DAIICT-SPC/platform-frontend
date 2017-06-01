@@ -5,7 +5,7 @@
       <!-- is-hidden-mobile card is-narrow is-one-quarter-mobile -->
       <div class="column is-one-quarter">
 
-        <sidebar :user="user"></sidebar>
+        <sidebar :user="user" :userEducationcpi="userEducationcpi"></sidebar>
 
       </div>
 
@@ -19,7 +19,7 @@
             </ul>
           </div>
           <div class="profile-tab-content">
-            <router-view :user="user"></router-view>
+            <router-view :user="user" :userEducationDetails="userEducationDetails"></router-view>
           </div>
         </div>
       </div>
@@ -31,17 +31,29 @@
 <script>
 import Sidebar from '@/components/Sidebar'
 import User from '@/stubs/user'
+import userApi from '@/api/user'
 
 export default {
   name: 'myprofile',
   data() {
     return {
-      user: User
-    };
+      user: User,
+      userEducationcpi: null,
+      userEducationDetails: []
+    }
   },
   components: {
     'sidebar' : Sidebar
-  }
+  },
+  created() {
+    userApi.getUserEducation().then((response) => {
+      this.userEducationcpi = response.data[0].cpi;
+      this.userEducationDetails = response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+   }
 }
 </script>
 

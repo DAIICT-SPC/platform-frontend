@@ -1,7 +1,9 @@
 import HTTP from '@/packages/http';
 import Auth from '@/packages/auth/Auth';
 
+let id = Auth.getUserToken();
 export default {
+
   login(email, password) {
     return HTTP.post('/login', {
       email: email,
@@ -24,7 +26,7 @@ export default {
   },
 
   registerCompany(user_name, user_email, user_password, company_name, address, contact_no, company_expertise, company_url, code){
-    return HTTP.post('users/registerUser', {
+    return HTTP.post('/users/registerUser', {
       name: user_name,
       email: user_email,
       password: user_password,
@@ -37,14 +39,18 @@ export default {
     });
   },
 
-  getHomeDashboard(){
+  getHomeDashboard() {
     // users/2/student/dashboard
-    let id = Auth.getUserToken();
-    let url = 'users/' + id + '/student/dashboard'
+    let url = '/users/' + id + '/student/dashboard'
     return HTTP.get(url);
   },
 
-  getUserDetails(){
+  getUserDetails() {
 
+  },
+
+  getUserEducation() {
+    let url = '/users/' + id + '/student/education'
+    return HTTP.get(url);
   }
 };

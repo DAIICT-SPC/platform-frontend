@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="navbar-page">
+  <div class="company-navbar-page">
     <!-- navbar starts -->
     <nav class="nav has-shadow">
       <div class="container">
@@ -15,9 +15,11 @@
           <span></span>
           <span></span>
         </span>
-        <div class="select nav-right nav-menu">
+        <div class="nav-right nav-menu">
           <!-- <div class="nav-item is-tab" @click="logout"><a class="button">Logout!</a></div> -->
-          <navbar-dropdown class="nav-item is-tab"></navbar-dropdown>
+          <dropdown title="User" align="right">
+            <a @click="logout">Logout</a>
+          </dropdown>
         </div>
       </div>
     </nav>
@@ -26,11 +28,11 @@
 </template>
 
 <script>
-import NavbarDropdown from '@/components/NavbarDropdown'
+import Dropdown from '@/components/Dropdown'
 export default {
   name: 'company-navbar',
   components: {
-    NavbarDropdown
+    Dropdown
   },
   methods: {
     logout() {
@@ -41,7 +43,7 @@ export default {
 </script>
 
 <style lang="scss">
-.navbar-page {
+.company-navbar-page {
 
 }
 </style>

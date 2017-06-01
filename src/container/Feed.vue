@@ -111,6 +111,10 @@ export default {
   .pagination .is-centered{
     margin-top: 15px;
   }
+
+  .placement-courses .tag {
+    margin: 0.1rem;
+  }
 }
 
 </style>
