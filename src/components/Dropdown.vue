@@ -81,6 +81,6 @@ export default {
             padding: 1rem;
             margin-bottom: 0.5rem;
         }
-    }    
+    }
 }
 </style>

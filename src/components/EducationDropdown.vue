@@ -1,0 +1,32 @@
+<template lang="html">
+  <span class="select is-fullwidth">
+    <select v-model="education_id" @change="educationChange()" name="education">
+      <option value=null>Select dropdown</option>
+      <option v-for="ed in education" :value="ed.id">{{ed.name}}</option>
+    </select>
+  </span>
+</template>
+
+<script>
+import education from '@/api/education'
+
+export default {
+  name: 'education-dropdown',
+  created() {
+    education.all().then((response) => {
+      this.education = response.data;
+    })
+  },
+  data() {
+    return {
+      education_id: null,
+      education: []
+    };
+  },
+  methods: {
+    educationChange() {
+      this.$bus.$emit('education-change', { id: this.education_id });
+    }
+  }
+}
+</script>

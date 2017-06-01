@@ -1,6 +1,6 @@
 <template lang="html">
   <select name="category" @change="actionPerform" class="navbar-dropdown">
-    <option class="option" value="">User Name</option>
+    <option class="option" value=null>User Name</option>
     <option class="option" value="logout">Logout</option>
   </select>
 </template>

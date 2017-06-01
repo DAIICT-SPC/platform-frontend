@@ -1,20 +1,28 @@
 <template>
-  <div class="placement-drive">
-    <h2 class="title placement-header">COMPANY DETAILS</h2>
+
+  <div class="placement-primary">
+
+    <h4 class="title placement-header">COMPANY DETAILS</h4>
 
     <div class="placement-body">
       <div class="field">
-        <label class="label">Job Title</label>
+        <label class="label">Placement Season</label>
         <p class="control">
-          <input v-validate="'required|alpha'" type="text" name="jobTitle" placeholder="Job Title" class="input" v-model="placementDrive.jobTitle">
+          <placementseason-dropdown></placementseason-dropdown>
         </p>
-        <div class="help is-danger" v-show="errors.has('jobTitle')">{{ errors.first('jobTitle') }}</div>
       </div>
 
       <div class="field">
-        <label class="label">Job Profile Discription</label>
+        <label class="label">Job Title</label>
         <p class="control">
-          <textarea class="textarea" placeholder="Enter Job Profile Discription" v-model="placementDrive.jobProfileDescription"></textarea>
+          <input type="text" name="jobTitle" placeholder="Job Title" class="input" v-model="placementDrive.jobTitle">
+        </p>
+      </div>
+
+      <div class="field">
+        <label class="label">Job Profile Description</label>
+        <p class="control">
+          <textarea rows="4" cols="4" v-model="placementDrive.jobProfileDescription" name="temp_address" class="textarea" placeholder="Temporary Address"></textarea>
         </p>
       </div>
 
@@ -22,116 +30,102 @@
         <label class="label">Last Date of Registration</label>
         <p class="control is-fullwidth">
           <datepicker placeholder="Date" :config="{ dateFormat: 'Y-m-d', static: true }"
-          v-model="placementDrive.lastDateofRegistration"></datepicker>
+          v-model="placementDrive.lastDateofRegistration" name="date"></datepicker>
         </p>
       </div>
 
       <div class="field">
         <label class="label">Location</label>
         <p class="control">
-          <input type="text" placeholder="Enter Location" class="input" v-model="placementDrive.loaction">
+          <input type="text" placeholder="Enter Location" class="input" name="location" v-model="placementDrive.loaction">
         </p>
       </div>
 
       <div class="field">
         <label class="label">No of Students</label>
         <p class="control">
-          <input type="number" placeholder="No of students" class="input" v-model="placementDrive.noOfStudents">
+          <input  type="number" placeholder="No of students" name="numberOfStudents" class="input" v-model="placementDrive.noOfStudents">
         </p>
-      </div>
-
-      <div class="columns">
-        <div class="column">
-          <div class="field">
-            <label class="label">PackageMin</label>
-            <p class="control">
-              <input type="number" placeholder="Enter CTC" class="input" v-model="placementDrive.packageMin">
-            </p>
-          </div>
-        </div>
-
-        <div class="column">
-          <div class="field">
-            <label class="label">PackageMax</label>
-            <p class="control">
-              <input type="number" placeholder="Enter CTC" class="input" v-model="placementDrive.packageMax">
-            </p>
-          </div>
-        </div>
       </div>
 
       <div class="field">
-        <label class="label">Type</label>
+        <label class="label">Package</label>
         <p class="control">
-          <span class="select is-fullwidth">
-            <select v-model="placementDrive.type">
-              <option value="">Select Dropdown</option>
-              <option>Summer Internship</option>
-              <option>Internship</option>
-              <option>Job</option>
-              <option>Internship + Job</option>
-            </select>
-          </span>
+          <input type="number" placeholder="Enter CTC" class="input" name="package" v-model="placementDrive.package">
         </p>
       </div>
 
-      <div class="field is-grouped">
+
+      <div class="field">
+        <label class="label">Job Type</label>
         <p class="control">
-          <button class="button is-primary">Submit</button>
+          <jobtype-dropdown></jobtype-dropdown>
+        </p>
+      </div>
+
+
+      <div class="field is-grouped">
+        <p class="control buttons">
+          <button class="button is-primary">Save And New</button>
+          <button class="button is-primary">Next</button>
         </p>
       </div>
     </div>
-    <!-- <pre>
-    {{ $data }}
-  </pre> -->
-</div>
+    <pre>{{$data}}</pre>
+  </div>
 </template>
 
 <script>
 import Datepicker from 'vue-bulma-datepicker'
+import JobTypeDropdown from '@/components/JobTypeDropdown'
+import PlacementSeasonDropdown from '@/components/PlacementSeasonDropdown'
 export default {
-  name: 'hello',
+  name: 'placement-drive',
   components:{
-    Datepicker
+    Datepicker,
+    'jobtype-dropdown': JobTypeDropdown,
+    'placementseason-dropdown': PlacementSeasonDropdown
   },
-  data(){
-    return{
+  data() {
+    return {
       placementDrive: {
+        seasonId: null,
         jobTitle: '',
         jobProfileDescription: '',
         lastDateofRegistration: '',
         loaction: '',
         noOfStudents: '',
-        packageMin: null,
-        packageMax: null,
-        type: ''
+        package: 0,
+        jobTypeId: null
       }
+    }
+  },
+  created() {
+    {
+      this.$bus.$on('jobType', (jobType) => {
+        this.placementDrive.jobTypeId = jobType.id;
+      });
+    }
+    {
+      this.$bus.$on('placementSeason', (placement) => {
+        this.placementDrive.seasonId = placement.id;
+      });
     }
   }
 }
 </script>
 
 <style lang="scss">
-.placement-drive{
+.placement-primary {
 
+  .title.placement-header {
+    border-bottom: solid 1px #ddd;
+    margin-bottom: 0;
+    padding: 1rem;
+  }
 
-  // .box{
-  //   padding: 0;
-  //   border-radius: 4px;
-  //   box-shadow: 0px 4px 5px #d0cfcf;
-  //   max-width: 600px;
-  //   width: 100%;
-  //   margin: auto;
-  // }
-  //
-  // .title.placement-header {
-  //   border-bottom: solid 1px #ddd;
-  //   margin-bottom: 0;
-  //   padding: 1rem;
-  // }
-  //
-  // .placement-body{
-  //   padding: 1rem;
-  // }
+  .placement-body {
+    padding: 1rem;
+  }
 }
 </style>

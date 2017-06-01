@@ -4,8 +4,8 @@
     <div class="dashboard-body">
 
       <div class="columns is-multiline">
-        <div v-if="!feedsNull">
-          <div class="column is-full" v-for="feed in feeds">
+        <div class="column is-full" v-if="!feedsNull">
+          <div  v-for="feed in feeds">
             <article class="media media-card">
               <figure class="media-left">
                 <p class="image is-64x64">
@@ -15,15 +15,15 @@
               <div class="media-content" >
                 <div class="content">
                   <div>
-                    <strong>Placement cycle {{ feed.placement_season.title }}</strong> <span class="is-pulled-right tag is-success">{{ feed.placement_season.status }}</span>
+                    <strong>Placement cycle {{ feed.placement_season.title }}</strong> <span class="is-pulled-right tag is-success">{{ feed.status }}</span>
                   </div>
                   <small>{{ feed.created_at }}</small> <br>
                   <p class="p-content"><b>Job Title: </b>{{ feed.job_title }}
                     <br>
                     <b>Job Description: </b>{{ feed.job_description }}
                   </p>
-                  <div class="placement-courses" v-for="cat in feed.categories">
-                    <span class="tag is-info">{{ cat.name }}</span>
+                  <div class="placement-courses">
+                    <span class="tag is-info" v-for="cat in feed.categories">{{ cat.name }}</span>
                   </div>
                 </div>
               </div>

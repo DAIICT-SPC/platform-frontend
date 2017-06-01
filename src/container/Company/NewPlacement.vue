@@ -7,9 +7,7 @@
         </div>
         <div class="column is-auto">
           <div class="box">
-            <div class="profile-tab-content">
-              <router-view></router-view>
-            </div>
+            <router-view></router-view>
           </div>
         </div>
       </div>
@@ -31,6 +29,7 @@ export default {
 .new-placement-page {
   margin: 1.3rem;
   .box{
+    padding: 0;
     border-radius: 4px;
     box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
   }

@@ -1,6 +1,6 @@
 <template lang="html">
   <select v-model="category_id" @change="categoryChange()" name="category" v-validate="'required'">
-    <option value="">Select dropdown</option>
+    <option value=null>Select dropdown</option>
     <option v-for="cat in categories" :value="cat.id">{{cat.name}}</option>
   </select>
 </template>
@@ -17,7 +17,7 @@ export default {
   },
   data() {
     return {
-      category_id: '',
+      category_id: null,
       categories: []
     };
   },
