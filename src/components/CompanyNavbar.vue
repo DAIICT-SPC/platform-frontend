@@ -15,8 +15,9 @@
           <span></span>
           <span></span>
         </span>
-        <div class="nav-right nav-menu">
-          <div class="nav-item is-tab" @click="logout"><a class="button">Logout!</a></div>
+        <div class="select nav-right nav-menu">
+          <!-- <div class="nav-item is-tab" @click="logout"><a class="button">Logout!</a></div> -->
+          <navbar-dropdown class="nav-item is-tab"></navbar-dropdown>
         </div>
       </div>
     </nav>
@@ -25,8 +26,12 @@
 </template>
 
 <script>
+import NavbarDropdown from '@/components/NavbarDropdown'
 export default {
   name: 'company-navbar',
+  components: {
+    NavbarDropdown
+  },
   methods: {
     logout() {
       this.$bus.$emit('logout');

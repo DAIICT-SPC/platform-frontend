@@ -42,5 +42,9 @@ export default {
     let id = Auth.getUserToken();
     let url = 'users/' + id + '/student/dashboard'
     return HTTP.get(url);
+  },
+
+  getUserDetails(){
+    
   }
 };

@@ -146,190 +146,178 @@
               </div>
             </div>
 
+            <!-- <p class="control">
+            <input class="input" type="hidden" :value="code">
+          </p> -->
 
-            <!-- <div class="field">
-            <label class="label">Profile Picture</label>
-            <p class="control">
-            <input v-on:change="student.image" name="student_profile" v-validate.reject="'mimes:image/*|size:2048'" type="file">
-          </p>
-          <div v-show="errors.has('student_profile')" class="help is-danger">
-          The Image must be of type JPEG only.
+          <div class="columns">
+            <div class="column">
+              <div class="field">
+                <label class="label">Enrollnment no</label>
+                <p class="control">
+                  <input v-model.number="student.enroll_no" class="input" name="student_enroll_no" v-validate="'required|numeric'" type="text" placeholder="Enrollnment Number">
+                </p>
+                <div v-show="errors.has('student_enroll_no')" class="help is-danger">
+                  The Student Enrollnment Number is required and should be of 9 digits.
+                </div>
+              </div>
+            </div>
+            <div class="column">
+            </div>
+          </div>
+          <div class="field">
+            <p class="has-text-centered">
+              <button name="student" class="button is-success submit-button" @click="registerAndValidate('student')">
+                Register
+              </button>
+            </p>
+          </div>
+
+
+
         </div>
-      </div> -->
+      </div>
 
 
-      <!-- <p class="control">
-      <input class="input" type="hidden" :value="code">
-    </p> -->
+      <div class="company" v-if="isCompany">
+        <h2 class="title">Company Registration</h2>
 
-    <div class="columns">
-      <div class="column">
-        <div class="field">
-          <label class="label">Enrollnment no</label>
+        <div class="form-content">
+          <div class="part-one">
+
+            <div class="columns">
+              <div class="column">
+                <div class="field">
+                  <label class="label">Contact Person Name</label>
+                  <p class="control">
+                    <input v-model="company.user_name" name="user_name" v-validate="'required|alpha_spaces'" type="text" placeholder="Name" class="input">
+                  </p>
+                  <div class="help is-danger" v-show="errors.has('user_name')">
+                    The Name is required and should contain only letters.
+                  </div>
+                </div>
+              </div>
+              <div class="column">
+                <div class="field">
+                  <label class="label">Email</label>
+                  <p class="control">
+                    <input v-model="this.email" :value="email" name="user_email" v-validate="'required|email'" disabled type="email" placeholder="Email" class="input">
+                  </p>
+                  <div class="help is-danger" v-show="errors.has('user_email')">
+                    The Email is required and should be a valid Email address.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="columns">
+              <div class="column">
+                <div class="field">
+                  <label class="label">Password</label>
+                  <p class="control">
+                    <input v-model="company.password" name="user_password" v-validate="'required|min:8|alpha_dash'" type="password" placeholder="Password" class="input">
+                  </p>
+                  <div class="help is-danger" v-show="errors.has('user_password')">
+                    The Password is required and should be greater than 8 characters.
+                  </div>
+                </div>
+              </div>
+              <div class="column">
+                <div class="field">
+                  <label class="label">Confirm Password</label>
+                  <p class="control">
+                    <input name="confirm_user_password" v-validate="'required|confirmed:user_password'" type="password" placeholder="Confirm Password" class="input">
+                  </p>
+                  <div class="help is-danger" v-show="errors.has('confirm_user_password')">
+                    The Confirm Password field is required and should match the Password field.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="part-two">
+            <div class="columns">
+              <div class="column">
+                <div class="field">
+                  <label class="label">Company Name</label>
+                  <p class="control">
+                    <input v-model="company.companyName" name="company_name" v-validate="'required|alpha_spaces'" type="text" placeholder="Company Name" class="input">
+                  </p>
+                  <div class="help is-danger" v-show="errors.has('company_name')">
+                    The Company Name is required and should contain only letters.
+                  </div>
+                </div>
+              </div>
+              <div class="column">
+                <div class="field">
+                  <label class="label">Contact No</label>
+                  <p class="control">
+                    <input v-model="company.contact" name="company_contact_number" v-validate="'required|numeric|min:8'" type="number" placeholder="Contact No" class="input">
+                  </p>
+                  <div class="help is-danger" v-show="errors.has('company_contact_number')">
+                    The Contact Number field is required and should contain at least 8 numeric values.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="columns">
+              <div class="column">
+                <div class="field">
+                  <label class="label">Company Address</label>
+                  <p class="control">
+                    <textarea v-model="company.companyAddress" name="company_address" v-validate="'required|min:10'" placeholder="Company Address" class="textarea"></textarea>
+                  </p>
+                  <div class="help is-danger" v-show="errors.has('company_address')">
+                    The Company Address is required.
+                  </div>
+                </div>
+              </div>
+              <div class="column">
+                <div class="field">
+                  <label class="label">Company Description</label>
+                  <p class="control">
+                    <textarea v-model="company.companyDescription" name="company_description" v-validate="'required|min:10'" placeholder="Company Description" class="textarea"></textarea>
+                  </p>
+                  <div class="help is-danger" v-show="errors.has('company_description')">
+                    The Company Description is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Company Url</label>
+              <p class="control">
+                <input v-model="company.companyURL" name="company_url" v-validate="'required|url'" type="text" placeholder="Company URL" class="input">
+              </p>
+              <div class="help is-danger" v-show="errors.has('company_url')">
+                The Company URL is required and should be a valid URL.
+              </div>
+            </div>
+          </div>
+
+
           <p class="control">
-            <input v-model.number="student.enroll_no" class="input" name="student_enroll_no" v-validate="'required|numeric'" type="text" placeholder="Enrollnment Number">
+            <input class="input" type="hidden" :value="code">
           </p>
-          <div v-show="errors.has('student_enroll_no')" class="help is-danger">
-            The Student Enrollnment Number is required and should be of 9 digits.
+
+          <div class="field">
+            <p class="has-text-centered">
+              <button name="company" class="button is-success submit-button" @click="registerAndValidate('company')">
+                Register
+              </button>
+            </p>
           </div>
+
         </div>
       </div>
-      <div class="column">
-      </div>
     </div>
-    <div class="field">
-      <p class="has-text-centered">
-        <button name="student" class="button is-success submit-button" @click="registerAndValidate('student')">
-          Register
-        </button>
-      </p>
-    </div>
-
-
-
   </div>
-</div>
-
-
-<div class="company" v-if="isCompany">
-  <h2 class="title">Company Registration</h2>
-
-  <div class="form-content">
-    <div class="part-one">
-
-      <div class="columns">
-        <div class="column">
-          <div class="field">
-            <label class="label">Contact Person Name</label>
-            <p class="control">
-              <input v-model="company.user_name" name="user_name" v-validate="'required|alpha_spaces'" type="text" placeholder="Name" class="input">
-            </p>
-            <div class="help is-danger" v-show="errors.has('user_name')">
-              The Name is required and should contain only letters.
-            </div>
-          </div>
-        </div>
-        <div class="column">
-          <div class="field">
-            <label class="label">Email</label>
-            <p class="control">
-              <input v-model="this.email" :value="email" name="user_email" v-validate="'required|email'" disabled type="email" placeholder="Email" class="input">
-            </p>
-            <div class="help is-danger" v-show="errors.has('user_email')">
-              The Email is required and should be a valid Email address.
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="columns">
-        <div class="column">
-          <div class="field">
-            <label class="label">Password</label>
-            <p class="control">
-              <input v-model="company.password" name="user_password" v-validate="'required|min:8|alpha_dash'" type="password" placeholder="Password" class="input">
-            </p>
-            <div class="help is-danger" v-show="errors.has('user_password')">
-              The Password is required and should be greater than 8 characters.
-            </div>
-          </div>
-        </div>
-        <div class="column">
-          <div class="field">
-            <label class="label">Confirm Password</label>
-            <p class="control">
-              <input name="confirm_user_password" v-validate="'required|confirmed:user_password'" type="password" placeholder="Confirm Password" class="input">
-            </p>
-            <div class="help is-danger" v-show="errors.has('confirm_user_password')">
-              The Confirm Password field is required and should match the Password field.
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="part-two">
-      <div class="columns">
-        <div class="column">
-          <div class="field">
-            <label class="label">Company Name</label>
-            <p class="control">
-              <input v-model="company.companyName" name="company_name" v-validate="'required|alpha_dash'" type="text" placeholder="Company Name" class="input">
-            </p>
-            <div class="help is-danger" v-show="errors.has('company_name')">
-              The Company Name is required and should contain only letters.
-            </div>
-          </div>
-        </div>
-        <div class="column">
-          <div class="field">
-            <label class="label">Contact No</label>
-            <p class="control">
-              <input v-model="company.contact" name="company_contact_number" v-validate="'required|numeric|min:8'" type="number" placeholder="Contact No" class="input">
-            </p>
-            <div class="help is-danger" v-show="errors.has('company_contact_number')">
-              The Contact Number field is required and should contain at least 8 numeric values.
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="columns">
-        <div class="column">
-          <div class="field">
-            <label class="label">Company Address</label>
-            <p class="control">
-              <textarea v-model="company.companyAddress" name="company_address" v-validate="'required|min:10'" placeholder="Company Address" class="textarea"></textarea>
-            </p>
-            <div class="help is-danger" v-show="errors.has('company_address')">
-              The Company Address is required.
-            </div>
-          </div>
-        </div>
-        <div class="column">
-          <div class="field">
-            <label class="label">Company Description</label>
-            <p class="control">
-              <textarea v-model="company.companyDescription" name="company_description" v-validate="'required|min:10'" placeholder="Company Description" class="textarea"></textarea>
-            </p>
-            <div class="help is-danger" v-show="errors.has('company_description')">
-              The Company Description is required.
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label">Company Url</label>
-        <p class="control">
-          <input v-model="company.companyURL" name="company_url" v-validate="'required|url'" type="text" placeholder="Company URL" class="input">
-        </p>
-        <div class="help is-danger" v-show="errors.has('company_url')">
-          The Company URL is required and should be a valid URL.
-        </div>
-      </div>
-    </div>
-
-
-    <p class="control">
-      <input class="input" type="hidden" :value="code">
-    </p>
-
-    <div class="field">
-      <p class="has-text-centered">
-        <button name="company" class="button is-success submit-button" @click="registerAndValidate('company')">
-          Register
-        </button>
-      </p>
-    </div>
-
-  </div>
-</div>
-</div>
-</div>
-<pre class="">{{$data}}
-</pre>
+  <pre class="">{{$data}}
+  </pre>
 </div>
 </template>
 
@@ -389,7 +377,6 @@ export default {
       this.student.category = category.id;
     });
 
-    // this.push404();
 
     this.fetchActivation();
   },
@@ -405,8 +392,11 @@ export default {
     }
   },
   methods: {
-    push404(){
-      if(!this.code && !this.email){
+    push404(email){
+       if(this.email != null){
+          console.log(this.role + ' Registration');
+      }
+      else {
         this.$router.push({
           name: 'page-404'
         });
@@ -416,6 +406,7 @@ export default {
       activation.getByCode(this.activationCode).then((response) => {
         this.email = response.data.email;
         this.role = response.data.role;
+        this.push404(this.email);
       });
     },
     registerAndValidate(str) {
