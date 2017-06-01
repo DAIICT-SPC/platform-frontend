@@ -22,7 +22,7 @@
       <div class="field">
         <label class="label">Job Profile Description</label>
         <p class="control">
-          <textarea rows="4" cols="4" v-model="placementDrive.jobProfileDescription" name="temp_address" class="textarea" placeholder="Temporary Address"></textarea>
+          <textarea v-model="placementDrive.jobProfileDescription" name="temp_address" class="textarea" placeholder="Job Description"></textarea>
         </p>
       </div>
 
@@ -66,16 +66,16 @@
 
       <div class="field is-grouped">
         <p class="control buttons">
-          <button class="button is-primary">Save And New</button>
-          <button class="button is-primary">Next</button>
+          <button class="button is-primary" @click="saveAndSendPlacementDetails">Save And New</button>
+          <button class="button is-primary" @click="moveToNextRound">Next</button>
         </p>
       </div>
     </div>
-    <pre>{{$data}}</pre>
   </div>
 </template>
 
 <script>
+import company from '@/api/company'
 import Datepicker from 'vue-bulma-datepicker'
 import JobTypeDropdown from '@/components/JobTypeDropdown'
 import PlacementSeasonDropdown from '@/components/PlacementSeasonDropdown'
@@ -97,7 +97,8 @@ export default {
         noOfStudents: '',
         package: 0,
         jobTypeId: null
-      }
+      },
+      isError: false
     }
   },
   created() {
@@ -110,6 +111,27 @@ export default {
       this.$bus.$on('placementSeason', (placement) => {
         this.placementDrive.seasonId = placement.id;
       });
+    }
+  },
+  methods: {
+    saveAndSendPlacementDetails(){
+      company.placementPrimary(this.placementDrive.jobTitle, this.placementDrive.jobProfileDescription,
+        this.placementDrive.lastDateofRegistration, this.placementDrive.loaction, this.placementDrive.noOfStudents,
+        this.placementDrive.package, this.placementDrive.jobTypeId, this.placementDrive.seasonId)
+        .then((response) => {
+          alert('Placement Created Successfully.');
+          console.log(response);
+        })
+        .catch((error) => {
+          isError = true;
+          console.log(error);
+        })
+    },
+    moveToNextRound() {
+      // condition if placement created then only let the company move ahead.
+      this.$router.push({
+        name: 'select-category'
+      })
     }
   }
 }
