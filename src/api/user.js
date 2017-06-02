@@ -39,17 +39,17 @@ export default {
     });
   },
 
-  getHomeDashboard() {
+  getHomeDashboard(id) {
     let url = '/users/' + id + '/student/dashboard';
     return HTTP.get(url);
   },
 
-  getUserDetails() {
+  getUserDetails(id) {
     let url = '/users/' + id + '/student/show';
     return HTTP.get(url);
   },
 
-  getUserEducation() {
+  getUserEducation(id) {
     let url = '/users/' + id + '/student/education';
     return HTTP.get(url);
   }

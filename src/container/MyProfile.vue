@@ -32,6 +32,7 @@
 import Sidebar from '@/components/Sidebar'
 import User from '@/stubs/user'
 import userApi from '@/api/user'
+import Auth from '@/packages/auth/Auth'
 
 export default {
   name: 'myprofile',
@@ -40,74 +41,77 @@ export default {
       user: User,
       userEducationcpi: null,
       userEducationDetails: [],
-      userMainDetails: { }
+      userMainDetails: {}
     }
   },
   components: {
-    'sidebar' : Sidebar
+    'sidebar': Sidebar
   },
   created() {
-    userApi.getUserEducation().then((response) => {
-      this.userEducationcpi = response.data[0].cpi;
-      this.userEducationDetails = response.data;
-    })
-    .catch((error) => {
-      console.log(error);
-    })
-    userApi.getUserDetails().then((response) => {
-      this.userMainDetails = response.data;
-    })
-    .catch((error) => {
-      console.log(error);
-    })
-   }
+    userApi.getUserEducation(this.getUserId()).then((response) => {
+        this.userEducationcpi = response.data[0].cpi;
+        this.userEducationDetails = response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    userApi.getUserDetails(this.getUserId()).then((response) => {
+        this.userMainDetails = response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+  },
+  methods: {
+    getUserId() {
+      return Auth.getUserToken();
+    }
+  }
 }
 </script>
 
 <style lang="scss">
 .container {
 
-  .profile-box {
-    padding: 0;
-    border-radius: 4px;
-    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
-  }
-
-  .profile-box .profile-tabs {
-    margin-bottom: 0;
-  }
-
-  .profile-box .profile-tab-content {
-    padding: 1.5rem 2rem;
-  }
-
-  .profile-image {
-    padding: 1rem;
-    padding-bottom: 0;
-    img {
-      border-radius: 4px;
+    .profile-box {
+        padding: 0;
+        border-radius: 4px;
+        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
     }
-  }
 
-  .main-content{
-    margin-top: 20px;
-  }
-
-  .profile-meta {
-    font-size: 0.9rem;
-  }
-
-  .profile-info .info {
-    margin-bottom: 1rem;
-    .content-value {
-      display: block;
-      color: #3273dc;
+    .profile-box .profile-tabs {
+        margin-bottom: 0;
     }
-    .content-label {
-      font-size: 0.8rem;
+
+    .profile-box .profile-tab-content {
+        padding: 1.5rem 2rem;
     }
-  }
+
+    .profile-image {
+        padding: 1rem 1rem 0;
+        img {
+            border-radius: 4px;
+        }
+    }
+
+    .main-content {
+        margin-top: 20px;
+    }
+
+    .profile-meta {
+        font-size: 0.9rem;
+    }
+
+    .profile-info .info {
+        margin-bottom: 1rem;
+        .content-value {
+            display: block;
+            color: #3273dc;
+        }
+        .content-label {
+            font-size: 0.8rem;
+        }
+    }
 
 }
-
 </style>
