@@ -35,12 +35,6 @@ import Auth from '@/packages/auth/Auth'
 
 export default {
   name: 'myprofile',
-  props: {
-    userDetails: {
-      required: true,
-      type: Object
-    }
-  },
   data() {
     return {
       userEducationcpi: null,
@@ -56,9 +50,14 @@ export default {
     'sidebar': Sidebar
   },
   created() {
-    this.userMainDetails = this.userDetails;
-    // console.log("Profile Page");
-    // console.log(this.userMainDetails);
+    userApi.getUserDetails(this.getUserId())
+    .then((response) => {
+      this.userMainDetails = response.data;
+    })
+    .catch((error) => {
+      console.log(error.message);
+    })
+
     userApi.getUserEducation(this.getUserId()).then((response) => {
       this.userEducationcpi = response.data[0].cpi;
       this.userEducationDetails = response.data;

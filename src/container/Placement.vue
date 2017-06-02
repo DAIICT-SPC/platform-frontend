@@ -51,17 +51,12 @@
             </a>
           </div>
 
-          <div>
-
             <div class="box process" v-for = "rounds in dashboardJobDetails.placement_selection">
               <p>{{ rounds.round_name }}</p>
-              <!-- {{ rounds.round_no }} -->
-              <!-- {{ rounds.round_description }} -->
-              <!-- {{ rounds.date_of_round }} -->
-              <a>View Info</a>
+              {{ rounds }}
+              <modal @close="showModal = false" class="showModal" v-if="showModal" :rounds="rounds"></modal>
+              <a @click="showModal = true">View Info</a>
             </div>
-
-          </div>
 
           <div class="process-offer process">
             <a class="button">
@@ -80,6 +75,7 @@
 </template>
 
 <script>
+import PlacementModal from '@/components/PlacementModal'
 import placement from '@/api/placement'
 // import education from '@/api/education'
 import user from '@/api/user'
@@ -87,11 +83,18 @@ import Auth from '@/packages/auth/Auth'
 
 export default {
   name: 'placement',
+  components: {
+    'modal': PlacementModal
+  },
   data() {
     return {
       placement_id: null,
       jobProfile: {},
-      dashboardJobDetails: []
+      dashboardJobDetails: [],
+      showModal: false,
+      roundsData: {
+
+      }
     }
   },
   created() {
@@ -211,7 +214,7 @@ export default {
     .process {
       position: relative;
       margin: 2rem 0;
-      z-index: 5;
+      z-index: 3;
       &:first-child:before{
         display: none;
       }

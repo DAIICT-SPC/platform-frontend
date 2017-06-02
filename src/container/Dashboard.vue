@@ -4,7 +4,7 @@
     <navbar :userName="userName"></navbar>
 
     <div class="dashboard-inner">
-      <router-view :userDetails="userDetails"></router-view>
+      <router-view></router-view>
     </div>
 
   </div>
