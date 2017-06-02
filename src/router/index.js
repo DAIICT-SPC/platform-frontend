@@ -21,6 +21,8 @@ import PlacementPrimary from '@/container/Company/PlacementDrive/PlacementPrimar
 import SelectCategory from '@/container/Company/PlacementDrive/SelectCategory'
 import SelectRoundDetails from '@/container/Company/PlacementDrive/SelectRoundDetails'
 import PlacementCriteria from '@/container/Company/PlacementDrive/PlacementCriteria'
+import AdminDashboard from '@/container/Admin/AdminDashboard'
+import PlacementSeasonsAdminHome from '@/container/Admin/PlacementSeasonsAdminHome'
 
 
 Vue.use(Router)
@@ -173,6 +175,23 @@ let router = new Router({
       meta: {
         requiresAuth: true
       }
+    }
+  ]
+},
+{
+  path: '/admin',
+  component: AdminDashboard,
+  meta: {
+    requiresAuth: true
+  },
+  children: [
+    {
+      path: '/',
+      name: 'admin-home',
+      component: PlacementSeasonsAdminHome,
+      meta: {
+        requiresAuth: true
+      },
     }
   ]
 }
