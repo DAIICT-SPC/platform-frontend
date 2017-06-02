@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="dashboard">
 
-    <navbar></navbar>
+    <navbar :userName="userName"></navbar>
 
     <div class="dashboard-inner">
       <router-view></router-view>
@@ -13,13 +13,27 @@
 <script>
 import Auth from '@/packages/auth/Auth'
 import Navbar from '@/components/Navbar'
+import user from '@/api/user'
 
 export default {
   name: 'dashboard',
   components: {
     Navbar
   },
+  data() {
+    return {
+      userName: ''
+    }
+  },
   created() {
+    user.getUserDetails(this.getUserId())
+    .then((response) => {
+      this.userName = response.data.name;
+      console.log(this.userName);
+    })
+    .catch((error) => {
+      console.log(error);
+    })
     // Listen for logout event
     this.$bus.$on('logout', () => {
       Auth.destroyToken();
@@ -27,6 +41,11 @@ export default {
         name: 'home'
       });
     });
+  },
+  methods: {
+    getUserId() {
+      return Auth.getUserToken();
+    }
   }
 }
 </script>

@@ -97,6 +97,8 @@ import company from '@/api/company'
 import Datepicker from 'vue-bulma-datepicker'
 import JobTypeDropdown from '@/components/JobTypeDropdown'
 import PlacementSeasonDropdown from '@/components/PlacementSeasonDropdown'
+import Auth from '@/packages/auth/Auth'
+
 export default {
   name: 'placement-drive',
   components:{
@@ -141,7 +143,7 @@ export default {
       return this.$validator.validateAll();
     },
     saveAndSendPlacementDetails() {
-      company.placementPrimary(this.placementDrive.jobTitle, this.placementDrive.jobProfileDescription,
+      company.placementPrimary(this.getUserToken(), this.placementDrive.jobTitle, this.placementDrive.jobProfileDescription,
         this.placementDrive.lastDateofRegistration, this.placementDrive.loaction, this.placementDrive.noOfStudents,
         this.placementDrive.package, this.placementDrive.jobTypeId, this.placementDrive.seasonId)
         .then((response) => {
@@ -169,6 +171,9 @@ export default {
       this.placementDrive.noOfStudents = '',
       this.placementDrive.package = null,
       this.placementDrive.jobTypeId = null
+    },
+    getUserId() {
+      return Auth.getUserToken();
     }
   }
 }

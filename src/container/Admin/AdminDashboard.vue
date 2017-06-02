@@ -32,6 +32,8 @@ export default {
 
 <style lang="scss">
 .admin-dashboard {
-
+  .admin-dashboard-inner {
+    margin-top: 1rem;
+  }
 }
 </style>

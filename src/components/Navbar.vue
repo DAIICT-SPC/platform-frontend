@@ -18,7 +18,7 @@
         </span>
         <div class="nav-right nav-menu">
           <!-- <div class="nav-item is-tab" @click="logout"><a class="button">Logout!</a></div> -->
-          <dropdown title="User" align="right">
+          <dropdown :title="userName" align="right">
             <a @click="logout">Logout</a>
           </dropdown>
         </div>
@@ -39,6 +39,11 @@ export default {
   methods: {
     logout() {
       this.$bus.$emit('logout');
+    }
+  },
+  props: {
+    userName: {
+      required: true
     }
   }
 }

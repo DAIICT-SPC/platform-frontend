@@ -1,13 +1,33 @@
 <template>
-	<div class="placement-seasons-admin-home">
+	<div class="new-placement-page">
 		<div class="container">
 
+			<h2 class="title header">Start New Placement Season</h2>
+
+			<div class="field has-addons">
+				<p class="control is-fullwidth">
+					<input class="input input-box" type="text" placeholder="Create New Placement Season">
+				</p>
+				<p class="control">
+					<a class="button is-success"> Submit </a>
+				</p>
+			</div>
+
+			<!-- tabs starts -->
+			<div class="tabs">
+				<ul>
+					<li><router-link :to="{ path: '/admin/dashboard' }">Home</router-link></li>
+					<li><a v-on:click="redirectToCompantIn">Companies In Season</a></li>
+					<li><a v-on:click="redirectToCompanyWise">Companies Wise Listing</a></li>
+				</ul>
+			</div>
+			<!-- tabs ends -->
 
 			<div class="columns is-multiline">
 
 				<!-- 1/3 col -->
 				<div class="column is-one-third">
-					<div class="card placement-tiles">
+					<div class="card placement-season">
 						<header class="card-header">
 							<p class="card-header-title">
 								Placement Season
@@ -34,7 +54,7 @@
 
 				<!-- 1/3 col -->
 				<div class="column is-one-third">
-					<div class="card placement-tiles">
+					<div class="card placement-season">
 						<header class="card-header">
 							<p class="card-header-title">
 								Placement Season
@@ -61,7 +81,7 @@
 
 				<!-- 1/3 col -->
 				<div class="column is-one-third">
-					<div class="card placement-tiles">
+					<div class="card placement-season">
 						<header class="card-header">
 							<p class="card-header-title">
 								Placement Season
@@ -88,7 +108,7 @@
 
 				<!-- 1/3 col -->
 				<div class="column is-one-third">
-					<div class="card placement-tiles">
+					<div class="card placement-season">
 						<header class="card-header">
 							<p class="card-header-title">
 								Placement Season
@@ -106,13 +126,13 @@
 							</div>
 						</div>
 						<footer class="card-footer">
-							<router-link :to="{ name: 'view-job-profile', params: { id: 1 } }" class="card-footer-item">View</router-link>
-							<router-link :to="{ name: 'placement-detail' }" class="card-footer-item">View</router-link>
+							<a class="card-footer-item" v-on:click="redirect">View</a>
+
+							<!-- <router-link :to="{ name: 'placement-detail' }" class="card-footer-item">View</router-link> -->
 						</footer>
 					</div>
 				</div>
 				<!-- 1/3 col -->
-
 			</div>
 		</div>
 	</div>
@@ -120,23 +140,41 @@
 
 <script>
 export default {
-	name: 'placement-seasons-admin-home'
+	name: 'placement',
+	methods: {
+		redirect: function(){
+			this.$router.push({ name: 'placement-detail' });
+		},
+
+		redirectToCompantIn: function(){
+			this.$router.push({ name: 'companies-in-season' });
+		},
+
+		redirectToCompanyWise: function(){
+			this.$router.push({ name: 'company-wise-listing' });
+		}
+	}
 }
 </script>
 
 <style lang="scss">
-.placement-seasons-admin-home {
+.new-placement-page {
 
-	.column .card{
-		border-radius: 4px;
-		box-shadow: 0px 4px 5px #d0cfcf;
-	}
-	.tag.is-success, .is-info{
-		padding-bottom: 3px;
+		.title.header {
+			border-bottom: solid 1px #ddd;
+			padding-bottom: 1rem;
+		}
+
+	.placement-season {
+		margin-top: 1rem;
 	}
 
-	.icon {
-		padding-right: 25px;
+	.status{
+		margin-right: 1.5rem;
+	}
+
+	.input-box{
+		width: 890px;
 	}
 }
 </style>
