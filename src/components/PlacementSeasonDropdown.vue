@@ -1,11 +1,14 @@
 <template>
 	<div class="placementSeason-component">
 		<span class="select is-fullwidth">
-			<select v-model="seasonId" @change="placementseasonChange()" name="select">
+			<select v-validate="'required|not_in:null'" v-model="seasonId" @change="placementseasonChange()" name="placement-select">
 				<option value=null>Select Dropdown</option>
 				<option v-for="season in seasons" :value="season.id">{{season.title}}</option>
 			</select>
 		</span>
+		<div class="help is-danger" v-show="errors.has('placement-select')">
+			{{errors.first('placement-select')}}
+		</div>
 	</div>
 </template>
 
@@ -33,5 +36,7 @@ export default{
 </script>
 
 <style lang="scss">
+.placementSeason-component {
 
+}
 </style>

@@ -32,7 +32,7 @@
 			<div class="field">
 				<label class="label">Date</label>
 				<p class="control is-fullwidth">
-					<datepicker placeholder="Date-Format yyyy-mm-dd" :config="{ dateFormat: 'Y-m-d', static: true }"
+					<datepicker placeholder="Date" :config="{ dateFormat: 'Y-m-d', static: true }"
 					v-model="placementDrive.Date"></datepicker>
 				</p>
 			</div>

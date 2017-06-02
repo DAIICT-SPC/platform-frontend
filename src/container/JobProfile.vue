@@ -48,11 +48,12 @@
 
 <script>
 import user from '@/api/user'
+import Auth from '@/packages/auth/Auth'
 
 export default {
   name: 'jobprofile',
   created() {
-    user.getHomeDashboard().then((response) => {
+    user.getHomeDashboard(this.getUserId()).then((response) => {
       if(response.data[0] == null) {
         this.jobsNull = true;
       }
@@ -70,6 +71,11 @@ export default {
       jobsNull: false
     }
   },
+  methods: {
+    getUserId() {
+      return Auth.getUserToken();
+    }
+  }
 }
 </script>
 
@@ -84,7 +90,7 @@ export default {
     justify-content: space-around;
     align-items: center;
     .tag.is-success{
-      margin: 0.2rem;
+      margin: 0.5rem;
     }
   }
 }

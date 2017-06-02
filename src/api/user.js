@@ -1,7 +1,7 @@
 import HTTP from '@/packages/http';
 import Auth from '@/packages/auth/Auth';
 
-let uid = Auth.getUserToken();
+
 export default {
 
   login(email, password) {
@@ -41,7 +41,6 @@ export default {
 
   getHomeDashboard(id) {
     let url = '/users/' + id + '/student/dashboard';
-    console.log(url);
     return HTTP.get(url);
   },
 

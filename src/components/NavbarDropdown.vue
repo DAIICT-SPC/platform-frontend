@@ -1,8 +1,10 @@
 <template lang="html">
-  <select name="category" @change="actionPerform" class="navbar-dropdown">
-    <option class="option" value=null>User Name</option>
-    <option class="option" value="logout">Logout</option>
-  </select>
+  <div>
+    <select name="navbar-dropdown" @change="actionPerform" class="navbar-dropdown">
+      <option class="option" value=null>User Name</option>
+      <option class="option" value="logout">Logout</option>
+    </select>
+  </div>
 </template>
 
 <script>

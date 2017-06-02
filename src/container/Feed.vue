@@ -64,6 +64,10 @@ export default {
     user.getHomeDashboard(this.getUserId()).then((response) => {
       this.presentFeeds(response);
     })
+    .catch((error) => {
+      console.log(error);
+    });
+
   },
   methods: {
     presentFeeds(response) {

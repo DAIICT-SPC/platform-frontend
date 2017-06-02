@@ -14,6 +14,7 @@ import Academic from '@/container/MyProfile/Academic'
 import Resume from '@/container/MyProfile/Resume'
 import CompanyDashboard from '@/container/Company/CompanyDashboard'
 import ViewAllPlacement from '@/container/Company/ViewAllPlacement'
+import Profile from '@/container/Company/Profile'
 import ViewPlacementDetail from '@/container/Company/ViewPlacementDetail'
 import NewPlacement from '@/container/Company/NewPlacement'
 import PlacementPrimary from '@/container/Company/PlacementDrive/PlacementPrimary'
@@ -49,10 +50,10 @@ let router = new Router({
     children: [{
       path: '/',
       name: 'dashboard',
+      component: Feed,
       meta: {
         requiresAuth: true
-      },
-      component: Feed
+      }
     },
     {
       path: 'job-profiles',
@@ -164,6 +165,14 @@ let router = new Router({
           component: PlacementCriteria
         },
       ]
+    },
+    {
+      path: '/company/profile',
+      name: 'company-profile',
+      component: Profile,
+      meta: {
+        requiresAuth: true
+      }
     }
   ]
 }

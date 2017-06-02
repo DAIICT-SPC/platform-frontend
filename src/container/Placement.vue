@@ -94,6 +94,7 @@
 import placement from '@/api/placement'
 // import education from '@/api/education'
 import user from '@/api/user'
+import Auth from '@/packages/auth/Auth'
 
 export default {
   name: 'placement',
@@ -113,7 +114,7 @@ export default {
     //   console.log(error);
     // })
     this.placement_id = this.$route.params.id;
-    user.getHomeDashboard().then((response) => {
+    user.getHomeDashboard(this.getUserId()).then((response) => {
       this.dashboardJobDetails = response.data;
     })
     .catch((error) => {
@@ -126,6 +127,11 @@ export default {
     .catch((error) => {
       console.log(error);
     })
+  },
+  methods: {
+    getUserId() {
+      return Auth.getUserToken();
+    }
   }
 }
 </script>

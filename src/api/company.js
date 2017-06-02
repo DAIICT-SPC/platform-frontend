@@ -17,5 +17,10 @@ export default {
       job_type_id: job_type_id,
       placement_season_id: placement_season_id
     });
+  },
+
+  getPlacementSeasonsAvailable(id) {
+    let url = '/users/' + id + '/company/showPlacementSeasonAvailable';
+    return HTTP.get(url);
   }
 }
