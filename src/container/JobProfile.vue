@@ -21,8 +21,8 @@
             </div>
             <div class="card-content">
               <div class="content">
-                Company:&nbsp;<b>{{jobs.company.company_name}}</b><br>
-                Location:&nbsp;<b>{{jobs.company.address}}</b>
+                Company:&nbsp;<b>Dummy</b><br>
+                Location:&nbsp;<b>{{jobs.location}}</b>
               </div>
             </div>
             <footer class="card-footer">
@@ -53,7 +53,8 @@ import Auth from '@/packages/auth/Auth'
 export default {
   name: 'jobprofile',
   created() {
-    user.getHomeDashboard(this.getUserId()).then((response) => {
+    user.getUserJobProfile(this.getUserId())
+    .then((response) => {
       if(response.data[0] == null) {
         this.jobsNull = true;
       }

@@ -1,92 +1,81 @@
 <template>
   <div class="placement-page">
-    <div class="container box" v-for="dash in dashboardJobDetails" v-if="dash.placement_id == placement_id">
+    <div class="container box">
 
       <div class="job-header job-section">
         <div class="heading-main">
-          <p class="title is-3 job-title">{{dash.job_title}}</p>
-          <p class="subtitle is-6 company-details">{{dash.company.company_name}}, {{dash.company.address}}</p>
+          <p class="title is-3 job-title">{{dashboardJobDetails.job_title}}</p>
+          <p class="subtitle is-6 company-details">{{dashboardJobDetails.company.company_name}}, {{dashboardJobDetails.company.address}}</p>
         </div>
         <div class="header-action is-pulled-right">
-          <span class="tag"></span>
+          <span class="tag">{{dashboardJobDetails.job_type.job_type}}</span>
         </div>
       </div>
 
       <div class="job-description job-section">
         <b class="section-header">Job Description</b>
-        <p> {{dash.job_description}} </p>
+        <p> {{dashboardJobDetails.job_description}} </p>
       </div>
 
 
       <div class="eligibility-criteria job-section">
         <b class="section-header">Eligibility Criteria</b>
         <div class="columns">
-          <div class="column" v-for="dashcat in dash.categories">
+          <div class="column" v-for = "categories in dashboardJobDetails.categories">
             <div class="card">
               <header class="card-header">
-                <p class="card-header-title"> {{dashcat.name}} </p>
+                <p class="card-header-title"> {{ categories.name }} </p>
               </header>
               <footer class="stripe-footer">
                 <div class="columns is-gapless is-mobile">
-                  <div class="column" v-for="dashcriteria in dashcat.criterias">{{dashcriteria.education_id}} <br>{{dashcriteria.cpi_required}} </div>
+                  <div class="column" v-for = "cat in categories.criterias"> {{cat.education_id}} <br> {{cat.cpi_required}} </div>
                 </div>
               </footer>
             </div>
           </div>
-          <!-- <div class="column">
-          <div class="card">
-          <header class="card-header">
-          <p class="card-header-title"> MScIT </p>
-        </header>
-        <footer class="stripe-footer">
-        <div class="columns is-mobile is-gapless">
-        <div class="column">Current <br> 7.01</div>
-        <div class="column">Bachelors <br> 7.01</div>
-        <div class="column">Higher <br> 7.01</div>
-        <div class="column">Secondary <br> 7.01</div>
-      </div>
-    </footer>
-  </div>
-</div> -->
-</div>
-</div>
 
-<div class="hiring-process job-section">
-  <b class="section-header">Hiring Process</b>
-
-  <div class="processes">
-
-    <div class="process-application process">
-      <a class="button">
-        <span class="icon">
-          <i class="fa fa-user-o"></i>
-        </span>
-        <span>Application</span>
-      </a>
-    </div>
-
-    <div v-for="selectionProcess in dash.placement_selection">
-
-      <div class="box process">
-        <p>{{selectionProcess.round_name}}</p>
-        <a>View Info</a>
+        </div>
       </div>
 
-    </div>
+      <div class="hiring-process job-section">
+        <b class="section-header">Hiring Process</b>
 
-    <div class="process-offer process">
-      <a class="button">
-        <span class="icon">
-          <i class="fa fa-file-text-o"></i>
-        </span>
-        <span>Offer</span>
-      </a>
-    </div>
+        <div class="processes">
 
+          <div class="process-application process">
+            <a class="button">
+              <span class="icon">
+                <i class="fa fa-user-o"></i>
+              </span>
+              <span>Application</span>
+            </a>
+          </div>
+
+          <div>
+
+            <div class="box process" v-for = "rounds in dashboardJobDetails.placement_selection">
+              <p>{{ rounds.round_name }}</p>
+              <!-- {{ rounds.round_no }} -->
+              <!-- {{ rounds.round_description }} -->
+              <!-- {{ rounds.date_of_round }} -->
+              <a>View Info</a>
+            </div>
+
+          </div>
+
+          <div class="process-offer process">
+            <a class="button">
+              <span class="icon">
+                <i class="fa fa-file-text-o"></i>
+              </span>
+              <span>Offer</span>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
   </div>
-</div>
-</div>
-</div>
 </div>
 </template>
 
@@ -102,31 +91,20 @@ export default {
     return {
       placement_id: null,
       jobProfile: {},
-      dashboardJobDetails: [],
-      // education: []
+      dashboardJobDetails: []
     }
   },
   created() {
-    // education.all().then((response) => {
-    //   this.education = response.data;
-    // })
-    // .catch((error) => {
-    //   console.log(error);
-    // })
+    //route returns placement id
+    //getUserId returns user id
     this.placement_id = this.$route.params.id;
-    user.getHomeDashboard(this.getUserId()).then((response) => {
+    user.getUserPlacementDetails(this.getUserId(), this.placement_id)
+    .then((response) => {
       this.dashboardJobDetails = response.data;
     })
     .catch((error) => {
-      console.log(error);
-    })
-    placement.getPlacementById(this.placement_id)
-    .then((response) => {
-      this.jobProfile = response.data;
-    })
-    .catch((error) => {
-      console.log(error);
-    })
+      console.log(error.message);
+    });
   },
   methods: {
     getUserId() {

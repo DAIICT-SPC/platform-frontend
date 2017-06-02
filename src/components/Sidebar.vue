@@ -9,7 +9,7 @@
     <div class="card-content">
       <div class="media">
         <div class="media-content">
-          <h2 class="title is-4" align="center">{{ user.name }}</h2>
+          <h2 class="title is-4" align="center">{{ userMainDetails.name }}</h2>
         </div>
       </div>
 
@@ -17,9 +17,9 @@
 
       <div class="content main-content">
         <div class="profile-meta">
-          <div>Semester {{ user.curSem }} | {{ user.course }}</div>
+          <div>Semester {{  }} | {{ userMainDetails.category.name }}</div>
           <div>2018 Passout Batch</div>
-          <div>{{ user.someText }}</div>
+          <div>{{  }}</div>
         </div>
 
         <hr>
@@ -41,14 +41,15 @@
 export default {
   name: 'sidebar',
   props: {
-    user: {
+    userMainDetails: {
       required: true,
       type: Object
     },
     userEducationcpi: null
   },
   created() {
-
+    // console.log("SideBar");
+    // console.log(this.userMainDetails);
   }
 }
 </script>

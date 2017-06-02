@@ -24,7 +24,7 @@
         <div class="field-body">
           <div>
             <p class="control ">
-
+              {{ userMainDetails.name }}
             </p>
           </div>
         </div>
@@ -37,20 +37,7 @@
         <div class="field-body">
           <div>
             <p class="control ">
-              {{ userMainDetails.category }}
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="field is-horizontal">
-        <div class="field-label">
-          <p>Enrollment Date</p>
-        </div>
-        <div class="field-body">
-          <div>
-            <p class="control ">
-
+              {{ userMainDetails.category.name }}
             </p>
           </div>
         </div>

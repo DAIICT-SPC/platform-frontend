@@ -4,7 +4,7 @@
     <navbar :userName="userName"></navbar>
 
     <div class="dashboard-inner">
-      <router-view></router-view>
+      <router-view :userDetails="userDetails"></router-view>
     </div>
 
   </div>
@@ -20,19 +20,14 @@ export default {
   components: {
     Navbar
   },
-  data() {
-    return {
-      userName: ''
-    }
-  },
   created() {
     user.getUserDetails(this.getUserId())
     .then((response) => {
+      this.userDetails = response.data;
       this.userName = response.data.name;
-      console.log(this.userName);
     })
     .catch((error) => {
-      console.log(error);
+      console.log(error.message);
     })
     // Listen for logout event
     this.$bus.$on('logout', () => {
@@ -41,6 +36,12 @@ export default {
         name: 'home'
       });
     });
+  },
+  data() {
+    return {
+      userName: '',
+      userDetails: { }
+    }
   },
   methods: {
     getUserId() {

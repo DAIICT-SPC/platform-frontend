@@ -2,7 +2,7 @@
   <div class="container profile-page">
     <div class="columns" v-if="error.errorStatus == null">
       <div class="column is-one-quarter">
-        <sidebar :user="user" :userEducationcpi="userEducationcpi"></sidebar>
+        <sidebar :userMainDetails="userMainDetails" :userEducationcpi="userEducationcpi"></sidebar>
       </div>
       <div class="column is-auto">
         <div class="profile-box box col-2-tab">
@@ -14,7 +14,7 @@
             </ul>
           </div>
           <div class="profile-tab-content">
-            <router-view :user="user" :userEducationDetails="userEducationDetails" :userMainDetails="userMainDetails"></router-view>
+            <router-view :userEducationDetails="userEducationDetails" :userMainDetails="userMainDetails"></router-view>
           </div>
         </div>
       </div>
@@ -30,15 +30,19 @@
 
 <script>
 import Sidebar from '@/components/Sidebar'
-import User from '@/stubs/user'
 import userApi from '@/api/user'
 import Auth from '@/packages/auth/Auth'
 
 export default {
   name: 'myprofile',
+  props: {
+    userDetails: {
+      required: true,
+      type: Object
+    }
+  },
   data() {
     return {
-      user: User,
       userEducationcpi: null,
       userEducationDetails: [],
       userMainDetails: {},
@@ -52,6 +56,9 @@ export default {
     'sidebar': Sidebar
   },
   created() {
+    this.userMainDetails = this.userDetails;
+    // console.log("Profile Page");
+    // console.log(this.userMainDetails);
     userApi.getUserEducation(this.getUserId()).then((response) => {
       this.userEducationcpi = response.data[0].cpi;
       this.userEducationDetails = response.data;
@@ -67,12 +74,6 @@ export default {
         alert('Error', error.message);
       }
       // console.log(error.config);
-    })
-    userApi.getUserDetails(this.getUserId()).then((response) => {
-      this.userMainDetails = response.data;
-    })
-    .catch((error) => {
-      console.log(error.response.statusText);
     })
   },
   methods: {
