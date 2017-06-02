@@ -6,7 +6,7 @@
       <div class="columns is-multiline">
 
         <!-- 1/3 col -->
-        <div class="column is-one-third" v-for="jobs in jobProfiles">
+        <div class="column is-one-third" v-for="jobs in jobProfiles" v-if="!jobsNull">
           <div class="card">
 
             <div class="card-header">
@@ -32,13 +32,18 @@
           </div>
           <!-- 1/3 col -->
           <!-- <pre>
-            {{ jobs }}
-          </pre> -->
-        </div>
-
+          {{ jobs }}
+        </pre> -->
       </div>
+      <div class="column is-full" v-if="jobsNull">
+        <div class="media media-card">
+          There are no jobs to follow.
+        </div>
+      </div>
+
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -48,7 +53,12 @@ export default {
   name: 'jobprofile',
   created() {
     user.getHomeDashboard().then((response) => {
-      this.jobProfiles = response.data;
+      if(response.data[0] == null) {
+        this.jobsNull = true;
+      }
+      else {
+        this.jobProfiles = response.data;
+      }
     })
     .catch((error) => {
       console.log(error);
@@ -56,7 +66,8 @@ export default {
   },
   data() {
     return {
-      jobProfiles: []
+      jobProfiles: [],
+      jobsNull: false
     }
   },
 }
