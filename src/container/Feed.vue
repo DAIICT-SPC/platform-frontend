@@ -50,6 +50,7 @@
 
 <script>
 import user from '@/api/user'
+import Auth from '@/packages/auth/Auth'
 
 export default {
   name: 'feed',
@@ -60,7 +61,7 @@ export default {
     }
   },
   created(){
-    user.getHomeDashboard().then((response) => {
+    user.getHomeDashboard(this.getUserId()).then((response) => {
       this.presentFeeds(response);
     })
   },
@@ -71,6 +72,9 @@ export default {
       } else {
         this.feeds = response.data;
       }
+    },
+    getUserId() {
+      return Auth.getUserToken();
     }
   }
 }

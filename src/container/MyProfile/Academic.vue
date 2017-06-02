@@ -70,7 +70,7 @@ export default {
 
     user.getUserEducation().then((response) => {
       this.userEducation = response.data;
-      console.log(this.userEducationDetails[0]);
+      // console.log(this.userEducationDetails[0]);
     })
     .catch((error) => {
       console.log(error);
