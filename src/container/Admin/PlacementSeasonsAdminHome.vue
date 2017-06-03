@@ -1,6 +1,6 @@
 <template>
 	<div class="placement-seasons-admin-home">
-		<div class="container">
+		<div class="container dashboard-admin">
 
 
 			<div class="columns is-multiline">
@@ -122,6 +122,11 @@ export default {
 
 <style lang="scss">
 .placement-seasons-admin-home {
+
+	.container.dashboard-admin {
+		padding: 0;
+		margin-top: 1.3rem;
+	}
 
 	.column .card{
 		border-radius: 4px;

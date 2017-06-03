@@ -25,6 +25,9 @@ import AdminDashboard from '@/container/Admin/AdminDashboard'
 import PlacementSeasonsAdminHome from '@/container/Admin/PlacementSeasonsAdminHome'
 import NewPlacementSeason from '@/container/Admin/NewPlacementSeason'
 import AdminProfile from '@/container/Admin/Profile'
+import Category from '@/container/Admin/Category'
+import JobType from '@/container/Admin/JobType'
+import Education from '@/container/Admin/Education'
 
 
 Vue.use(Router)
@@ -197,11 +200,44 @@ let router = new Router({
     },
     {
       path: 'new-season-start',
-      name: 'new-season-start',
       component: NewPlacementSeason,
       meta: {
         requiresAuth: true
-      }
+      },
+      children: [
+        {
+          path: '/',
+          name: 'create-new-placement',
+          component: PlacementSeasonsAdminHome,
+          meta: {
+            requiresAuth: true
+          }
+        },
+        {
+          path: 'categories',
+          name: 'show-add-categories',
+          component: Category,
+          meta: {
+            requiresAuth: true
+          }
+        },
+        {
+          path: 'jobtypes',
+          name: 'show-add-jobtypes',
+          component: JobType,
+          meta: {
+            requiresAuth: true
+          }
+        },
+        {
+          path: 'education',
+          name: 'show-add-education',
+          component: Education,
+          meta: {
+            requiresAuth: true
+          }
+        }
+      ]
     },
     {
       path: 'admin-profile',

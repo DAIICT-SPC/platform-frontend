@@ -17,6 +17,13 @@ export default {
       contact_no: contact_no,
       position: position
     });
+  },
+
+  createSeason(title) {
+    let url = '/placement_season'
+    return HTTP.post(url, {
+      title: title
+    })
   }
 
 }
