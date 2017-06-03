@@ -26,7 +26,6 @@
 						</div>
 						<footer class="card-footer">
 							<router-link :to="{ name: 'view-job-profile', params: { id: 1 } }" class="card-footer-item">View</router-link>
-							<router-link :to="{ name: 'placement-detail' }" class="card-footer-item">View</router-link>
 						</footer>
 					</div>
 				</div>
@@ -53,7 +52,6 @@
 						</div>
 						<footer class="card-footer">
 							<router-link :to="{ name: 'view-job-profile', params: { id: 1 } }" class="card-footer-item">View</router-link>
-							<router-link :to="{ name: 'placement-detail' }" class="card-footer-item">View</router-link>
 						</footer>
 					</div>
 				</div>
@@ -80,7 +78,6 @@
 						</div>
 						<footer class="card-footer">
 							<router-link :to="{ name: 'view-job-profile', params: { id: 1 } }" class="card-footer-item">View</router-link>
-							<router-link :to="{ name: 'placement-detail' }" class="card-footer-item">View</router-link>
 						</footer>
 					</div>
 				</div>
@@ -107,7 +104,6 @@
 						</div>
 						<footer class="card-footer">
 							<router-link :to="{ name: 'view-job-profile', params: { id: 1 } }" class="card-footer-item">View</router-link>
-							<router-link :to="{ name: 'placement-detail' }" class="card-footer-item">View</router-link>
 						</footer>
 					</div>
 				</div>

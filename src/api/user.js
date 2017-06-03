@@ -45,16 +45,26 @@ export default {
     return HTTP.get(url);
   },
 
-  postUserDetails(id, category_id, temp_address, perm_address, contact_no, dob, gender) {
+  postUserDetails(id, enroll_no, category_id, temp_address, perm_address, contact_no, dob, gender) {
     // /users/2/student/update
+    console.log(id + "-" + enroll_no+"-"+ category_id+"-"+ temp_address+"-"+ perm_address+"-"+ contact_no+"-"+ dob+"-"+ gender);
     let url = '/users/' + id + '/student/update'
     return HTTP.post(url , {
+      enroll_no, enroll_no,
       category_id: category_id,
       temp_address: temp_address,
       perm_address: perm_address,
       contact_no: contact_no,
       dob: dob,
       gender: gender
+    });
+  },
+
+  postUserPersonalDetails(id, name) {
+    // /users/2/student/updatePersonal
+    let url = '/users/' + id + '/student/updatePersonal'
+    return HTTP.post(url, {
+      name: name
     });
   },
 

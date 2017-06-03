@@ -128,23 +128,59 @@
           </div>
         </div>
       </div>
+
+      <modal :studentDetails="studentDetails" v-if="showModal" @close="showModal = false"></modal>
+
+
+      <p class="control student-profile">
+        <!-- <button class="button is-default" v-on:click="redirect">Edit</button> -->
+        <button class="button is-success" @click="modalPage">Edit Details</button>
+      </p>
+
     </div>
   </div>
   <!-- box ends -->
 </template>
 
 <script>
+import EditStudentProfileModal from '@/components/EditStudentProfileModal'
 export default {
   name: 'about',
   data() {
     return {
-
+      showModal: false,
+      studentDetails : {
+        student_id: null,
+        student_name: '',
+        programme_name: '',
+        contact_no: null,
+        dob: '',
+        gender: '',
+        category: '',
+        primary_address: '',
+        current_address: ''
+      }
     }
+  },
+  components: {
+    'modal': EditStudentProfileModal
   },
   props: {
     userMainDetails: {
       required: true,
       type: Object
+    }
+  },
+  created() {
+
+  },
+  methods: {
+
+    modalPage() {
+
+      this.studentDetails = this.userMainDetails;
+
+      this.showModal = true;
     }
   }
 }
