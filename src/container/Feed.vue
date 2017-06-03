@@ -5,9 +5,9 @@
 
       <div class="columns is-multiline">
         <div class="column is-full" v-if="!feedsNull">
-          <router-link :to="{ name: 'view-job-profile', params: { id: feed.placement_id } }" v-for="feed in feeds">
+          <div v-for="feed in feeds">
             <!-- {{ placement_id = feed.placement_id }} -->
-            <article class="media media-card">
+            <router-link :to="{ name: 'view-job-profile', params: { id: feed.placement_id } }" class="media media-card">
               <figure class="media-left">
                 <p class="image is-64x64">
                   <img src="../../images/daiict.jpg">
@@ -28,8 +28,8 @@
                   </div>
                 </div>
               </div>
-            </article>
-          </router-link>
+            </router-link>
+          </div>
         </div>
 
         <div class="column is-full" v-if="feedsNull">

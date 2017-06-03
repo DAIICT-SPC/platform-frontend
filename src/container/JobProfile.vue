@@ -59,7 +59,6 @@ export default {
       }
       else {
         this.jobProfiles = response.data;
-        console.log(this.jobProfiles);
       }
     })
     .catch((error) => {

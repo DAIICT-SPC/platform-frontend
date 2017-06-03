@@ -85,7 +85,7 @@ export default {
   methods: {
     login() {
       this.validate().then(this.loginUser).catch(() => {
-        alert("Error");
+        console.log("Error");
       });
     },
     validate() {

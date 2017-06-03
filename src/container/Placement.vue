@@ -10,7 +10,8 @@
         <div class="header-action is-pulled-right">
           <span class="tag">{{dashboardJobDetails.job_type.job_type}}</span>
           <div class="apply-box">
-            <a class="button is-success" @click="userApplyForPlacement">{{apply}}</a>
+            <a v-if="!applyKey" class="button is-success" @click="userApplyForPlacement">{{apply}}</a>
+            <a v-if="applyKey" class="button is-danger" @click="userCancelPlacement">Cancel</a>
           </div>
         </div>
       </div>
@@ -100,26 +101,35 @@ export default {
       dashboardJobDetails: [],
       roundsData: {
       },
-      apply: 'Apply'
+      apply: null,
+      applyKey: 0
     }
   },
   created() {
     this.placement_id = this.$route.params.id;
-    user.getUserPlacementDetails(this.getUserId(), this.placement_id)
+    user.getUserAppliedForPlacement(this.getUserId(), this.placement_id)
     .then((response) => {
-      this.dashboardJobDetails = response.data;
+      // console.log("placement id-" + this.placement_id);
+      // console.log("response.data-" + response.data);
+      if(response.data == 0) {
+        // console.log("if applied");
+        // console.log(response.data == 0);
+        this.apply = 'Apply'
+        this.applyKey = 0;
+        // console.log(this.applyKey == 0);
+      }
+      else {
+        // console.log("else applied");
+        this.apply = 'Applied'
+        this.applyKey = 1;
+      }
     })
     .catch((error) => {
       console.log(error.message);
     });
-    user.getUserAppliedForPlacement(this.getUserId(), this.placement_id)
+    user.getUserPlacementDetails(this.getUserId(), this.placement_id)
     .then((response) => {
-      if(response.data == 0) {
-        this.apply = 'Apply'
-      }
-      else {
-        this.apply = 'Applied'
-      }
+      this.dashboardJobDetails = response.data;
     })
     .catch((error) => {
       console.log(error.message);
@@ -139,6 +149,18 @@ export default {
       })
       .catch((error) => {
         console.log(error.response);
+      })
+    },
+    userCancelPlacement() {
+      user.cancelPlacement(this.getUserId(), this.placement_id)
+      .then((response) => {
+        if(response.status == 204) {
+          alert('Registration Cancelled.')
+          this.apply = 1;
+        }
+      })
+      .catch((error) => {
+        console.log(error);
       })
     }
   }

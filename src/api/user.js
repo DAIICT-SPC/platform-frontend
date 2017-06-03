@@ -106,6 +106,14 @@ export default {
   getUserAppliedForPlacement(id, placement_id) {
     let url = '/users/' + id + '/student/applyToAppliedButton/' + placement_id;
     return HTTP.get(url);
+  },
+
+  cancelPlacement(id, placement_id) {
+    // /users/2/student/cancelRegistration
+    let url = '/users/' + id + '/student/cancelRegistration'
+    return HTTP.post(url, {
+      placement_id: placement_id
+    })
   }
 
 };

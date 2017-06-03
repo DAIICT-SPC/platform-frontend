@@ -69,9 +69,7 @@ export default {
         alert(this.error.errorStatus + " - " + this.error.errorMessage);
       } else if (error.request) {
         alert(error.request);
-      } else {
-        alert('Error', error.message);
-      }
+      } 
       // console.log(error.config);
     })
   },
