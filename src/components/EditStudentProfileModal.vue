@@ -35,7 +35,7 @@
 						<div class="field-body">
 							<div>
 								<p class="control ">
-									<input v-model="student_name = studentDetails.name" v-validate="'required'" type="text" name="student_name" class="input">
+									<input disabled v-model="student_name = studentDetails.name" v-validate="'required'" type="text" name="student_name" class="input">
 								</p>
 								<div class="help is-danger" v-show="errors.has('student_name')">
 									{{errors.first('student_name')}}
@@ -217,7 +217,11 @@ export default{
 				user.postUserDetails(this.getUserId(), this.student_id, this.category, this.temp_address, this.perm_address,
 				this.contact_no, this.dob, this.gender)
 				.then((response) => {
-					console.log(response);
+					if(response.status == 200) {
+						alert('Details Updated');
+						//close modal
+						this.$emit('close');
+					}
 				})
 				.catch((error) => {
 					console.log(error);

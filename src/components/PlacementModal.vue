@@ -6,12 +6,11 @@
 			<div class="modal-background"></div>
 			<div class="modal-card">
 				<header class="modal-card-head">
-					<p class="modal-card-title">{{ rounds }}</p>
+					<p class="modal-card-title">{{ round }}</p>
 					<button class="delete" @click="$emit('close')"></button>
 				</header>
 				<section class="modal-card-body">
-
-					{{ rounds }}
+					{{ round }}
 				</section>
 			</div>
 		</div>
@@ -27,10 +26,10 @@ import Auth from '@/packages/auth/Auth'
 export default{
 	name: 'admin-edit-modal',
 	props: {
-		rounds: {
-			required: true,
-			type: Object
-		}
+		round: ''
+	},
+	created() {
+		console.log(this.round);
 	}
 }
 </script>

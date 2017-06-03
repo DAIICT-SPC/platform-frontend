@@ -4,7 +4,7 @@ import HTTP from '@/packages/http';
 export default {
 
   getUserDetails(id) {
-    // /users/2/company/show
+    // /users/3/company/show
     let url = '/users/' + id + '/company/show'
     return HTTP.get(url);
   },
@@ -12,8 +12,7 @@ export default {
   postUserDetails(id, company_name, address, contact_person,
   contact_no, company_expertise, company_url) {
     let url = '/users/' + id + '/company/update'
-    console.log(url);
-    return HTTP.post(url, {
+    return HTTP.patch(url, {
       company_name: company_name,
       address: address,
       contact_person: contact_person,

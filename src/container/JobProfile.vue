@@ -27,7 +27,6 @@
             </div>
             <footer class="card-footer">
               <router-link :to="{ name: 'view-job-profile', params: { id: jobs.placement_id } }" class="card-footer-item">View</router-link>
-              <a class="card-footer-item">Apply</a>
             </footer>
           </div>
           <!-- 1/3 col -->

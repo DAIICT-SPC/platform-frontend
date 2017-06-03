@@ -51,12 +51,13 @@
             </a>
           </div>
 
-            <div class="box process" v-for = "rounds in dashboardJobDetails.placement_selection">
+
+            <div class="box process" v-for="rounds in dashboardJobDetails.placement_selection">
               <p>{{ rounds.round_name }}</p>
-              {{ rounds }}
               <modal @close="showModal = false" class="showModal" v-if="showModal" :rounds="rounds"></modal>
               <a @click="showModal = true">View Info</a>
             </div>
+
 
           <div class="process-offer process">
             <a class="button">

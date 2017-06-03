@@ -21,14 +21,11 @@
       <div>
         <div class="field has-addons">
           <p class="control">
-            <input class="input" type="text" placeholder="Find a repository">
+            <input v-model="name" v-validate="'required'" name="ed" class="input" :class="{'input': true, 'is-danger': errors.has('ed') }" type="text" placeholder="Enter New Education">
           </p>
           <p class="control">
-            <a class="button is-success"> Add Education </a>
+            <a class="button is-success" @click="addEducation"> Add Education </a>
           </p>
-        </div>
-        <div class="help is-danger" v-show="errors.has('season')">
-          {{errors.first('season')}}
         </div>
       </div>
     </div>
@@ -48,9 +45,45 @@ export default{
       this.education = response.data;
     })
   },
+  watch() {
+    education.all().then((response) => {
+      this.education = response.data;
+    })
+  },
+  created() {
+    education.all().then((response) => {
+      this.education = response.data;
+    })
+  },
   data() {
     return{
-      education: [ ]
+      education: [ ],
+      name: ''
+    }
+  },
+  methods: {
+    addEducation() {
+      this.validate().then(() => {
+        this.addEdHere();
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    },
+    addEdHere() {
+      education.postEducation(this.name)
+      .then((response) => {
+        if(response.status == 200){
+          alert('Education Added Successfully');
+          this.name = "";
+        }
+      })
+      .catch((error) => {
+        console.log(error.response);
+      })
+    },
+    validate() {
+      return this.$validator.validateAll();
     }
   }
 }

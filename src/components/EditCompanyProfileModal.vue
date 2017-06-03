@@ -21,7 +21,7 @@
 							<div class="field-body">
 								<div>
 									<p class="control ">
-										<input v-validate="'required'" v-model="company_name = companyDetails.company_name" type="text" name="companyName" class="input">
+										<input disabled v-validate="'required'" v-model="company_name = companyDetails.company_name" type="text" name="companyName" class="input">
 									</p>
 									<div class="help is-danger" v-show="errors.has('companyName')">
 										{{errors.first('companyName')}}
@@ -53,7 +53,7 @@
 							<div class="field-body">
 								<div>
 									<p class="control ">
-										<input v-validate="'required'" v-model="contact_person = companyDetails.name" type="text" name="contactPerson" class="input">
+										<input disabled v-validate="'required'" v-model="contact_person = companyDetails.name" type="text" name="contactPerson" class="input">
 									</p>
 									<div class="help is-danger" v-show="errors.has('contactPerson')">
 										{{errors.first('contactPerson')}}

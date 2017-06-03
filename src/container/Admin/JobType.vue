@@ -19,17 +19,16 @@
         </p>
       </div>
       <div>
-        <div class="field has-addons">
+        <div class="field bottom">
           <p class="control">
-            <input class="input" type="text" placeholder="Find a repository">
+            <input v-model="jobType" name="jobType" v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('jobType') }" type="text" placeholder="Enter Job Type">
+            <input v-model="duration" name="duration" v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('duration') }" type="text" placeholder="Enter Duration">
           </p>
           <p class="control">
-            <a class="button is-success"> Add Job Type </a>
+            <button class="button is-success" @click="addJobType">Add</button>
           </p>
         </div>
-        <div class="help is-danger" v-show="errors.has('season')">
-          {{errors.first('season')}}
-        </div>
+
       </div>
     </div>
 
@@ -48,9 +47,40 @@ export default{
 			this.jobTypes = response.data;
 		})
   },
+  beforeUpdate() {
+    jobType.all().then((response) => {
+			this.jobTypes = response.data;
+		})
+  },
   data() {
     return{
       jobTypes: [],
+      jobType: '',
+      duration: ''
+    }
+  },
+  methods: {
+    addJobType() {
+      this.validate().then(() => {
+        this.postJobTypeDetails();
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    },
+    postJobTypeDetails() {
+      jobType.postJobType(this.jobType, this.duration)
+      .then((response) => {
+        if(response.status == 200){
+          alert('Category Added Successfully');
+        }
+      })
+      .catch((error) => {
+        console.log(error.response);
+      })
+    },
+    validate() {
+      return this.$validator.validateAll();
     }
   }
 }
@@ -73,6 +103,16 @@ export default{
 
   .field.has-addons {
     padding-left: 1rem;
+  }
+
+  .field.bottom {
+    padding-left: 1rem;
+    max-width: 300px;
+  }
+
+
+  .control .input {
+    margin-bottom: 0.4rem;
   }
 
 }

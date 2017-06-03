@@ -49,7 +49,7 @@ export default {
     // /users/2/student/update
     console.log(id + "-" + enroll_no+"-"+ category_id+"-"+ temp_address+"-"+ perm_address+"-"+ contact_no+"-"+ dob+"-"+ gender);
     let url = '/users/' + id + '/student/update'
-    return HTTP.post(url , {
+    return HTTP.patch(url , {
       enroll_no, enroll_no,
       category_id: category_id,
       temp_address: temp_address,
@@ -86,7 +86,7 @@ export default {
 
   //get Student's Job Profile Details based on Placement Id
   getUserPlacementDetails(id, pid){
-    // /users/3/company/1/showPlacementDetails/
+    // /users/2/student/1/showPlacementDetails/
     let url = '/users/' + id + '/student/' + pid + '/showPlacementDetails';
     return HTTP.get(url);
   }

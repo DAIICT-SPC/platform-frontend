@@ -83,18 +83,6 @@
         </div>
       </div>
 
-      <div class="field is-horizontal">
-        <div class="field-label">
-          <p>Category</p>
-        </div>
-        <div class="field-body">
-          <div>
-            <p class="control ">
-
-            </p>
-          </div>
-        </div>
-      </div>
       <br>
     </div>
     <!-- form data ends -->
