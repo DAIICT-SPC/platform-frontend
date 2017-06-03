@@ -1,10 +1,15 @@
 <template lang="html">
-  <span class="select is-fullwidth">
-    <select v-model="education_id" @change="educationChange()" name="education">
-      <option value=null>Select dropdown</option>
-      <option v-for="ed in education" :value="ed.id">{{ed.name}}</option>
-    </select>
-  </span>
+  <div>
+    <span class="select is-fullwidth">
+      <select v-validate="'required|not_in:null'" v-model="education_id" @change="educationChange()" name="education">
+        <option value=null>Select dropdown</option>
+        <option v-for="ed in education" :value="ed.id">{{ed.name}}</option>
+      </select>
+    </span>
+    <div class="help is-danger" v-show="errors.has('education')">
+      {{errors.first('education')}}
+    </div>
+  </div>
 </template>
 
 <script>

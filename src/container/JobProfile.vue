@@ -21,8 +21,8 @@
             </div>
             <div class="card-content">
               <div class="content">
-                Company:&nbsp;<b>{{jobs.company.company_name}}</b><br>
-                Location:&nbsp;<b>{{jobs.company.address}}</b>
+                Company:&nbsp;<b>Dummy</b><br>
+                Location:&nbsp;<b>{{jobs.location}}</b>
               </div>
             </div>
             <footer class="card-footer">
@@ -48,11 +48,13 @@
 
 <script>
 import user from '@/api/user'
+import Auth from '@/packages/auth/Auth'
 
 export default {
   name: 'jobprofile',
   created() {
-    user.getHomeDashboard().then((response) => {
+    user.getUserJobProfile(this.getUserId())
+    .then((response) => {
       if(response.data[0] == null) {
         this.jobsNull = true;
       }
@@ -70,6 +72,11 @@ export default {
       jobsNull: false
     }
   },
+  methods: {
+    getUserId() {
+      return Auth.getUserToken();
+    }
+  }
 }
 </script>
 
@@ -84,7 +91,7 @@ export default {
     justify-content: space-around;
     align-items: center;
     .tag.is-success{
-      margin: 0.2rem;
+      margin: 0.5rem;
     }
   }
 }

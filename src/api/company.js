@@ -1,11 +1,31 @@
 import HTTP from '@/packages/http';
-import Auth from '@/packages/auth/Auth';
+
 
 export default {
 
-  placementPrimary(job_title, job_description, last_date_for_registration, location, no_of_students,
+  getUserDetails(id) {
+    // /users/2/company/show
+    let url = '/users/' + id + '/company/show'
+    return HTTP.get(url);
+  },
+
+  postUserDetails(id, company_name, address, contact_person,
+  contact_no, company_expertise, company_url) {
+    let url = '/users/' + id + '/company/update'
+    console.log(url);
+    return HTTP.post(url, {
+      company_name: company_name,
+      address: address,
+      contact_person: contact_person,
+      contact_no: contact_no,
+      company_expertise: company_expertise,
+      company_url: company_url
+    });
+  },
+
+  placementPrimary(id, job_title, job_description, last_date_for_registration, location, no_of_students,
     packages, job_type_id, placement_season_id) {
-      let id = Auth.getUserToken(); // /users/2/company/createPlacement
+       // /users/2/company/createPlacement
       let url = '/users/' + id + '/company/createPlacement';
     return HTTP.post(url, {
       job_title: job_title,
@@ -17,5 +37,10 @@ export default {
       job_type_id: job_type_id,
       placement_season_id: placement_season_id
     });
+  },
+
+  getPlacementSeasonsAvailable(id) {
+    let url = '/users/' + id + '/company/showPlacementSeasonAvailable';
+    return HTTP.get(url);
   }
 }

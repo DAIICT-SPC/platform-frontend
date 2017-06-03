@@ -1,8 +1,13 @@
 <template lang="html">
-  <select v-model="category_id" @change="categoryChange()" name="category" v-validate="'required'">
-    <option value=null>Select dropdown</option>
-    <option v-for="cat in categories" :value="cat.id">{{cat.name}}</option>
-  </select>
+  <div>
+    <select v-model="category_id" @change="categoryChange()" name="category" v-validate="'required|not_in:null'">
+      <option value=null>Select dropdown</option>
+      <option v-for="cat in categories" :value="cat.id">{{cat.name}}</option>
+    </select>
+    <div v-show="errors.has('category')" class="help is-danger">
+      {{ errors.first('category') }}
+    </div>
+  </div>
 </template>
 
 <script>

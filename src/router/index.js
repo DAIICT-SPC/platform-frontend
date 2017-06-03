@@ -14,12 +14,17 @@ import Academic from '@/container/MyProfile/Academic'
 import Resume from '@/container/MyProfile/Resume'
 import CompanyDashboard from '@/container/Company/CompanyDashboard'
 import ViewAllPlacement from '@/container/Company/ViewAllPlacement'
+import Profile from '@/container/Company/Profile'
 import ViewPlacementDetail from '@/container/Company/ViewPlacementDetail'
 import NewPlacement from '@/container/Company/NewPlacement'
 import PlacementPrimary from '@/container/Company/PlacementDrive/PlacementPrimary'
 import SelectCategory from '@/container/Company/PlacementDrive/SelectCategory'
 import SelectRoundDetails from '@/container/Company/PlacementDrive/SelectRoundDetails'
 import PlacementCriteria from '@/container/Company/PlacementDrive/PlacementCriteria'
+import AdminDashboard from '@/container/Admin/AdminDashboard'
+import PlacementSeasonsAdminHome from '@/container/Admin/PlacementSeasonsAdminHome'
+import NewPlacementSeason from '@/container/Admin/NewPlacementSeason'
+import AdminProfile from '@/container/Admin/Profile'
 
 
 Vue.use(Router)
@@ -49,10 +54,10 @@ let router = new Router({
     children: [{
       path: '/',
       name: 'dashboard',
+      component: Feed,
       meta: {
         requiresAuth: true
-      },
-      component: Feed
+      }
     },
     {
       path: 'job-profiles',
@@ -164,6 +169,47 @@ let router = new Router({
           component: PlacementCriteria
         },
       ]
+    },
+    {
+      path: '/company/profile',
+      name: 'company-profile',
+      component: Profile,
+      meta: {
+        requiresAuth: true
+      }
+    }
+  ]
+},
+{
+  path: '/admin',
+  component: AdminDashboard,
+  meta: {
+    requiresAuth: true
+  },
+  children: [
+    {
+      path: '/',
+      name: 'admin-home',
+      component: PlacementSeasonsAdminHome,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: 'new-season-start',
+      name: 'new-season-start',
+      component: NewPlacementSeason,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: 'admin-profile',
+      name: 'admin-profile',
+      component: AdminProfile,
+      meta: {
+        requiresAuth: true
+      }
     }
   ]
 }

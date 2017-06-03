@@ -53,6 +53,7 @@
 
 <script>
 import user from '@/api/user'
+import Auth from '@/packages/auth/Auth'
 export default {
   name: 'academic',
   props: {
@@ -68,13 +69,18 @@ export default {
   },
   created() {
 
-    user.getUserEducation().then((response) => {
+    user.getUserEducation(this.getUserId()).then((response) => {
       this.userEducation = response.data;
-      console.log(this.userEducationDetails[0]);
+      // console.log(this.userEducationDetails[0]);
     })
     .catch((error) => {
       console.log(error);
     })
+  },
+  methods: {
+    getUserId() {
+      return Auth.getUserToken();
+    }
   }
 }
 </script>

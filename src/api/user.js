@@ -1,7 +1,7 @@
 import HTTP from '@/packages/http';
 import Auth from '@/packages/auth/Auth';
 
-let id = Auth.getUserToken();
+
 export default {
 
   login(email, password) {
@@ -39,18 +39,47 @@ export default {
     });
   },
 
-  getHomeDashboard(id) {
-    let url = '/users/' + id + '/student/dashboard';
-    return HTTP.get(url);
-  },
 
   getUserDetails(id) {
     let url = '/users/' + id + '/student/show';
     return HTTP.get(url);
   },
 
+  postUserDetails(id, category_id, temp_address, perm_address, contact_no, dob, gender) {
+    // /users/2/student/update
+    let url = '/users/' + id + '/student/update'
+    return HTTP.post(url , {
+      category_id: category_id,
+      temp_address: temp_address,
+      perm_address: perm_address,
+      contact_no: contact_no,
+      dob: dob,
+      gender: gender
+    });
+  },
+
   getUserEducation(id) {
     let url = '/users/' + id + '/student/education';
     return HTTP.get(url);
+  },
+
+  getHomeDashboard(id) {
+    let url = '/users/' + id + '/student/dashboard';
+    return HTTP.get(url);
+  },
+
+  getUserJobProfile(id) {
+    // /api/users/2/student/jobProfile
+    let url = '/users/' + id + '/student/jobProfile'
+    return HTTP.get(url);
+  },
+
+  //get Student's Job Profile Details based on Placement Id
+  getUserPlacementDetails(id, pid){
+    // /users/3/company/1/showPlacementDetails/
+    let url = '/users/' + id + '/student/' + pid + '/showPlacementDetails';
+    return HTTP.get(url);
   }
+
+
 };

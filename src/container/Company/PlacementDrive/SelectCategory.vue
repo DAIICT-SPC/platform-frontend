@@ -8,14 +8,17 @@
 			<div class="field">
 				<p class="control">
 					<label class="label" v-for="cat in categories">
-						<input type="checkbox" name="categories" :value="cat.id" v-model="categories_selected"> &nbsp; {{ cat.name }}
+						<input v-validate data-vv-rules="required" type="checkbox" name="categories" :value="cat.id" v-model="categories_selected"> &nbsp; {{ cat.name }}
 					</label>
 				</p>
+				<div v-show="errors.has('categories')" class="help is-danger">
+					{{errors.first('categories')}}
+				</div>
 			</div>
 
 			<div class="field is-grouped">
 				<p class="control">
-					<button class="button is-primary">Save And Next</button>
+					<button class="button is-primary" @click="validate">Save And Next</button>
 				</p>
 			</div>
 		</div>
@@ -24,6 +27,7 @@
 
 <script>
 import category from '@/api/category';
+
 export default {
 	name: 'select-round-details',
 	data() {
@@ -38,6 +42,17 @@ export default {
 			category.all().then((response) => {
 				this.categories = response.data;
 			});
+		}
+	},
+	methods: {
+		validate() {
+			this.$validator.validateAll()
+			.then((data) => {
+				console.log(data);
+			})
+			.catch((error) => {
+				console.log(error);
+			})
 		}
 	}
 }

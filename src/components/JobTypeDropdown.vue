@@ -1,11 +1,15 @@
 <template>
-
-	<span class="select is-fullwidth">
-		<select v-model="jobTypeId" @change="jobTypeChange()" name="select">
-			<option value=null>Select Dropdown</option>
-			<option v-for="jt in jobTypes" :value="jt.id">{{ jt.job_type }}</option>
-		</select>
-	</span>
+	<div>
+		<span class="select is-fullwidth">
+			<select v-validate="'required|not_in:null'" v-model="jobTypeId" @change="jobTypeChange()" name="jobType-select">
+				<option value=null>Select Dropdown</option>
+				<option v-for="jt in jobTypes" :value="jt.id">{{ jt.job_type }}</option>
+			</select>
+		</span>
+		<div class="help is-danger" v-show="errors.has('jobType-select')">
+			{{errors.first('jobType-select')}}
+		</div>
+	</div>
 
 </template>
 

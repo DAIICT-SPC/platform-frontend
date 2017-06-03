@@ -79,9 +79,6 @@
                       <category-dropdown></category-dropdown>
                     </span>
                   </p>
-                  <div v-show="errors.has('category')" class="help is-danger">
-                    {{ errors.first('category') }}
-                  </div>
                 </div>
               </div>
             </div>
@@ -316,8 +313,6 @@
       </div>
     </div>
   </div>
-  <pre class="">{{$data}}
-  </pre>
 </div>
 </template>
 
