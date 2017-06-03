@@ -21,7 +21,7 @@
             </div>
             <div class="card-content">
               <div class="content">
-                Company:&nbsp;<b>Dummy</b><br>
+                Company:&nbsp;<b>{{jobs.company.company_name}}</b><br>
                 Location:&nbsp;<b>{{jobs.location}}</b>
               </div>
             </div>
@@ -59,6 +59,7 @@ export default {
       }
       else {
         this.jobProfiles = response.data;
+        console.log(this.jobProfiles);
       }
     })
     .catch((error) => {

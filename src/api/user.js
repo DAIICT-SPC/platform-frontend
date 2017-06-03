@@ -73,11 +73,13 @@ export default {
     return HTTP.get(url);
   },
 
+  //dashboard page
   getHomeDashboard(id) {
     let url = '/users/' + id + '/student/dashboard';
     return HTTP.get(url);
   },
 
+  //job profile page
   getUserJobProfile(id) {
     // /api/users/2/student/jobProfile
     let url = '/users/' + id + '/student/jobProfile'
@@ -89,7 +91,21 @@ export default {
     // /users/2/student/1/showPlacementDetails/
     let url = '/users/' + id + '/student/' + pid + '/showPlacementDetails';
     return HTTP.get(url);
-  }
+  },
 
+  // apply for placement_id's placement
+  applyForPlacement(id, placement_id) {
+    // /users/2/student/placementRegistration
+    let url = '/users/' + id + '/student/placementRegistration'
+    return HTTP.post(url, {
+      placement_id: placement_id
+    })
+  },
+
+  // users/id/student/applyToAppliedButton/{placement_id}
+  getUserAppliedForPlacement(id, placement_id) {
+    let url = '/users/' + id + '/student/applyToAppliedButton/' + placement_id;
+    return HTTP.get(url);
+  }
 
 };

@@ -2,13 +2,16 @@
   <div class="placement-page">
     <div class="container box">
 
-      <div class="job-header job-section">
+      <div class="job-header job-section" v-if="dashboardJobDetails.company">
         <div class="heading-main">
           <p class="title is-3 job-title">{{dashboardJobDetails.job_title}}</p>
           <p class="subtitle is-6 company-details">{{dashboardJobDetails.company.company_name}}, {{dashboardJobDetails.company.address}}</p>
         </div>
         <div class="header-action is-pulled-right">
           <span class="tag">{{dashboardJobDetails.job_type.job_type}}</span>
+          <div class="apply-box">
+            <a class="button is-success" @click="userApplyForPlacement">{{apply}}</a>
+          </div>
         </div>
       </div>
 
@@ -21,14 +24,16 @@
       <div class="eligibility-criteria job-section">
         <b class="section-header">Eligibility Criteria</b>
         <div class="columns">
-          <div class="column" v-for = "categories in dashboardJobDetails.categories">
+          <div class="column" v-for="categories in dashboardJobDetails.categories">
             <div class="card">
               <header class="card-header">
                 <p class="card-header-title"> {{ categories.name }} </p>
               </header>
               <footer class="stripe-footer">
                 <div class="columns is-gapless is-mobile">
-                  <div class="column" v-for = "cat in categories.criterias"> {{cat.education_id}} <br> {{cat.cpi_required}} </div>
+                  <div class="column" v-for="cat in categories.criterias">
+                    {{ cat.education.name }} <br> CPI Required: {{cat.cpi_required}}
+                  </div>
                 </div>
               </footer>
             </div>
@@ -52,11 +57,12 @@
           </div>
 
 
-            <div class="box process" v-for="rounds in dashboardJobDetails.placement_selection">
-              <p>{{ rounds.round_name }}</p>
-              <modal @close="showModal = false" class="showModal" v-if="showModal" :rounds="rounds"></modal>
-              <a @click="showModal = true">View Info</a>
-            </div>
+          <div class="box process" v-for="round in dashboardJobDetails.placement_selection">
+            <p>
+              <b>{{ round.round_name }}</b>
+            </p>
+            <roundBox :key="round.id" :round="round"></roundBox>
+          </div>
 
 
           <div class="process-offer process">
@@ -76,7 +82,7 @@
 </template>
 
 <script>
-import PlacementModal from '@/components/PlacementModal'
+import PlacementRoundDetail from '@/components/PlacementRoundDetail'
 import placement from '@/api/placement'
 // import education from '@/api/education'
 import user from '@/api/user'
@@ -85,22 +91,19 @@ import Auth from '@/packages/auth/Auth'
 export default {
   name: 'placement',
   components: {
-    'modal': PlacementModal
+    'roundBox': PlacementRoundDetail
   },
   data() {
     return {
       placement_id: null,
       jobProfile: {},
       dashboardJobDetails: [],
-      showModal: false,
       roundsData: {
-
-      }
+      },
+      apply: 'Apply'
     }
   },
   created() {
-    //route returns placement id
-    //getUserId returns user id
     this.placement_id = this.$route.params.id;
     user.getUserPlacementDetails(this.getUserId(), this.placement_id)
     .then((response) => {
@@ -109,10 +112,34 @@ export default {
     .catch((error) => {
       console.log(error.message);
     });
+    user.getUserAppliedForPlacement(this.getUserId(), this.placement_id)
+    .then((response) => {
+      if(response.data == 0) {
+        this.apply = 'Apply'
+      }
+      else {
+        this.apply = 'Applied'
+      }
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
   },
   methods: {
     getUserId() {
       return Auth.getUserToken();
+    },
+    userApplyForPlacement() {
+      user.applyForPlacement(this.getUserId(), this.placement_id)
+      .then((response) => {
+        if(response.status == 200) {
+          alert('Applied');
+          this.apply = 'Applied';
+        }
+      })
+      .catch((error) => {
+        console.log(error.response);
+      })
     }
   }
 }
@@ -146,7 +173,7 @@ export default {
     justify-content: space-between;
     align-items: center;
     border-radius: 4px 4px 0 0;
-    box-shadow: inset 0px -8px 16px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 -8px 16px rgba(0, 0, 0, 0.2);
 
     .title {
       margin-bottom: 0;
@@ -157,6 +184,15 @@ export default {
       color: #1d4586;
       font-weight: bold;
       margin-top: 0.5rem;
+    }
+
+    .header-action {
+      .apply-box {
+        margin-top: 10px;
+        .button {
+          width: 100%;
+        }
+      }
     }
   }
 
@@ -188,7 +224,7 @@ export default {
     margin: auto;
     text-align: center;
     position: relative;
-    &::after{
+    &::after {
       position: absolute;
       content: '';
       height: 100%;
@@ -216,10 +252,10 @@ export default {
       position: relative;
       margin: 2rem 0;
       z-index: 3;
-      &:first-child:before{
+      &:first-child:before {
         display: none;
       }
-      &:last-child{
+      &:last-child {
         padding-top: 0.3rem;
       }
       &:before {

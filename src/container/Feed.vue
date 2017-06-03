@@ -5,7 +5,8 @@
 
       <div class="columns is-multiline">
         <div class="column is-full" v-if="!feedsNull">
-          <div  v-for="feed in feeds">
+          <router-link :to="{ name: 'view-job-profile', params: { id: feed.placement_id } }" v-for="feed in feeds">
+            <!-- {{ placement_id = feed.placement_id }} -->
             <article class="media media-card">
               <figure class="media-left">
                 <p class="image is-64x64">
@@ -28,7 +29,7 @@
                 </div>
               </div>
             </article>
-          </div>
+          </router-link>
         </div>
 
         <div class="column is-full" v-if="feedsNull">
@@ -57,7 +58,8 @@ export default {
   data() {
     return {
       feeds: { },
-      feedsNull: false
+      feedsNull: false,
+      placement_id: null
     }
   },
   created(){

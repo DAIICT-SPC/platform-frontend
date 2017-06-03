@@ -45,7 +45,7 @@ export default{
       this.education = response.data;
     })
   },
-  watch() {
+  beforeUpdate() {
     education.all().then((response) => {
       this.education = response.data;
     })

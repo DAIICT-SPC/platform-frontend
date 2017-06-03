@@ -46,21 +46,6 @@
 
 					<div class="field is-horizontal abt-admin">
 						<div class="field-label">
-							<p>Programme Name</p>
-						</div>
-						<div class="field-body">
-							<div>
-								<p class="control ">
-									<span class="select is-fullwidth">
-										<category-dropdown :category_id_old="studentDetails.category_id"></category-dropdown>
-									</span>
-								</p>
-							</div>
-						</div>
-					</div>
-
-					<div class="field is-horizontal abt-admin">
-						<div class="field-label">
 							<p>Contact No</p>
 						</div>
 						<div class="field-body">
@@ -111,20 +96,6 @@
 								<div class="help is-danger" v-show="errors.has('gender')">
 									{{errors.first('gender')}}
 								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="field is-horizontal abt-admin">
-						<div class="field-label">
-							<p>Category</p>
-						</div>
-						<div class="field-body">
-							<div>
-								<p class="control ">
-									<input  type="text" name="category" class="input">
-								</p>
-
 							</div>
 						</div>
 					</div>

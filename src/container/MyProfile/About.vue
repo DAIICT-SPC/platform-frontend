@@ -30,7 +30,7 @@
         </div>
       </div>
 
-      <div class="field is-horizontal">
+      <div class="field is-horizontal" v-if="userMainDetails.category">
         <div class="field-label">
           <p>Programe Name</p>
         </div>
