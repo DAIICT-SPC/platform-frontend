@@ -15,7 +15,7 @@
 
       <hr>
 
-      <div class="content main-content">
+      <div class="content main-content"  v-if="userMainDetails.category">
         <div class="profile-meta">
           <div>Semester {{  }} | {{ userMainDetails.category.name }}</div>
           <div>2018 Passout Batch</div>

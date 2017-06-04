@@ -72,7 +72,7 @@
 					</div>
 				</section>
 				<footer class="modal-card-foot">
-					<a class="button is-success" @click="validateAndUpdateAdminDetails">Save changes</a> <pre>{{$data}}</pre>
+					<a class="button is-success" @click="validateAndUpdateAdminDetails">Save changes</a>
 					<a class="button" v-on:click="$emit('close')">Cancel</a>
 				</footer>
 			</div>

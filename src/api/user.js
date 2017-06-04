@@ -45,10 +45,12 @@ export default {
     return HTTP.get(url);
   },
 
-  postUserDetails(id, category_id, temp_address, perm_address, contact_no, dob, gender) {
+  postUserDetails(id, enroll_no, category_id, temp_address, perm_address, contact_no, dob, gender) {
     // /users/2/student/update
+    console.log(id + "-" + enroll_no+"-"+ category_id+"-"+ temp_address+"-"+ perm_address+"-"+ contact_no+"-"+ dob+"-"+ gender);
     let url = '/users/' + id + '/student/update'
-    return HTTP.post(url , {
+    return HTTP.patch(url , {
+      enroll_no, enroll_no,
       category_id: category_id,
       temp_address: temp_address,
       perm_address: perm_address,
@@ -58,16 +60,26 @@ export default {
     });
   },
 
+  postUserPersonalDetails(id, name) {
+    // /users/2/student/updatePersonal
+    let url = '/users/' + id + '/student/updatePersonal'
+    return HTTP.post(url, {
+      name: name
+    });
+  },
+
   getUserEducation(id) {
     let url = '/users/' + id + '/student/education';
     return HTTP.get(url);
   },
 
+  //dashboard page
   getHomeDashboard(id) {
     let url = '/users/' + id + '/student/dashboard';
     return HTTP.get(url);
   },
 
+  //job profile page
   getUserJobProfile(id) {
     // /api/users/2/student/jobProfile
     let url = '/users/' + id + '/student/jobProfile'
@@ -76,10 +88,32 @@ export default {
 
   //get Student's Job Profile Details based on Placement Id
   getUserPlacementDetails(id, pid){
-    // /users/3/company/1/showPlacementDetails/
+    // /users/2/student/1/showPlacementDetails/
     let url = '/users/' + id + '/student/' + pid + '/showPlacementDetails';
     return HTTP.get(url);
-  }
+  },
 
+  // apply for placement_id's placement
+  applyForPlacement(id, placement_id) {
+    // /users/2/student/placementRegistration
+    let url = '/users/' + id + '/student/placementRegistration'
+    return HTTP.post(url, {
+      placement_id: placement_id
+    })
+  },
+
+  // users/id/student/applyToAppliedButton/{placement_id}
+  getUserAppliedForPlacement(id, placement_id) {
+    let url = '/users/' + id + '/student/applyToAppliedButton/' + placement_id;
+    return HTTP.get(url);
+  },
+
+  cancelPlacement(id, placement_id) {
+    // /users/2/student/cancelRegistration
+    let url = '/users/' + id + '/student/cancelRegistration'
+    return HTTP.post(url, {
+      placement_id: placement_id
+    })
+  }
 
 };

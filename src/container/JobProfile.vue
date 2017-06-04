@@ -21,13 +21,12 @@
             </div>
             <div class="card-content">
               <div class="content">
-                Company:&nbsp;<b>Dummy</b><br>
+                Company:&nbsp;<b>{{jobs.company.company_name}}</b><br>
                 Location:&nbsp;<b>{{jobs.location}}</b>
               </div>
             </div>
             <footer class="card-footer">
               <router-link :to="{ name: 'view-job-profile', params: { id: jobs.placement_id } }" class="card-footer-item">View</router-link>
-              <a class="card-footer-item">Apply</a>
             </footer>
           </div>
           <!-- 1/3 col -->

@@ -136,7 +136,7 @@ export default {
   methods: {
     validateAndSendPlacementDetails() {
       this.validate().then(this.saveAndSendPlacementDetails()).catch(() => {
-        alert("Error");
+        console.log("Error");
       });
     },
     validate() {

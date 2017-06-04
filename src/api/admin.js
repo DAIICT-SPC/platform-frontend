@@ -11,12 +11,18 @@ export default {
 
   postUserDetails(id, name, contact_no, position) {
     let url = '/users/' + id + '/admin/update'
-    console.log(url);
-    return HTTP.post(url, {
+    return HTTP.patch(url, {
       name: name,
       contact_no: contact_no,
       position: position
     });
+  },
+
+  createSeason(title) {
+    let url = '/placement_season'
+    return HTTP.post(url, {
+      title: title
+    })
   }
 
 }

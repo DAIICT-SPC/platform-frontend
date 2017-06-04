@@ -14,7 +14,7 @@
             <div class="field-body">
               <div>
                 <p class="control ">
-                  {{ companyDetails.name }}
+                  {{ companyDetails.company_name }}
                 </p>
               </div>
             </div>
@@ -119,7 +119,6 @@ export default {
   created() {
     company.getUserDetails(this.getUserId()).then((response) => {
       this.companyDetails = response.data;
-      console.log();
     })
     .catch((error) => {
       console.log(error.response.status);

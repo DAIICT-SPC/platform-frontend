@@ -85,7 +85,7 @@ export default {
   methods: {
     login() {
       this.validate().then(this.loginUser).catch(() => {
-        alert("Error");
+        console.log("Error");
       });
     },
     validate() {
@@ -143,14 +143,15 @@ export default {
       opacity: 0.7;
     }
   }
-
-  .notification.is-danger {
-    display: table;
-    //content accordingly
-    margin-bottom: 0;
-    margin-right: 0;
-    margin-left: auto;
-    background-color: #b31d1d;
+  .hero {
+    .notification.is-danger {
+      display: table;
+      //content accordingly
+      margin-bottom: 0;
+      margin-right: 0;
+      margin-left: auto;
+      background-color: #b31d1d;
+    }
   }
 }
 </style>
