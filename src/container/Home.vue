@@ -84,7 +84,9 @@ export default {
 
   methods: {
     login() {
-      this.validate().then(this.loginUser).catch(() => {
+      this.validate()
+      .then(this.loginUser)
+      .catch(() => {
         console.log("Error");
       });
     },
@@ -95,25 +97,32 @@ export default {
       user.login(this.email, this.password)
       .then(this.storeToken)
       .catch((error) => {
-        if(error.response.status == 404){
-          alert(error.response.data.message)
-        }
-        else {
-          alert(error)
-        }
+        console.log(error);
       })
-      .then(this.redirect);
+      // .then(this.redirect);
     },
+
     storeToken: (response) => {
       this.decodedToken = jwtDecode(response.data.token)
       Auth.setUserToken(this.decodedToken.sub)
       Auth.setToken(response.data.token)
+      user.getRole(this.decodedToken.sub)
+      .then((response) => {
+        if(response.data.role == 'student') {
+          window.location.href='/dashboard';
+        }
+        else if(response.data.role == 'company') {
+          window.location.href='/company';
+        }
+        else if(response.data.role == 'admin') {
+          window.location.href='/admin';
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      })
     },
-    redirect() {
-      this.$router.push({
-        name: 'dashboard'
-      });
-    }
+
   }
 }
 </script>

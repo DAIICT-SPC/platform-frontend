@@ -3,6 +3,12 @@ import HTTP from '@/packages/http';
 
 export default {
 
+  adminDashboard() {
+    // api/placement_season/  add that are not draft
+    let url = '/placement_season/';
+    return HTTP.get(url);
+  },
+
   getUserDetails(id) {
     // /users/2/company/show
     let url = '/users/' + id + '/admin/show'

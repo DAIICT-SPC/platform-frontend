@@ -146,6 +146,11 @@ export default {
     return HTTP.post(url, {
       placement_id: placement_id
     })
+  },
+
+  getRole(id) {
+    let url = '/users/show/' + id;
+    return HTTP.get(url);
   }
 
 };

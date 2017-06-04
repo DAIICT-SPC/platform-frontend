@@ -3,14 +3,14 @@
 		<div class="container dashboard-admin">
 
 
-			<div class="columns is-multiline">
+			<div class="columns is-multiline" v-for = "season in placementsSeasons">
 
 				<!-- 1/3 col -->
 				<div class="column is-one-third">
 					<div class="card placement-tiles">
 						<header class="card-header">
 							<p class="card-header-title">
-								Placement Season
+								{{ season.title }}
 							</p>
 							<a class="card-header-icon">
 								<span class="icon">
@@ -18,12 +18,12 @@
 								</span>
 							</a>
 						</header>
-						<div class="card-content">
+						<!-- <div class="card-content">
 							<div class="content">
-								Compony:&nbsp;<b>DLF</b><br>
+								Company:&nbsp;<b>DLF</b><br>
 								Location:&nbsp;<b>Banglore, India</b>
 							</div>
-						</div>
+						</div> -->
 						<footer class="card-footer">
 							<router-link :to="{ name: 'view-job-profile', params: { id: 1 } }" class="card-footer-item">View</router-link>
 						</footer>
@@ -31,83 +31,7 @@
 				</div>
 				<!-- 1/3 col -->
 
-				<!-- 1/3 col -->
-				<div class="column is-one-third">
-					<div class="card placement-tiles">
-						<header class="card-header">
-							<p class="card-header-title">
-								Placement Season
-							</p>
-							<a class="card-header-icon">
-								<span class="icon">
-									<span class="tag is-success status">Open</span>
-								</span>
-							</a>
-						</header>
-						<div class="card-content">
-							<div class="content">
-								Compony:&nbsp;<b>DLF</b><br>
-								Location:&nbsp;<b>Banglore, India</b>
-							</div>
-						</div>
-						<footer class="card-footer">
-							<router-link :to="{ name: 'view-job-profile', params: { id: 1 } }" class="card-footer-item">View</router-link>
-						</footer>
-					</div>
-				</div>
-				<!-- 1/3 col -->
 
-				<!-- 1/3 col -->
-				<div class="column is-one-third">
-					<div class="card placement-tiles">
-						<header class="card-header">
-							<p class="card-header-title">
-								Placement Season
-							</p>
-							<a class="card-header-icon">
-								<span class="icon">
-									<span class="tag is-success status">Open</span>
-								</span>
-							</a>
-						</header>
-						<div class="card-content">
-							<div class="content">
-								Compony:&nbsp;<b>DLF</b><br>
-								Location:&nbsp;<b>Banglore, India</b>
-							</div>
-						</div>
-						<footer class="card-footer">
-							<router-link :to="{ name: 'view-job-profile', params: { id: 1 } }" class="card-footer-item">View</router-link>
-						</footer>
-					</div>
-				</div>
-				<!-- 1/3 col -->
-
-				<!-- 1/3 col -->
-				<div class="column is-one-third">
-					<div class="card placement-tiles">
-						<header class="card-header">
-							<p class="card-header-title">
-								Placement Season
-							</p>
-							<a class="card-header-icon">
-								<span class="icon">
-									<span class="tag is-success status">Open</span>
-								</span>
-							</a>
-						</header>
-						<div class="card-content">
-							<div class="content">
-								Compony:&nbsp;<b>DLF</b><br>
-								Location:&nbsp;<b>Banglore, India</b>
-							</div>
-						</div>
-						<footer class="card-footer">
-							<router-link :to="{ name: 'view-job-profile', params: { id: 1 } }" class="card-footer-item">View</router-link>
-						</footer>
-					</div>
-				</div>
-				<!-- 1/3 col -->
 
 			</div>
 		</div>
@@ -115,8 +39,29 @@
 </template>
 
 <script>
+import admin from '@/api/admin'
+
 export default {
-	name: 'placement-seasons-admin-home'
+	name: 'placement-seasons-admin-home',
+	created() {
+		this.callDashboard();
+	},
+	data() {
+		return {
+			placementsSeasons: []
+		};
+	},
+	methods: {
+		callDashboard() {
+			admin.adminDashboard()
+			.then((response) => {
+	      this.placementsSeasons = response.data;
+	    })
+	    .catch((error) => {
+	      console.log(error);
+	    });
+		}
+	}
 }
 </script>
 

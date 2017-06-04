@@ -2,7 +2,7 @@
 	<div class="new-placement-page">
 		<div class="container placement-page">
 
-			<h2 class="title header">Start New Placement Season</h2>
+			<h2 class="title header">Manage</h2>
 			<div>
 				<div class="field has-addons">
 					<p class="control is-fullwidth">
@@ -20,7 +20,7 @@
 			<!-- tabs starts -->
 			<div class="tabs">
 				<ul>
-					<li><router-link :to="{ name: 'admin-home' }">Show All</router-link></li>
+					<li><router-link :to="{ name: 'create-new-placement' }">Show All</router-link></li>
 					<li><router-link :to="{ name: 'show-add-categories' }">Categories</router-link></li>
 					<li><router-link :to="{ name: 'show-add-jobtypes' }">Job Types</router-link></li>
 					<li><router-link :to="{ name: 'show-add-education' }">Education</router-link></li>
