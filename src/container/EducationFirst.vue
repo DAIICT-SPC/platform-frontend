@@ -1,11 +1,13 @@
 <template>
 	<div class="education-registration">
 		<div class="container">
-			<div class="box">
+			<div class="box" v-if="index == 0" v-for = "ed_id,index in educationArr">
 
 				<div class="education-header">
 					<h2 class="title">Education</h2>
 				</div>
+
+				<input v-model="edDetails.education_id = ed_id" type="hidden">
 
 				<div class="education-body">
 					<div class="columns">
@@ -13,7 +15,7 @@
 							<div class="field">
 								<label class="label">Enrollment Number</label>
 								<p class="control">
-									<input class="input" name="enrollment-number" v-validate="'required|number'" type="number" placeholder="Enrollment Number">
+									<input disabled v-model="enroll_no" class="input" name="enrollment-number" v-validate="'required'" type="number" placeholder="Enrollment Number">
 								</p>
 								<div v-show="errors.has('enrollment-number')" class="help is-danger">
 									The Enrollment number is required and should contain only numbers.
@@ -25,7 +27,7 @@
 							<div class="field">
 								<label class="label">Education</label>
 								<p class="control">
-									<category-dropdown></category-dropdown>
+									<education-dropdown :ed_id="ed_id"></education-dropdown>
 								</p>
 							</div>
 						</div>
@@ -36,8 +38,7 @@
 							<div class="field">
 								<label class="label">College/School</label>
 								<p class="control">
-									<input class="input" name="college_school" v-validate="'required|alpha_spaces'"
-									type="text" placeholder="College/School">
+									<input v-model="edDetails.clg_school" class="input" name="college_school" v-validate="'required'" type="text" placeholder="College/School">
 								</p>
 								<div v-show="errors.has('college_school')" class="help is-danger">
 									The College/School is required and should contain only letters.
@@ -49,11 +50,10 @@
 							<div class="field">
 								<label class="label">CPI</label>
 								<p class="control">
-									<input class="input" name="cpi" v-validate="'required|number'" type="number"
-									placeholder="CPI">
+									<input v-model="edDetails.cpi" class="input" name="cpi" v-validate="'required|max_value:10'" type="number" placeholder="CPI">
 								</p>
 								<div v-show="errors.has('cpi')" class="help is-danger">
-									The CPI is required.
+									The CPI is required and should not be greater than 10.
 								</div>
 							</div>
 						</div>
@@ -64,65 +64,63 @@
 							<div class="field">
 								<label class="label">Start Year</label>
 								<p class="control">
-									<datepicker name="start_date" placeholder="Start Year"
-									:config="{ dateFormat: 'Y-m-d', wrap: true, maxDate: 'today', static: true }">
-								</datepicker>
-							</p>
-							<div v-show="errors.has('start_date')" class="help is-danger">
-								The Start Year is required.
+									<datepicker v-model="edDetails.start_year" name="start_date" placeholder="Start Year" :config="{ dateFormat: 'Y-m-d', wrap: true, maxDate: 'today', static: true }">
+									</datepicker>
+								</p>
+								<div v-show="errors.has('start_date')" class="help is-danger">
+									The Start Year is required.
+								</div>
+							</div>
+						</div>
+
+						<div class="column">
+							<div class="field">
+								<label class="label">End Year</label>
+								<p class="control">
+									<datepicker v-model="edDetails.end_year" name="start_date" placeholder="End Year" :config="{ dateFormat: 'Y-m-d', wrap: true, static: true }">
+									</datepicker>
+								</p>
+								<div v-show="errors.has('end_date')" class="help is-danger">
+									The End Year is required.
+								</div>
 							</div>
 						</div>
 					</div>
 
-					<div class="column">
-						<div class="field">
-							<label class="label">End Year</label>
-							<p class="control">
-								<datepicker name="start_date" placeholder="End Year"
-								:config="{ dateFormat: 'Y-m-d', wrap: true, maxDate: 'today', static: true }">
-							</datepicker>
-						</p>
-						<div v-show="errors.has('end_date')" class="help is-danger">
-							The End Year is required.
+					<div class="columns">
+						<div class="column">
+							<div class="field">
+								<label class="label">Drive Link &nbsp;<small><a class="is-success is-small">Learn how to do</a></small></label>
+								<p class="control">
+									<input v-model="edDetails.drive_link" class="input" name="drive_link" v-validate="'required|url'" type="text"
+									placeholder="Drive Link">
+								</p>
+								<div v-show="errors.has('drive_link')" class="help is-danger">
+									The Drive Link is required.
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
 
-			<div class="columns">
-				<div class="column">
-					<div class="field">
-						<label class="label">Drive Link &nbsp;<small><a class="is-success is-small">Learn how to do</a></small></label>
-						<p class="control">
-							<input class="input" name="drive_link" v-validate="'required|alpha_num_dash'" type="text"
-							placeholder="Drive Link">
-						</p>
-						<div v-show="errors.has('drive_link')" class="help is-danger">
-							The Drive Link is required.
-						</div>
-					</div>
+				<div class="field education-button">
+					<p class="has-text-centered">
+						<button name="company" class="button is-success submit-button" @click="validateAndAddNewEducation">
+							Save and Next
+						</button>
+					</p>
 				</div>
+
+				<!-- <pre>{{$data}}</pre> -->
 			</div>
 		</div>
-
-		<div class="field education-button">
-			<p class="has-text-centered">
-				<button name="company" class="button is-success submit-button">
-					Save
-				</button>
-			</p>
-		</div>
-
 
 	</div>
-</div>
-
-</div>
 </template>
 
 <script>
 import Datepicker from 'vue-bulma-datepicker'
-import CategoryDropdown from '@/components/CategoryDropdown'
+import EducationDropdown from '@/components/EducationDropdown'
 import user from '@/api/user'
 import Auth from '@/packages/auth/Auth'
 
@@ -130,26 +128,77 @@ export default{
 	name: 'education-registration',
 	components: {
 		Datepicker,
-		CategoryDropdown
+		EducationDropdown
 	},
 	data() {
 		return {
-			categoriesArr: []
+			educationArr: [],
+			ed_id: null,
+			enroll_no: null,
+			edDetails: {
+				education_id: null,
+				clg_school: '',
+				cpi: null,
+				start_year: '',
+				end_year: '',
+				drive_link: ''
+			}
 		};
 	},
 	created() {
+		this.getUserDetails();
 		this.getUserEdForCat();
 	},
 	methods: {
-		getUserEdForCat() {
-			console.log('called');
-			user.getUserEducationForCategory(this.getUserId())
+		getUserDetails() {
+			user.getUserDetails(this.getUserId())
 			.then((response) => {
-				this.categoriesArr = response.data;
+				this.enroll_no = response.data.enroll_no;
 			})
 			.catch((error) => {
 				console.log(error);
 			})
+		},
+		getUserEdForCat() {
+			user.getUserEducationForCategory(this.getUserId())
+			.then((response) => {
+				console.log("array length: " + this.educationArr.length);
+				if(this.educationArr.length == 0) {
+					this.$router.push({ name: 'home' });
+				}
+				else {
+					this.educationArr = response.data;
+				}
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+		},
+		getUserId() {
+			return Auth.getUserToken();
+		},
+		validateAndAddNewEducation() {
+			this.validate()
+			.then(() => {
+				user.postNewUserEducation(this.getUserId(), this.edDetails.education_id, this.edDetails.clg_school, this.edDetails.cpi,
+				this.edDetails.start_year, this.edDetails.end_year, this.edDetails.cpi)
+				.then((response) => {
+					if(response.status == 200) {
+						alert('Education Details Entered. Now Proceed to fill the Next Details');
+						//refresh all
+						this.$router.push({ name: 'education-first' });
+					}
+				})
+				.catch((error) => {
+					console.log(error);
+				})
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+		},
+		validate() {
+			return this.$validator.validateAll();
 		},
 		getUserId() {
 			return Auth.getUserToken();
@@ -170,9 +219,10 @@ export default{
 
 	.box {
 		margin-top: 2rem;
+		margin-bottom: 2rem;
 		padding: 0;
 		border-radius: 4px;
-    box-shadow: 0px 4px 5px #d0cfcf;
+		box-shadow: 0px 4px 5px #d0cfcf;
 	}
 
 	.education-header {

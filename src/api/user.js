@@ -73,6 +73,19 @@ export default {
     return HTTP.get(url);
   },
 
+  postNewUserEducation(id, education_id, clg_school, cpi, start_year, end_year, drive_link) {
+    // /users/1/student/education
+    let url = '/users/' + id + '/student/education';
+    return HTTP.post(url, {
+      education_id: education_id,
+      clg_school: clg_school,
+      cpi: cpi,
+      start_year: start_year,
+      end_year: end_year,
+      drive_link: drive_link
+    });
+  },
+
   updateUserEducation(id, education_id, clg_school, start_year, end_year, drive_link, cpi) {
     // /users/1/student/education/1 <-{education_id}
     let url = '/users/' + id + '/student/education/' + education_id

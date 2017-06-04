@@ -23,8 +23,12 @@ export default {
     }
   },
   created() {
+    education.all().then((response) => {
+      this.education = response.data;
+    })
     this.callEducation();
     this.education_id = this.ed_id;
+    console.log(this.ed_id);
   },
   beforeUpdate() {
     this.$bus.$emit('education-change', { id: this.education_id });
