@@ -1,7 +1,12 @@
 import HTTP from '@/packages/http';
-
+import Auth from '@/packages/auth/Auth';
 
 export default {
+
+  getAdminDetails(id) {
+    let url = '/users/' + id + '/admin/show';
+    return HTTP.get(url);
+  },
 
   adminDashboard() {
     // api/placement_season/  add that are not draft

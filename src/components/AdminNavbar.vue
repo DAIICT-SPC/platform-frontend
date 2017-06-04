@@ -17,7 +17,7 @@
         </span>
         <div class="nav-right nav-menu">
           <!-- <div class="nav-item is-tab" @click="logout"><a class="button">Logout!</a></div> -->
-          <dropdown title="User" align="right">
+          <dropdown :title="userName" align="right">
             <a @click="logout">Logout</a>
           </dropdown>
         </div>
@@ -32,6 +32,14 @@ export default {
   name: 'admin-navbar',
   components: {
     Dropdown
+  },
+  props: {
+    userName: {
+      required: true
+    }
+  },
+  created() {
+    console.log(this.userName);
   },
   methods: {
     logout() {

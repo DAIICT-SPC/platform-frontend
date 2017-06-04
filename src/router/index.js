@@ -24,6 +24,11 @@ import SelectRoundDetails from '@/container/Company/PlacementDrive/SelectRoundDe
 import PlacementCriteria from '@/container/Company/PlacementDrive/PlacementCriteria'
 import AdminDashboard from '@/container/Admin/AdminDashboard'
 import PlacementSeasonsAdminHome from '@/container/Admin/PlacementSeasonsAdminHome'
+import PlacementSeasonDrivesAdmin from '@/container/Admin/PlacementSeasonDrivesAdmin'
+import PlacementsInSeasons from '@/container/Admin/PlacementsInSeasons'
+import PlacementDriveDescription from '@/container/Admin/PlacementDriveDescription'
+import CompanywisePlacement from '@/container/Admin/CompanywisePlacement'
+import CompaniesList from '@/container/Admin/CompaniesList'
 import NewPlacementSeason from '@/container/Admin/NewPlacementSeason'
 import AdminProfile from '@/container/Admin/Profile'
 import Category from '@/container/Admin/Category'
@@ -203,6 +208,47 @@ let router = new Router({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: 'placement-drives',
+      component: PlacementSeasonDrivesAdmin,
+      meta: {
+        requiresAuth: true
+      },
+      children: [
+        {
+          path: '/',
+          name: 'placements-in-seasons',
+          component: PlacementsInSeasons,
+          meta: {
+            requiresAuth: true
+          }
+        },
+        {
+          path: 'placements-drive-description',
+          name: 'placements-drive-description',
+          component: PlacementDriveDescription,
+          meta: {
+            requiresAuth: true
+          }
+        },
+        {
+          path: 'companywise-placement',
+          name: 'companywise-placement',
+          component: CompanywisePlacement,
+          meta: {
+            requiresAuth: true
+          }
+        },
+        {
+          path: 'company-list',
+          name: 'company-list',
+          component: CompaniesList,
+          meta: {
+            requiresAuth: true
+          }
+        },
+      ]
     },
     {
       path: 'new-season-start',

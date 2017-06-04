@@ -33,7 +33,7 @@
 						<div class="field-body">
 							<div>
 								<p class="control ">
-									<input type="email" name="email" class="input">
+									<input disabled v-validate="'required'" v-model="email = adminDetails.email" type="email" name="email" class="input">
 								</p>
 							</div>
 						</div>
@@ -108,7 +108,10 @@ export default{
 				// /console.log(this.getUserId()+"-"+ this.name+"-"+ this.contact_no+"-"+ this.position);
 				admin.postUserDetails(this.getUserId(), this.name, this.contact_no, this.position)
 				.then((response) => {
-					console.log(response);
+					if(response.status == 200){
+						alert('Profile Updated');
+						this.$emit('close');
+					}
 				})
 				.catch((error) => {
 					console.log(error.message);

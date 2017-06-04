@@ -29,7 +29,7 @@
 						<div class="field-body">
 							<div>
 								<p class="control ">
-
+									{{ adminDetails.email }}
 								</p>
 							</div>
 						</div>

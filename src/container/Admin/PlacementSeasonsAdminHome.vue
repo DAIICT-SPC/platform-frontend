@@ -2,7 +2,6 @@
 	<div class="placement-seasons-admin-home">
 		<div class="container dashboard-admin">
 
-
 			<div class="columns is-multiline" v-for = "season in placementsSeasons">
 
 				<!-- 1/3 col -->
@@ -25,7 +24,7 @@
 							</div>
 						</div> -->
 						<footer class="card-footer">
-							<router-link :to="{ name: 'view-job-profile', params: { id: 1 } }" class="card-footer-item">View</router-link>
+							<router-link :to="{ name: 'placements-in-seasons', params: { id: 1 } }" class="card-footer-item">View</router-link>
 						</footer>
 					</div>
 				</div>

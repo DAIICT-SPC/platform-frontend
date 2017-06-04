@@ -21,14 +21,7 @@ export default {
     Navbar
   },
   created() {
-    user.getUserDetails(this.getUserId())
-    .then((response) => {
-      this.userDetails = response.data;
-      this.userName = response.data.name;
-    })
-    .catch((error) => {
-      console.log(error.message);
-    })
+    this.getStudentDetails();
     // Listen for logout event
     this.$bus.$on('logout', () => {
       Auth.destroyToken();
@@ -46,6 +39,16 @@ export default {
   methods: {
     getUserId() {
       return Auth.getUserToken();
+    },
+    getStudentDetails() {
+      user.getUserDetails(this.getUserId())
+      .then((response) => {
+        this.userDetails = response.data;
+        this.userName = response.data.name;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      })
     }
   }
 }
