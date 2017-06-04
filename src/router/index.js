@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Auth from '@/packages/auth/Auth'
 import Home from '@/container/Home'
+import EducationFirst from '@/container/EducationFirst'
 import SignUp from '@/container/SignUp'
 import Page404 from '@/container/Page404'
 import Dashboard from '@/container/Dashboard'
@@ -45,6 +46,11 @@ let router = new Router({
     path: '/signup/:code',
     name: 'signup',
     component: SignUp,
+  },
+  {
+    path: '/education',
+    name: 'education-first',
+    component: EducationFirst,
   },
   {
     path: '/404-page-not-found',

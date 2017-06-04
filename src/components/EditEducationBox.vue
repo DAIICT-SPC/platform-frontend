@@ -32,7 +32,7 @@
             <div class="field">
               <label class="label">Start Year</label>
               <p class="control">
-                <datepicker v-model="education.start_year = userEd.start_year" v-validate="'required'"  name="start_year" placeholder="Start Year" :config="{ dateFormat: 'Y-m-d', wrap: true, maxDate: 'today', static: true }">
+                <datepicker v-model="education.start_year = userEd.start_year" v-validate="'required'"  name="start_year" placeholder="Start Year" :config="{ dateFormat: 'Y-m-d', wrap: true, static: true }">
                 </datepicker>
               </p>
               <div class="help is-danger" v-show="errors.has('start_year')">
@@ -44,7 +44,7 @@
             <div class="field">
               <label class="label">End Year</label>
               <p class="control">
-                <datepicker v-model="education.end_year = userEd.end_year" v-validate="'required'"  name="end_year" placeholder="Start Year" :config="{ dateFormat: 'Y-m-d', wrap: true, maxDate: 'today', static: true }">
+                <datepicker v-model="education.end_year = userEd.end_year" v-validate="'required'"  name="end_year" placeholder="Start Year" :config="{ dateFormat: 'Y-m-d', wrap: true, static: true }">
                 </datepicker>
               </p>
               <div class="help is-danger" v-show="errors.has('end_year')">

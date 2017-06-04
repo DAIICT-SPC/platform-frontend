@@ -92,14 +92,17 @@ export default {
       return this.$validator.validateAll();
     },
     loginUser() {
-      user.login(this.email, this.password).then(this.storeToken).catch((error) => {
+      user.login(this.email, this.password)
+      .then(this.storeToken)
+      .catch((error) => {
         if(error.response.status == 404){
           alert(error.response.data.message)
         }
         else {
           alert(error)
         }
-      }).then(this.redirect);
+      })
+      .then(this.redirect);
     },
     storeToken: (response) => {
       this.decodedToken = jwtDecode(response.data.token)

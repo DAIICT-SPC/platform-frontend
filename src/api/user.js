@@ -86,6 +86,12 @@ export default {
     })
   },
 
+  getUserEducationForCategory(id) {
+    // /users/13/student/fetchEducationAccordingToCategoryForStudent
+    let url = '/users/' + id + '/student/fetchEducationAccordingToCategoryForStudent'
+    return HTTP.get(url);
+  },
+
   //dashboard page
   getHomeDashboard(id) {
     let url = '/users/' + id + '/student/dashboard';

@@ -75,9 +75,7 @@
                 <div class="field">
                   <label class="label">Category</label>
                   <p class="control">
-                    <span class="select is-fullwidth">
-                      <category-dropdown></category-dropdown>
-                    </span>
+                    <category-dropdown></category-dropdown>
                   </p>
                 </div>
               </div>
@@ -162,17 +160,17 @@
             <div class="column">
             </div>
           </div>
-          <div class="field">
-            <p class="has-text-centered">
-              <button name="student" class="button is-success submit-button" @click="registerAndValidate('student')">
-                Register
-              </button>
-            </p>
-          </div>
-
-
-
         </div>
+        <div class="field register-button">
+          <p class="has-text-centered">
+            <button name="student" class="button is-success submit-button" @click="registerAndValidate('student')">
+              Register
+            </button>
+          </p>
+        </div>
+
+
+
       </div>
 
 
@@ -322,6 +320,7 @@ import Datepicker from 'vue-bulma-datepicker'
 import Auth from '@/packages/auth/Auth'
 import CategoryDropdown from '@/components/CategoryDropdown'
 import user from '@/api/user'
+import jwtDecode from 'jwt-decode'
 
 export default {
   name: 'signup',
@@ -388,8 +387,8 @@ export default {
   },
   methods: {
     push404(email){
-       if(this.email != null){
-          console.log(this.role + ' Registration');
+      if(this.email != null){
+        console.log(this.role + ' Registration');
       }
       else {
         this.$router.push({
@@ -414,10 +413,19 @@ export default {
             this.code, this.student.enroll_no, this.student.category, this.student.temporaryAddress,
             this.student.permanentAddress, this.student.gender, this.student.dob)
             .then((response) => {
-              alert('User Registration Successful');
-              this.$router.push({
-                name: 'home'
-              });
+              if(response.status == 200) {
+                alert('User Registration Successful');
+                // this.$router.push({
+                //   name: 'home'
+                // });
+                user.login(this.email, this.student.password)
+                .then(this.storeToken)
+                .catch((error) => {
+                  console.log(error);
+                })
+                .then(this.redirect);
+              }
+
             })
             .catch((error) => {
               console.log(error)
@@ -450,6 +458,16 @@ export default {
       },
       validateCompany() {
         return this.$validator.validateAll();
+      },
+      storeToken: (response) => {
+        this.decodedToken = jwtDecode(response.data.token)
+        Auth.setUserToken(this.decodedToken.sub)
+        Auth.setToken(response.data.token)
+      },
+      redirect() {
+        this.$router.push({
+          name: 'education-first'
+        });
       }
     }
   }
@@ -485,6 +503,11 @@ export default {
       .student-name {
         text-transform: capitalize;
       }
+    }
+
+    .field.register-button {
+      border-top: solid 1px #ddd;
+      padding-bottom: 1rem;
     }
   }
   </style>
