@@ -73,6 +73,19 @@ export default {
     return HTTP.get(url);
   },
 
+  updateUserEducation(id, education_id, clg_school, start_year, end_year, drive_link, cpi) {
+    // /users/1/student/education/1 <-{education_id}
+    let url = '/users/' + id + '/student/education/' + education_id
+    console.log(url);
+    return HTTP.patch(url, {
+      clg_school: clg_school,
+      start_year: start_year,
+      end_year: end_year,
+      drive_link: drive_link,
+      cpi: cpi
+    })
+  },
+
   //dashboard page
   getHomeDashboard(id) {
     let url = '/users/' + id + '/student/dashboard';

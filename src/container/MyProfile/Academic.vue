@@ -8,20 +8,23 @@
         <div class="card" v-if="index == 0" v-for="userEd,index in userEducationDetails">
           <header class="card-header">
             <p class="card-header-title">
-              {{ userEd.clg_school }}
+              {{ userEd.education.name }}
             </p>
             <span class="academic-year">{{ userEd.start_year.slice(0, 4) }} - {{ userEd.end_year.slice(0, 4) }}</span>
           </header>
           <div class="card-content">
             <div class="content">
-              No Board<br>
-              Senior Secondary Certificate
+              {{ userEd.clg_school }}<br>
+              <span v-if="userEd.drive_link">Link: {{userEd.drive_link}}</span>
             </div>
           </div>
           <footer class="card-footer">
             <span class="card-footer-item">{{ userEd.cpi }} CPI</span>
-            <a class="button is-white" @click="showModal = true">Edit</a>
-            <modal @close="showModal = false" v-if="showModal" :userEd="userEd"></modal>
+          </footer>
+          <footer class="card-footer">
+            <span class="card-footer-item">
+              <editEducation :userEd="userEd"></editEducation>
+            </span>
           </footer>
         </div>
       </div>
@@ -34,19 +37,23 @@
         <div class="card" v-if="index != 0" v-for="userEd,index in userEducationDetails">
           <header class="card-header">
             <p class="card-header-title">
-              {{ userEd.clg_school }}
+              {{ userEd.education.name }}
             </p>
             <span class="academic-year">{{ userEd.start_year.slice(0, 4) }} - {{ userEd.end_year.slice(0, 4) }}</span>
           </header>
           <div class="card-content">
             <div class="content">
-              No Board<br>
-              Senior Secondary Certificate
+              {{ userEd.clg_school }}<br>
+              <span v-if="userEd.drive_link">Link: {{userEd.drive_link}}</span>
             </div>
           </div>
           <footer class="card-footer">
             <span class="card-footer-item">{{ userEd.cpi }} CPI</span>
-            <a class="button is-white">Edit</a>
+          </footer>
+          <footer class="card-footer">
+            <span class="card-footer-item">
+              <editEducation :userEd="userEd"></editEducation>
+            </span>
           </footer>
         </div>
 
@@ -62,12 +69,12 @@
 <script>
 import user from '@/api/user'
 import Auth from '@/packages/auth/Auth'
-import EditEducationModal from '@/components/EditEducationModal'
+import EditEducationBox from '@/components/EditEducationBox'
 
 export default {
   name: 'academic',
   components: {
-    'modal' : EditEducationModal
+    'editEducation' : EditEducationBox
   },
   props: {
     userEducationDetails: {
