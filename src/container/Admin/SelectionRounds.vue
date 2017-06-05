@@ -7,12 +7,14 @@
 					<button class="button is-success">View Full-List</button>
 				</div>
 
-				<div class="selection-body" v-for="studentData in remainingStudents">
-					<input v-model="selectedStudents" :value="studentData.enroll_no" type="checkbox" name="checkbox" class="checkbox">
-					<span class="enroll title is-4">{{ studentData.enroll_no }}</span>
-					<span class="name title is-4">{{ studentData.user.name }}</span>
-					<span class="category title is-4">{{ studentData.category.name }}</span>
-					<a class="is-success view-profile"> View Profile </a>
+				<div v-for="studentData in remainingStudents">
+					<div class="selection-body" v-if="studentData.user">
+						<input v-model="selectedStudents" :value="studentData.enroll_no" type="checkbox" name="checkbox" class="checkbox">
+						<span class="enroll title is-4">{{ studentData.enroll_no }}</span>
+						<span class="name title is-4">{{ studentData.user.name }}</span>
+						<span class="category title is-4">{{ studentData.category.name }}</span>
+						<a class="is-success view-profile"> View Profile </a>
+					</div>
 				</div>
 
 				<div class="selection-checkbox">

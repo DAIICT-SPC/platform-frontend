@@ -29,6 +29,7 @@ import PlacementsInSeasons from '@/container/Admin/PlacementsInSeasons'
 import PlacementDriveDescription from '@/container/Admin/PlacementDriveDescription'
 import SelectionRounds from '@/container/Admin/SelectionRounds'
 import SelectionRoundsDynamic from '@/container/Admin/SelectionRoundsDynamic'
+import SelectedForOffer from '@/container/Admin/SelectedForOffer'
 import CompanywisePlacement from '@/container/Admin/CompanywisePlacement'
 import CompanywisePlacementCards from '@/container/Admin/CompanywisePlacementCards'
 import PlacementCompanywiseDescription from '@/container/Admin/PlacementCompanywiseDescription'
@@ -248,6 +249,14 @@ let router = new Router({
           path: 'selection-rounds-dynamic/:placement_id/:round_id',
           name: 'selection-rounds-dynamic',
           component: SelectionRoundsDynamic,
+          meta: {
+            requiresAuth: true
+          }
+        },
+        {
+          path: 'selected-for-offer/:placement_id',
+          name: 'selected-for-offer',
+          component: SelectedForOffer,
           meta: {
             requiresAuth: true
           }

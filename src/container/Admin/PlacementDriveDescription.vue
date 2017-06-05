@@ -1,6 +1,6 @@
 <template>
 	<div class="placement-detail-page">
-		<div class="details-box">
+		<div class="details box">
 			<div class="job-header job-section" v-if="placementDescription.company">
 				<div class="heading-main">
 					<p class="title is-3 job-title">{{ placementDescription.job_title }}</p>
@@ -14,11 +14,13 @@
 			<div class="job-description job-section">
 				<b class="section-header">Job Description
 					<div class="header-action is-pulled-right">
-						<a class="is-primary">Edit</a>
+						<div class="button is-white" @click="showDesc = !showDesc" v-if="!showDesc"> {{show}} </div>
+						<div class="button is-white" @click="showDesc = !showDesc" v-if="showDesc"> {{hide}} </div>
 					</div>
 				</b>
 
 				<p>{{ placementDescription.job_description }}</p>
+				<drive-box :placementDescription="placementDescription" v-if="showDesc"></drive-box>
 			</div>
 
 			<div class="eligibility-criteria job-section">
@@ -31,7 +33,6 @@
 							<header class="card-header">
 								<p class="card-header-title"> {{ categories.name }} </p>
 								<div class="header-action is-pulled-right edit-btn">
-									<a class="is-primary" @click="showEditEligibilityCriteriaModal=true">Edit</a>
 								</div>
 							</header>
 
@@ -40,6 +41,9 @@
 									<div class="column">{{ cat.education.name }} <br> {{cat.cpi_required}}</div>
 								</div>
 							</footer>
+							<div>
+								<criteria-box :key="categories.id" :criterias="categories.criterias"></criteria-box>
+							</div>
 						</div>
 					</div>
 
@@ -73,7 +77,7 @@
 					<div class="process-offer process">
 						<div class="box offer">
 							<p>Offer</p>
-							<a class="is-success">View info</a><br>
+							<router-link :to="{ name: 'selected-for-offer', params: { placement_id:placement_id }  }" class="is-success">View info</router-link><br>
 						</div>
 					</div>
 
@@ -81,16 +85,22 @@
 			</div>
 		</div>
 
-
 	</div>
 </template>
 
 <script>
 import Auth from '@/packages/auth/Auth';
 import admin from '@/api/admin';
+import PlacementDriveEditBox from '@/components/PlacementDriveEditBox'
+import EligibilityCriteriaBox from '@/components/EligibilityCriteriaBox'
 
 export default {
 	name: 'placement-detail-page',
+
+	components: {
+		'drive-box': PlacementDriveEditBox,
+		'criteria-box': EligibilityCriteriaBox
+	},
 
 	created() {
 		this.season_id = this.$route.params.season_id;
@@ -104,6 +114,11 @@ export default {
 			season_id: null,
 			placement_id: null,
 			placementDescription: { },
+			showDesc: false,
+			showCriteria: false,
+			criteriaId: null,
+			hide: "Hide",
+			show: "Edit"
 		}
 	},
 
@@ -111,6 +126,7 @@ export default {
 		getPlacementDetails() {
 			admin.getAdminPlacementDetails(this.getUserId(), this.placement_id)
 			.then((response) => {
+				console.log(response.data);
 				this.placementDescription = response.data;
 			})
 			.catch((error) => {
@@ -322,6 +338,10 @@ export default {
 	.edit-btn{
 		margin-top: 0.60rem;
 		margin-right: 1rem;
+	}
+
+	.stripe-footer {
+		border-bottom: solid 1px #ddd;
 	}
 }
 </style>

@@ -7,13 +7,14 @@
 					<button class="button is-success">View Full-List</button>
 				</div>
 
-				<div class="selection-body" v-for="studentData in remainingStudents">
-					{{remainingStudents}}
-					<input v-model="selectedStudents" :value="studentData.enroll_no" type="checkbox" name="checkbox" class="checkbox">
-					<span class="enroll title is-4">{{ studentData.enroll_no }}</span>
-					<span class="name title is-4">{{ studentData.user.name }}</span>
-					<span class="category title is-4">{{ studentData.category.name }}</span>
-					<a class="is-success view-profile"> View Profile </a>
+				<div v-for="studentData in remainingStudents">
+					<div class="selection-body" v-if="studentData.user">
+						<input v-model="selectedStudents" :value="studentData.enroll_no" type="checkbox" name="checkbox" class="checkbox">
+						<span class="enroll title is-4">{{ studentData.enroll_no }}</span>
+						<span class="name title is-4">{{ studentData.user.name }}</span>
+						<span class="category title is-4">{{ studentData.category.name }}</span>
+						<a class="is-success view-profile"> View Profile </a>
+					</div>
 				</div>
 
 				<div class="selection-checkbox">
@@ -27,11 +28,15 @@
 					<a class="button close-btn">Close</a>
 				</div>
 			</div>
-			<div v-if="!showData">
+			<div v-if="!showData && !allStudents && !offerStudents">
 				<h3 class="title no-data">No Student has applied yet!</h3>
 			</div>
 			<div class="allow" v-if="allStudents">
 				<h3 class="title no-data">All Students moved to next Round</h3>
+				<button class="button is-success">View Full-List</button>
+			</div>
+			<div class="allow" v-if="offerStudents">
+				<h3 class="title no-data">All Students have been moved to Offer Layer</h3>
 				<button class="button is-success">View Full-List</button>
 			</div>
 		</div>
@@ -58,27 +63,37 @@ export default {
 			remainingStudents: [],
 			showData: true,
 			selectedStudents: [],
-			allStudents: false
+			allStudents: false,
+			offerStudents: false
 		};
 	},
 	methods: {
 		getRemainingStudents() {
 			admin.getRemainingStudentsRoundwise(this.getUserId(), this.placement_id, this.round_id)
 			.then((response) => {
-				console.log(response);
+				// console.log(response);
 				if(response.data == 'None has applied yet!'){
 					this.showData = false;
 				}
-				else if(response.data == 'All Students move to Rounds'){
+				else if(response.data == 'All Students moved to next Round!'){
 					this.showData = false;
 					this.allStudents = true;
+				}
+				// All Students of this round moved to next Round!
+				else if(response.data == 'All Students of this round moved to next Round!'){
+					this.showData = false;
+					this.allStudents = true;
+				}
+				// All Students in Last Round got Offer!
+				else if(response.data == 'All Students in Last Round got Offer!'){
+					this.showData = false;
+					this.allStudents = false;
+					this.offerStudents = true;
 				}
 				else {
 					this.showData = true;
 					this.allStudents = false;
 					this.remainingStudents = response.data;
-					console.log(this.remainingStudents);
-					alert('Data present');
 				}
 			})
 			.catch((error) => {
