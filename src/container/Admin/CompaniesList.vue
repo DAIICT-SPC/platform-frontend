@@ -7,7 +7,9 @@
 
 		<div class="companywise-body">
 			<div class="one-company" v-for="company in companies">
-				<span class="text title is-4">{{company}}</span> <a class="button is-success is-outlined a-tag">Allow</a>
+				<span class="text title is-4">{{ company.company_detail.company_name }}</span>
+				<a @click="allowCompany(company.company_detail.id)" class="button is-success is-outlined a-tag" v-if="company.status != 'allowed'">Allow</a>
+				<a @click="disallowCompany(company.company_detail.id)" class="button is-danger is-outlined a-tag" v-if="company.status == 'allowed'">Cancel</a>
 			</div>
 
 		</div>
@@ -15,18 +17,56 @@
 </template>
 
 <script>
-export default{
+import admin from '@/api/admin'
+
+export default {
 	name: 'company-wise-listing',
-	data(){
+	data() {
 		return{
-			companies:['DLF', 'Amazon', 'Delloit', 'Endurance', 'RTCamp', 'Qualcomm', 'WhitePanda',
-			'Cashbasket', 'Sprinkler']
+			season_id: null,
+			companies:[]
 		}
+	},
+	// beforeUpdate() {
+	// 	this.callAllowedCompanies();
+	// },
+	created() {
+		this.season_id = this.$route.params.season_id;
+		// getAllowedCompanies
+		this.callAllowedCompanies();
 	},
 
 	methods: {
-		redirect: function(){
-			this.$router.push({ name: 'placement-tiles' });
+		callAllowedCompanies() {
+			admin.getAllowedCompanies(this.season_id)
+			.then((response) => {
+				this.companies = response.data;
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+		},
+		allowCompany(company_id) {
+			admin.postAllowCompany(this.season_id, company_id)
+			.then((response) => {
+				if(response.status == 200){
+					this.callAllowedCompanies();
+				}
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+		},
+		disallowCompany(company_id) {
+			admin.postDisallowCompany(this.season_id, company_id)
+			.then((response) => {
+				if(response.status == 200){
+					this.callAllowedCompanies();
+				}
+			})
+			.catch((error) => {
+				console.log(error);
+			})
 		}
 	}
 }
@@ -42,22 +82,22 @@ export default{
 		border-bottom: solid 1px #ddd;
 	}
 
-		.companywise-body {
-			padding: 1.5rem;
-		}
+	.companywise-body {
+		padding: 1.5rem;
+	}
 
-		.one-company {
-			width: 90%;
-			padding: 0.5rem;
-			border-bottom: solid 1px #ddd;
-			.text {
-				padding-left: 5px;
-			}
+	.one-company {
+		width: 90%;
+		padding: 0.5rem;
+		border-bottom: solid 1px #ddd;
+		.text {
+			padding-left: 5px;
 		}
+	}
 
-		.a-tag {
-			float: right;
-		}
+	.a-tag {
+		float: right;
+	}
 
 }
 </style>

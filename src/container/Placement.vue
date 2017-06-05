@@ -24,6 +24,7 @@
 
       <div class="eligibility-criteria job-section">
         <b class="section-header">Eligibility Criteria</b>
+
         <div class="columns">
 
           <div class="column" v-for="categories in dashboardJobDetails.categories">

@@ -27,7 +27,11 @@ import PlacementSeasonsAdminHome from '@/container/Admin/PlacementSeasonsAdminHo
 import PlacementSeasonDrivesAdmin from '@/container/Admin/PlacementSeasonDrivesAdmin'
 import PlacementsInSeasons from '@/container/Admin/PlacementsInSeasons'
 import PlacementDriveDescription from '@/container/Admin/PlacementDriveDescription'
+import SelectionRounds from '@/container/Admin/SelectionRounds'
+import SelectionRoundsDynamic from '@/container/Admin/SelectionRoundsDynamic'
 import CompanywisePlacement from '@/container/Admin/CompanywisePlacement'
+import CompanywisePlacementCards from '@/container/Admin/CompanywisePlacementCards'
+import PlacementCompanywiseDescription from '@/container/Admin/PlacementCompanywiseDescription'
 import CompaniesList from '@/container/Admin/CompaniesList'
 import NewPlacementSeason from '@/container/Admin/NewPlacementSeason'
 import AdminProfile from '@/container/Admin/Profile'
@@ -210,7 +214,7 @@ let router = new Router({
       }
     },
     {
-      path: 'placement-drives',
+      path: 'placement-drives/:season_id',
       component: PlacementSeasonDrivesAdmin,
       meta: {
         requiresAuth: true
@@ -225,9 +229,18 @@ let router = new Router({
           }
         },
         {
-          path: 'placements-drive-description',
+          path: 'placements-drive-description/:placement_id',
           name: 'placements-drive-description',
           component: PlacementDriveDescription,
+          meta: {
+            requiresAuth: true
+          }
+        },
+        // SelectionRounds
+        {
+          path: 'selection-rounds/:placement_id',
+          name: 'selection-rounds',
+          component: SelectionRounds,
           meta: {
             requiresAuth: true
           }
@@ -236,6 +249,23 @@ let router = new Router({
           path: 'companywise-placement',
           name: 'companywise-placement',
           component: CompanywisePlacement,
+          meta: {
+            requiresAuth: true
+          }
+        },
+        {
+          path: 'placement-companywise-description',
+          name: 'placement-companywise-description',
+          component: PlacementCompanywiseDescription,
+          meta: {
+            requiresAuth: true
+          }
+        },
+        //PlacementCompanywiseDescription
+        {
+          path: 'companywise-placement-cards/:company_id',
+          name: 'companywise-placement-cards',
+          component: CompanywisePlacementCards,
           meta: {
             requiresAuth: true
           }

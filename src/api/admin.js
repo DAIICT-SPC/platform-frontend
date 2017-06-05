@@ -34,6 +34,66 @@ export default {
     return HTTP.post(url, {
       title: title
     })
+  },
+
+  getPlacementsInSeasons(id) {
+    // /placement_season/placementsInPlacementSeason/1
+    let url = '/placement_season/placementsInPlacementSeason/' + id;
+    return HTTP.get(url);
+  },
+
+  getCompanywisePlacementListing(id) {
+    //  /placement_season/allAllowedCompanies/1
+    let url = '/placement_season/allAllowedCompanies/' + id;
+    return HTTP.get(url);
+  },
+
+  getCompanywisePlacement(season_id, company_id) {
+    //  /placement_season/placementsCompanyWiseListing/1/1
+    let url = '/placement_season/placementsCompanyWiseListing/' + season_id + '/' + company_id;
+    return HTTP.get(url);
+  },
+
+  getAllowedCompanies(season_id) {
+    // /placement_season/companiesAllowedOrNot/1
+    let url = '/placement_season/companiesAllowedOrNot/' + season_id;
+    return HTTP.get(url);
+  },
+
+  postAllowCompany(season_id, company_id) {
+    // /placement_season/allowCompany/1
+    let url = '/placement_season/allowCompany/' + season_id;
+    return HTTP.post(url, {
+      company_id: company_id
+    });
+  },
+
+  postDisallowCompany(season_id, company_id) {
+    // /placement_season/disallowCompany/1
+    let url = '/placement_season/disallowCompany/' + season_id;
+    return HTTP.post(url, {
+      company_id: company_id
+    });
+  },
+
+  getAdminPlacementDetails(user_id, placement_id) {
+    // /users/1/admin/1/showPlacementDetails/
+    let url = '/users/' + user_id + '/admin/' + placement_id + '/showPlacementDetails/';
+    return HTTP.get(url);
+  },
+
+  getRemainingStudentsInApplication(user_id, placement_id) {
+    // /users/1/admin/remainingStudentsInApplication/1
+    let url = '/users/' + user_id + '/admin/remainingStudentsInApplication/' + placement_id;
+    return HTTP.get(url);
+  },
+
+  postAdminMoveToFirstRound(user_id, placement_id, arr) {
+    // /users/1/admin/1/selectStudentsFromApplication
+    let url = '/users/' + user_id + '/admin/' + placement_id + '/selectStudentsFromApplication';
+    return HTTP.post(url, {
+      students_from_applications_checkbox: arr
+    });
   }
 
 }

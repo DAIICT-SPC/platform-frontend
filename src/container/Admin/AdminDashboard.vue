@@ -40,7 +40,6 @@ export default {
     getAdminDetails() {
       admin.getAdminDetails(this.getUserId())
       .then((response) => {
-        console.log(response);
         this.userDetails = response.data;
         this.userName = response.data.name;
       })

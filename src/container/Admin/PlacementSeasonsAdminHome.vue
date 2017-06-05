@@ -24,7 +24,7 @@
 							</div>
 						</div> -->
 						<footer class="card-footer">
-							<router-link :to="{ name: 'placements-in-seasons', params: { id: 1 } }" class="card-footer-item">View</router-link>
+							<router-link :to="{ name: 'placements-in-seasons', params: { season_id: season.id } }" class="card-footer-item">View</router-link>
 						</footer>
 					</div>
 				</div>
@@ -47,7 +47,7 @@ export default {
 	},
 	data() {
 		return {
-			placementsSeasons: []
+			placementsSeasons: [],
 		};
 	},
 	methods: {

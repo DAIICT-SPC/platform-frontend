@@ -19,6 +19,9 @@ export default {
   name: '',
   components: {
     'placement-sidebar': PlacementDriveSidebar
+  },
+  created() {
+    
   }
 }
 </script>
