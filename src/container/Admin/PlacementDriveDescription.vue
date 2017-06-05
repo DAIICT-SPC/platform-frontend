@@ -66,8 +66,8 @@
 
 					<div class="box process" v-for="round,index in placementDescription.placement_selection">
 						<p>{{ round.round_name }}</p>
-						<a class="is-success" @click="showModal = true">View info</a><br>
-						<a class="is-primary" @click="showEditRoundDetailModal=true">Edit</a>
+						<router-link :to="{ name: 'selection-rounds-dynamic', params: { placement_id: placement_id, round_id: round.id } }" class="is-success">View info</router-link><br>
+						<a class="is-primary">Edit</a>
 					</div>
 
 					<div class="process-offer process">

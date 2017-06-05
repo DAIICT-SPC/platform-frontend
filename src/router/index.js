@@ -236,11 +236,18 @@ let router = new Router({
             requiresAuth: true
           }
         },
-        // SelectionRounds
         {
           path: 'selection-rounds/:placement_id',
           name: 'selection-rounds',
           component: SelectionRounds,
+          meta: {
+            requiresAuth: true
+          }
+        },
+        {
+          path: 'selection-rounds-dynamic/:placement_id/:round_id',
+          name: 'selection-rounds-dynamic',
+          component: SelectionRoundsDynamic,
           meta: {
             requiresAuth: true
           }

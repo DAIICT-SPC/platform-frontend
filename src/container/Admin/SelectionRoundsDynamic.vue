@@ -3,11 +3,12 @@
 		<div class="box">
 			<div v-if="showData">
 				<div class="selection-header">
-					<h3 class="title">Applicants <span class="subtitle">(Remaining)</span></h3>
+					<h3 class="title">Students <span class="subtitle">(Remaining)</span></h3>
 					<button class="button is-success">View Full-List</button>
 				</div>
 
 				<div class="selection-body" v-for="studentData in remainingStudents">
+					{{remainingStudents}}
 					<input v-model="selectedStudents" :value="studentData.enroll_no" type="checkbox" name="checkbox" class="checkbox">
 					<span class="enroll title is-4">{{ studentData.enroll_no }}</span>
 					<span class="name title is-4">{{ studentData.user.name }}</span>
@@ -26,7 +27,7 @@
 					<a class="button close-btn">Close</a>
 				</div>
 			</div>
-			<div v-if="!showData && !allStudents">
+			<div v-if="!showData">
 				<h3 class="title no-data">No Student has applied yet!</h3>
 			</div>
 			<div class="allow" v-if="allStudents">
@@ -44,25 +45,27 @@ import Auth from '@/packages/auth/Auth';
 export default {
 	name: 'selection-rounds',
 	created() {
-		// console.log(this.$route.params);
 		this.placement_id = this.$route.params.placement_id;
 		this.season_id = this.$route.params.season_id;
-		this.getRemainingStudents();
+		this.round_id = this.$route.params.round_id;
+		this.getRemainingStudents()
 	},
 	data() {
 		return {
 			placement_id: null,
 			season_id: null,
+			round_id: null,
 			remainingStudents: [],
-			showData: false,
+			showData: true,
 			selectedStudents: [],
 			allStudents: false
 		};
 	},
 	methods: {
 		getRemainingStudents() {
-			admin.getRemainingStudentsInApplication(this.getUserId(), this.placement_id)
+			admin.getRemainingStudentsRoundwise(this.getUserId(), this.placement_id, this.round_id)
 			.then((response) => {
+				console.log(response);
 				if(response.data == 'None has applied yet!'){
 					this.showData = false;
 				}
@@ -72,7 +75,10 @@ export default {
 				}
 				else {
 					this.showData = true;
+					this.allStudents = false;
 					this.remainingStudents = response.data;
+					console.log(this.remainingStudents);
+					alert('Data present');
 				}
 			})
 			.catch((error) => {
@@ -80,15 +86,20 @@ export default {
 			})
 		},
 		moveStudentsToNextRound() {
-			admin.postAdminMoveToFirstRound(this.getUserId(), this.placement_id, this.selectedStudents)
-			.then((response) => {
-				if(response.status == 200) {
-					this.getRemainingStudents();
-				}
-			})
-			.catch((error) => {
-				console.log(error);
-			})
+			if(this.selectedStudents.length == 0) {
+				alert("No student Selected");
+			}
+			else {
+				admin.postAdminMoveToNextRound(this.getUserId(), this.placement_id, this.selectedStudents)
+				.then((response) => {
+					if(response.status == 200) {
+						this.getRemainingStudents();
+					}
+				})
+				.catch((error) => {
+					console.log(error);
+				})
+			}
 		},
 		getUserId() {
 			// getRemainingStudentsInApplication

@@ -82,18 +82,37 @@ export default {
     return HTTP.get(url);
   },
 
+  // get students to application round
   getRemainingStudentsInApplication(user_id, placement_id) {
     // /users/1/admin/remainingStudentsInApplication/1
     let url = '/users/' + user_id + '/admin/remainingStudentsInApplication/' + placement_id;
     return HTTP.get(url);
   },
 
+  // from application, move to next round
   postAdminMoveToFirstRound(user_id, placement_id, arr) {
     // /users/1/admin/1/selectStudentsFromApplication
     let url = '/users/' + user_id + '/admin/' + placement_id + '/selectStudentsFromApplication';
     return HTTP.post(url, {
       students_from_applications_checkbox: arr
     });
-  }
+  },
+
+  // get students from {round_id}
+  getRemainingStudentsRoundwise(user_id, placement_id, round_id) {
+    // /users/1/admin/remainingStudentsRoundwise/{placementId}/{roundID}
+    let url = '/users/' + user_id + '/admin/remainingStudentsRoundwise/' + placement_id + '/' + round_id;
+    return HTTP.get(url);
+  },
+
+  // from any round, move to next round automatically
+  postAdminMoveToNextRound(user_id, placement_id, arr) {
+    console.log(arr);
+    // /users/1/admin/{placementId}/selectStudentsRoundwise
+    let url = '/users/' + user_id + '/admin/' + placement_id + '/selectStudentsRoundwise';
+    return HTTP.post(url, {
+      student_roundwise: arr
+    });
+  },
 
 }

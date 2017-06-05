@@ -44,7 +44,7 @@ import Auth from '@/packages/auth/Auth';
 export default {
 	name: 'selection-rounds',
 	created() {
-		// console.log(this.$route.params);
+		console.log(this.$route.params);
 		this.placement_id = this.$route.params.placement_id;
 		this.season_id = this.$route.params.season_id;
 		this.getRemainingStudents();
@@ -80,15 +80,21 @@ export default {
 			})
 		},
 		moveStudentsToNextRound() {
-			admin.postAdminMoveToFirstRound(this.getUserId(), this.placement_id, this.selectedStudents)
-			.then((response) => {
-				if(response.status == 200) {
-					this.getRemainingStudents();
-				}
-			})
-			.catch((error) => {
-				console.log(error);
-			})
+			if(this.selectedStudents.length == 0) {
+				alert("No student Selected");
+			}
+			else {
+				admin.postAdminMoveToFirstRound(this.getUserId(), this.placement_id, this.selectedStudents)
+				.then((response) => {
+					if(response.status == 200) {
+						this.getRemainingStudents();
+					}
+				})
+				.catch((error) => {
+					console.log(error);
+				})
+			}
+
 		},
 		getUserId() {
 			// getRemainingStudentsInApplication
