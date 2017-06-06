@@ -4,8 +4,10 @@
 			<div v-if="showData">
 				<div class="selection-header">
 					<h3 class="title">Applicants <span class="subtitle">(Remaining)</span></h3>
-					<button class="button is-success">View Full-List</button>
+					<button @click="showModal = true" class="button is-success">View Full-List</button>
 				</div>
+
+				<application-list-modal @close="showModal = false" v-if="showModal == true"></application-list-modal>
 
 				<div v-for="studentData in remainingStudents">
 					<div class="selection-body" v-if="studentData.user">
@@ -33,24 +35,31 @@
 			</div>
 			<div class="allow" v-if="allStudents">
 				<h3 class="title no-data">All Students moved to next Round</h3>
-				<button class="button is-success">View Full-List</button>
+				<button @click="showModal = true" class="button is-success">View Full-List</button>
+				<application-list-modal @close="showModal = false" v-if="showModal == true"></application-list-modal>
 			</div>
 		</div>
+		<!-- <a href="D:\A\platform-backend\public\test.zip" download>Path</a> -->
 	</div>
 </template>
 
 <script>
 import admin from '@/api/admin';
 import Auth from '@/packages/auth/Auth';
+import ApplicationFullList from '@/components/ApplicationFullList';
 
 export default {
 	name: 'selection-rounds',
+	components: {
+		'application-list-modal': ApplicationFullList
+	},
 	created() {
 		console.log(this.$route.params);
 		this.placement_id = this.$route.params.placement_id;
 		this.season_id = this.$route.params.season_id;
 		this.getRemainingStudents();
-	},
+		
+},
 	data() {
 		return {
 			placement_id: null,
@@ -58,7 +67,9 @@ export default {
 			remainingStudents: [],
 			showData: false,
 			selectedStudents: [],
-			allStudents: false
+			allStudents: false,
+			showModal: false,
+			modalValue: ''
 		};
 	},
 	methods: {

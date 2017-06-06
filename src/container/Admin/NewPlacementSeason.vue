@@ -20,12 +20,10 @@
 			<!-- tabs starts -->
 			<div class="tabs">
 				<ul>
-					<li><router-link :to="{ name: 'admin-dashboard' }">Show All</router-link></li>
+					<li><router-link :to="{ name: 'placement-season-manage' }">Show All</router-link></li>
 					<li><router-link :to="{ name: 'show-add-categories' }">Categories</router-link></li>
 					<li><router-link :to="{ name: 'show-add-jobtypes' }">Job Types</router-link></li>
 					<li><router-link :to="{ name: 'show-add-education' }">Education</router-link></li>
-					<li><a>Users</a></li>
-					<li><a>Reports</a></li>
 				</ul>
 			</div>
 			<!-- tabs ends -->

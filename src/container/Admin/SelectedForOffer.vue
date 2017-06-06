@@ -4,7 +4,7 @@
 			<div v-if="showData">
 				<div class="selection-header">
 					<h3 class="title">Offers <span class="subtitle">(Remaining)</span></h3>
-					<button class="button is-success">Reports</button>
+					<button @click="showModal = true" class="button is-success">Reports</button>
 				</div>
 
 				<div v-for="studentData in remainingStudents">
@@ -15,7 +15,9 @@
 							<span class="category title is-4">{{studentData.category.name}}</span>
 						</div>
 
-						<offer-modal :key="studentData.enroll_no" :placement_id="placement_id" :studentData="studentData"></offer-modal>
+						<offer-modal :key="studentData.enroll_no" :placement_id="placement_id" :studentData="studentData">
+
+						</offer-modal>
 
 					</div>
 				</div>
@@ -33,18 +35,21 @@
 				<button class="button is-success">Reports</button>
 			</div>
 		</div>
+		<offer-full-list @close="showModal = false" v-if="showModal"></offer-full-list>
 	</div>
 </template>
 
 <script>
 import admin from '@/api/admin';
 import Auth from '@/packages/auth/Auth';
-import OfferModal from '@/components/OfferModal'
+import OfferModal from '@/components/OfferModal';
+import OfferFullList from '@/components/OfferFullList';
 
 export default {
 	name: 'selection-round-offer',
 	components: {
-		OfferModal
+		OfferModal,
+		OfferFullList
 	},
 	created() {
 		this.placement_id = this.$route.params.placement_id;
@@ -58,7 +63,8 @@ export default {
 			placement_id: null,
 			remainingStudents: [],
 			showData: true,
-			allStudents: false
+			allStudents: false,
+			showModal: false
 		};
 	},
 	methods: {

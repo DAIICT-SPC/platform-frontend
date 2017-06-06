@@ -7,7 +7,7 @@
             <img src="../../images/daiict.jpg" alt="daiict"> &nbsp; DA-IICT
           </router-link>
           <router-link :to="{ name: 'admin-home' }" class="nav-item is-tab is-hidden-mobile">Home</router-link>
-          <router-link :to="{ name: 'admin-dashboard' }" class="nav-item is-tab is-hidden-mobile">Manage</router-link>
+          <router-link :to="{ name: 'placement-season-manage' }" class="nav-item is-tab is-hidden-mobile">Manage</router-link>
           <router-link :to="{ name: 'admin-profile' }" class="nav-item is-tab is-hidden-mobile">Profile</router-link>
         </div>
         <span class="nav-toggle">

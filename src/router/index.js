@@ -35,6 +35,7 @@ import CompanywisePlacementCards from '@/container/Admin/CompanywisePlacementCar
 import PlacementCompanywiseDescription from '@/container/Admin/PlacementCompanywiseDescription'
 import CompaniesList from '@/container/Admin/CompaniesList'
 import NewPlacementSeason from '@/container/Admin/NewPlacementSeason'
+import PlacementSeasonManage from '@/container/Admin/PlacementSeasonManage'
 import AdminProfile from '@/container/Admin/Profile'
 import Category from '@/container/Admin/Category'
 import JobType from '@/container/Admin/JobType'
@@ -305,8 +306,8 @@ let router = new Router({
       children: [
         {
           path: '/',
-          name: 'admin-dashboard',
-          component: PlacementSeasonsAdminHome,
+          name: 'placement-season-manage',
+          component: PlacementSeasonManage,
           meta: {
             requiresAuth: true
           }

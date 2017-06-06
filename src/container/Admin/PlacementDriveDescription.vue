@@ -50,7 +50,7 @@
 								</div>
 							</footer>
 							<div>
-								<criteria-box v-if=" placementDescription.status == 'application'" :key="categories.id" :criterias="categories.criterias"></criteria-box>
+								<criteria-box v-if="placementDescription.status == 'application'" :key="categories.id" :criterias="categories.criterias"></criteria-box>
 							</div>
 						</div>
 					</div>
@@ -76,11 +76,14 @@
 						</div>
 					</div>
 
-					<div class="box process" v-for="round,index in placementDescription.placement_selection">
+					<div class="box process" v-for="round in placementDescription.placement_selection">
 						<p>{{ round.round_name }}</p>
 						<router-link :to="{ name: 'selection-rounds-dynamic', params: { placement_id: placement_id, round_id: round.id } }" class="is-success">View info</router-link><br>
-						<a class="is-primary">Set Venue & Date</a>
+						  <!-- <a @click="showVenue=true">Set Venue & Date</a> -->
+						<set-venue-date :key="round.id" :round="round"></set-venue-date>
 					</div>
+
+
 
 					<div class="process-offer process">
 						<div class="box offer">
@@ -103,6 +106,8 @@ import PlacementDriveEditBox from '@/components/PlacementDriveEditBox'
 import EligibilityCriteriaBox from '@/components/EligibilityCriteriaBox'
 import ExternalAllow from '@/components/ExternalAllow'
 import ReOpenModal from '@/components/ReOpenModal'
+import SetVenueDate from '@/components/SetVenueDate'
+import OfferModal from '@/components/OfferModal'
 
 export default {
 	name: 'placement-detail-page',
@@ -111,7 +116,9 @@ export default {
 		'drive-box': PlacementDriveEditBox,
 		'criteria-box': EligibilityCriteriaBox,
 		'external-allow': ExternalAllow,
-		're-open': ReOpenModal
+		're-open': ReOpenModal,
+		'set-venue-date': SetVenueDate,
+		OfferModal
 	},
 
 	created() {
@@ -125,10 +132,13 @@ export default {
 			this.getPlacementDetails();
 			this.showReOpen = false;
 		});
+		this.$bus.$on('close_external', () => {
+			this.getPlacementDetails();
+			this.showExternalAllow = false;
+		});
 	},
 
-
-	data(){
+	data() {
 		return {
 			season_id: null,
 			placement_id: null,
@@ -140,7 +150,8 @@ export default {
 			show: "Edit",
 			re_open_modal: false,
 			showExternalAllow: false,
-			showReOpen: false
+			showReOpen: false,
+			showVenue: false
 		}
 	},
 
@@ -159,7 +170,8 @@ export default {
 		},
 		alertFunc() {
 			alert('alert')
-		}
+		},
+
 	}
 }
 </script>

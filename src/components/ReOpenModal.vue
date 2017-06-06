@@ -65,7 +65,7 @@ export default{
 	methods: {
 		callReOpen() {
 			this.dateTime = this.date + " " + this.time + ':00';
-			admin.reOpenRegistration(this.getuserId(), this.placement_id, this.dateTime)
+			admin.postReOpenRegistration(this.getuserId(), this.placement_id, this.dateTime)
 			.then((response) => {
 				if(response.status == 200) {
 					this.$bus.$emit('close_date_model');

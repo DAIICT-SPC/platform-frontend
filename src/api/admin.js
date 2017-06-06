@@ -33,7 +33,7 @@ export default {
     let url = '/placement_season'
     return HTTP.post(url, {
       title: title
-    })
+    });
   },
 
   getPlacementsInSeasons(id) {
@@ -129,7 +129,7 @@ export default {
       job_title: job_title,
       location: location,
       job_description: job_description
-    })
+    });
   },
 
   postGiveOffer(user_id, placement_id, enroll_no, packageOffer) {
@@ -138,7 +138,7 @@ export default {
     return HTTP.post(url, {
       enroll_no: enroll_no,
       package: packageOffer
-    })
+    });
   },
 
   // /users/{userid}/admin/{placement_id}/updateCriteria
@@ -148,19 +148,83 @@ export default {
       education_id: education_id,
       category_id: category_id,
       cpi_required: cpi_required
-    })
+    });
   },
 
-  reOpenRegistration(user_id, placement_id, last_data_for_registration) {
+  postReOpenRegistration(user_id, placement_id, last_data_for_registration) {
     // /users/1/admin/{placement_id}/reOpenRegistration
     console.log(last_data_for_registration);
     let url = '/users/' + user_id + '/admin/' + placement_id + '/reOpenRegistration';
     return HTTP.post(url, {
       last_date_for_registration: last_data_for_registration
-    })
+    });
   },
 
 
   // /users/1/admin/externalAllowToStudents/1
+  allowExternalStudents(user_id, placement_id, enroll_no) {
+    let url = '/users/' + user_id + '/admin/externalAllowToStudents/' + placement_id;
+    return HTTP.post(url, {
+      enroll_no: enroll_no
+    });
+  },
+
+  postRoundDetails(user_id, placement_id, round_id, date_of_round, venue, date, time) {
+    // /users/{user_id}/admin/{placement_id}/update/{round_no}
+    let url = '/users/' + user_id + '/admin/' + placement_id + '/update/' + round_id;
+    return HTTP.patch(url, {
+      date_of_round: date_of_round,
+      venue: venue,
+      date: date,
+      time: time
+    });
+  },
+
+  // application modal
+  getApplicationList(user_id, placement_id) {
+    // /users/id/admin/placementApplications/p_id
+    let url = '/users/' + user_id + '/admin/placementApplications/' + placement_id;
+    return HTTP.get(url);
+  },
+
+  postDownloadResumes(user_id, checkbox) {
+    console.log("admin");
+    console.log(checkbox);
+    let url = '/users/' + user_id + '/admin/downloadResume';
+    return HTTP.post(url, {
+      checkbox: checkbox
+    });
+  },
+
+  getManagePlacementSeason() {
+    // /placement_season/
+    let url = '/placement_season/';
+    return HTTP.get(url);
+  },
+
+  postStartSeason(placement_season_id) {
+    let url = '/placement_season/startSeason/' + placement_season_id;
+    return HTTP.post(url);
+  },
+
+  postCloseSeason(placement_season_id) {
+    let url = '/placement_season/closeSeason/' + placement_season_id;
+    return HTTP.post(url);
+  },
+
+  // / users / {user_id} / admin / roundWisePlacementDetail /  {placement_id} / {round_no}
+  getRoundwiseList(user_id, placement_id, round_no) {
+    let url = '/users/' + user_id + '/admin/roundWisePlacementDetail/' + placement_id + '/' + round_no;
+    console.log(url);
+    return HTTP.get(url);
+  },
+
+  // getOfferRoundList
+  getOfferRoundList(user_id, placement_id) {
+    let url = '/users/' + user_id + '/admin/getAllOfferLetter/' + placement_id;
+    console.log(url);
+    return HTTP.get(url);
+  },
+
 
 }

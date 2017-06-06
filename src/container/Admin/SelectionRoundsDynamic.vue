@@ -4,7 +4,7 @@
 			<div v-if="showData">
 				<div class="selection-header">
 					<h3 class="title">Students <span class="subtitle">(Remaining)</span></h3>
-					<button class="button is-success">View Full-List</button>
+					<button class="button is-success" @click="showModal = true">View Full-List</button>
 				</div>
 
 				<div v-for="studentData in remainingStudents">
@@ -33,12 +33,13 @@
 			</div>
 			<div class="allow" v-if="allStudents">
 				<h3 class="title no-data">All Students moved to next Round</h3>
-				<button class="button is-success">View Full-List</button>
+				<button @click="showModal = true" class="button is-success">View Full-List</button>
 			</div>
 			<div class="allow" v-if="offerStudents">
 				<h3 class="title no-data">All Students have been moved to Offer Layer</h3>
-				<button class="button is-success">View Full-List</button>
+				<button @click="showModal = true" class="button is-success">View Full-List</button>
 			</div>
+			<round-list-modal @close="showModal = false" v-if="showModal"></round-list-modal>
 		</div>
 	</div>
 </template>
@@ -46,9 +47,13 @@
 <script>
 import admin from '@/api/admin';
 import Auth from '@/packages/auth/Auth';
+import RoundFullListModal from '@/components/RoundFullListModal';
 
 export default {
 	name: 'selection-rounds',
+	components: {
+		'round-list-modal': RoundFullListModal
+	},
 	created() {
 		this.placement_id = this.$route.params.placement_id;
 		this.season_id = this.$route.params.season_id;
@@ -64,7 +69,8 @@ export default {
 			showData: true,
 			selectedStudents: [],
 			allStudents: false,
-			offerStudents: false
+			offerStudents: false,
+			showModal: false
 		};
 	},
 	methods: {

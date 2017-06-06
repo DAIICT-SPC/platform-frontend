@@ -51,6 +51,12 @@ export default {
       required: true
     }
   },
+  data() {
+    return {
+      hidden: false,
+      packageOffer: null
+    };
+  },
   created() {
 
   },
@@ -89,12 +95,6 @@ export default {
     getUserId() {
       return Auth.getUserToken();
     }
-  },
-  data() {
-    return {
-      hidden: false,
-      packageOffer: null
-    };
   },
 }
 </script>
