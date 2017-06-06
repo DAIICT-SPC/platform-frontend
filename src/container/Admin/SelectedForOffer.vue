@@ -26,11 +26,11 @@
 				</div>
 			</div>
 			<div v-if="!showData && !allStudents">
-				<h3 class="title no-data">No Student has applied yet!</h3>
+				<h3 class="title no-data">No Student has reached till last Round!</h3>
 			</div>
 			<div class="allow" v-if="allStudents">
-				<h3 class="title no-data">All Students moved to next Round</h3>
-				<button class="button is-success">View Full-List</button>
+				<h3 class="title no-data">All Students got Offer!</h3>
+				<button class="button is-success">Reports</button>
 			</div>
 		</div>
 	</div>
@@ -49,6 +49,9 @@ export default {
 	created() {
 		this.placement_id = this.$route.params.placement_id;
 		this.getStudentsOffer();
+		this.$bus.$on('refresh', () => {
+			this.getStudentsOffer();
+		})
 	},
 	data() {
 		return {
@@ -64,6 +67,10 @@ export default {
 			.then((response) => {
 				this.remainingStudents = response.data;
 				console.log(response);
+				if(response.data == 'All Students in last round got offer'){
+					this.allStudents = true;
+					this.showData = false;
+				}
 			})
 			.catch((error) => {
 				console.log(error);

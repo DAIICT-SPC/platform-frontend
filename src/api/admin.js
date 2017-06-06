@@ -135,10 +135,19 @@ export default {
   postGiveOffer(user_id, placement_id, enroll_no, packageOffer) {
     // /users/1/admin/{placement_id}/giveOffer
     let url = '/users/' + user_id + '/admin/' + placement_id + '/giveOffer';
-    console.log(url);
     return HTTP.post(url, {
       enroll_no: enroll_no,
       package: packageOffer
+    })
+  },
+
+  // /users/{userid}/admin/{placement_id}/updateCriteria
+  patchUpdateEligibilityCriteria(user_id, placement_id, education_id, category_id, cpi_required) {
+    let url = '/users/'+ user_id +'/admin/' + placement_id + '/updateCriteria'
+    return HTTP.patch(url, {
+      education_id: education_id,
+      category_id: category_id,
+      cpi_required: cpi_required
     })
   }
 

@@ -8,6 +8,9 @@
 				</div>
 				<div class="header-action is-pulled-right">
 					<span class="tag">{{ placementDescription.status }}</span>
+					<div class="apply-box">
+            <a v-if="placementDescription.status == 'closed'" class="button is-success">Re Open</a>
+          </div>
 				</div>
 			</div>
 
@@ -37,8 +40,8 @@
 							</header>
 
 							<footer class="stripe-footer">
-								<div class="columns is-gapless is-mobile" v-for="cat in categories.criterias">
-									<div class="column">{{ cat.education.name }} <br> {{cat.cpi_required}}</div>
+								<div class="columns">
+									<div class="column" v-for="cat in categories.criterias">{{ cat.education.name }} <br> {{cat.cpi_required}}</div>
 								</div>
 							</footer>
 							<div>
@@ -71,7 +74,7 @@
 					<div class="box process" v-for="round,index in placementDescription.placement_selection">
 						<p>{{ round.round_name }}</p>
 						<router-link :to="{ name: 'selection-rounds-dynamic', params: { placement_id: placement_id, round_id: round.id } }" class="is-success">View info</router-link><br>
-						<a class="is-primary">Edit</a>
+						<a class="is-primary" v-on:mouseover="">Set Date</a>
 					</div>
 
 					<div class="process-offer process">
@@ -121,7 +124,8 @@ export default {
 			showCriteria: false,
 			criteriaId: null,
 			hide: "Hide",
-			show: "Edit"
+			show: "Edit",
+			re_open_modal: false
 		}
 	},
 
@@ -137,6 +141,9 @@ export default {
 		},
 		getUserId() {
 			return Auth.getUserToken();
+		},
+		alertFunc() {
+			alert('alert')
 		}
 	}
 }
@@ -150,7 +157,17 @@ export default {
 		box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
 		padding: 0;
 		background-color: #fafcfd;
+	}
 
+	.header-action {
+		.tag {
+			margin-left: 1rem;
+		}
+	}
+
+	.apply-box {
+		padding: 0.4rem;
+		padding-left: 0;
 	}
 
 	.job-section {
@@ -201,6 +218,8 @@ export default {
 			}
 		}
 	}
+
+
 
 	.hiring-process {
 		padding-left: 1.5rem;

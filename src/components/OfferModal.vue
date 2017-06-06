@@ -59,12 +59,29 @@ export default {
       // console.log(this.getUserId()+"-"+ this.placement_id+"-"+ this.studentData.enroll_no+"-"+ this.packageOffer);
       admin.postGiveOffer(this.getUserId(), this.placement_id, this.studentData.enroll_no, this.packageOffer)
       .then((response) => {
+        if(response.status == 200) {
+          console.log("handled");
+          this.hidden = false;
+          this.$bus.$emit('refresh');
+        }
+        else if(response.data == 'All Students in last round got offer')
+        {
+          showAllOffer = true;
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    },
+    getStudentsOffer() {
+      admin.getStudentsForOffer(this.getuserId(), this.placement_id)
+      .then((response) => {
+        this.remainingStudents = response.data;
         console.log(response);
       })
       .catch((error) => {
         console.log(error);
       })
-
     },
     validate() {
       return this.$validator.validateAll();
