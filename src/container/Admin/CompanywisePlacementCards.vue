@@ -27,8 +27,8 @@
 						</div>
 					</div>
 					<footer class="card-footer">
-						<router-link :to="{ name: 'placement-companywise-description' }" class="card-footer-item">View</router-link>
-						<!-- <a class="card-footer-item">View</a> -->
+						<!-- <router-link :to="{ name: 'placement-companywise-description' }" class="card-footer-item">View</router-link> -->
+						<router-link :to="{ name: 'placements-drive-description', params: { placement_id: placements.placement_id } }" class="card-footer-item">View</router-link>
 					</footer>
 				</div>
 			</div>

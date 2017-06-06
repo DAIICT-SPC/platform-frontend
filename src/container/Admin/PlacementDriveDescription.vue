@@ -17,7 +17,8 @@
 			<div class="job-description job-section">
 				<b class="section-header">Job Description
 					<div class="header-action is-pulled-right">
-						<div class="button is-white" @click="showDesc = !showDesc" v-if="!showDesc"> {{show}} </div>
+						<!-- placementDescription.status == 'closed' -->
+						<div class="button is-white" @click="showDesc = !showDesc" v-if="!showDesc && placementDescription.status == 'application'"> {{show}} </div>
 						<div class="button is-white" @click="showDesc = !showDesc" v-if="showDesc"> {{hide}} </div>
 					</div>
 				</b>
@@ -45,7 +46,7 @@
 								</div>
 							</footer>
 							<div>
-								<criteria-box :key="categories.id" :criterias="categories.criterias"></criteria-box>
+								<criteria-box v-if=" placementDescription.status == 'application'" :key="categories.id" :criterias="categories.criterias"></criteria-box>
 							</div>
 						</div>
 					</div>
@@ -74,7 +75,7 @@
 					<div class="box process" v-for="round,index in placementDescription.placement_selection">
 						<p>{{ round.round_name }}</p>
 						<router-link :to="{ name: 'selection-rounds-dynamic', params: { placement_id: placement_id, round_id: round.id } }" class="is-success">View info</router-link><br>
-						<a class="is-primary" v-on:mouseover="">Set Date</a>
+						<a class="is-primary">Set Venue & Date</a>
 					</div>
 
 					<div class="process-offer process">

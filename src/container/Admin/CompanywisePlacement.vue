@@ -1,23 +1,27 @@
 <template>
 	<div class="company-wise-listing box">
+		<div class="" v-if="showData">
 
-		<div class="company-wise head">
-			<h2 class="title">Companies Wise Listing</h2>
-		</div>
+			<div class="company-wise head">
+				<h2 class="title">Companies Wise Listing</h2>
+			</div>
 
-		<div class="companywise-body">
-			<div class="one-company" v-for="company in companies">
-				<span class="text title is-4">{{ company.company_name }}</span>
-				<router-link :to="{ name: 'companywise-placement-cards', params:
-				{
-					company_id: company.id
-				}
-			}" class="a-tag">View</router-link>
+			<div class="companywise-body">
+				<div class="one-company" v-for="company in companies">
+					<span class="text title is-4">{{ company.company_name }}</span>
+					<router-link :to="{ name: 'companywise-placement-cards', params:
+					{
+						company_id: company.id
+					}
+				}" class="a-tag">View</router-link>
 			</div>
 
 		</div>
-
 	</div>
+	<div class="box null" v-if="!showData">
+		<h3 class="title">No Companies have been Allowed yet.</h3>
+	</div>
+</div>
 </template>
 
 <script>
@@ -28,7 +32,8 @@ export default {
 	data(){
 		return{
 			placement_season_id: null,
-			companies:[]
+			companies:[],
+			showData: null
 		}
 	},
 
@@ -44,7 +49,13 @@ export default {
 		getCompanyAllowedList() {
 			admin.getCompanywisePlacementListing(this.placement_season_id)
 			.then((response) => {
-				this.companies = response.data;
+				if(response.data.length == 0) {
+					this.showData = false;
+				}
+				else {
+					this.showData = true;
+					this.companies = response.data;
+				}
 			})
 			.catch((error) => {
 				console.log(error);
@@ -81,6 +92,10 @@ export default {
 		float: right;
 		height: 32px;
 		padding-top: 3px;
+	}
+
+	.null {
+		padding: 1rem;
 	}
 
 }
