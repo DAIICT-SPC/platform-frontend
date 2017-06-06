@@ -115,4 +115,31 @@ export default {
     });
   },
 
+  getStudentsForOffer(user_id, placement_id) {
+    // /users/1/admin/remainingStudentsForOffer/1
+    let url = '/users/' + user_id + '/admin/remainingStudentsForOffer/' + placement_id;
+    return HTTP.get(url);
+  },
+
+  // updates job_title, job_description and location details for a placement drive
+  updatePlacementDriveDescription(user_id, palcement_id, job_title, location, job_description) {
+    // /users/2/company/6/updatePlacementsPrimary
+    let url = '/users/' + user_id + '/admin/' + palcement_id + '/updatePlacementsPrimary';
+    return HTTP.patch(url, {
+      job_title: job_title,
+      location: location,
+      job_description: job_description
+    })
+  },
+
+  postGiveOffer(user_id, placement_id, enroll_no, packageOffer) {
+    // /users/1/admin/{placement_id}/giveOffer
+    let url = '/users/' + user_id + '/admin/' + placement_id + '/giveOffer';
+    console.log(url);
+    return HTTP.post(url, {
+      enroll_no: enroll_no,
+      package: packageOffer
+    })
+  }
+
 }

@@ -106,6 +106,9 @@ export default {
 		this.season_id = this.$route.params.season_id;
 		this.placement_id = this.$route.params.placement_id;
 		this.getPlacementDetails();
+		this.$bus.$on('closeDescription', () => {
+			this.showDesc = false;
+		});
 	},
 
 
@@ -126,7 +129,6 @@ export default {
 		getPlacementDetails() {
 			admin.getAdminPlacementDetails(this.getUserId(), this.placement_id)
 			.then((response) => {
-				console.log(response.data);
 				this.placementDescription = response.data;
 			})
 			.catch((error) => {

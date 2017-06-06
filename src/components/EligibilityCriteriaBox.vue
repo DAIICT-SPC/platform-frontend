@@ -33,7 +33,7 @@ export default {
   props: {
     criterias: {
       required: true,
-      type: Object
+      type: Array
     }
   }
 }
