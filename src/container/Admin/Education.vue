@@ -1,16 +1,17 @@
 <template>
-  <div class="myprofile-page">
+  <div class="education-page">
 
-    <div class="category box">
+    <div class="education box">
 
-      <div class="cat-title">
+      <div class="education-title">
         <h2 class="title">Education</h2>
       </div>
 
-      <div class="cat-body">
-        <ul class="category-items">
-          <li v-for="ed,index in education">{{index+1}}) {{ ed.name }}</li>
-        </ul>
+      <div class="education-body">
+        <div class="education-items" v-for="ed,index in education">
+          <span>{{ ed.name }}</span>
+          <a class="icon is-small" @click="deleteEducation(ed.id)"> <i class="fa fa-trash-o"></i> </a>
+        </div>
       </div>
 
       <div class="field is-grouped">
@@ -30,8 +31,6 @@
       </div>
     </div>
 
-
-
   </div>
 </template>
 
@@ -41,19 +40,7 @@ import education from '@/api/education'
 export default{
   name: 'myprofile',
   created() {
-    education.all().then((response) => {
-      this.education = response.data;
-    })
-  },
-  beforeUpdate() {
-    education.all().then((response) => {
-      this.education = response.data;
-    })
-  },
-  created() {
-    education.all().then((response) => {
-      this.education = response.data;
-    })
+    this.getAllEducation();
   },
   data() {
     return{
@@ -62,6 +49,11 @@ export default{
     }
   },
   methods: {
+    getAllEducation() {
+      education.all().then((response) => {
+        this.education = response.data;
+      })
+    },
     addEducation() {
       this.validate().then(() => {
         this.addEdHere();
@@ -70,11 +62,20 @@ export default{
         console.log(error);
       })
     },
+    deleteEducation(education_id) {
+      education.deleteEducation(education_id)
+      .then((response) => {
+        this.getAllEducation();
+      })
+      .catch((error) => {
+        console.log(error.response);
+      })
+    },
     addEdHere() {
       education.postEducation(this.name)
       .then((response) => {
         if(response.status == 200){
-          alert('Education Added Successfully');
+          this.getAllEducation();
           this.name = "";
         }
       })
@@ -90,18 +91,33 @@ export default{
 </script>
 
 <style lang="scss">
-.myprofile-page{
+.education-page{
 
-  .cat-title {
+  .education-title {
+    padding: 1rem;
     border-bottom: solid 1px #ddd;
   }
 
-  .cat-body {
+  .education-body {
     padding: 1.5rem;
   }
 
-  li {
+  .education-items {
+    max-width: 200px;
+    width: 100%;
     padding-bottom: 0.2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .field.is-grouped {
+    margin: 0;
+  }
+
+  .field.has-addons {
+    padding: 1rem;
+    border-top: solid 1px #ddd;
   }
 
   .field.has-addons {

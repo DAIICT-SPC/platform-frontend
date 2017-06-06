@@ -9,10 +9,14 @@
 				<div class="header-action is-pulled-right">
 					<span class="tag">{{ placementDescription.status }}</span>
 					<div class="apply-box">
-            <a v-if="placementDescription.status == 'closed'" class="button is-success">Re Open</a>
-          </div>
+						<a @click="showReOpen = !showReOpen" v-if="placementDescription.status == 'closed'" class="button is-success">Re Open</a>
+						<a @click="showExternalAllow = true" v-if="placementDescription.status == 'application'" class="button is-success ex-allow">External Allow</a>
+					</div>
 				</div>
 			</div>
+
+			<external-allow v-if="showExternalAllow" @close="showExternalAllow = false"></external-allow>
+			<re-open v-if="showReOpen" @close="showReOpen = false"></re-open>
 
 			<div class="job-description job-section">
 				<b class="section-header">Job Description
@@ -97,13 +101,17 @@ import Auth from '@/packages/auth/Auth';
 import admin from '@/api/admin';
 import PlacementDriveEditBox from '@/components/PlacementDriveEditBox'
 import EligibilityCriteriaBox from '@/components/EligibilityCriteriaBox'
+import ExternalAllow from '@/components/ExternalAllow'
+import ReOpenModal from '@/components/ReOpenModal'
 
 export default {
 	name: 'placement-detail-page',
 
 	components: {
 		'drive-box': PlacementDriveEditBox,
-		'criteria-box': EligibilityCriteriaBox
+		'criteria-box': EligibilityCriteriaBox,
+		'external-allow': ExternalAllow,
+		're-open': ReOpenModal
 	},
 
 	created() {
@@ -112,6 +120,10 @@ export default {
 		this.getPlacementDetails();
 		this.$bus.$on('closeDescription', () => {
 			this.showDesc = false;
+		});
+		this.$bus.$on('close_date_model', () => {
+			this.getPlacementDetails();
+			this.showReOpen = false;
 		});
 	},
 
@@ -126,7 +138,9 @@ export default {
 			criteriaId: null,
 			hide: "Hide",
 			show: "Edit",
-			re_open_modal: false
+			re_open_modal: false,
+			showExternalAllow: false,
+			showReOpen: false
 		}
 	},
 
@@ -166,6 +180,11 @@ export default {
 		}
 	}
 
+	.re-open {
+		border-bottom: solid 1px #ddd;
+		padding-bottom: 1rem;
+	}
+
 	.apply-box {
 		padding: 0.4rem;
 		padding-left: 0;
@@ -175,6 +194,7 @@ export default {
 		border-bottom: solid 1px #ddd;
 		margin-bottom: 1.5rem;
 		padding-bottom: 1.5rem;
+
 
 		.section-header {
 			display: block;

@@ -1,5 +1,5 @@
 <template>
-  <div class="myprofile-page">
+  <div class="category-page">
 
     <div class="category box">
 
@@ -8,14 +8,15 @@
       </div>
 
       <div class="cat-body">
-        <ul class="category-items">
-          <li v-for="category,index in categories">{{index+1}}) {{ category.name }} <i class="fa fa-trash" aria-hidden="true"></i></li>
-        </ul>
+        <div class="category-items" v-for="category,index in categories">
+          <span> {{ category.name }}</span>
+          <a class="icon is-small" @click="deleteCategory(category.id)"> <i class="fa fa-trash-o"></i> </a>
+        </div>
       </div>
 
 
       <div class="add-category">
-        <div >
+        <div>
           <div class="field has-addons">
             <p class="control">
               <input v-validate="'required'" v-model="title" :class="{'input': true, 'is-danger': errors.has('cat') }" name="cat" type="text" placeholder="Enter New Category">
@@ -38,18 +39,9 @@
 import category from '@/api/category'
 
 export default{
-  name: 'myprofile',
+  name: 'category-page',
   created() {
-    console.log("created");
-    category.all().then((response) => {
-      console.log(response);
-      this.categories = response.data;
-    })
-  },
-  beforeUpdate() {
-    category.all().then((response) => {
-      this.categories = response.data;
-    })
+    this.getAllCategories();
   },
   data() {
     return{
@@ -58,6 +50,11 @@ export default{
     }
   },
   methods: {
+    getAllCategories() {
+      category.all().then((response) => {
+        this.categories = response.data;
+      })
+    },
     addCategory() {
       this.validate().then(() => {
         this.postCategoryHere();
@@ -66,11 +63,21 @@ export default{
         console.log(error);
       })
     },
+    deleteCategory(category_id) {
+      category.deleteCategory(category_id)
+      .then((response) => {
+        this.getAllCategories();
+      })
+      .catch((error) => {
+        console.log(error.response);
+      })
+    },
     postCategoryHere() {
       category.postCategory(this.title)
       .then((response) => {
-        if(response.status == 200){
-          alert('Category Added Successfully');
+        if(response.status == 200) {
+          this.getAllCategories();
+          // this.title = '';
         }
       })
       .catch((error) => {
@@ -85,27 +92,34 @@ export default{
 </script>
 
 <style lang="scss">
-.myprofile-page{
+.category-page{
 
   .cat-title {
     border-bottom: solid 1px #ddd;
+    padding: 1rem;
   }
 
   .cat-body {
     padding: 1.5rem;
   }
 
-  li {
+  .category-items {
+    max-width: 200px;
+    width: 100%;
     padding-bottom: 0.2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .field.has-addons {
-    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
   .add-category {
     border-top: solid 1px #ddd;
-    padding-top: 1rem;
+    padding: 1rem;
+
   }
 
   // .notification.is-danger {

@@ -305,7 +305,7 @@ let router = new Router({
       children: [
         {
           path: '/',
-          name: 'create-new-placement',
+          name: 'admin-dashboard',
           component: PlacementSeasonsAdminHome,
           meta: {
             requiresAuth: true

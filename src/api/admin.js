@@ -149,6 +149,18 @@ export default {
       category_id: category_id,
       cpi_required: cpi_required
     })
-  }
+  },
+
+  reOpenRegistration(user_id, placement_id, last_data_for_registration) {
+    // /users/1/admin/{placement_id}/reOpenRegistration
+    console.log(last_data_for_registration);
+    let url = '/users/' + user_id + '/admin/' + placement_id + '/reOpenRegistration';
+    return HTTP.post(url, {
+      last_date_for_registration: last_data_for_registration
+    })
+  },
+
+
+  // /users/1/admin/externalAllowToStudents/1
 
 }

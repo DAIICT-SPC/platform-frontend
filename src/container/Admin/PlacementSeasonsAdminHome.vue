@@ -3,7 +3,6 @@
 		<div class="container dashboard-admin">
 
 			<div class="columns is-multiline" v-for = "season in placementsSeasons">
-
 				<!-- 1/3 col -->
 				<div class="column is-one-third">
 					<div class="card placement-tiles">
@@ -13,7 +12,7 @@
 							</p>
 							<a class="card-header-icon">
 								<span class="icon">
-									<span class="tag is-success status">Open</span>
+									<span class="tag is-success status">{{season.status}}</span>
 								</span>
 							</a>
 						</header>
@@ -54,6 +53,7 @@ export default {
 		callDashboard() {
 			admin.adminDashboard()
 			.then((response) => {
+				// console.log(response.data);
 	      this.placementsSeasons = response.data;
 	    })
 	    .catch((error) => {

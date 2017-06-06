@@ -67,7 +67,7 @@ export default {
 			.then((response) => {
 				this.remainingStudents = response.data;
 				console.log(response);
-				if(response.data == 'All Students in last round got offer'){
+				if(response.data == 'All Students in offer layer got Offer!'){
 					this.allStudents = true;
 					this.showData = false;
 				}
