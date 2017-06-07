@@ -81,7 +81,10 @@ export default {
  .reports-header {
  	padding: 1rem;
  	border-bottom: solid 1px #ddd;
-	margin-bottom: 1rem;
+ }
+
+ .tabs {
+ 	margin: 0;
  }
 
 

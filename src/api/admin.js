@@ -226,5 +226,35 @@ export default {
     return HTTP.get(url);
   },
 
+  getPlacedStudents(user_id, season_id) {
+    // / users / {user_id} / admin / listOfStudentsPlaced / {season_id}
+    let url = '/users/' + user_id + '/admin/listOfStudentsPlaced/' + season_id;
+    return HTTP.get(url);
+  },
+
+  getPlacedCategoryStudents(user_id, season_id, category_id) {
+    // / users / {user_id} / admin / listOfStudentsPlacedCategoryWise / {season_id} / {category_id}
+    let url = '/users/' + user_id + '/admin/listOfStudentsPlacedCategoryWise/' + season_id + '/' + category_id;
+    return HTTP.get(url);
+  },
+  // /studentsUnplaced/{placement_season_id}
+
+  getUnplacedStudents(user_id, season_id) {
+    // / users / {user_id} / admin /studentsUnplaced/{placement_season_id}
+    let url = '/users/' + user_id + '/admin/studentsUnplaced/' + season_id;
+    return HTTP.get(url);
+  },
+
+  getUnplacedCategoryStudents(user_id, season_id) {
+    // users / {user_id} / admin / studentsUnplacedCategoryWise/ {season_id} / {category_id}
+    let url = '/users/' + user_id + '/admin/studentsUnplacedCategoryWise/' + season_id + '/' + category_id;
+    return HTTP.get(url);
+  },
+
+  getExternalAllowedStudents(user_id, season_id) {
+    //  / users / {user_id} / admin / externallyAllowed / {placement_season_id}
+    let url = '/users/' + user_id + '/admin/externallyAllowed/' + season_id;
+    return HTTP.get(url);
+  },
 
 }
