@@ -252,6 +252,11 @@ export default {
 		}
 	}
 
+.heading-main {
+	.job-title {
+		padding: 0;
+	}
+}
 
 
 	.hiring-process {

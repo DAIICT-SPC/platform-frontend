@@ -34,6 +34,21 @@ export default {
     window.localStorage.removeItem('user_id');
   },
 
+  setCriteriaId(category_id) {
+    window.localStorage.setItem('category_id', category_id);
+  },
+
+  getCriteriaId() {
+    if (window.localStorage.getItem('category_id') != null)
+    {
+      return token
+    }
+    else
+    {
+      return null
+    }
+  },
+
   isAuthenticated() {
     if (this.getToken()) {
       return true

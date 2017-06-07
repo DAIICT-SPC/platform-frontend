@@ -68,14 +68,55 @@ export default {
         });
       },
 
-      getCategoriesForPlacementCriteria(user_id, placement_id) {
-        // / users / {user_id} / company /{placement_id} / showOpenFor
-        let url = '/users/' + user_id + '/company/' + placement_id + '/showOpenFor';
+      getCategoriesForPlacementCriteria(user_id, placement_id, category_id) {
+        let url = '/users/' + user_id + '/company/remainingCategories/' + placement_id + '/' + category_id;
         return HTTP.get(url);
+      },
+
+      getEducationForPlacementCriteria(user_id, placement_id, category_id) {
+        let url = '/users/' + user_id + '/company/remainingEducation/' + placement_id + '/' + category_id;
+        return HTTP.get(url);
+      },
+
+      setPlacementCriteria(user_id, placement_id, education_id, category_id, cpi_required) {
+        // / users / {user_id} / company / {placement_id} /setPlacementCriteria
+        let url = '/users/' + user_id + '/company/' + placement_id + '/setPlacementCriteria';
+        return HTTP.post(url, {
+          education_id: education_id,
+          category_id: category_id,
+          cpi_required: cpi_required
+        })
       },
 
       getPlacementSeasonsAvailable(user_id) {
         let url = '/users/' + user_id + '/company/showPlacementSeasonAvailable';
         return HTTP.get(url);
-      }
+      },
+
+      getPlacementDetails(user_id, placement_id) {
+        // /users/2/company/6/showPlacementDetails/
+        let url = '/users/' + user_id + '/company/' + placement_id + '/showPlacementDetails/';
+        return HTTP.get(url);
+      },
+
+      updatePlacementDriveDescription(user_id, palcement_id, job_title, location, job_description) {
+        // /users/2/company/6/updatePlacementsPrimary
+        let url = '/users/' + user_id + '/company/' + palcement_id + '/updatePlacementsPrimary';
+        return HTTP.patch(url, {
+          job_title: job_title,
+          location: location,
+          job_description: job_description
+        });
+      },
+
+      // /users/{userid}/admin/{placement_id}/updateCriteria
+      patchUpdateEligibilityCriteria(user_id, placement_id, education_id, category_id, cpi_required) {
+        let url = '/users/'+ user_id +'/company/' + placement_id + '/updateCriteria'
+        return HTTP.patch(url, {
+          education_id: education_id,
+          category_id: category_id,
+          cpi_required: cpi_required
+        });
+      },
+
     }

@@ -41,7 +41,6 @@ export default {
 		}
 	},
 	created() {
-		console.log(this.$route);
 		if(this.$route.path == '/') {
 			this.$router.push({name:'placement-primary'})
 		}

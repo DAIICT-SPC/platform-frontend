@@ -10,12 +10,11 @@
           <div class="card">
             <header class="card-header">
               <p class="card-header-title">
-                Placement Season
-                <!-- {{company}} -->
+                {{ company.placement_season.title }}
               </p>
               <a class="card-header-icon">
                 <span class="icon">
-                  <span class="tag is-success">Open</span>
+                  <span class="tag is-success">{{ company.placement_season.status }}</span>
                 </span>
               </a>
             </header>
@@ -28,7 +27,7 @@
               </div>
             </div>
             <footer class="card-footer">
-              <router-link :to="{ name: 'view-placement-detail', params: { id: company.placement_id } }" class="card-footer-item">View</router-link>
+              <router-link :to="{ name: 'view-placement-detail', params: { placement_id: company.placement_id } }" class="card-footer-item">View</router-link>
             </footer>
           </div>
         </div>

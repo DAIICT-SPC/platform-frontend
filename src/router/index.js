@@ -148,7 +148,7 @@ let router = new Router({
       component: ViewAllPlacement
     },
     {
-      path: 'view-placement-detail/:id',
+      path: 'view-placement-detail/:placement_id',
       name: 'view-placement-detail',
       meta: {
         requiresAuth: true

@@ -42,7 +42,8 @@ export default {
         margin-top: 10px;
 
         .round-description {
-            margin-top: 10px;
+            // margin-top: 10px;
+            padding: 1rem;
         }
     }
 }
