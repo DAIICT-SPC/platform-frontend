@@ -19,7 +19,7 @@
 					</header>
 
 					<footer class="card-footer">
-						<a v-if="season.status != 'draft'" class="card-footer-item">View</a>
+						<router-link :to="{ name: 'placed-students', params: { season_id: season.id } }" v-if="season.status != 'draft'" class="card-footer-item">View</router-link>
 						<a v-if="season.status == 'open'" @click="closeSeason" class="card-footer-item">Close</a>
 						<a v-if="season.status == 'draft' || season.status == 'closed'" @click="startSeason" class="card-footer-item">Start</a>
 					</footer>

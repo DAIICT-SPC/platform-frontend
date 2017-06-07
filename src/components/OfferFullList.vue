@@ -8,30 +8,20 @@
 					<p class="modal-card-title">Round wise in offer</p>
 					<button class="delete" @click="$emit('close')"></button>
 				</header>
+
 				<section class="modal-card-body">
-					<div class="columns">
+					<div class="columns" v-for="st in students">
 						<div class="column">
-							<span>Roll</span>
+							<span>{{st.enroll_no}}</span>
 						</div>
 						<div class="column">
-							<span>Name</span>
+							<span>{{st.user.name}}</span>
 						</div>
 						<div class="column">
-							<span>Category</span>
+							<span>{{st.category.name}}</span>
 						</div>
 					</div>
 
-					<div class="columns" v-for="">
-						<div class="column">
-							<span>Roll</span>
-						</div>
-						<div class="column">
-							<span>Name</span>
-						</div>
-						<div class="column">
-							<span>Category</span>
-						</div>
-					</div>
 				</section>
 				<footer class="modal-card-foot">
 					<a class="button" @click="$emit('close')">Cancel</a>
@@ -62,8 +52,7 @@ export default {
 			getAllStudents() {
 				admin.getOfferRoundList(this.getUserId(), this.placement_id)
 				.then((response) => {
-					console.log('entered');
-					console.log(response.data);
+					this.students = response.data;
 				})
 				.catch((error) => {
 					console.log(error);

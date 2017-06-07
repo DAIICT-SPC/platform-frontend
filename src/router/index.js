@@ -35,6 +35,12 @@ import CompanywisePlacementCards from '@/container/Admin/CompanywisePlacementCar
 import PlacementCompanywiseDescription from '@/container/Admin/PlacementCompanywiseDescription'
 import CompaniesList from '@/container/Admin/CompaniesList'
 import NewPlacementSeason from '@/container/Admin/NewPlacementSeason'
+import AdminReportsPage from '@/container/Admin/AdminReportsPage'
+import PlacedStudents from '@/container/Admin/Reports/PlacedStudents'
+import PlacedCategorywise from '@/container/Admin/Reports/PlacedCategorywise'
+import UnplacedStudents from '@/container/Admin/Reports/UnplacedStudents'
+import UnplacedCategorywise from '@/container/Admin/Reports/UnplacedCategorywise'
+import ExternallyAllowed from '@/container/Admin/Reports/ExternallyAllowed'
 import PlacementSeasonManage from '@/container/Admin/PlacementSeasonManage'
 import AdminProfile from '@/container/Admin/Profile'
 import Category from '@/container/Admin/Category'
@@ -298,6 +304,56 @@ let router = new Router({
       ]
     },
     {
+      path: 'admin-reports/:season_id',
+      component: AdminReportsPage,
+      meta: {
+        requiresAuth: true
+      },
+      children: [
+        {
+          path: '/',
+          name: 'placed-students',
+          component: PlacedStudents,
+          meta: {
+            requiresAuth: true
+          }
+        },
+        {
+          path: 'unplaced-students',
+          name: 'unplaced-students',
+          component: UnplacedStudents,
+          meta: {
+            requiresAuth: true
+          }
+        },
+        {
+          path: 'placed-categorywise',
+          name: 'placed-categorywise',
+          component: PlacedCategorywise,
+          meta: {
+            requiresAuth: true
+          }
+        },
+        {
+          path: 'unplaced-categorywise',
+          name: 'unplaced-categorywise',
+          component: UnplacedCategorywise,
+          meta: {
+            requiresAuth: true
+          }
+        },
+        //ExternallyAllowed
+        {
+          path: 'externally-allowed',
+          name: 'externally-allowed',
+          component: ExternallyAllowed,
+          meta: {
+            requiresAuth: true
+          }
+        },
+      ]
+    },
+    {
       path: 'new-season-start',
       component: NewPlacementSeason,
       meta: {
@@ -312,6 +368,7 @@ let router = new Router({
             requiresAuth: true
           }
         },
+
         {
           path: 'categories',
           name: 'show-add-categories',

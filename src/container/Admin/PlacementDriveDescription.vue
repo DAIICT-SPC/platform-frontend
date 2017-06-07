@@ -7,7 +7,7 @@
 					<p class="subtitle is-6 company-details">{{ placementDescription.company.company_name }}, {{ placementDescription.location }}</p>
 				</div>
 				<div class="header-action is-pulled-right">
-					<span class="tag">{{ placementDescription.status }}</span>
+					<span class="tag" >{{ placementDescription.status }}</span>
 					<div class="apply-box">
 						<a @click="showReOpen = !showReOpen" v-if="placementDescription.status == 'closed'" class="button is-success">Re Open</a>
 						<a @click="showExternalAllow = true" v-if="placementDescription.status == 'application'" class="button is-success ex-allow">External Allow</a>
