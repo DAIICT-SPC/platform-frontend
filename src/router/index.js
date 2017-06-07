@@ -171,7 +171,7 @@ let router = new Router({
           component: PlacementPrimary
         },
         {
-          path: 'select-category',
+          path: 'select-category/:placement_id',
           name: 'select-category',
           meta: {
             requiresAuth: true
@@ -179,7 +179,7 @@ let router = new Router({
           component: SelectCategory
         },
         {
-          path: 'select-round-details',
+          path: 'select-round-details/:placement_id',
           name: 'select-round-details',
           meta: {
             requiresAuth: true
@@ -187,7 +187,7 @@ let router = new Router({
           component: SelectRoundDetails
         },
         {
-          path: 'placement-criteria',
+          path: 'placement-criteria/:placement_id',
           name: 'placement-criteria',
           meta: {
             requiresAuth: true

@@ -23,7 +23,8 @@ export default {
     }
   },
   created() {
-    education.all().then((response) => {
+    education.all()
+    .then((response) => {
       this.education = response.data;
     })
     this.callEducation();

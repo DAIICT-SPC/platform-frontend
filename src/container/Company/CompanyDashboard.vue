@@ -18,7 +18,7 @@ export default {
   },
   data() {
     return {
-      companyDetails: {}
+      userDetails: {}
     }
   },
   created() {
@@ -33,13 +33,14 @@ export default {
       return Auth.getUserToken();
     },
     getCompanyDetails() {
-      company.getUserDetails(this.getUserId()).then((response) => {
-        this.companyDetails = response.data;
+      company.getUserDetails(this.getUserId())
+      .then((response) => {
+        this.userDetails = response.data;
       })
       .catch((error) => {
-        console.log(error.response.status);
+        console.log(error);
       })
-    }
+    },
   }
 }
 </script>

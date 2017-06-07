@@ -2,9 +2,9 @@
 	<div class="placement-seasons-admin-home">
 		<div class="container dashboard-admin">
 
-			<div class="columns is-multiline" v-for = "season in placementsSeasons">
+			<div class="columns is-multiline">
 				<!-- 1/3 col -->
-				<div class="column is-one-third">
+				<div class="column is-one-third" v-for="season in placementsSeasons">
 					<div class="card placement-tiles">
 						<header class="card-header">
 							<p class="card-header-title">
@@ -16,12 +16,6 @@
 								</span>
 							</a>
 						</header>
-						<!-- <div class="card-content">
-							<div class="content">
-								Company:&nbsp;<b>DLF</b><br>
-								Location:&nbsp;<b>Banglore, India</b>
-							</div>
-						</div> -->
 						<footer class="card-footer">
 							<router-link :to="{ name: 'placements-in-seasons', params: { season_id: season.id } }" class="card-footer-item">View</router-link>
 						</footer>

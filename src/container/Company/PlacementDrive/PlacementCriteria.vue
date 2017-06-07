@@ -36,23 +36,25 @@
 </template>
 
 <script>
+import company from '@/api/company';
 import Datepicker from 'vue-bulma-datepicker'
 import EducationDropdown from '@/components/EducationDropdown'
 
 export default {
 	name: 'placement-criteria',
-
 	components:{
 		Datepicker,
 		'education': EducationDropdown,
 	},
-
-	created(){
+	created() {
+		if(this.$route.path == '/') {
+			this.$router.push({name:'placement-primary'})
+		}
 		this.$bus.$on('education-change', (response) => {
 			this.placementDrive.educationId = response.id;
 		});
+		this.getCategoriesForPlacementCriteria();
 	},
-
 	data() {
 		return {
 			placementDrive: {
@@ -60,7 +62,18 @@ export default {
 				cpi: null
 			}
 		}
-	}
+	},
+	methods: {
+		getCategoriesForPlacementCriteria() {
+			company.getCategoriesForPlacementCriteria()
+			.then((response) => {
+	      console.log(response);
+	    })
+			.catch((error) => {
+				console.log(error);
+			})
+		}
+	},
 }
 </script>
 

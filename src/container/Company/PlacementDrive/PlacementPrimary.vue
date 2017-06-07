@@ -18,8 +18,8 @@
           <input v-validate="'required'" name="jobTitle" placeholder="Job Title" v-model="placementDrive.jobTitle" type="text" class="input">
         </p>
         <div v-show="errors.has('jobTitle')" class="help is-danger">
-    			{{ errors.first('jobTitle') }}
-    		</div>
+          {{ errors.first('jobTitle') }}
+        </div>
       </div>
 
       <div class="field">
@@ -28,8 +28,8 @@
           <textarea v-validate="'required'" v-model="placementDrive.jobProfileDescription" name="job_desc" class="textarea" placeholder="Job Description"></textarea>
         </p>
         <div v-show="errors.has('job_desc')" class="help is-danger">
-    			{{ errors.first('job_desc') }}
-    		</div>
+          {{ errors.first('job_desc') }}
+        </div>
       </div>
 
       <div class="field">
@@ -46,8 +46,8 @@
           <input v-validate="'required'" type="text" placeholder="Enter Location" class="input" name="location" v-model="placementDrive.loaction">
         </p>
         <div v-show="errors.has('location')" class="help is-danger">
-    			{{ errors.first('location') }}
-    		</div>
+          {{ errors.first('location') }}
+        </div>
       </div>
 
       <div class="field">
@@ -56,8 +56,8 @@
           <input v-validate="'required'" type="number" placeholder="No of students" name="numberOfStudents" class="input" v-model="placementDrive.noOfStudents">
         </p>
         <div v-show="errors.has('numberOfStudents')" class="help is-danger">
-    			{{ errors.first('numberOfStudents') }}
-    		</div>
+          {{ errors.first('numberOfStudents') }}
+        </div>
       </div>
 
       <div class="field">
@@ -66,8 +66,8 @@
           <input v-validate="'required|numeric'" type="number" placeholder="Enter CTC" class="input" name="package" v-model="placementDrive.package">
         </p>
         <div v-show="errors.has('package')" class="help is-danger">
-    			{{ errors.first('package') }}
-    		</div>
+          {{ errors.first('package') }}
+        </div>
       </div>
 
 
@@ -77,15 +77,15 @@
           <jobtype-dropdown></jobtype-dropdown>
         </p>
         <div v-show="errors.has('jobType-select')" class="help is-danger">
-    			{{ errors.first('jobType-select') }}
-    		</div>
+          {{ errors.first('jobType-select') }}
+        </div>
       </div>
 
 
       <div class="field is-grouped">
         <p class="control buttons">
-          <button class="button is-primary" @click="validateAndSendPlacementDetails">Save And New</button>
-          <button class="button is-primary" @click="moveToNextRound">Next</button>
+          <button class="button is-primary" @click="validateAndSendPlacementDetails">Submit</button>
+          <!-- <button class="button is-primary" @click="moveToNextRound">Next</button> -->
         </p>
       </div>
     </div>
@@ -135,7 +135,9 @@ export default {
   },
   methods: {
     validateAndSendPlacementDetails() {
-      this.validate().then(this.saveAndSendPlacementDetails()).catch(() => {
+      this.validate()
+      .then(this.saveAndSendPlacementDetails())
+      .catch(() => {
         console.log("Error");
       });
     },
@@ -143,23 +145,24 @@ export default {
       return this.$validator.validateAll();
     },
     saveAndSendPlacementDetails() {
-      company.placementPrimary(this.getUserToken(), this.placementDrive.jobTitle, this.placementDrive.jobProfileDescription,
-        this.placementDrive.lastDateofRegistration, this.placementDrive.loaction, this.placementDrive.noOfStudents,
-        this.placementDrive.package, this.placementDrive.jobTypeId, this.placementDrive.seasonId)
-        .then((response) => {
-          alert('Placement Created Successfully.');
-          console.log(response);
-          this.emptyFields();
-        })
-        .catch((error) => {
-          // this.isError = true;
-          console.log(error);
-        })
+      company.placementPrimary(this.getUserId(), this.placementDrive.jobTitle, this.placementDrive.jobProfileDescription,
+      this.placementDrive.lastDateofRegistration, this.placementDrive.loaction, this.placementDrive.noOfStudents,
+      this.placementDrive.package, this.placementDrive.jobTypeId, this.placementDrive.seasonId)
+      .then((response) => {
+        this.moveToNextRound(response.data.placement_id);
+      })
+      .catch((error) => {
+        // this.isError = true;
+        console.log(error);
+      })
     },
-    moveToNextRound() {
+    moveToNextRound(placement_id) {
       // condition if placement created then only let the company move ahead.
       this.$router.push({
-        name: 'select-category'
+        name: 'select-category',
+        params: {
+          placement_id: placement_id
+        }
       })
     },
     emptyFields() {
