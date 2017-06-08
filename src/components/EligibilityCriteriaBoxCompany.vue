@@ -23,6 +23,9 @@
               <button @click="updateCriteria(cr.education_id, cr.category_id, cr.cpi_required)" name="student" class="button is-success submit-button">
                 Submit
               </button>
+              <button @click="deleteCriteria1(cr.education_id, cr.category_id)" name="student" class="button is-danger delete-button">
+                Delete
+              </button>
             </p>
           </div>
         </div>
@@ -37,6 +40,7 @@
 <script>
 import company from '@/api/company'
 import Auth from '@/packages/auth/Auth'
+
 export default {
   name: 'placement-drive-box',
   data() {
@@ -44,7 +48,8 @@ export default {
       hidden: true,
       cpi_required: null,
       category_id: null,
-      education_id: null
+      education_id: null,
+      id: null
     };
   },
   props: {
@@ -58,10 +63,20 @@ export default {
   },
   methods: {
     updateCriteria(education_id, category_id, cpi_required) {
-      console.log(education_id + "-" + category_id + "-" + cpi_required);
       company.patchUpdateEligibilityCriteria(this.getUserId(), this.placement_id, education_id, category_id, cpi_required)
       .then((response) => {
-        console.log(response.data);
+        this.hidden = true;
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    },
+    deleteCriteria1(education_id, category_id) {
+      console.log(this.getUserId()+"-"+ this.placement_id+"-"+ education_id+"-"+ category_id);
+      this.id = this.getUserId();
+      company.deleteCriteria(this.id, this.placement_id, education_id, category_id)
+      .then((response) => {
+        this.$emit.$emit('deleted');
         this.hidden = true;
       })
       .catch((error) => {

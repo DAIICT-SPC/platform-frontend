@@ -26,45 +26,50 @@
 
 
       <div class="eligibility-criteria job-section">
-				<b class="section-header">Eligibility Criteria
+        <b class="section-header">Eligibility Criteria
           <div class="header-action is-pulled-right">
-            <div class="button is-white" v-on:click="showOpenFor=true"> Add </div>
+            <div class="button is-white" @click="showOpenFor = true"> Add </div>
           </div>
         </b>
 
-        <open-for-modal v-if="showOpenFor" @close="showOpenFor=false"></open-for-modal>
+        <open-for-modal v-if="showOpenFor" @close="showOpenFor = !showOpenFor"></open-for-modal>
 
-				<div class="columns is-multiline margin-set">
-					<div class="column" v-for="categories in placementDescription.categories">
-						<div class="card">
-							<header class="card-header">
-								<p class="card-header-title"> {{ categories.name }} </p>
-								<div class="header-action is-pulled-right">
-                  <div class="button is-white add-btn" @click="showCatEd = !showCatEd"> Add </div>
+        <div class="columns is-multiline margin-set">
+          <div class="column" v-for="categories in placementDescription.categories">
+            <div class="card">
+              <header class="card-header">
+                <p class="card-header-title"> {{ categories.name }} </p>
+                <div class="header-action is-pulled-right">
                   <input type="hidden" v-model="category_id = categories.id">
                   <!-- {{categories.id}} -->
-								</div>
-							</header>
+                  <a class="button is-white" @click="delOpenFor(categories.id)">Delete</a>
+                </div>
+              </header>
+              <input type="hidden" v-model="category_id_new = categories.id">
+              <category-education-modal :key="category_id_new" :category_id="category_id_new" v-if="showCatEd" @close="showCatEd=!showCatEd"></category-education-modal>
 
-              <category-education-modal :category_id="categories.id" v-if="showCatEd" @close="showCatEd=!showCatEd"></category-education-modal>
+              <footer class="stripe-footer">
+                <div class="columns">
+                  <div class="column" v-for="cat in categories.criterias">{{ cat.education.name }} <br> {{cat.cpi_required}}</div>
+                </div>
+              </footer>
+              <div class="criteria-box">
+                <criteria-box :key="categories.id" :criterias="categories.criterias"></criteria-box>
+                <add-criteria-box :key="categories.id" :category_id="categories.id"></add-criteria-box>
+              </div>
+            </div>
+          </div>
 
-							<footer class="stripe-footer">
-								<div class="columns">
-									<div class="column" v-for="cat in categories.criterias">{{ cat.education.name }} <br> {{cat.cpi_required}}</div>
-								</div>
-							</footer>
-							<div class="criteria-box">
-								<criteria-box :key="categories.id" :criterias="categories.criterias"></criteria-box>
-							</div>
-						</div>
-					</div>
-
-				</div>
-			</div>
+        </div>
+      </div>
 
       <div class="hiring-process job-section">
-        <b class="section-header">Hiring Process</b>
-
+        <b class="section-header">Hiring Process
+          <div class="header-action is-pulled-right">
+            <div class="button is-white" @click="showAddSelection = true"> Add </div>
+          </div>
+        </b>
+        <add-selection-round @close="showAddSelection=false" v-if="showAddSelection"></add-selection-round>
         <div class="processes">
 
           <div class="process-application process">
@@ -75,7 +80,7 @@
               <span>Application</span> &nbsp;
               <div class="view-info">
                 <!-- <router-link :to="{ name: 'selection-rounds', params: { placement_id: placement_id } }" class="is-success">View info</router-link> -->
-							</div>
+              </div>
             </a>
           </div>
 
@@ -105,7 +110,7 @@
 </template>
 
 <script>
-import PlacementRoundDetail from '@/components/PlacementRoundDetail'
+import EditSelectionRounds from '@/components/Company/EditSelectionRounds'
 import ViewPlacementEditModal from '@/components/ViewPlacementEditModal'
 import OpenForModal from '@/components/Company/OpenForModal'
 import placement from '@/api/placement'
@@ -114,17 +119,22 @@ import company from '@/api/company'
 import Auth from '@/packages/auth/Auth'
 import EligibilityCriteriaBoxCompany from '@/components/EligibilityCriteriaBoxCompany'
 import DraftEligibilityCriteriaModal from '@/components/Company/DraftEligibilityCriteriaModal'
+import AddSelectionRound from '@/components/Company/AddSelectionRound'
+import AddEligibilityCriteria from '@/components/Company/AddEligibilityCriteria'
 export default {
   name: 'placement',
   components: {
-    'roundBox': PlacementRoundDetail,
+    'roundBox': EditSelectionRounds,
     'drive-box': ViewPlacementEditModal,
     'criteria-box': EligibilityCriteriaBoxCompany,
     'category-education-modal': DraftEligibilityCriteriaModal,
-    'open-for-modal': OpenForModal
+    'open-for-modal': OpenForModal,
+    'add-criteria-box': AddEligibilityCriteria,
+    'add-selection-round': AddSelectionRound
   },
   data() {
     return {
+      category_id_new: null,
       category_id: null,
       showCriteria: false,
       placement_id: null,
@@ -139,7 +149,8 @@ export default {
       show: "Edit",
       showDesc: false,
       showCatEd: false,
-      showOpenFor: false
+      showOpenFor: false,
+      showAddSelection: false
     }
   },
   created() {
@@ -148,33 +159,48 @@ export default {
     this.$bus.$on('closeDescription', () => {
       this.showDesc = false;
     });
-    company.getPlacementDetails(this.getUserId(), this.placement_id)
-    .then((response) => {
-      this.placementDescription = response.data;
+    this.getDetails();
+    this.$bus.$on('close', () => {
+      this.showOpenFor = false;
+      this.getDetails();
     })
-    .catch((error) => {
-      console.log(error.message);
+  },
+  beforeUpdate() {
+    this.$bus.$on('deleted', () => {
+      this.getDetails();
     });
   },
   methods: {
+    getDetails() {
+      company.getPlacementDetails(this.getUserId(), this.placement_id)
+      .then((response) => {
+        this.placementDescription = response.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+    },
     getEducation() {
       console.log("cat: " + this.category_id);
-			company.getEducationForPlacementCriteria(this.getUserId(), this.placement_id, this.category_id)
-			.then((response) => {
-				// console.log(response);
-			})
-			.catch((error) => {
-				console.log(error);
-			})
-		},
+      company.getEducationForPlacementCriteria(this.getUserId(), this.placement_id, this.category_id)
+      .then((response) => {
+        // console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    },
     getUserId() {
       return Auth.getUserToken();
     },
-    userApplyForPlacement() {
-
-    },
-    userCancelPlacement() {
-
+    delOpenFor(category_id) {
+      company.deleteOpenFor(this.getUserId(), this.placement_id, category_id)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
     }
   }
 }

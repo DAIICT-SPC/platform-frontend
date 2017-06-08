@@ -135,10 +135,29 @@ export default {
         });
       },
 
+      deleteCriteria(user_id, placement_id, education_id, category_id) {
+        // /users/id/company/deleteEducationCriteria/{placement_id}/{category_id}
+        let url = '/users/' + user_id + '/company/deleteEducationCriteria/' + placement_id + '/' + category_id + '/' + education_id;
+        return HTTP.delete(url);
+      },
+
+      deleteOpenFor(user_id, placement_id, category_id) {
+        let url = '/users/' + user_id + '/company/deleteOpenFor/' + placement_id + '/' + category_id;
+        return HTTP.delete(url);
+      },
+
       getOpenFor(user_id, placement_id) {
-        // api/users/{user_id}/getRemainingOpenFor/{placement_id}
-        let url = '/users/'+ user_id +'/getRemainingOpenFor/' + placement_id;
+        // api/users/{user_id}/company/getRemainingOpenFor/{placement_id}
+        let url = '/users/'+ user_id +'/company/getRemainingOpenFor/' + placement_id;
         return HTTP.get(url);
-      }
+      },
+
+      // api/users/{user_id}/company/{placement_id}/updateOpenFor
+      patchOpenForDetail(user_id, placement_id, categories){
+        let url = '/users/'+ user_id +'/company/' + placement_id + '/updateOpenFor'
+        return HTTP.patch(url, {
+          update_open_for: categories,
+        });
+      },
 
     }

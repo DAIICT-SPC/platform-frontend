@@ -71,7 +71,7 @@ export default {
 		this.$bus.$on('education-ended', () => {
 			// $emit('close');
 		});
-		console.log(this.category_id);
+		console.log("draft" + this.category_id);
 		this.$bus.$on('education-change', (data) => {
 			this.education_id = data.id;
 		});
@@ -97,7 +97,7 @@ export default {
 			})
 		},
 		addCriteria() {
-			console.log();
+
 			company.setPlacementCriteria(this.getUserId(), this.placement_id, this.education_id,
 			this.category_id, this.cpi_required)
 			.then((response) => {

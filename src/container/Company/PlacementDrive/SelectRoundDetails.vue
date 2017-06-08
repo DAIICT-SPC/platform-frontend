@@ -112,7 +112,7 @@ export default {
 			})
 		},
 		selectionRounds() {
-			this.dateTime = this.placementDrive.date + " " + this.placementDrive.time + ':00';
+			// this.dateTime = this.placementDrive.date + " " + this.placementDrive.time + ':00';
 			this.validate().then(() => {
 				this.placementDrive.dateTime = this.placementDrive.date + " " + this.placementDrive.time + ':00';
 				company.selectionRounds(this.getUserId(), this.placement_id,
