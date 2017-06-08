@@ -9,6 +9,7 @@
           </router-link>
           <router-link :to="{ name: 'company-home' }" class="nav-item is-tab is-hidden-mobile">Home</router-link>
           <router-link :to="{ name: 'placement-primary' }" class="nav-item is-tab is-hidden-mobile">New Placement Drive</router-link>
+          <router-link :to="{ name: 'manage-drafts' }" class="nav-item is-tab is-hidden-mobile">Manage</router-link>
           <router-link :to="{ name: 'company-profile' }" class="nav-item is-tab is-hidden-mobile">My Profile</router-link>
         </div>
         <span class="nav-toggle">

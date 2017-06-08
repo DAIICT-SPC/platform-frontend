@@ -32,12 +32,20 @@
         </div>
       </div>
 
-      <div class="field">
-        <label class="label">Last Date of Registration</label>
-        <p class="control is-fullwidth">
-          <datepicker placeholder="Date" :config="{ dateFormat: 'Y-m-d', static: true }"
-          v-model="placementDrive.lastDateofRegistration" name="date"></datepicker>
-        </p>
+      <div class="date-time">
+        <div class="field">
+          <label class="label">Last Date of Registration</label>
+          <p class="control is-fullwidth">
+            <datepicker placeholder="Date" :config="{ dateFormat: 'Y-m-d', static: true }"
+            v-model="placementDrive.lastDateofRegistration" name="date"></datepicker>
+          </p>
+        </div>
+        <div class="field time">
+          <label class="label">Time</label>
+          <p class="control">
+            <input v-model="placementDrive.time" type="time" name="time" class="input" placeholder="Enter Date">
+          </p>
+        </div>
       </div>
 
       <div class="field">
@@ -63,7 +71,7 @@
       <div class="field">
         <label class="label">Package</label>
         <p class="control">
-          <input v-validate="'required|numeric'" type="number" placeholder="Enter CTC" class="input" name="package" v-model="placementDrive.package">
+          <input v-validate="'required|numeric'" type="number" placeholder="Enter Package" class="input" name="package" v-model="placementDrive.package">
         </p>
         <div v-show="errors.has('package')" class="help is-danger">
           {{ errors.first('package') }}
@@ -113,6 +121,8 @@ export default {
         jobTitle: '',
         jobProfileDescription: '',
         lastDateofRegistration: '',
+        time: '',
+        dateTime: '',
         loaction: '',
         noOfStudents: '',
         package: null,
@@ -145,8 +155,9 @@ export default {
       return this.$validator.validateAll();
     },
     saveAndSendPlacementDetails() {
+      this.dateTime = this.placementDrive.lastDateofRegistration + " " + this.placementDrive.time + ':00';
       company.placementPrimary(this.getUserId(), this.placementDrive.jobTitle, this.placementDrive.jobProfileDescription,
-      this.placementDrive.lastDateofRegistration, this.placementDrive.loaction, this.placementDrive.noOfStudents,
+      this.dateTime, this.placementDrive.loaction, this.placementDrive.noOfStudents,
       this.placementDrive.package, this.placementDrive.jobTypeId, this.placementDrive.seasonId)
       .then((response) => {
         this.moveToNextRound(response.data.placement_id);
@@ -184,6 +195,14 @@ export default {
 
 <style lang="scss">
 .placement-primary {
+
+  .date-time {
+    display: flex;
+    justify-content:  flex-start;
+    .field.time {
+      padding-left: 1rem;
+    }
+  }
 
   .title.placement-header {
     border-bottom: solid 1px #ddd;

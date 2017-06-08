@@ -8,6 +8,20 @@ export default {
     window.localStorage.setItem('user_id', id);
   },
 
+  setUserRole(role_name) {
+    window.localStorage.setItem('role', role_name);
+  },
+
+  getUserRole() {
+    var role = window.localStorage.getItem('role');
+
+    if (window.localStorage.getItem('role') != null) {
+      return role
+    } else {
+      return null
+    }
+  },
+
   getUserToken() {
     var user_id = window.localStorage.getItem('user_id');
 
@@ -32,6 +46,8 @@ export default {
   destroyToken() {
     window.localStorage.removeItem('token');
     window.localStorage.removeItem('user_id');
+    window.localStorage.removeItem('category_id');
+    window.localStorage.removeItem('role');
   },
 
   setCriteriaId(category_id) {
@@ -51,6 +67,30 @@ export default {
 
   isAuthenticated() {
     if (this.getToken()) {
+      return true
+    } else {
+      return false
+    }
+  },
+
+  isStudent() {
+    if (this.getUserRole() == 'student') {
+      return true
+    } else {
+      return false
+    }
+  },
+
+  isAdmin() {
+    if (this.getUserRole() == 'admin') {
+      return true
+    } else {
+      return false
+    }
+  },
+
+  isCompany() {
+    if (this.getUserRole() == 'company') {
       return true
     } else {
       return false

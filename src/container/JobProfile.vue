@@ -52,18 +52,7 @@ import Auth from '@/packages/auth/Auth'
 export default {
   name: 'jobprofile',
   created() {
-    user.getUserJobProfile(this.getUserId())
-    .then((response) => {
-      if(response.data[0] == null) {
-        this.jobsNull = true;
-      }
-      else {
-        this.jobProfiles = response.data;
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    })
+    this.getJobProfile();
   },
   data() {
     return {
@@ -72,6 +61,20 @@ export default {
     }
   },
   methods: {
+    getJobProfile() {
+      user.getUserJobProfile(this.getUserId())
+      .then((response) => {
+        if(response.data[0] == null) {
+          this.jobsNull = true;
+        }
+        else {
+          this.jobProfiles = response.data;
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    },
     getUserId() {
       return Auth.getUserToken();
     }

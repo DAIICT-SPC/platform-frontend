@@ -50,30 +50,35 @@ export default {
     'sidebar': Sidebar
   },
   created() {
-    userApi.getUserDetails(this.getUserId())
-    .then((response) => {
-      this.userMainDetails = response.data;
-    })
-    .catch((error) => {
-      console.log(error.message);
-    })
-
-    userApi.getUserEducation(this.getUserId()).then((response) => {
-      this.userEducationcpi = response.data[0].cpi;
-      this.userEducationDetails = response.data;
-    })
-    .catch((error) => {
-      if (error.response) {
-        this.error.errorMessage = error.response.data.message;
-        this.error.errorStatus = error.response.status;
-        alert(this.error.errorStatus + " - " + this.error.errorMessage);
-      } else if (error.request) {
-        alert(error.request);
-      } 
-      // console.log(error.config);
-    })
+    this.getUserDetails();
+    this.getUserEducation();
   },
   methods: {
+    getUserDetails() {
+      userApi.getUserDetails(this.getUserId())
+      .then((response) => {
+        this.userMainDetails = response.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      })
+    },
+    getUserEducation() {
+      userApi.getUserEducation(this.getUserId()).then((response) => {
+        this.userEducationcpi = response.data[0].cpi;
+        this.userEducationDetails = response.data;
+      })
+      .catch((error) => {
+        if (error.response) {
+          this.error.errorMessage = error.response.data.message;
+          this.error.errorStatus = error.response.status;
+          alert(this.error.errorStatus + " - " + this.error.errorMessage);
+        } else if (error.request) {
+          alert(error.request);
+        }
+        // console.log(error.config);
+      })
+    },
     getUserId() {
       return Auth.getUserToken();
     }

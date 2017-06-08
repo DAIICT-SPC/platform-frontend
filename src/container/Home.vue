@@ -109,12 +109,15 @@ export default {
       user.getRole(this.decodedToken.sub)
       .then((response) => {
         if(response.data.role == 'student') {
+          Auth.setUserRole(response.data.role);
           window.location.href='/dashboard';
         }
         else if(response.data.role == 'company') {
+          Auth.setUserRole(response.data.role);
           window.location.href='/company';
         }
         else if(response.data.role == 'admin') {
+          Auth.setUserRole(response.data.role);
           window.location.href='/admin';
         }
       })

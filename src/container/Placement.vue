@@ -9,7 +9,10 @@
         </div>
         <div class="header-action is-pulled-right">
           <span class="tag">{{dashboardJobDetails.job_type.job_type}}</span>
-          <div class="apply-box">
+          <div v-if="dashboardJobDetails.status == 'closed'">
+            <span class="tag">{{dashboardJobDetails.status}}</span>
+          </div>
+          <div class="apply-box" v-if="dashboardJobDetails.status != 'closed'">
             <a v-if="!applyKey" class="button is-success" @click="userApplyForPlacement">{{apply}}</a>
             <a v-if="applyKey" class="button is-danger" @click="userCancelPlacement">Cancel</a>
           </div>
@@ -109,35 +112,35 @@ export default {
   },
   created() {
     this.placement_id = this.$route.params.id;
-    user.getUserAppliedForPlacement(this.getUserId(), this.placement_id)
-    .then((response) => {
-      // console.log("placement id-" + this.placement_id);
-      // console.log("response.data-" + response.data);
-      if(response.data == 0) {
-        // console.log("if applied");
-        // console.log(response.data == 0);
-        this.apply = 'Apply'
-        this.applyKey = 0;
-        // console.log(this.applyKey == 0);
-      }
-      else {
-        // console.log("else applied");
-        this.apply = 'Applied'
-        this.applyKey = 1;
-      }
-    })
-    .catch((error) => {
-      console.log(error.message);
-    });
-    user.getUserPlacementDetails(this.getUserId(), this.placement_id)
-    .then((response) => {
-      this.dashboardJobDetails = response.data;
-    })
-    .catch((error) => {
-      console.log(error.message);
-    });
+    this.getUserAppliedForPlacement();
+    this.getUserPlacementDetails();
   },
   methods: {
+    getUserPlacementDetails() {
+      user.getUserPlacementDetails(this.getUserId(), this.placement_id)
+      .then((response) => {
+        this.dashboardJobDetails = response.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+    },
+    getUserAppliedForPlacement() {
+      user.getUserAppliedForPlacement(this.getUserId(), this.placement_id)
+      .then((response) => {
+        if(response.data == 0) {
+          this.apply = 'Apply'
+          this.applyKey = 0;
+        }
+        else {
+          this.apply = 'Applied'
+          this.applyKey = 1;
+        }
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+    },
     getUserId() {
       return Auth.getUserToken();
     },
@@ -145,8 +148,8 @@ export default {
       user.applyForPlacement(this.getUserId(), this.placement_id)
       .then((response) => {
         if(response.status == 200) {
-          alert('Applied');
           this.apply = 'Applied';
+          this.getUserPlacementDetails();
         }
       })
       .catch((error) => {

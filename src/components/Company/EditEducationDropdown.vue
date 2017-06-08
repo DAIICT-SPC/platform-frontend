@@ -1,7 +1,7 @@
 <template lang="html">
   <div>
     <span class="select is-fullwidth">
-      <select disabled v-validate="'required|not_in:null'" v-model="education_id" @change="educationChange()" name="education">
+      <select v-validate="'required|not_in:null'" v-model="education_id" @change="educationChange()" name="education">
         <option value=null>Select dropdown</option>
         <option v-for="ed in education" :value="ed.id">{{ed.name}}</option>
       </select>
@@ -14,17 +14,25 @@
 
 <script>
 import education from '@/api/education'
+import company from '@/api/company'
+import Auth from '@/packages/auth/Auth'
 
 export default {
   name: 'education-dropdown',
   props: {
     ed_id: {
       required: true,
+    },
+    category_id: {
+      required: true,
     }
   },
   created() {
     this.education_id = this.ed_id;
-    this.callEducation();
+    // this.callEducation();
+    this.placement_id = this.$route.params.placement_id;
+    this.getEducation();
+
   },
   beforeUpdate() {
     this.$bus.$emit('education-change', { id: this.education_id });
@@ -37,6 +45,22 @@ export default {
     };
   },
   methods: {
+    getEducation() {
+			company.getEducationForPlacementCriteria(this.getUserId(), this.placement_id, this.category_id)
+			.then((response) => {
+        if(response.data == 'Done with Educations!') {
+          this.$bus.$emit('education-ended');
+        }
+				this.education = response.data;
+				this.ed_id = this.education[0].id;
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+		},
+    getUserId() {
+      return Auth.getUserToken();
+    },
     educationChange() {
       this.$bus.$emit('education-change', { id: this.education_id });
     },

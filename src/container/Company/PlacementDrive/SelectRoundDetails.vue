@@ -31,12 +31,20 @@
 				<div class="help is-danger" v-show="errors.has('processDescription')">{{ errors.first('processDescription') }}</div>
 			</div>
 
-			<div class="field">
-				<label class="label">Date</label>
-				<p class="control is-fullwidth">
-					<datepicker placeholder="Date" :config="{ dateFormat: 'Y-m-d', static: true }"
-					v-model="placementDrive.date"></datepicker>
-				</p>
+			<div class="date-time">
+				<div class="field">
+					<label class="label">Date</label>
+					<p class="control is-fullwidth">
+						<datepicker placeholder="Date" :config="{ dateFormat: 'Y-m-d', static: true }"
+						v-model="placementDrive.date"></datepicker>
+					</p>
+				</div>
+				<div class="field time">
+					<label class="label">Time</label>
+					<p class="control">
+						<input v-model="placementDrive.time" type="time" name="time" class="input" placeholder="Enter Date">
+					</p>
+				</div>
 			</div>
 
 			<div class="field is-grouped">
@@ -76,9 +84,14 @@ export default {
 				ProcessNo: null,
 				ProcessName: '',
 				ProcessDescription: '',
-				date: ''
+				date: '',
+				time: '',
+				dateTime: ''
 			}
 		}
+	},
+	computed() {
+
 	},
 	methods: {
 		getRoundNo() {
@@ -99,10 +112,12 @@ export default {
 			})
 		},
 		selectionRounds() {
+			this.dateTime = this.placementDrive.date + " " + this.placementDrive.time + ':00';
 			this.validate().then(() => {
+				this.placementDrive.dateTime = this.placementDrive.date + " " + this.placementDrive.time + ':00';
 				company.selectionRounds(this.getUserId(), this.placement_id,
 				this.placementDrive.ProcessNo, this.placementDrive.ProcessName,
-				this.placementDrive.ProcessDescription, this.placementDrive.date)
+				this.placementDrive.ProcessDescription, this.placementDrive.dateTime)
 				.then((response) => {
 					if(response.data == 'Already DB has entry!') {
 						this.$router.push({ name: 'select-round-details', params:
@@ -148,6 +163,14 @@ export default {
 		margin-bottom: 0;
 		padding: 1rem;
 	}
+
+	.date-time {
+    display: flex;
+    justify-content:  flex-start;
+    .field.time {
+      padding-left: 1rem;
+    }
+  }
 
 	.placement-body {
 		padding: 1rem;

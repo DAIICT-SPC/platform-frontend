@@ -25,6 +25,16 @@
                 The Job Location is a required field.
               </div>
             </div>
+
+            <div class="field">
+              <label class="label">Package</label>
+              <p class="control">
+                <input v-model="package = placementDescription.package" v-validate="'required'" class="input" type="text" name="package" placeholder="Package">
+              </p>
+              <div v-show="errors.has('package')" class="help is-danger">
+                The Package is a required field.
+              </div>
+            </div>
           </div>
           <div class="column">
             <div class="field">
@@ -34,6 +44,15 @@
               </p>
               <div class="help is-danger" v-show="errors.has('job_description')">
                 The Job Description is a required field.
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">No. of Students</label>
+              <p class="control">
+                <input v-model="no_of_students = placementDescription.no_of_students" v-validate="'required'" class="input" type="text" name="no_of_students" placeholder="No of Students">
+              </p>
+              <div v-show="errors.has('no_of_students')" class="help is-danger">
+                The No of Students is a required field.
               </div>
             </div>
           </div>
@@ -66,7 +85,9 @@ export default {
       job_title: '',
       job_description: '',
       location: '',
-      placement_id: null
+      placement_id: null,
+      package: null,
+      no_of_students: null,
     }
   },
   methods: {
@@ -74,7 +95,9 @@ export default {
         this.validate()
         .then(() => {
           //call update
-          company.updatePlacementDriveDescription(this.getUserId(), this.placement_id, this.job_title, this.location, this.job_description)
+          company.updatePlacementDriveDescription(this.getUserId(), this.placement_id,
+          this.package, this.no_of_students,
+          this.job_title, this.location, this.job_description)
           .then((response) => {
             if(response.status == 200) {
               this.$bus.$emit('closeDescription');

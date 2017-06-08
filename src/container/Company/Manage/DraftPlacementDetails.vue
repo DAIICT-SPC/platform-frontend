@@ -13,36 +13,54 @@
       </div>
 
       <div class="job-description job-section">
-        <b class="section-header">Job Description</b>
+        <b class="section-header">Job Description
+          <div class="header-action is-pulled-right">
+            <div class="button is-white" @click="showDesc = !showDesc" v-if="!showDesc"> {{show}} </div>
+            <div class="button is-white" @click="showDesc = !showDesc" v-if="showDesc"> {{hide}} </div>
+          </div>
+        </b>
+
         <p>{{ placementDescription.job_description }}</p>
+        <drive-box :placementDescription="placementDescription" v-if="showDesc"></drive-box>
       </div>
 
 
       <div class="eligibility-criteria job-section">
-        <b class="section-header">Eligibility Criteria</b>
-
-        <div class="columns is-multiline">
-
-          <div class="column" v-for="categories in placementDescription.categories">
-            <div class="card">
-              <header class="card-header">
-                <p class="card-header-title"> {{ categories.name }} </p>
-                <div class="header-action is-pulled-right edit-btn">
-                </div>
-              </header>
-
-              <footer class="stripe-footer">
-                <div class="columns">
-                  <div class="column" v-for="cat in categories.criterias">{{ cat.education.name }} <br> {{cat.cpi_required}}</div>
-                </div>
-              </footer>
-              <div class="criteria-box">
-              </div>
-            </div>
+				<b class="section-header">Eligibility Criteria
+          <div class="header-action is-pulled-right">
+            <div class="button is-white" v-on:click="showOpenFor=true"> Add </div>
           </div>
+        </b>
 
-        </div>
-      </div>
+        <open-for-modal v-if="showOpenFor" @close="showOpenFor=false"></open-for-modal>
+
+				<div class="columns is-multiline margin-set">
+					<div class="column" v-for="categories in placementDescription.categories">
+						<div class="card">
+							<header class="card-header">
+								<p class="card-header-title"> {{ categories.name }} </p>
+								<div class="header-action is-pulled-right">
+                  <div class="button is-white add-btn" @click="showCatEd = !showCatEd"> Add </div>
+                  <input type="hidden" v-model="category_id = categories.id">
+                  <!-- {{categories.id}} -->
+								</div>
+							</header>
+
+              <category-education-modal :category_id="categories.id" v-if="showCatEd" @close="showCatEd=!showCatEd"></category-education-modal>
+
+							<footer class="stripe-footer">
+								<div class="columns">
+									<div class="column" v-for="cat in categories.criterias">{{ cat.education.name }} <br> {{cat.cpi_required}}</div>
+								</div>
+							</footer>
+							<div class="criteria-box">
+								<criteria-box :key="categories.id" :criterias="categories.criterias"></criteria-box>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
 
       <div class="hiring-process job-section">
         <b class="section-header">Hiring Process</b>
@@ -55,6 +73,9 @@
                 <i class="fa fa-user-o"></i>
               </span>
               <span>Application</span> &nbsp;
+              <div class="view-info">
+                <!-- <router-link :to="{ name: 'selection-rounds', params: { placement_id: placement_id } }" class="is-success">View info</router-link> -->
+							</div>
             </a>
           </div>
 
@@ -64,7 +85,6 @@
               <b>{{ round.round_name }}</b>
             </p>
             <roundBox :key="round.id" :round="round"></roundBox>
-            <!-- round box date time not set -->
           </div>
 
 
@@ -87,20 +107,25 @@
 <script>
 import PlacementRoundDetail from '@/components/PlacementRoundDetail'
 import ViewPlacementEditModal from '@/components/ViewPlacementEditModal'
+import OpenForModal from '@/components/Company/OpenForModal'
 import placement from '@/api/placement'
 // import education from '@/api/education'
 import company from '@/api/company'
 import Auth from '@/packages/auth/Auth'
 import EligibilityCriteriaBoxCompany from '@/components/EligibilityCriteriaBoxCompany'
+import DraftEligibilityCriteriaModal from '@/components/Company/DraftEligibilityCriteriaModal'
 export default {
   name: 'placement',
   components: {
     'roundBox': PlacementRoundDetail,
     'drive-box': ViewPlacementEditModal,
     'criteria-box': EligibilityCriteriaBoxCompany,
+    'category-education-modal': DraftEligibilityCriteriaModal,
+    'open-for-modal': OpenForModal
   },
   data() {
     return {
+      category_id: null,
       showCriteria: false,
       placement_id: null,
       jobProfile: {},
@@ -112,17 +137,19 @@ export default {
       showVenue: false,
       hide: "Hide",
       show: "Edit",
-      showDesc: false
+      showDesc: false,
+      showCatEd: false,
+      showOpenFor: false
     }
   },
   created() {
     this.placement_id = this.$route.params.placement_id;
+    // this.getEducation();
     this.$bus.$on('closeDescription', () => {
       this.showDesc = false;
     });
     company.getPlacementDetails(this.getUserId(), this.placement_id)
     .then((response) => {
-      console.log(response);
       this.placementDescription = response.data;
     })
     .catch((error) => {
@@ -130,6 +157,16 @@ export default {
     });
   },
   methods: {
+    getEducation() {
+      console.log("cat: " + this.category_id);
+			company.getEducationForPlacementCriteria(this.getUserId(), this.placement_id, this.category_id)
+			.then((response) => {
+				// console.log(response);
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+		},
     getUserId() {
       return Auth.getUserToken();
     },
@@ -145,6 +182,15 @@ export default {
 
 <style lang="scss">
 .placement-page {
+
+  .margin-set {
+    margin: 0;
+  }
+
+  .add-btn {
+    margin-top: 0.4rem;
+  }
+
   padding: 0.5rem 1.5rem;
   padding-top: 1.3rem;
 
@@ -187,6 +233,10 @@ export default {
       color: #1d4586;
       font-weight: bold;
       margin-top: 0.5rem;
+    }
+
+    .button.is-white.add {
+      margin-top: 0.4rem;
     }
 
     .header-action {
@@ -251,6 +301,8 @@ export default {
         }
       }
     }
+
+
 
     .process {
       position: relative;

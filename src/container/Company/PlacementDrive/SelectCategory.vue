@@ -107,6 +107,7 @@ export default {
 		margin-bottom: 0;
 		padding: 1rem;
 	}
+	
 	.category-body {
 		padding: 1rem;
 	}
@@ -117,5 +118,6 @@ export default {
 		text-align: left;
 		padding: 1rem;
 	}
+
 }
 </style>

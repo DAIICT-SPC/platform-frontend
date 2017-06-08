@@ -32,7 +32,7 @@
 			</div>
 			<div class="allow" v-if="allStudents">
 				<h3 class="title no-data">All Students got Offer!</h3>
-				<button class="button is-success">Reports</button>
+				<button class="button is-success" @click="showModal = true">Reports</button>
 			</div>
 		</div>
 		<offer-full-list @close="showModal = false" v-if="showModal"></offer-full-list>

@@ -78,7 +78,7 @@
 
 					<div class="box process" v-for="round in placementDescription.placement_selection">
 						<p>{{ round.round_name }}</p>
-						<router-link :to="{ name: 'selection-rounds-dynamic', params: { placement_id: placement_id, round_id: round.id } }" class="is-success">View info</router-link><br>
+						<router-link :to="{ name: 'selection-rounds-dynamic', params: { placement_id: placement_id, round_id:round.round_no} }" class="is-success">View info</router-link><br>
 						  <!-- <a @click="showVenue=true">Set Venue & Date</a> -->
 						<set-venue-date :key="round.id" :round="round"></set-venue-date>
 					</div>

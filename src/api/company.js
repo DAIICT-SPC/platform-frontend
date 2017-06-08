@@ -68,6 +68,19 @@ export default {
         });
       },
 
+      //manage
+      getDraftPlacements(user_id) {
+        // /users/2/company/getDraftPlacements
+        let url = '/users/' + user_id + '/company/getDraftPlacements';
+        return HTTP.get(url);
+      },
+
+      startPlacement(user_id, placement_id) {
+        /// users / {user_id} / company / {placement_id} / openRegistrationForPlacement
+        let url='users/' + user_id + '/company/' + placement_id + '/openRegistrationForPlacement';
+        return HTTP.post(url);
+      },
+
       getCategoriesForPlacementCriteria(user_id, placement_id, category_id) {
         let url = '/users/' + user_id + '/company/remainingCategories/' + placement_id + '/' + category_id;
         return HTTP.get(url);
@@ -79,6 +92,7 @@ export default {
       },
 
       setPlacementCriteria(user_id, placement_id, education_id, category_id, cpi_required) {
+        console.log(user_id+ "-" + placement_id+ "-" + education_id+ "-" + category_id+ "-" + cpi_required);
         // / users / {user_id} / company / {placement_id} /setPlacementCriteria
         let url = '/users/' + user_id + '/company/' + placement_id + '/setPlacementCriteria';
         return HTTP.post(url, {
@@ -99,13 +113,15 @@ export default {
         return HTTP.get(url);
       },
 
-      updatePlacementDriveDescription(user_id, palcement_id, job_title, location, job_description) {
+      updatePlacementDriveDescription(user_id, palcement_id, packages, no_of_students, job_title, location, job_description) {
         // /users/2/company/6/updatePlacementsPrimary
         let url = '/users/' + user_id + '/company/' + palcement_id + '/updatePlacementsPrimary';
         return HTTP.patch(url, {
           job_title: job_title,
           location: location,
-          job_description: job_description
+          job_description: job_description,
+          package: packages,
+          no_of_students: no_of_students,
         });
       },
 
@@ -118,5 +134,11 @@ export default {
           cpi_required: cpi_required
         });
       },
+
+      getOpenFor(user_id, placement_id) {
+        // api/users/{user_id}/getRemainingOpenFor/{placement_id}
+        let url = '/users/'+ user_id +'/getRemainingOpenFor/' + placement_id;
+        return HTTP.get(url);
+      }
 
     }

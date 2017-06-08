@@ -15,6 +15,8 @@ import Academic from '@/container/MyProfile/Academic'
 import Resume from '@/container/MyProfile/Resume'
 import CompanyDashboard from '@/container/Company/CompanyDashboard'
 import ViewAllPlacement from '@/container/Company/ViewAllPlacement'
+import DraftPlacements from '@/container/Company/Manage/DraftPlacements'
+import DraftPlacementDetails from '@/container/Company/Manage/DraftPlacementDetails'
 import Profile from '@/container/Company/Profile'
 import ViewPlacementDetail from '@/container/Company/ViewPlacementDetail'
 import NewPlacement from '@/container/Company/NewPlacement'
@@ -82,14 +84,16 @@ let router = new Router({
       name: 'dashboard',
       component: Feed,
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        shouldBeStudent: true
       }
     },
     {
       path: 'job-profiles',
       name: 'jobprofile',
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        shouldBeStudent: true
       },
       component: JobProfile
     },
@@ -97,7 +101,8 @@ let router = new Router({
       path: 'job-profiles/:id',
       name: 'view-job-profile',
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        shouldBeStudent: true
       },
       component: Placement
     },
@@ -108,7 +113,8 @@ let router = new Router({
         path: '/',
         name: 'about',
         meta: {
-          requiresAuth: true
+          requiresAuth: true,
+          shouldBeStudent: true
         },
         component: About
       },
@@ -116,7 +122,8 @@ let router = new Router({
         path: 'academic',
         name: 'academic',
         meta: {
-          requiresAuth: true
+          requiresAuth: true,
+          shouldBeStudent: true
         },
         component: Academic
       },
@@ -124,7 +131,8 @@ let router = new Router({
         path: 'resume',
         name: 'resume',
         meta: {
-          requiresAuth: true
+          requiresAuth: true,
+          shouldBeStudent: true
         },
         component: Resume
       }
@@ -135,7 +143,8 @@ let router = new Router({
 {
   path: '/company',
   meta: {
-    requiresAuth: true
+    requiresAuth: true,
+    shouldBeCompany: true
   },
   component: CompanyDashboard,
   children: [
@@ -143,22 +152,43 @@ let router = new Router({
       path: '/',
       name: 'company-home',
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        shouldBeCompany: true
       },
       component: ViewAllPlacement
+    },
+    {
+      path: 'manage-drafts',
+      name: 'manage-drafts',
+      meta: {
+        requiresAuth: true,
+        shouldBeCompany: true
+      },
+      component: DraftPlacements
+    },
+    {
+      path: 'draft-placement-details/:placement_id',
+      name: 'draft-placement-details',
+      meta: {
+        requiresAuth: true,
+        shouldBeCompany: true
+      },
+      component: DraftPlacementDetails
     },
     {
       path: 'view-placement-detail/:placement_id',
       name: 'view-placement-detail',
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        shouldBeCompany: true
       },
       component: ViewPlacementDetail
     },
     {
       path: 'new-placement',
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        shouldBeCompany: true
       },
       component: NewPlacement,
       children: [
@@ -166,7 +196,8 @@ let router = new Router({
           path: '/',
           name: 'placement-primary',
           meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            shouldBeCompany: true
           },
           component: PlacementPrimary
         },
@@ -174,7 +205,8 @@ let router = new Router({
           path: 'select-category/:placement_id',
           name: 'select-category',
           meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            shouldBeCompany: true
           },
           component: SelectCategory
         },
@@ -182,7 +214,8 @@ let router = new Router({
           path: 'select-round-details/:placement_id',
           name: 'select-round-details',
           meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            shouldBeCompany: true
           },
           component: SelectRoundDetails
         },
@@ -190,7 +223,8 @@ let router = new Router({
           path: 'placement-criteria/:placement_id',
           name: 'placement-criteria',
           meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            shouldBeCompany: true
           },
           component: PlacementCriteria
         },
@@ -201,7 +235,8 @@ let router = new Router({
       name: 'company-profile',
       component: Profile,
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        shouldBeCompany: true
       }
     }
   ]
@@ -210,7 +245,8 @@ let router = new Router({
   path: '/admin',
   component: AdminDashboard,
   meta: {
-    requiresAuth: true
+    requiresAuth: true,
+    shouldBeAdmin: true
   },
   children: [
     {
@@ -218,14 +254,16 @@ let router = new Router({
       name: 'admin-home',
       component: PlacementSeasonsAdminHome,
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        shouldBeAdmin: true
       }
     },
     {
       path: 'placement-drives/:season_id',
       component: PlacementSeasonDrivesAdmin,
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        shouldBeAdmin: true
       },
       children: [
         {
@@ -233,7 +271,8 @@ let router = new Router({
           name: 'placements-in-seasons',
           component: PlacementsInSeasons,
           meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            shouldBeAdmin: true
           }
         },
         {
@@ -241,7 +280,8 @@ let router = new Router({
           name: 'placements-drive-description',
           component: PlacementDriveDescription,
           meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            shouldBeAdmin: true
           }
         },
         {
@@ -249,7 +289,8 @@ let router = new Router({
           name: 'selection-rounds',
           component: SelectionRounds,
           meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            shouldBeAdmin: true
           }
         },
         {
@@ -257,7 +298,8 @@ let router = new Router({
           name: 'selection-rounds-dynamic',
           component: SelectionRoundsDynamic,
           meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            shouldBeAdmin: true
           }
         },
         {
@@ -265,7 +307,8 @@ let router = new Router({
           name: 'selected-for-offer',
           component: SelectedForOffer,
           meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            shouldBeAdmin: true
           }
         },
         {
@@ -273,7 +316,8 @@ let router = new Router({
           name: 'companywise-placement',
           component: CompanywisePlacement,
           meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            shouldBeAdmin: true
           }
         },
         {
@@ -281,7 +325,8 @@ let router = new Router({
           name: 'placement-companywise-description',
           component: PlacementCompanywiseDescription,
           meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            shouldBeAdmin: true
           }
         },
         //PlacementCompanywiseDescription
@@ -290,7 +335,8 @@ let router = new Router({
           name: 'companywise-placement-cards',
           component: CompanywisePlacementCards,
           meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            shouldBeAdmin: true
           }
         },
         {
@@ -298,7 +344,8 @@ let router = new Router({
           name: 'company-list',
           component: CompaniesList,
           meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            shouldBeAdmin: true
           }
         },
       ]
@@ -307,7 +354,8 @@ let router = new Router({
       path: 'admin-reports/:season_id',
       component: AdminReportsPage,
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        shouldBeAdmin: true
       },
       children: [
         {
@@ -315,7 +363,8 @@ let router = new Router({
           name: 'placed-students',
           component: PlacedStudents,
           meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            shouldBeAdmin: true
           }
         },
         {
@@ -323,7 +372,8 @@ let router = new Router({
           name: 'unplaced-students',
           component: UnplacedStudents,
           meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            shouldBeAdmin: true
           }
         },
         {
@@ -331,7 +381,8 @@ let router = new Router({
           name: 'placed-categorywise',
           component: PlacedCategorywise,
           meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            shouldBeAdmin: true
           }
         },
         {
@@ -339,7 +390,8 @@ let router = new Router({
           name: 'unplaced-categorywise',
           component: UnplacedCategorywise,
           meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            shouldBeAdmin: true
           }
         },
         //ExternallyAllowed
@@ -348,7 +400,8 @@ let router = new Router({
           name: 'externally-allowed',
           component: ExternallyAllowed,
           meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            shouldBeAdmin: true
           }
         },
       ]
@@ -357,7 +410,8 @@ let router = new Router({
       path: 'new-season-start',
       component: NewPlacementSeason,
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        shouldBeAdmin: true
       },
       children: [
         {
@@ -365,7 +419,8 @@ let router = new Router({
           name: 'placement-season-manage',
           component: PlacementSeasonManage,
           meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            shouldBeAdmin: true
           }
         },
 
@@ -374,7 +429,8 @@ let router = new Router({
           name: 'show-add-categories',
           component: Category,
           meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            shouldBeAdmin: true
           }
         },
         {
@@ -382,7 +438,8 @@ let router = new Router({
           name: 'show-add-jobtypes',
           component: JobType,
           meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            shouldBeAdmin: true
           }
         },
         {
@@ -390,7 +447,8 @@ let router = new Router({
           name: 'show-add-education',
           component: Education,
           meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            shouldBeAdmin: true
           }
         }
       ]
@@ -400,7 +458,8 @@ let router = new Router({
       name: 'admin-profile',
       component: AdminProfile,
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        shouldBeAdmin: true
       }
     }
   ]
@@ -410,17 +469,40 @@ let router = new Router({
 
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    // this route requires auth, check if logged in
-    // if not, redirect to home page.
-    if (!Auth.isAuthenticated()) {
+  if(to.meta.requiresAuth) {
+
+    if (!Auth.isAuthenticated())
+    {
       next({
         name: 'home'
       });
-    } else {
-      next();
     }
-  } else {
+    else {
+      if(to.meta.shouldBeStudent && !Auth.isStudent())
+      {
+        next({
+          name: 'page-404'
+        })
+      }
+      else if(to.meta.shouldBeAdmin && !Auth.isAdmin())
+      {
+        next({
+          name: 'page-404'
+        })
+      }
+      else if(to.meta.shouldBeCompany && !Auth.isCompany())
+      {
+        next({
+          name: 'page-404'
+        })
+      }
+      else {
+        next();
+      }
+    }
+  }
+  else
+  {
     next(); // make sure to always call next()!
   }
 });

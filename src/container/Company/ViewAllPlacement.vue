@@ -9,7 +9,7 @@
         <div class="column is-one-third" v-for="company in companyDetails">
           <div class="card">
             <header class="card-header">
-              <p class="card-header-title">
+              <p class="card-header-title" v-if="company.placement_season">
                 {{ company.placement_season.title }}
               </p>
               <a class="card-header-icon">

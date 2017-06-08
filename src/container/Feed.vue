@@ -62,16 +62,19 @@ export default {
       placement_id: null
     }
   },
-  created(){
-    user.getHomeDashboard(this.getUserId()).then((response) => {
-      this.presentFeeds(response);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  created() {
+    this.getStudentDashboard();
 
   },
   methods: {
+    getStudentDashboard() {
+      user.getHomeDashboard(this.getUserId()).then((response) => {
+        this.presentFeeds(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    },
     presentFeeds(response) {
       if(response.data[0] == null){
         this.feedsNull = true;

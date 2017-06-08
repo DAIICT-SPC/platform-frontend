@@ -81,7 +81,7 @@ export default {
 			company.getCategoriesForPlacementCriteria(this.getUserId(), this.placement_id, category_id)
 			.then((response) => {
 				if(response.data == 'Done!') {
-					this.$router.push({ name: 'company-home' });
+					this.$router.push({ name: 'manage-drafts' });
 				}
 				this.cat_ref_id = response.data[0].id;
 				this.cat_name = response.data[0].name;
@@ -100,7 +100,7 @@ export default {
 			company.getEducationForPlacementCriteria(this.getUserId(), this.placement_id, category_id)
 			.then((response) => {
 				if(response.data == 'Done with Educations!') {
-					this.$router.push({ name: 'company-home' });
+					this.$router.push({ name: 'manage-drafts' });
 				}
 				this.ed_arr = response.data;
 			})
