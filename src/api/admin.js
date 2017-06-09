@@ -29,6 +29,11 @@ export default {
     });
   },
 
+  postloginas(user_id) {
+    let url = '/loginAs/' + user_id;
+    return HTTP.post(url);
+  },
+
   createSeason(title) {
     let url = '/placement_season'
     return HTTP.post(url, {
@@ -152,7 +157,6 @@ export default {
 
   postReOpenRegistration(user_id, placement_id, last_data_for_registration) {
     // /users/1/admin/{placement_id}/reOpenRegistration
-    console.log(last_data_for_registration);
     let url = '/users/' + user_id + '/admin/' + placement_id + '/reOpenRegistration';
     return HTTP.post(url, {
       last_date_for_registration: last_data_for_registration
@@ -187,8 +191,6 @@ export default {
   },
 
   postDownloadResumes(user_id, checkbox) {
-    console.log("admin");
-    console.log(checkbox);
     let url = '/users/' + user_id + '/admin/downloadResume';
     return HTTP.post(url, {
       checkbox: checkbox
@@ -214,14 +216,12 @@ export default {
   // / users / {user_id} / admin / roundWisePlacementDetail /  {placement_id} / {round_no}
   getRoundwiseList(user_id, placement_id, round_no) {
     let url = '/users/' + user_id + '/admin/roundWisePlacementDetail/' + placement_id + '/' + round_no;
-    console.log(url);
     return HTTP.get(url);
   },
 
   // getOfferRoundList
   getOfferRoundList(user_id, placement_id) {
     let url = '/users/' + user_id + '/admin/getAllOfferLetter/' + placement_id;
-    console.log(url);
     return HTTP.get(url);
   },
 

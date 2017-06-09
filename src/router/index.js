@@ -19,6 +19,10 @@ import DraftPlacements from '@/container/Company/Manage/DraftPlacements'
 import DraftPlacementDetails from '@/container/Company/Manage/DraftPlacementDetails'
 import Profile from '@/container/Company/Profile'
 import ViewPlacementDetail from '@/container/Company/ViewPlacementDetail'
+//Company Selection Rounds
+import CompanySelectionRounds from '@/container/Company/Rounds/SelectionRounds'
+import CompanySelectionRoundsDynamic from '@/container/Company/Rounds/SelectionRoundsDynamic'
+import CompanySelectedForOffer from '@/container/Company/Rounds/SelectedForOffer'
 import NewPlacement from '@/container/Company/NewPlacement'
 import PlacementPrimary from '@/container/Company/PlacementDrive/PlacementPrimary'
 import SelectCategory from '@/container/Company/PlacementDrive/SelectCategory'
@@ -29,6 +33,7 @@ import PlacementSeasonsAdminHome from '@/container/Admin/PlacementSeasonsAdminHo
 import PlacementSeasonDrivesAdmin from '@/container/Admin/PlacementSeasonDrivesAdmin'
 import PlacementsInSeasons from '@/container/Admin/PlacementsInSeasons'
 import PlacementDriveDescription from '@/container/Admin/PlacementDriveDescription'
+//Admin Selection Rounds
 import SelectionRounds from '@/container/Admin/SelectionRounds'
 import SelectionRoundsDynamic from '@/container/Admin/SelectionRoundsDynamic'
 import SelectedForOffer from '@/container/Admin/SelectedForOffer'
@@ -185,6 +190,33 @@ let router = new Router({
       component: ViewPlacementDetail
     },
     {
+      path: 'company-selection-rounds/:placement_id',
+      name: 'company-selection-rounds',
+      meta: {
+        requiresAuth: true,
+        shouldBeCompany: true
+      },
+      component: CompanySelectionRounds
+    },
+    {
+      path: 'company-selection-rounds-dynamic/:placement_id/:round_id',
+      name: 'company-selection-rounds-dynamic',
+      meta: {
+        requiresAuth: true,
+        shouldBeCompany: true
+      },
+      component: CompanySelectionRoundsDynamic
+    },
+    {
+      path: 'company-selected-for-offer/:placement_id',
+      name: 'company-selected-for-offer',
+      meta: {
+        requiresAuth: true,
+        shouldBeCompany: true
+      },
+      component: CompanySelectedForOffer
+    },
+    {
       path: 'new-placement',
       meta: {
         requiresAuth: true,
@@ -329,7 +361,6 @@ let router = new Router({
             shouldBeAdmin: true
           }
         },
-        //PlacementCompanywiseDescription
         {
           path: 'companywise-placement-cards/:company_id',
           name: 'companywise-placement-cards',

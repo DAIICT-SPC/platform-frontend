@@ -49,13 +49,16 @@
 
         <div class="processes">
 
-          <div class="process-application process">
-            <a class="button">
+          <div class="box process-application process">
+            <a class="application">
               <span class="icon">
                 <i class="fa fa-user-o"></i>
               </span>
               <span>Application</span> &nbsp;
             </a>
+            <router-link :to="{name: 'company-selection-rounds', params: {
+              placement_id: this.placement_id
+            } }">View Info</router-link> &nbsp;
           </div>
 
 
@@ -63,20 +66,24 @@
             <p>
               <b>{{ round.round_name }}</b>
             </p>
-            <roundBox :key="round.id" :round="round"></roundBox>
+            <router-link :to="{ name: 'company-selection-rounds-dynamic', params:
+            { placement_id: placement_id, round_id:round.round_no} }" class="is-success">View info</router-link><br>
             <!-- round box date time not set -->
           </div>
 
 
           <div class="process-offer process">
-            <a class="button">
-              <span class="icon">
-                <i class="fa fa-file-text-o"></i>
-              </span>
-              <span>Offer</span>
-            </a>
-          </div>
+						<div class="box offer">
+							<p>Offer</p>
+							<router-link :to="{ name: 'company-selected-for-offer', params: { placement_id:placement_id }  }" class="is-success">View info</router-link><br>
+						</div>
+					</div>
 
+
+        </div>
+        <div class="">
+
+          <a class="button"><i class="fa fa-comments" aria-hidden="true"></i> &nbsp; Feedback</a>
         </div>
       </div>
     </div>
@@ -122,7 +129,6 @@ export default {
     });
     company.getPlacementDetails(this.getUserId(), this.placement_id)
     .then((response) => {
-      console.log(response);
       this.placementDescription = response.data;
     })
     .catch((error) => {
@@ -237,13 +243,13 @@ export default {
       top: 0;
       left: 50%;
       margin-left: -1px;
-      z-index: 2;
+      // z-index: 2;
     }
     .box {
       text-align: center;
     }
-    .button {
-      pointer-events: none;
+    .application {
+      // pointer-events: none;
       .icon {
         margin-right: 0.5rem;
         .fa {

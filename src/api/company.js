@@ -43,7 +43,6 @@ export default {
       },
 
       selectCategory(user_id, placement_id, openFor_checkbox) {
-        console.log(openFor_checkbox);
         // api / users / {user_id} / company / {placement_id} / setOpenForDetails
         let url = '/users/' + user_id + '/company/' + placement_id + '/setOpenForDetails';
         return HTTP.post(url, {
@@ -92,7 +91,6 @@ export default {
       },
 
       setPlacementCriteria(user_id, placement_id, education_id, category_id, cpi_required) {
-        console.log(user_id+ "-" + placement_id+ "-" + education_id+ "-" + category_id+ "-" + cpi_required);
         // / users / {user_id} / company / {placement_id} /setPlacementCriteria
         let url = '/users/' + user_id + '/company/' + placement_id + '/setPlacementCriteria';
         return HTTP.post(url, {
@@ -172,6 +170,88 @@ export default {
       deleteSelectionRound(user_id, placement_id, round_no) {
         let url = '/users/' + user_id + '/company/deleteSelectionRound/' + placement_id + '/' + round_no;
         return HTTP.delete(url);
+      },
+
+      //Selection Rounds
+      getRemainingStudentsInApplication(user_id, placement_id) {
+        // /users/1/company/remainingStudentsInApplication/1
+        let url = '/users/' + user_id + '/company/remainingStudentsInApplication/' + placement_id;
+        return HTTP.get(url);
+      },
+
+      // from application, move to next round
+      postCompanyMoveToFirstRound(user_id, placement_id, arr) {
+        // /users/1/admin/1/selectStudentsFromApplication
+        let url = '/users/' + user_id + '/company/' + placement_id + '/selectStudentsFromApplication';
+        return HTTP.post(url, {
+          students_from_applications_checkbox: arr
+        });
+      },
+
+      // application modal
+      getApplicationList(user_id, placement_id) {
+        // /users/id/admin/placementApplications/p_id
+        let url = '/users/' + user_id + '/company/placementApplications/' + placement_id;
+        return HTTP.get(url);
+      },
+
+      postDownloadResumes(user_id, checkbox) {
+        let url = '/users/' + user_id + '/company/downloadResume';
+        return HTTP.post(url, {
+          checkbox: checkbox
+        });
+      },
+
+      // get students from {round_id}
+      getRemainingStudentsRoundwise(user_id, placement_id, round_id) {
+        // /users/1/company/remainingStudentsRoundwise/{placementId}/{roundID}
+        let url = '/users/' + user_id + '/company/remainingStudentsRoundwise/' + placement_id + '/' + round_id;
+        return HTTP.get(url);
+      },
+
+      postCompanyMoveToNextRound(user_id, placement_id, arr, round_no) {
+        // /users/1/company/{placementId}/selectStudentsRoundwise
+        let url = '/users/' + user_id + '/company/' + placement_id + '/selectStudentsRoundwise/' + round_no;
+        return HTTP.post(url, {
+          student_roundwise: arr
+        });
+      },
+
+      // / users / {user_id} / company / roundWisePlacementDetail /  {placement_id} / {round_no}
+      getRoundwiseList(user_id, placement_id, round_no) {
+        let url = '/users/' + user_id + '/company/roundWisePlacementDetail/' + placement_id + '/' + round_no;
+        return HTTP.get(url);
+      },
+
+      getStudentsForOffer(user_id, placement_id) {
+        // /users/1/company/remainingStudentsForOffer/1
+        let url = '/users/' + user_id + '/company/remainingStudentsForOffer/' + placement_id;
+        return HTTP.get(url);
+      },
+
+      getStudentsForOffer(user_id, placement_id) {
+        // /users/1/company/remainingStudentsForOffer/1
+        let url = '/users/' + user_id + '/company/remainingStudentsForOffer/' + placement_id;
+        return HTTP.get(url);
+      },
+
+      postGiveOffer(user_id, placement_id, enroll_no, packageOffer) {
+        // /users/1/company/{placement_id}/giveOffer
+        let url = '/users/' + user_id + '/company/' + placement_id + '/giveOffer';
+        return HTTP.post(url, {
+          enroll_no: enroll_no,
+          package: packageOffer
+        });
+      },
+
+      getOfferRoundList(user_id, placement_id) {
+        let url = '/users/' + user_id + '/company/getAllOfferLetter/' + placement_id;
+        return HTTP.get(url);
+      },
+
+      isFeedbackGiven(user_id, placement_id) {
+        let url = '/users/' + user_id + '/company/isFeedbackGiven/' + placement_id;
+        return HTTP.get(url);
       },
 
     }

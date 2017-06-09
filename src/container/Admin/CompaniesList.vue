@@ -7,9 +7,12 @@
 
 		<div class="companywise-body">
 			<div class="one-company" v-for="company in companies">
+				<input type="hidden" v-model="user_id = company.company_detail.user_id">
 				<span class="text title is-4">{{ company.company_detail.company_name }}</span>
 				<a @click="allowCompany(company.company_detail.id)" class="button is-success is-outlined a-tag" v-if="company.status != 'allowed'">Allow</a>
 				<a @click="disallowCompany(company.company_detail.id)" class="button is-danger is-outlined a-tag" v-if="company.status == 'allowed'">Cancel</a>
+				<a @click="loginas()"
+				class="button is-success is-outlined a-tag">Login As</a>
 			</div>
 
 		</div>
@@ -18,13 +21,16 @@
 
 <script>
 import admin from '@/api/admin'
+import Auth from '@/packages/auth/Auth'
 
 export default {
 	name: 'company-wise-listing',
 	data() {
 		return{
 			season_id: null,
-			companies:[]
+			companies:[],
+			user_id: null,
+			toen: ''
 		}
 	},
 	// beforeUpdate() {
@@ -67,7 +73,21 @@ export default {
 			.catch((error) => {
 				console.log(error);
 			})
-		}
+		},
+		loginas() {
+			console.log(this.user_id);
+				admin.postloginas(this.user_id)
+				.then((response) => {
+					if(response.status == 200) {
+						this.token = response.data.token;
+						Auth.swapToken(this.token, this.user_id);
+						window.location.href='/company';
+					}
+				})
+				.catch((error) => {
+					console.log(error);
+				})
+		},
 	}
 }
 </script>

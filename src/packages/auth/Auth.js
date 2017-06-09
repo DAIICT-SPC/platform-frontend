@@ -95,5 +95,13 @@ export default {
     } else {
       return false
     }
-  }
+  },
+
+  swapToken(new_token, user_id) {
+    this.destroyToken();
+    this.setToken(new_token);
+    this.setUserRole('company');
+    this.setUserToken(user_id);
+  },
+
 };
