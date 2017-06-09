@@ -160,4 +160,18 @@ export default {
         });
       },
 
+      patchRoundDetails(user_id, placement_id, round_no, round_name, round_description) {
+        // /users/id/company/updateSelectionRoundDetails/pid/rno
+        let url = '/users/' + user_id + '/company/updateSelectionRoundDetails/' + placement_id + '/' + round_no;
+        return HTTP.patch(url, {
+          round_name: round_name,
+          round_description: round_description
+        })
+      },
+
+      deleteSelectionRound(user_id, placement_id, round_no) {
+        let url = '/users/' + user_id + '/company/deleteSelectionRound/' + placement_id + '/' + round_no;
+        return HTTP.delete(url);
+      },
+
     }

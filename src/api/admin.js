@@ -106,10 +106,9 @@ export default {
   },
 
   // from any round, move to next round automatically
-  postAdminMoveToNextRound(user_id, placement_id, arr) {
-    console.log(arr);
+  postAdminMoveToNextRound(user_id, placement_id, arr, round_no) {
     // /users/1/admin/{placementId}/selectStudentsRoundwise
-    let url = '/users/' + user_id + '/admin/' + placement_id + '/selectStudentsRoundwise';
+    let url = '/users/' + user_id + '/admin/' + placement_id + '/selectStudentsRoundwise/' + round_no;
     return HTTP.post(url, {
       student_roundwise: arr
     });

@@ -111,8 +111,9 @@ export default {
 				alert("No student Selected");
 			}
 			else {
-				admin.postAdminMoveToNextRound(this.getUserId(), this.placement_id, this.selectedStudents)
+				admin.postAdminMoveToNextRound(this.getUserId(), this.placement_id, this.selectedStudents, this.round_id)
 				.then((response) => {
+					console.log(response);
 					if(response.status == 200) {
 						this.getRemainingStudents();
 					}
