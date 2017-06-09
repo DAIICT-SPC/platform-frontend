@@ -27,11 +27,7 @@ import category from '@/api/category'
 
 export default {
   name: 'category-dropdown',
-  props: {
-    category_id_old : null
-  },
   created() {
-    this.category_id = this.category_id_old;
     category.all().then((response) => {
       this.categories = response.data;
     })
@@ -42,12 +38,9 @@ export default {
       categories: []
     };
   },
-  beforeUpdate() {
-    this.$bus.$emit('category-change-before', { id: this.category_id });
-  },
   methods: {
     categoryChange() {
-      this.$bus.$emit('category-change', { id: this.category_id });
+      this.$bus.$emit('category-change1', { category_id: this.category_id });
     }
   }
 }

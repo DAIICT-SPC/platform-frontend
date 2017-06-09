@@ -256,4 +256,18 @@ export default {
     return HTTP.get(url);
   },
 
+  // api/users/{user_id}/admin/listOfStudentsPlacedCategoryWise/{placement_season_id}/{category_id}
+  getStudentsPlacedCategorywise(user_id, placement_season_id, category_id) {
+    let url = '/users/' + user_id + '/admin/listOfStudentsPlacedCategoryWise/' + placement_season_id + '/' + category_id;
+    return HTTP.get(url);
+  },
+
+  // api/users/{user_id}/admin/studentsUnplacedCategoryWise/{placement_season_id}/{category_id}
+  getStudentsUnplacedCategoryWise(user_id, placement_season_id, category_id) {
+    let url = '/users/' + user_id + '/admin/studentsUnplacedCategoryWise/' + placement_season_id + '/' + category_id;
+    console.log('category id: ' + category_id);
+    console.log(url);
+    return HTTP.get(url);
+  },
+
 }

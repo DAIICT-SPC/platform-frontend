@@ -51,11 +51,17 @@ export default{
 			admin.getUnplacedStudents(this.getUserId(), this.season_id)
 			.then((response) => {
 				console.log(response.data);
-				if(response.data == 'All Registered Student got placement!') {
+				if(response.data == 'All Registered Student got placement!')
+				{
 					console.log('placed all');
 					this.show = false;
 				}
-				else {
+				else if (response.data == 'No Student Registered for any placement!')
+				{
+					this.show = false;
+				}
+				else
+				{
 					this.show = true;
 					this.students = response.data;
 				}

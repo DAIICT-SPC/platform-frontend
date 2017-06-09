@@ -75,6 +75,7 @@ export default{
 
 <style lang="scss">
 .placed-students {
+
 	margin-bottom: 2rem;
 	padding: 1rem;
 	padding-top: 0;

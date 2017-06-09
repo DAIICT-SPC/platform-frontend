@@ -14,15 +14,16 @@
 
 			</div>
 
+			
 			<div class="columns section-body" v-for="st in students">
 				<div class="column">
-					<span class="texts">{{st.enroll_no}}</span>
+					<span class="texts">{{st[0].enroll_no}}</span>
 				</div>
 				<div class="column is-4">
-					<span class="texts">{{st.placements[0].job_title}}</span>
+					<!-- <span class="texts">{{st.placements.job_title}}</span> -->
 				</div>
 				<div class="column is-4">
-					<span class="texts">{{st.users[0].name}}</span>
+					<!-- <span class="texts">{{st.users.name}}</span> -->
 				</div>
 			</div>
 		</div>
@@ -44,7 +45,7 @@ export default{
 	},
 	data() {
 		return{
-			students: [ ],
+			students: {},
 			season_id: null,
 			showData: true
 		};

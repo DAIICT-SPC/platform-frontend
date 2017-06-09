@@ -80,7 +80,8 @@ export default {
 				.then((response) => {
 					if(response.status == 200) {
 						this.token = response.data.token;
-						Auth.swapToken(this.token, this.user_id);
+						Auth.
+						swapToken(this.token, this.user_id);
 						window.location.href='/company';
 					}
 				})

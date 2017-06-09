@@ -76,6 +76,8 @@ export default {
 
 	.box {
 		padding: 0;
+		border-radius: 4px;
+	  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
 	}
 
  .reports-header {
