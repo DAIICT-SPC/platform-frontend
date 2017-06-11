@@ -48,8 +48,6 @@ export default {
     userEducationcpi: null
   },
   created() {
-    // console.log("SideBar");
-    // console.log(this.userMainDetails);
   }
 }
 </script>

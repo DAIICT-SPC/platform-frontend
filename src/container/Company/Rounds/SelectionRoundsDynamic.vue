@@ -13,7 +13,9 @@
 						<span class="enroll title is-4">{{ studentData.enroll_no }}</span>
 						<span class="name title is-4">{{ studentData.user.name }}</span>
 						<span class="category title is-4">{{ studentData.category.name }}</span>
-						<a class="is-success view-profile"> View Profile </a>
+						<a @click="showViewModal = true" class="is-success view-profile"> View Profile </a>
+						{{studentData.enroll_no}}
+						<student-preview :key="studentData.enroll_no" :studentData="studentData" v-if="showViewModal" @close="showViewModal = false"></student-preview>
 					</div>
 				</div>
 
@@ -48,11 +50,13 @@
 import company from '@/api/company';
 import Auth from '@/packages/auth/Auth';
 import RoundFullListModal from '@/components/Company/RoundFullListModal';
+import StudentPreviewModal from '@/components/Company/StudentPreviewModal';
 
 export default {
 	name: 'company-selection-rounds',
 	components: {
-		'round-list-modal': RoundFullListModal
+		'round-list-modal': RoundFullListModal,
+		'student-preview': StudentPreviewModal
 	},
 	created() {
 		this.placement_id = this.$route.params.placement_id;
@@ -70,7 +74,8 @@ export default {
 			selectedStudents: [],
 			allStudents: false,
 			offerStudents: false,
-			showModal: false
+			showModal: false,
+			showViewModal: false
 		};
 	},
 	methods: {

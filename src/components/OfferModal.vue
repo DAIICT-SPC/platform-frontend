@@ -8,7 +8,7 @@
         <div class="modal-background"></div>
         <div class="modal-card">
           <header class="modal-card-head">
-            <p class="modal-card-title">Offer Letter</p>
+            <p class="modal-card-title">Offer Letter for {{studentData.enroll_no}}</p>
             <button class="delete" @click="hidden=false"></button>
           </header>
           <section class="modal-card-body">
@@ -58,15 +58,13 @@ export default {
     };
   },
   created() {
-
+    console.log(this.studentData.enroll_no);
   },
   methods: {
     giveOffer() {
-      // console.log(this.getUserId()+"-"+ this.placement_id+"-"+ this.studentData.enroll_no+"-"+ this.packageOffer);
       admin.postGiveOffer(this.getUserId(), this.placement_id, this.studentData.enroll_no, this.packageOffer)
       .then((response) => {
         if(response.status == 200) {
-          console.log("handled");
           this.hidden = false;
           this.$bus.$emit('refresh');
         }
@@ -83,7 +81,6 @@ export default {
       admin.getStudentsForOffer(this.getuserId(), this.placement_id)
       .then((response) => {
         this.remainingStudents = response.data;
-        console.log(response);
       })
       .catch((error) => {
         console.log(error);

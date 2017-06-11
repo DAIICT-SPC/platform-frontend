@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="company-dashboard-page">
-    <company-navbar ></company-navbar>
+    <company-navbar :userName="userName"></company-navbar>
     <div class="dashboard-inner">
       <router-view></router-view>
     </div>
@@ -18,15 +18,21 @@ export default {
   },
   data() {
     return {
-      userDetails: {}
+      userDetails: {},
+      userName: ''
     }
   },
   created() {
+    this.getCompanyDetails();
     this.$bus.$on('logout', () => {
+      let toast = this.$toasted.success("Successfully Logged Out", {
+        theme: "outline",
+        position: "bottom-center",
+        duration : 3000
+      });
       Auth.destroyToken();
       this.$router.push({name: 'home'});
     });
-    this.getCompanyDetails();
   },
   methods: {
     getUserId() {
@@ -35,6 +41,12 @@ export default {
     getCompanyDetails() {
       company.getUserDetails(this.getUserId())
       .then((response) => {
+        this.userName = response.data.name;
+        let toast = this.$toasted.success("Successfully Logged In", {
+          theme: "outline",
+          position: "top-center",
+          duration : 3000
+        });
         this.userDetails = response.data;
       })
       .catch((error) => {

@@ -47,7 +47,6 @@ export default{
 	},
 	methods: {
 		allowStudent() {
-			console.log(this.getUserId() + this.placement_id + this.enroll_no);
 			admin.allowExternalStudents(this.getUserId(), this.placement_id, this.enroll_no)
 			.then((response) => {
 				if(response.status == 200) {

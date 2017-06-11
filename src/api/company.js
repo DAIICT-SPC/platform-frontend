@@ -254,4 +254,10 @@ export default {
         return HTTP.get(url);
       },
 
+      getStudentDetail(user_id, enroll_no) {
+        // /users/3/company/studentDetail/201612105
+        let url = '/users/' + user_id + '/company/studentDetail/' + enroll_no;
+        return HTTP.get(url);
+      }
+
     }

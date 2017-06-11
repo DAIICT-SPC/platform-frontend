@@ -199,7 +199,6 @@ export default{
 				})
 				user.postUserPersonalDetails(this.getUserId(), this.student_name)
 				.then((response) => {
-					console.log(response);
 				})
 				.catch((error) => {
 					console.log(error);

@@ -1,60 +1,43 @@
 <template lang="html">
-  <div class="body">
-    <section class="hero is-fullheight is-dark">
-      <div class="hero-head">
-        <header class="nav">
-          <div class="container">
-            <div class="nav-left">
-              <a class="nav-item">
-                DA-IICT
-              </a>
-            </div>
+<div class="login-page">
 
+  <section class="hero is-fullheight is-dark is-bold">
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns is-vcentered">
+          <div class="column is-4 is-offset-4">
+            <div class="box">
+              <img class="image is-256x256" src="../../images/daiict.jpg" alt="DAIICT">
+              <hr class=image-text>
+              <h3 class="title">Student Placement Cell</h3>
+              <hr class="text-body">
+              <label class="label">Email</label>
+              <p class="control">
+                <input v-model="email" name="email" v-validate="'required|email'" class="input" type="text" placeholder="abc@example.ac.in">
+              </p>
+              <div class="notification is-danger" v-show="errors.has('email')">
+                <span>{{ errors.first('email') }}</span>
+              </div>
 
-            <div class="nav-right nav-menu">
-              <form @submit.prevent="login" class="nav-item">
-                <!-- input fields -->
-                <div class="field">
-                  <p class="control has-icons-left">
-                    <input v-model="email" name="email" v-validate="'required|email'" class="input is-small" type="text" placeholder="Email">
-                    <span class="icon is-small is-left">
-                      <i class="fa fa-envelope"></i>
-                    </span>
-
-                  </p>
-                </div>
-
-                <div class="field">
-                  <p class="control has-icons-left">
-                    <input v-model="password" name="password" v-validate="'required'" class="input is-small" type="password" placeholder="Password">
-                    <span class="icon is-small is-left">
-                      <i class="fa fa-lock"></i>
-                    </span>
-
-                  </p>
-                </div>
-                <div>
-                  <input class="button is-info is-outlined is-inverted" type="submit" value="Login" />
-                </div>
-                <!-- </router-link> -->
-
-              </form>
+              <label class="label">Password</label>
+              <p class="control">
+                <input @keyup.enter="login" v-validate="'required'" v-model="password" name="password" class="input" type="password" placeholder="●●●●●●●">
+              </p>
+              <div @change="time" class="notification is-danger" v-show="errors.has('password')">
+                <span>{{ errors.first('password') }}</span>
+              </div>
+              <hr>
+              <p class="control">
+                <button @click="login" class="button is-primary">Login</button>
+              </p>
             </div>
           </div>
-        </header>
+        </div>
       </div>
+    </div>
 
-
-
-      <div class="notification is-danger" v-show="errors.has('email')">
-        {{ errors.first('email') }}
-      </div>
-      <div class="notification is-danger" v-show="errors.has('password')">
-        {{ errors.first('password') }}
-      </div>
-    </section>
-
-  </div>
+  </section>
+</div>
 </template>
 
 <script>
@@ -126,47 +109,75 @@ export default {
       })
     },
 
+    time() {
+      setTimeout(this.getRoundNo, 1);
+    }
+
   }
 }
 </script>
 
 <style lang="scss">
-.body {
 
-  .hero.is-dark {
-    background-image: linear-gradient(rgba(25, 181, 254, 0.6),rgba(246, 36, 89, 0.3)),linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.1));
+.login-page {
+
+  .image {
+    padding-left: 2.4rem;
   }
 
-  .column.is-6 {
-    -webkit-border-radius: 1em;
-    outline: grey;
-    outline-width: medium;
-    outline-offset: 0px, glow;
-    outline-color: grey;
-    outline-style: double;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    .home-image {
-      width: 30%;
-    }
+  .hero.is-dark .title {
+    color: #000000;
   }
 
-  .field {
-    margin-bottom: 0;
-    padding-right: 10px;
-    .control {
-      opacity: 0.7;
-    }
+  hr.image-text {
+    margin-bottom: 0.5rem;
   }
-  .hero {
-    .notification.is-danger {
-      display: table;
-      //content accordingly
-      margin-bottom: 0;
-      margin-right: 0;
-      margin-left: auto;
-      background-color: #b31d1d;
-    }
+
+  h3.title {
+    margin-bottom: 0
+  }
+
+  hr.text-body {
+    margin-top: 0.5rem;
+  }
+
+  .notification.is-danger {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    background: rgba(260,0,0,0.4);
+    filter: alpha(opacity=80);
   }
 }
+
+//
+// .body {
+//
+//   .hero.is-dark {
+//     background-image: linear-gradient(rgba(25, 181, 254, 0.6),rgba(246, 36, 89, 0.3)),linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.1));
+//   }
+//
+//   .column.is-6 {
+//     -webkit-border-radius: 1em;
+//     outline: grey;
+//     outline-width: medium;
+//     outline-offset: 0px, glow;
+//     outline-color: grey;
+//     outline-style: double;
+//     padding-top: 20px;
+//     padding-bottom: 20px;
+//     .home-image {
+//       width: 30%;
+//     }
+//   }
+//
+//   .field {
+//     margin-bottom: 0;
+//     padding-right: 10px;
+//     .control {
+//       opacity: 0.7;
+//     }
+//   }
+//
+// }
 </style>

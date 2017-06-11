@@ -45,7 +45,6 @@ export default{
 					this.showData = true;
 					this.seasons = response.data;
 				}
-				console.log(response.data);
 			})
 			.catch((error) => {
 				console.log(error);

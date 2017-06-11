@@ -128,8 +128,6 @@ export default {
   methods: {
 		validateAndUpdateEducation() {
 			this.validate().then(() => {
-				// console.log(this.getUserId()+"-"+ this.education.education_id+"-"+ this.education.clg_school+"-"+
-				// 	this.education.start_year+"-"+ this.education.end_year+"-"+ this.education.drive_link+"-"+ this.education.cpi);
 				user.updateUserEducation(this.getUserId(), this.education.education_id, this.education.clg_school,
 					this.education.start_year, this.education.end_year, this.education.drive_link, this.education.cpi)
 					.then((response) => {

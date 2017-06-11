@@ -76,11 +76,9 @@ export default {
   },
   methods: {
     updateRoundDetails() {
-      console.log();
       company.patchRoundDetails(this.getUserId(), this.placement_id, this.round_no,
       this.round_name, this.round_description)
       .then((response) => {
-        console.log(response.status);
       })
       .catch((error) => {
         console.log(error);
@@ -89,7 +87,6 @@ export default {
     deleteSelectionRound() {
       company.deleteSelectionRound(this.getUserId(), this.placement_id, this.round_no)
       .then((response) => {
-        console.log(response.status);
       })
       .catch((error) => {
         console.log(error);

@@ -265,9 +265,13 @@ export default {
   // api/users/{user_id}/admin/studentsUnplacedCategoryWise/{placement_season_id}/{category_id}
   getStudentsUnplacedCategoryWise(user_id, placement_season_id, category_id) {
     let url = '/users/' + user_id + '/admin/studentsUnplacedCategoryWise/' + placement_season_id + '/' + category_id;
-    console.log('category id: ' + category_id);
-    console.log(url);
     return HTTP.get(url);
   },
+
+  getStudentDetail(user_id, enroll_no) {
+    // /users/3/admin/studentDetail/201612105
+    let url = '/users/' + user_id + '/admin/studentDetail/' + enroll_no;
+    return HTTP.get(url);
+  }
 
 }

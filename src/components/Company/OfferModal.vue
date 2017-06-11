@@ -76,7 +76,6 @@ export default {
       })
     },
     giveOffer() {
-      // console.log(this.getUserId()+"-"+ this.placement_id+"-"+ this.studentData.enroll_no+"-"+ this.packageOffer);
       company.postGiveOffer(this.getUserId(), this.placement_id, this.studentData.enroll_no, this.packageOffer)
       .then((response) => {
         if(response.status == 200) {
@@ -96,7 +95,6 @@ export default {
       company.getStudentsForOffer(this.getuserId(), this.placement_id)
       .then((response) => {
         this.remainingStudents = response.data;
-        // console.log(response);
       })
       .catch((error) => {
         console.log(error);

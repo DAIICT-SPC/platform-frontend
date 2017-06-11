@@ -105,7 +105,6 @@ export default{
 	methods: {
 		validateAndUpdateAdminDetails() {
 			this.validate().then(() => {
-				// /console.log(this.getUserId()+"-"+ this.name+"-"+ this.contact_no+"-"+ this.position);
 				admin.postUserDetails(this.getUserId(), this.name, this.contact_no, this.position)
 				.then((response) => {
 					if(response.status == 200){

@@ -72,7 +72,6 @@ export default {
       })
     },
     deleteCriteria1(education_id, category_id) {
-      console.log(this.getUserId()+"-"+ this.placement_id+"-"+ education_id+"-"+ category_id);
       this.id = this.getUserId();
       company.deleteCriteria(this.id, this.placement_id, education_id, category_id)
       .then((response) => {

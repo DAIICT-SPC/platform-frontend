@@ -68,7 +68,8 @@ export default {
   },
   methods: {
     getStudentDashboard() {
-      user.getHomeDashboard(this.getUserId()).then((response) => {
+      user.getHomeDashboard(this.getUserId())
+      .then((response) => {
         this.presentFeeds(response);
       })
       .catch((error) => {

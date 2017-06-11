@@ -58,7 +58,7 @@ export default {
 		this.placement_id = this.$route.params.placement_id;
 		this.season_id = this.$route.params.season_id;
 		this.getRemainingStudents();
-		
+
 },
 	data() {
 		return {

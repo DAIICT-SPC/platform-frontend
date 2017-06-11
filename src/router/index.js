@@ -382,7 +382,7 @@ let router = new Router({
       ]
     },
     {
-      path: 'admin-reports/:season_id',
+      path: 'admin-reports/:season_id/',
       component: AdminReportsPage,
       meta: {
         requiresAuth: true,

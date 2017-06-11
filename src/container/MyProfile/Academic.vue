@@ -90,7 +90,8 @@ export default {
     }
   },
   created() {
-    user.getUserEducation(this.getUserId()).then((response) => {
+    user.getUserEducation(this.getUserId())
+    .then((response) => {
       this.userEducation = response.data;
       if(this.userEducation.length == 0) {
         // alert('Enter Educations Details');

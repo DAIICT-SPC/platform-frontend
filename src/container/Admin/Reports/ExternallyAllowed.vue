@@ -1,5 +1,6 @@
 <template>
 	<div class="external-students">
+
 		<div v-if="showData">
 			<div class="columns section-header">
 				<div class="column">
@@ -11,13 +12,11 @@
 				<div class="column">
 					<span class="title is-4">Allowed</span>
 				</div>
-
 			</div>
 
-			
 			<div class="columns section-body" v-for="st in students">
 				<div class="column">
-					<span class="texts">{{st[0].enroll_no}}</span>
+					<span class="texts"></span>
 				</div>
 				<div class="column is-4">
 					<!-- <span class="texts">{{st.placements.job_title}}</span> -->
@@ -26,10 +25,12 @@
 					<!-- <span class="texts">{{st.users.name}}</span> -->
 				</div>
 			</div>
+			<pre>{{students}}</pre>
 		</div>
 		<div v-if="!showData">
 			<h2 class="title">No Data Available</h2>
 		</div>
+
 	</div>
 </template>
 
@@ -54,8 +55,8 @@ export default{
 		getExternalAllowedStudents() {
 			admin.getExternalAllowedStudents(this.getUserId(), this.season_id)
 			.then((response) => {
-				this.students = response.data;
 				console.log(response.data);
+				this.students = response.data;
 			})
 			.catch((error) => {
 				console.log(error);

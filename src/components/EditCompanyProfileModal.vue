@@ -153,12 +153,9 @@ import company from '@/api/company'
 		methods: {
 			validateAndUpdateCompanyDetails() {
 				this.$validator.validateAll().then(() => {
-					// console.log(this.company_name+"-"+ this.address+"-"+ this.contact_person+"-"+
-					// this.contact_no+"-"+ this.company_expertise+"-"+ this.company_url);
 					company.postUserDetails(this.getUserId(), this.company_name, this.address, this.contact_person,
 					this.contact_no, this.company_expertise, this.company_url)
 					.then((response) => {
-						console.log(response);
 					})
 					.catch((error) => {
 						console.log(error);

@@ -71,8 +71,8 @@ export default {
 		getStudentsOffer() {
 			admin.getStudentsForOffer(this.getuserId(), this.placement_id)
 			.then((response) => {
-				this.remainingStudents = response.data;
 				console.log(response);
+				this.remainingStudents = response.data;
 				if(response.data == 'All Students in offer layer got Offer!'){
 					this.allStudents = true;
 					this.showData = false;

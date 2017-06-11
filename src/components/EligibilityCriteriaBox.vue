@@ -58,10 +58,8 @@ export default {
   },
   methods: {
     updateCriteria(education_id, category_id, cpi_required) {
-      console.log(education_id + "-" + category_id + "-" + cpi_required);
       admin.patchUpdateEligibilityCriteria(this.getUserId(), this.placement_id, education_id, category_id, cpi_required)
       .then((response) => {
-        console.log(response.data);
         this.hidden = true;
       })
       .catch((error) => {

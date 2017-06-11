@@ -93,7 +93,6 @@ export default {
 		}
 	},
 	created() {
-		console.log(this.$route.params);
 		this.placement_id = this.$route.params.placement_id;
 		this.getRoundNo();
 	},
@@ -104,7 +103,6 @@ export default {
 			this.placementDrive.date = '';
 			company.getRoundNo(this.getUserId(), this.placement_id)
 			.then((response) => {
-				console.log(response.data);
 				if(response.data == 'No Primary Details for this Placement!') {
 					this.$router.push({ name: 'placement-primary' });
 				}

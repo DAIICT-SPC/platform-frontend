@@ -70,7 +70,6 @@ export default {
     });
   },
   created() {
-    console.log("received" + this.category_id);
     this.placement_id = this.$route.params.placement_id;
 
 			company.getEducationForPlacementCriteria(this.getUserId(), this.placement_id, this.category_id)
@@ -84,7 +83,6 @@ export default {
   },
   methods: {
     addCriteria() {
-      console.log(this.placement_id+"-"+ this.education_id+"-"+ this.category_id+"-"+ this.cpi_required);
       company.setPlacementCriteria(this.getUserId(), this.placement_id, this.education_id,
       this.category_id, this.cpi_required)
       .then((response) => {
@@ -97,10 +95,8 @@ export default {
       })
     },
     updateCriteria(education_id, category_id, cpi_required) {
-      console.log(education_id + "-" + category_id + "-" + cpi_required);
       company.patchUpdateEligibilityCriteria(this.getUserId(), this.placement_id, education_id, category_id, cpi_required)
       .then((response) => {
-        console.log(response.data);
         this.hidden = true;
       })
       .catch((error) => {

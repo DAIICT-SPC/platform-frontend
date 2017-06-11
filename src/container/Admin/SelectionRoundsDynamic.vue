@@ -9,13 +9,18 @@
 
 				<div v-for="studentData in remainingStudents">
 					<div class="selection-body" v-if="studentData.user">
-						<input v-model="selectedStudents" :value="studentData.enroll_no" type="checkbox" name="checkbox" class="checkbox">
-						<span class="enroll title is-4">{{ studentData.enroll_no }}</span>
-						<span class="name title is-4">{{ studentData.user.name }}</span>
-						<span class="category title is-4">{{ studentData.category.name }}</span>
-						<a class="is-success view-profile"> View Profile </a>
+						<div class="part1">
+							<input v-model="selectedStudents" :value="studentData.enroll_no" type="checkbox" name="checkbox" class="checkbox">
+							<span class="enroll title is-4">{{ studentData.enroll_no }}</span>
+							<span class="name title is-4">{{ studentData.user.name }}</span>
+							<span class="category title is-4">{{ studentData.category.name }}</span>
+						</div>
+						<div class="part2 student-preview">
+							<student-preview :key="studentData.enroll_no" :studentData="studentData"></student-preview>
+						</div>
 					</div>
 				</div>
+
 
 				<div class="selection-checkbox">
 					<input type="checkbox" class="checkbox" />
@@ -48,11 +53,13 @@
 import admin from '@/api/admin';
 import Auth from '@/packages/auth/Auth';
 import RoundFullListModal from '@/components/RoundFullListModal';
+import StudentPreviewModal from '@/components/StudentPreviewModal';
 
 export default {
 	name: 'selection-rounds',
 	components: {
-		'round-list-modal': RoundFullListModal
+		'round-list-modal': RoundFullListModal,
+		'student-preview': StudentPreviewModal
 	},
 	created() {
 		this.placement_id = this.$route.params.placement_id;
@@ -70,14 +77,15 @@ export default {
 			selectedStudents: [],
 			allStudents: false,
 			offerStudents: false,
-			showModal: false
+			showModal: false,
+			showViewModal: false
 		};
 	},
 	methods: {
 		getRemainingStudents() {
 			admin.getRemainingStudentsRoundwise(this.getUserId(), this.placement_id, this.round_id)
 			.then((response) => {
-				// console.log(response);
+				console.log(response);
 				if(response.data == 'None has applied yet!'){
 					this.showData = false;
 				}
@@ -92,6 +100,12 @@ export default {
 				}
 				// All Students in Last Round got Offer!
 				else if(response.data == 'All Students in Last Round got Offer!'){
+					this.showData = false;
+					this.allStudents = false;
+					this.offerStudents = true;
+				}
+				// All Students of this round moved to Offer Layer!
+				else if(response.data == 'All Students of this round moved to Offer Layer!'){
 					this.showData = false;
 					this.allStudents = false;
 					this.offerStudents = true;
@@ -174,8 +188,12 @@ export default {
 
 	.selection-body {
 		padding: 0.5rem;
+		padding-left: 1.5rem;
 		margin-left: 1rem;
 		padding-right: 2.2rem;
+		display: flex;
+		justify-content: space-between;
+		margin: auto;
 		// border-bottom: solid 1px #ddd;
 	}
 
@@ -199,6 +217,10 @@ export default {
 
 	.no-data {
 		padding: 1rem;
+	}
+
+	.student-preview {
+
 	}
 
 }

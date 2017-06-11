@@ -71,7 +71,6 @@ export default {
 		this.$bus.$on('education-ended', () => {
 			// $emit('close');
 		});
-		console.log("draft" + this.category_id);
 		this.$bus.$on('education-change', (data) => {
 			this.education_id = data.id;
 		});

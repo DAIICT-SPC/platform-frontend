@@ -39,7 +39,6 @@ export default {
     }
   },
   created() {
-    console.log(this.userName);
   },
   methods: {
     logout() {

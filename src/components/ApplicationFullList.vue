@@ -93,10 +93,9 @@ export default{
 			this.validate().then(() => {
 				admin.postDownloadResumes(this.getUserId(), this.selected)
 				.then((response) => {
-					console.log(response);
 					if(response.status == 200) {
 						this.modalValue = response.data;
-						
+
 					}
 				})
 				.catch((error) => {
@@ -126,7 +125,6 @@ export default{
 			},
 			set:function(value) {
 				var selected = [];
-				// console.log(this.students);
 				if(value){
 					this.students.forEach((student)=>{
 						selected.push(student.enroll_no);

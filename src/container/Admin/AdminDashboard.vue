@@ -31,6 +31,11 @@ export default {
     // Listen for logout event
     this.$bus.$on('logout-admin', () => {
       Auth.destroyToken();
+      let toast = this.$toasted.show("Successfully Logged Out", {
+        theme: "outline",
+        position: "bottom-center",
+        duration : 3000
+      });
       this.$router.push({
         name: 'home'
       });
@@ -40,6 +45,11 @@ export default {
     getAdminDetails() {
       admin.getAdminDetails(this.getUserId())
       .then((response) => {
+        let toast = this.$toasted.success("Successfully Logged In", {
+          theme: "outline",
+          position: "top-center",
+          duration : 3000
+        });
         this.userDetails = response.data;
         this.userName = response.data.name;
       })
