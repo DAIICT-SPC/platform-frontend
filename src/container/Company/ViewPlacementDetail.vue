@@ -56,9 +56,11 @@
               </span>
               <span>Application</span> &nbsp;
             </a>
-            <router-link :to="{name: 'company-selection-rounds', params: {
-              placement_id: this.placement_id
-            } }">View Info</router-link> &nbsp;
+            <div>
+              <router-link :to="{name: 'company-selection-rounds', params: { placement_id: this.placement_id} }">
+                View Info
+              </router-link> &nbsp;
+            </div>
           </div>
 
 
@@ -73,11 +75,11 @@
 
 
           <div class="process-offer process">
-						<div class="box offer">
-							<p>Offer</p>
-							<router-link :to="{ name: 'company-selected-for-offer', params: { placement_id:placement_id }  }" class="is-success">View info</router-link><br>
-						</div>
-					</div>
+            <div class="box offer">
+              <p>Offer</p>
+              <router-link :to="{ name: 'company-selected-for-offer', params: { placement_id:placement_id }  }" class="is-success">View info</router-link><br>
+            </div>
+          </div>
 
 
         </div>
@@ -251,7 +253,9 @@ export default {
     .application {
       // pointer-events: none;
       .icon {
-        margin-right: 0.5rem;
+        margin-right: 0rem;
+        width: 13px;
+        height: 16px;
         .fa {
           font-size: 1rem;
         }

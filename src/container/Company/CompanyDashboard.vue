@@ -42,7 +42,7 @@ export default {
       company.getUserDetails(this.getUserId())
       .then((response) => {
         this.userName = response.data.name;
-        let toast = this.$toasted.success("Successfully Logged In", {
+        let toast = this.$toasted.success("Welcome Back, " + this.userName, {
           theme: "outline",
           position: "top-center",
           duration : 3000

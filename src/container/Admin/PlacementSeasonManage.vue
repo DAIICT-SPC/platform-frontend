@@ -13,7 +13,8 @@
 						</p>
 						<a class="card-header-icon">
 							<span class="icon">
-								<span class="tag is-success status">{{season.status}}</span>
+								<span v-if="season.status == 'open'" class="tag is-success status">{{season.status}}</span>
+								<span v-if="season.status == 'closed'" class="tag is-light status">{{season.status}}</span>
 							</span>
 						</a>
 					</header>

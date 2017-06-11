@@ -16,7 +16,9 @@
               <div class="media-content" >
                 <div class="content">
                   <div>
-                    <strong>Placement cycle {{ feed.placement_season.title }}</strong> <span class="is-pulled-right tag is-success">{{ feed.status }}</span>
+                    <strong>Placement cycle {{ feed.placement_season.title }}</strong>
+                    <span v-if="feed.status == 'application'" class="is-pulled-right tag is-success">{{ feed.status }}</span>
+                    <span v-if="feed.status == 'closed'" class="is-pulled-right tag is-light">{{feed.status}}</span>
                   </div>
                   <small>{{ feed.created_at }}</small> <br>
                   <p class="p-content"><b>Job Title: </b>{{ feed.job_title }}
@@ -101,7 +103,6 @@ export default {
 
   .column {
     .media.media-card {
-      margin-top: 15px;
       background: white;
       padding: 15px;
       border-radius: 4px;

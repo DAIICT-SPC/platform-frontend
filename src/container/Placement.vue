@@ -10,7 +10,10 @@
         <div class="header-action is-pulled-right">
           <span class="tag">{{dashboardJobDetails.job_type.job_type}}</span>
           <div v-if="dashboardJobDetails.status == 'closed'">
-            <span class="tag">{{dashboardJobDetails.status}}</span>
+            <span class="tag is-light">{{dashboardJobDetails.status}}</span>
+          </div>
+          <div v-if="dashboardJobDetails.status == 'application'">
+            <span class="tag is-success">{{dashboardJobDetails.status}}</span>
           </div>
           <div class="apply-box" v-if="dashboardJobDetails.status != 'closed'">
             <a v-if="!applyKey" class="button is-success" @click="userApplyForPlacement">{{apply}}</a>

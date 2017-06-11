@@ -3,7 +3,7 @@
 
     <div class="profile-image">
       <figure class="image is-128x128">
-        <img src="../../images/lotus.jpg" alt="Image">
+        <img src="../../images/daiict.jpg" alt="Image">
       </figure>
     </div>
     <div class="card-content">

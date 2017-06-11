@@ -3,7 +3,7 @@
     <nav class="nav has-shadow">
       <div class="container">
         <div class="nav-left">
-          <router-link class="nav-item" to="/">
+          <router-link class="nav-item" :to="{name:'admin-home'}">
             <img src="../../images/daiict.jpg" alt="daiict"> &nbsp; DA-IICT
           </router-link>
           <router-link :to="{ name: 'admin-home' }" class="nav-item is-tab is-hidden-mobile">Home</router-link>

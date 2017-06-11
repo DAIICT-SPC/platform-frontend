@@ -45,13 +45,13 @@ export default {
     getAdminDetails() {
       admin.getAdminDetails(this.getUserId())
       .then((response) => {
-        let toast = this.$toasted.success("Successfully Logged In", {
+        this.userName = response.data.name;
+        let toast = this.$toasted.success("Welcome Back, " + this.userName, {
           theme: "outline",
           position: "top-center",
           duration : 3000
         });
         this.userDetails = response.data;
-        this.userName = response.data.name;
       })
       .catch((error) => {
         console.log(error.message);

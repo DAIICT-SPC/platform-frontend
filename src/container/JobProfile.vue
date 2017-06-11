@@ -15,7 +15,8 @@
               </p>
 
               <span>
-                <span class="tag is-success">{{jobs.status}}</span>
+                <span v-if="jobs.status == 'application'" class="tag is-success">{{jobs.status}}</span>
+                <span v-if="jobs.status == 'closed'" class="tag is-light">{{jobs.status}}</span>
               </span>
 
             </div>
@@ -92,7 +93,10 @@ export default {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    .tag.is-success{
+    .tag.is-success {
+      margin: 0.5rem;
+    }
+    .tag.is-light {
       margin: 0.5rem;
     }
   }

@@ -11,7 +11,8 @@
 						</p>
 						<a class="card-header-icon">
 							<span class="icon">
-								<span class="tag is-success status">{{ drive.status }}</span>
+								<span v-if="drive.status == 'closed'" class="tag is-light status">{{ drive.status }}</span>
+								<span v-if="drive.status == 'application'" class="tag is-success status">{{ drive.status }}</span>
 							</span>
 						</a>
 					</header>

@@ -189,8 +189,11 @@ export default{
 				this.contact_no, this.dob, this.gender)
 				.then((response) => {
 					if(response.status == 200) {
-						alert('Details Updated');
-						//close modal
+						let toast = this.$toasted.success("Details Successfully Updated", {
+							theme: "outline",
+							position: "top-center",
+							duration : 3000
+						});						//close modal
 						this.$emit('close');
 					}
 				})

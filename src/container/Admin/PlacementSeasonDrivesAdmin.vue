@@ -21,7 +21,7 @@ export default {
     'placement-sidebar': PlacementDriveSidebar
   },
   created() {
-    
+
   }
 }
 </script>

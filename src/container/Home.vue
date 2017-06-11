@@ -56,11 +56,23 @@ export default {
   },
   // before coming to '/'' or home or signin page, if u have a token, go to dashboard page
   beforeRouteEnter: (to, from, next) => {
-    if (Auth.isAuthenticated()) {
+    if (Auth.isAuthenticated() && Auth.isStudent()) {
       next({
         name: 'dashboard'
       });
-    } else {
+    }
+    else if (Auth.isAuthenticated() && Auth.isCompany()) {
+      next({
+        name: 'company-home'
+      });
+    }
+    else if (Auth.isAuthenticated() && Auth.isAdmin()) {
+      next({
+        name: 'admin-home'
+      });
+    }
+    else
+    {
       next();
     }
   },
