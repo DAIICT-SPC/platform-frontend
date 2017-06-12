@@ -15,7 +15,7 @@
 						<span class="enroll title is-4">{{ studentData.enroll_no }}</span>
 						<span class="name title is-4">{{ studentData.user.name }}</span>
 						<span class="category title is-4">{{ studentData.category.name }}</span>
-						<a class="is-success view-profile"> View Profile </a>
+						<student-preview :key="studentData.enroll_no" :studentData="studentData"></student-preview>
 					</div>
 				</div>
 
@@ -47,14 +47,15 @@
 import company from '@/api/company';
 import Auth from '@/packages/auth/Auth';
 import ApplicationFullList from '@/components/Company/ApplicationFullList';
+import StudentPreviewModal from '@/components/Company/StudentPreviewModal';
 
 export default {
 	name: 'company-selection-rounds',
 	components: {
-		'application-list-modal': ApplicationFullList
+		'application-list-modal': ApplicationFullList,
+		'student-preview': StudentPreviewModal
 	},
 	created() {
-		console.log(this.$route.params);
 		this.placement_id = this.$route.params.placement_id;
 		// this.season_id = this.$route.params.season_id;
 		this.getRemainingStudents();
@@ -68,7 +69,8 @@ export default {
 			selectedStudents: [],
 			allStudents: false,
 			showModal: false,
-			modalValue: ''
+			modalValue: '',
+			showViewModal: false
 		};
 	},
 	methods: {

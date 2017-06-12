@@ -8,18 +8,25 @@ export default {
     return HTTP.get(url);
   },
 
-  postUserDetails(user_id, company_name, address, contact_person,
+  postUserDetails(user_id, company_name, address,
     contact_no, company_expertise, company_url) {
       let url = '/users/' + user_id + '/company/update'
       return HTTP.patch(url, {
         company_name: company_name,
         address: address,
-        contact_person: contact_person,
         contact_no: contact_no,
         company_expertise: company_expertise,
         company_url: company_url
       });
     },
+
+    // /users/22/company/updatePersonal
+    patchCompanyPassword(user_id, password) {
+        let url = '/users/' + user_id + '/company/updatePersonal'
+        return HTTP.patch(url, {
+          password: password
+        });
+      },
 
     getCompanyDashboard(user_id) {
       // /users / {user_id} / company /placementPrimaryAll

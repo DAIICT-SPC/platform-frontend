@@ -132,7 +132,11 @@ export default {
 					this.education.start_year, this.education.end_year, this.education.drive_link, this.education.cpi)
 					.then((response) => {
 						if(response.status == 200) {
-							alert('Updated Successfully');
+              let toast = this.$toasted.success("Education Details Updated Successfully", {
+  			        theme: "outline",
+  			        position: "top-center",
+  			        duration : 3000
+  			      });
 							this.hidden = true;
 						}
 					})

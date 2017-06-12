@@ -151,6 +151,11 @@ export default {
       user.applyForPlacement(this.getUserId(), this.placement_id)
       .then((response) => {
         if(response.status == 200) {
+          let toast = this.$toasted.success("Applied!", {
+            theme: "outline",
+            position: "top-center",
+            duration : 3000
+          });
           this.apply = 'Applied';
           this.getUserPlacementDetails();
         }
@@ -163,7 +168,11 @@ export default {
       user.cancelPlacement(this.getUserId(), this.placement_id)
       .then((response) => {
         if(response.status == 204) {
-          alert('Registration Cancelled.')
+          let toast = this.$toasted.error("Registration Cancelled!", {
+            theme: "outline",
+            position: "top-center",
+            duration : 3000
+          });
           this.apply = 1;
         }
       })

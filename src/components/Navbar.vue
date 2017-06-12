@@ -19,9 +19,10 @@
         <div class="nav-right nav-menu">
           <!-- <div class="nav-item is-tab" @click="logout"><a class="button">Logout!</a></div> -->
           <dropdown :title="userName" align="right">
-            <a @click="openProfile">Account Settings</a><br>
+            <a @click="editStudent = true">Account Settings</a><br>
             <a @click="logout">Logout</a>
           </dropdown>
+          <edit-student-modal @close="editStudent = false" v-if="editStudent"></edit-student-modal>
         </div>
       </div>
     </nav>
@@ -31,19 +32,23 @@
 
 <script>
 import Dropdown from '@/components/Dropdown'
+import EditStudentPersonalModal from '@/components/EditStudentPersonalModal'
 
 export default {
   name: 'navbar',
   components: {
-    Dropdown
+    Dropdown,
+    'edit-student-modal': EditStudentPersonalModal
+  },
+  data() {
+    return {
+      editStudent: false
+    };
   },
   methods: {
     logout() {
       this.$bus.$emit('logout');
     },
-    openProfile() {
-      this.$router.push({ name: 'about' })
-    }
   },
   props: {
     userName: {

@@ -29,6 +29,14 @@ export default {
     });
   },
 
+  // /users/22/company/updatePersonal
+  patchCompanyPassword(user_id, password) {
+    let url = '/users/' + user_id + '/admin/updatePersonal'
+    return HTTP.patch(url, {
+      password: password
+    });
+  },
+
   postloginas(user_id) {
     let url = '/loginAs/' + user_id;
     return HTTP.post(url);

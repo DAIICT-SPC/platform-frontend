@@ -37,7 +37,8 @@
 							<div class="field-body">
 								<div>
 									<p class="control ">
-										<input v-validate="'required'" v-model="address = companyDetails.address" type="text" name="address" class="input">
+										<textarea v-validate="'required'" v-model="address = companyDetails.address" type="text" name="address" class="input">
+										</textarea>
 									</p>
 									<div class="help is-danger" v-show="errors.has('address')">
 										{{errors.first('address')}}
@@ -53,7 +54,7 @@
 							<div class="field-body">
 								<div>
 									<p class="control ">
-										<input disabled v-validate="'required'" v-model="contact_person = companyDetails.name" type="text" name="contactPerson" class="input">
+										<input v-validate="'required'" v-model="contact_person = companyDetails.name" type="text" name="contactPerson" class="input">
 									</p>
 									<div class="help is-danger" v-show="errors.has('contactPerson')">
 										{{errors.first('contactPerson')}}
@@ -85,7 +86,8 @@
 							<div class="field-body">
 								<div>
 									<p class="control ">
-										<input v-validate="'required'" v-model="company_expertise = companyDetails.company_expertise" type="text" name="companyDescription" class="input">
+										<textarea v-validate="'required'" v-model="company_expertise = companyDetails.company_expertise" type="text" name="companyDescription" class="input">
+										</textarea>
 									</p>
 									<div class="help is-danger" v-show="errors.has('companyDescription')">
 										{{errors.first('companyDescription')}}
@@ -101,7 +103,7 @@
 							<div class="field-body">
 								<div>
 									<p class="control ">
-									<input v-validate="'required'" v-model="company_url = companyDetails.company_url" type="text" name="companyUrl" class="input">
+										<input v-validate="'required'" v-model="company_url = companyDetails.company_url" type="text" name="companyUrl" class="input">
 									</p>
 									<div class="help is-danger" v-show="errors.has('companyUrl')">
 										{{errors.first('companyUrl')}}
@@ -132,44 +134,44 @@
 import Auth from '@/packages/auth/Auth'
 import company from '@/api/company'
 
-	export default{
-		name: 'company-modal',
-		props: {
-			companyDetails: {
-				required: true,
-				type: Object
-			}
-		},
-		data() {
-			return {
-				company_name: '',
-				address: '',
-				contact_person: '',
-				contact_no: null,
-				company_expertise: '',
-				company_url: ''
-			}
-		},
-		methods: {
-			validateAndUpdateCompanyDetails() {
-				this.$validator.validateAll().then(() => {
-					company.postUserDetails(this.getUserId(), this.company_name, this.address, this.contact_person,
-					this.contact_no, this.company_expertise, this.company_url)
-					.then((response) => {
-					})
-					.catch((error) => {
-						console.log(error);
-					})
+export default{
+	name: 'company-modal',
+	props: {
+		companyDetails: {
+			required: true,
+			type: Object
+		}
+	},
+	data() {
+		return {
+			company_name: '',
+			address: '',
+			contact_person: '',
+			contact_no: null,
+			company_expertise: '',
+			company_url: ''
+		}
+	},
+	methods: {
+		validateAndUpdateCompanyDetails() {
+			this.$validator.validateAll().then(() => {
+				company.postUserDetails(this.getUserId(), this.company_name, this.address,
+				this.contact_no, this.company_expertise, this.company_url)
+				.then((response) => {
 				})
 				.catch((error) => {
 					console.log(error);
 				})
-			},
-			getUserId() {
-				return Auth.getUserToken();
-			}
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+		},
+		getUserId() {
+			return Auth.getUserToken();
 		}
 	}
+}
 </script>
 
 <style lang="scss">

@@ -47,7 +47,6 @@ export default {
 
   postUserDetails(id, enroll_no, category_id, temp_address, perm_address, contact_no, dob, gender) {
     // /users/2/student/update
-    console.log(id + "-" + enroll_no+"-"+ category_id+"-"+ temp_address+"-"+ perm_address+"-"+ contact_no+"-"+ dob+"-"+ gender);
     let url = '/users/' + id + '/student/update'
     return HTTP.patch(url , {
       enroll_no, enroll_no,
@@ -60,11 +59,19 @@ export default {
     });
   },
 
-  postUserPersonalDetails(id, name) {
+  postUserPersonalName(id, name) {
     // /users/2/student/updatePersonal
     let url = '/users/' + id + '/student/updatePersonal'
-    return HTTP.post(url, {
+    return HTTP.patch(url, {
       name: name
+    });
+  },
+
+  postUserPersonalPassword(id, password) {
+    // /users/2/student/updatePersonal
+    let url = '/users/' + id + '/student/updatePersonal'
+    return HTTP.patch(url, {
+      password: password
     });
   },
 

@@ -6,7 +6,8 @@
 			<div>
 				<div class="field has-addons">
 					<p class="control is-fullwidth">
-						<input v-model="title" v-validate="'required'" name="season" class="input input-box" type="text" placeholder="Create New Placement Season">
+						<input v-model="title" v-validate="'required'" name="season" class="input input-box" type="text"
+						placeholder="Create New Placement Season">
 					</p>
 					<p class="control">
 						<a class="button is-success" @click="createSeason"> Submit </a>
@@ -55,8 +56,12 @@ export default {
 		createPlacementSeason() {
 			admin.createSeason(this.title)
 			.then((response) => {
-				if(response.status	== 200){
-					alert('Placement Season Successfully Created')
+				if(response.status	== 200) {
+					let toast = this.$toasted.success("Placement Successfully Created", {
+						theme: "outline",
+						position: "top-center",
+						duration : 3000
+					});
 				}
 			})
 			.catch((error) => {
@@ -66,17 +71,6 @@ export default {
 		validate() {
 			return this.$validator.validateAll();
 		},
-		redirect: function(){
-			this.$router.push({ name: 'placement-detail' });
-		},
-
-		redirectToCompantIn: function(){
-			this.$router.push({ name: 'companies-in-season' });
-		},
-
-		redirectToCompanyWise: function(){
-			this.$router.push({ name: 'company-wise-listing' });
-		}
 	}
 }
 </script>
@@ -84,8 +78,12 @@ export default {
 <style lang="scss">
 .new-placement-page {
 
+	.container.placement-page {
+		padding-top: 0;
+	}
 
 	.title.header {
+		padding-top: 0;
 		border-bottom: solid 1px #ddd;
 		padding-bottom: 1rem;
 	}

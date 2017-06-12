@@ -35,7 +35,7 @@
 						<div class="field-body">
 							<div>
 								<p class="control ">
-									<input disabled v-model="student_name = studentDetails.name" v-validate="'required'" type="text" name="student_name" class="input">
+									<input v-model="student_name = studentDetails.name" v-validate="'required'" type="text" name="student_name" class="input">
 								</p>
 								<div class="help is-danger" v-show="errors.has('student_name')">
 									{{errors.first('student_name')}}
@@ -184,7 +184,12 @@ export default{
 	methods: {
 		validateAndUpdateStudentDetails() {
 			this.validate().then(() => {
-				// postUserDetails(id, enroll_no, category_id, temp_address, perm_address, contact_no, dob, gender)
+				user.postUserPersonalName(this.getUserId(), this.student_name)
+				.then((response) => {
+				})
+				.catch((error) => {
+					console.log(error);
+				})
 				user.postUserDetails(this.getUserId(), this.student_id, this.category, this.temp_address, this.perm_address,
 				this.contact_no, this.dob, this.gender)
 				.then((response) => {
@@ -193,15 +198,10 @@ export default{
 							theme: "outline",
 							position: "top-center",
 							duration : 3000
-						});						//close modal
+						});
+						//close modal
 						this.$emit('close');
 					}
-				})
-				.catch((error) => {
-					console.log(error);
-				})
-				user.postUserPersonalDetails(this.getUserId(), this.student_name)
-				.then((response) => {
 				})
 				.catch((error) => {
 					console.log(error);

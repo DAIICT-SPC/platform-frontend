@@ -21,7 +21,8 @@
 
               <label class="label">Password</label>
               <p class="control">
-                <input @keyup.enter="login" v-validate="'required'" v-model="password" name="password" class="input" type="password" placeholder="●●●●●●●">
+                <input @keyup.enter="login" v-validate="'required'" v-model="password" name="password"
+                class="input" type="password" placeholder="●●●●●●●">
               </p>
               <div @change="time" class="notification is-danger" v-show="errors.has('password')">
                 <span>{{ errors.first('password') }}</span>

@@ -157,6 +157,7 @@ export default {
 
   .form {
     padding: 1rem;
+    padding-bottom: 0;
   }
 
   .field
@@ -174,6 +175,7 @@ export default {
 
   .edit-btn{
     margin: 1rem;
+    margin-top: 0;
   }
 }
 </style>

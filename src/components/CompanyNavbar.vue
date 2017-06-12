@@ -20,8 +20,10 @@
         <div class="nav-right nav-menu">
           <!-- <div class="nav-item is-tab" @click="logout"><a class="button">Logout!</a></div> -->
           <dropdown :title="userName" align="right">
+            <a @click="editCompany = true">Account Settings</a><br>
             <a @click="logout">Logout</a>
           </dropdown>
+          <edit-company-modal @close="editCompany = false" v-if="editCompany"></edit-company-modal>
         </div>
       </div>
     </nav>
@@ -31,10 +33,12 @@
 
 <script>
 import Dropdown from '@/components/Dropdown'
+import EditCompanyPersonalModal from '@/components/Company/EditCompanyPersonalModal'
 export default {
   name: 'company-navbar',
   components: {
-    Dropdown
+    Dropdown,
+    'edit-company-modal': EditCompanyPersonalModal
   },
   props: {
     userName: {
@@ -43,6 +47,11 @@ export default {
   },
   creted() {
     console.log(this.userName);
+  },
+  data() {
+    return {
+      editCompany: false
+    };
   },
   methods: {
     logout() {

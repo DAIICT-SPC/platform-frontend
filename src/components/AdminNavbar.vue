@@ -18,8 +18,10 @@
         <div class="nav-right nav-menu">
           <!-- <div class="nav-item is-tab" @click="logout"><a class="button">Logout!</a></div> -->
           <dropdown :title="userName" align="right">
+            <a @click="editAdmin = true">Account Settings</a><br>
             <a @click="logout">Logout</a>
           </dropdown>
+          <edit-modal @close="editAdmin = false" v-if="editAdmin"></edit-modal>
         </div>
       </div>
     </nav>
@@ -27,16 +29,24 @@
 </template>
 
 <script>
-import Dropdown from '@/components/Dropdown'
+import Dropdown from '@/components/Dropdown';
+import EditAdminPersonalModal from '@/components/EditAdminPersonalModal';
+
 export default {
   name: 'admin-navbar',
   components: {
-    Dropdown
+    Dropdown,
+    'edit-modal': EditAdminPersonalModal
   },
   props: {
     userName: {
       required: true
     }
+  },
+  data() {
+    return {
+      editAdmin: false
+    };
   },
   created() {
   },

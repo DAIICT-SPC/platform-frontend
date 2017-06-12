@@ -67,7 +67,7 @@ export default {
 <style lang="scss">
 .admin-dashboard {
   .admin-dashboard-inner {
-    margin-top: 1rem;
+    margin-top: 1.5rem;
   }
 }
 </style>

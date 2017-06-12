@@ -111,10 +111,13 @@ export default{
 
 <style lang="scss">
 .admin-profile-page {
+
 	margin-bottom: 1.5rem;
 
 	.admin-profile.box {
 		padding: 0;
+		border-radius: 4px;
+		box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
 	}
 
 	.admin-profile.header {

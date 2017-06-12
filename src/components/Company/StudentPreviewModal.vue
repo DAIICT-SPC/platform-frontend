@@ -1,12 +1,14 @@
 <template lang="html">
   <div class="student-preview">
 
-    <div class="modal is-active">
+    <a @click="hidden = true" class="is-success view-profile" v-if="!hidden"> View Profile </a>
+
+    <div class="modal is-active" v-if="hidden">
       <div class="modal-background"></div>
       <div class="modal-card">
         <header class="modal-card-head">
           <p class="modal-card-title">Preview</p>
-          <button class="delete" @click="$emit('close')"></button>
+          <button class="delete" @click="hidden=false"></button>
         </header>
         <section class="modal-card-body">
 
@@ -75,7 +77,7 @@
 
         </section>
         <footer class="modal-card-foot">
-          <a class="button" @click="$emit('close')">Cancel</a>
+          <a class="button" @click="hidden=false">Cancel</a>
         </footer>
       </div>
     </div>
@@ -100,6 +102,7 @@ export default {
   data() {
     return {
       studentDetailEducation: {},
+      hidden: false
     };
   },
   methods: {
@@ -131,6 +134,7 @@ export default {
     padding-top: 0.5rem;
     .title {
       padding-top: 1rem;
+      padding-bottom: 1rem;
     }
     .education {
       border-top: solid 1px #ddd;
