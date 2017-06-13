@@ -1,23 +1,21 @@
 <template>
-	<div class="new-modal">
+	<div class="round-full-list-modal">
 
 		<div class="modal is-active">
 			<div class="modal-background"></div>
 			<div class="modal-card">
 				<header class="modal-card-head">
-					<p class="modal-card-title">Round wise in offer</p>
+					<p class="modal-card-title">List</p>
 					<button class="delete" @click="$emit('close')"></button>
 				</header>
 				<section class="modal-card-body">
 
-					<div class="columns" v-for="st in students">
-						<div class="column">
-							<span>{{st.enroll_no}}</span>
-						</div>
-						<div class="column">
+					<div class="section-body" v-for="st in students">
+						<div class="part1">
+							<span class="enroll">{{st.enroll_no}}</span>
 							<span>{{st.user.name}}</span>
 						</div>
-						<div class="column">
+						<div class="part2">
 							<span>{{st.category.name}}</span>
 						</div>
 					</div>
@@ -37,7 +35,7 @@ import admin from '@/api/admin';
 import Auth from '@/packages/auth/Auth';
 
 export default {
-	name: 'new-modal',
+	name: 'round-full-list-modal',
 	created() {
 		this.placement_id = this.$route.params.placement_id;
 		this.round_id = this.$route.params.round_id;
@@ -72,7 +70,7 @@ export default {
 </script>
 
 <style lang="scss">
-.new-modal {
+.round-full-list-modal {
 
 	.modal-card {
 		margin-bottom: 10rem;
@@ -88,8 +86,17 @@ export default {
 		justify-content: flex-end;
 	}
 
-	.modal-card-body{
+	.modal-card-body {
 		padding: 1rem;
+	}
+
+	.section-body {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		width:340px;
+		padding-left: 1rem;
+		padding-bottom: 0.3rem;
 	}
 
 	.column {
@@ -101,12 +108,8 @@ export default {
 	}
 
 	.columns{
-		width:340px;
-		padding-left: 2rem;
+
 	}
 
-	span{
-		font-size: 18px;
-	}
 }
 </style>

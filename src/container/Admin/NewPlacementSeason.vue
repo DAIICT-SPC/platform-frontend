@@ -25,6 +25,7 @@
 					<li><router-link :to="{ name: 'show-add-categories' }">Categories</router-link></li>
 					<li><router-link :to="{ name: 'show-add-jobtypes' }">Job Types</router-link></li>
 					<li><router-link :to="{ name: 'show-add-education' }">Education</router-link></li>
+					<li><router-link :to="{ name: 'add-users' }">Add Users</router-link></li>
 				</ul>
 			</div>
 			<!-- tabs ends -->

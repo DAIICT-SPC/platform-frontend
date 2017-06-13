@@ -1,5 +1,5 @@
 <template lang="html">
-	<div class="selection-rounds">
+	<div class="admin-dynamic-selection-rounds">
 		<div class="box">
 			<div v-if="showData">
 				<div class="selection-header">
@@ -11,9 +11,9 @@
 					<div class="selection-body" v-if="studentData.user">
 						<div class="part1">
 							<input v-model="selectedStudents" :value="studentData.enroll_no" type="checkbox" name="checkbox" class="checkbox">
-							<span class="enroll title is-4">{{ studentData.enroll_no }}</span>
-							<span class="name title is-4">{{ studentData.user.name }}</span>
-							<span class="category title is-4">{{ studentData.category.name }}</span>
+							<span class="enroll">{{ studentData.enroll_no }}</span>
+							<span class="name">{{ studentData.user.name }}</span>
+							<span class="category">{{ studentData.category.name }}</span>
 						</div>
 						<div class="part2 student-preview">
 							<student-preview :key="studentData.enroll_no" :studentData="studentData"></student-preview>
@@ -23,14 +23,13 @@
 
 
 				<div class="selection-checkbox">
-					<input type="checkbox" class="checkbox" />
-					<span class="text title is-4">Select All</span>
+					<input type="checkbox" class="checkbox" v-model="selectAll" />
+					<span class="text">Select All</span>
 				</div>
 
 				<div class="selection-footer">
 					<router-link :to="{ name: 'placements-drive-description', params: { placement_id: placement_id } }" class="button is-primary back-button">Back</router-link>
 					<a class="button is-primary applicant-button" @click="moveStudentsToNextRound">Move to next round</a>
-					<a class="button close-btn">Close</a>
 				</div>
 			</div>
 			<div v-if="!showData && !allStudents && !offerStudents">
@@ -56,10 +55,26 @@ import RoundFullListModal from '@/components/RoundFullListModal';
 import StudentPreviewModal from '@/components/StudentPreviewModal';
 
 export default {
-	name: 'selection-rounds',
+	name: 'admin-dynamic-selection-rounds',
 	components: {
 		'round-list-modal': RoundFullListModal,
 		'student-preview': StudentPreviewModal
+	},
+	computed: {
+		selectAll: {
+			get:function() {
+				return this.remainingStudents ? this.selectedStudents.length == this.remainingStudents.length : false;
+			},
+			set:function(value) {
+				var selectedStudents = [];
+				if(value){
+					this.remainingStudents.forEach((rstudent)=>{
+						selectedStudents.push(rstudent.enroll_no);
+					})
+				}
+				this.selectedStudents = selectedStudents;
+			}
+		}
 	},
 	created() {
 		this.placement_id = this.$route.params.placement_id;
@@ -85,7 +100,6 @@ export default {
 		getRemainingStudents() {
 			admin.getRemainingStudentsRoundwise(this.getUserId(), this.placement_id, this.round_id)
 			.then((response) => {
-				console.log(response);
 				if(response.data == 'None has applied yet!'){
 					this.showData = false;
 				}
@@ -122,12 +136,15 @@ export default {
 		},
 		moveStudentsToNextRound() {
 			if(this.selectedStudents.length == 0) {
-				alert("No student Selected");
+				let toast = this.$toasted.show("No student Selected", {
+					theme: "outline",
+					position: "top-center",
+					duration : 3000
+				});
 			}
 			else {
 				admin.postAdminMoveToNextRound(this.getUserId(), this.placement_id, this.selectedStudents, this.round_id)
 				.then((response) => {
-					console.log(response);
 					if(response.status == 200) {
 						this.getRemainingStudents();
 					}
@@ -146,7 +163,7 @@ export default {
 </script>
 
 <style lang="scss">
-.selection-rounds {
+.admin-dynamic-selection-rounds {
 
 	.allow {
 		display: flex;
@@ -164,6 +181,7 @@ export default {
 	.selection-header {
 		padding: 1rem;
 		display: flex;
+		align-items: center;
 		justify-content: space-between;
 		margin: auto;
 		border-bottom: solid 1px #ddd;

@@ -22,7 +22,8 @@
       <div>
         <div class="field has-addons">
           <p class="control">
-            <input v-model="name" v-validate="'required'" name="ed" class="input" :class="{'input': true, 'is-danger': errors.has('ed') }" type="text" placeholder="Enter New Education">
+            <input v-model="name" v-validate="'required'" name="ed" class="input"
+            :class="{'input': true, 'is-danger': errors.has('ed') }" type="text" placeholder="Enter New Education">
           </p>
           <p class="control">
             <a class="button is-success" @click="addEducation"> Add Education </a>

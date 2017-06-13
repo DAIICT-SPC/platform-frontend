@@ -10,9 +10,9 @@
 				<div v-for="studentData in remainingStudents">
 					<div class="selection-body" v-if="studentData.user">
 						<div>
-							<span class="enroll title is-4">{{studentData.enroll_no}}</span>
-							<span class="name title is-4">{{studentData.user.name}}</span>
-							<span class="category title is-4">{{studentData.category.name}}</span>
+							<span class="enroll">{{studentData.enroll_no}}</span>
+							<span class="name">{{studentData.user.name}}</span>
+							<span class="category">{{studentData.category.name}}</span>
 						</div>
 
 						<offer-modal :key="studentData.enroll_no" :placement_id="placement_id" :studentData="studentData">
@@ -24,7 +24,6 @@
 
 				<div class="selection-footer">
 					<router-link :to="{ name: 'view-placement-detail', params: { placement_id: placement_id } }" class="button is-primary back-button">Back</router-link>
-					<a class="button close-btn">Close</a>
 				</div>
 			</div>
 			<div v-if="!showData && !allStudents">
@@ -93,6 +92,7 @@ export default {
 
 	.box {
 		margin-top: 1.5rem;
+		margin-bottom: 2rem;
 		border-radius: 4px;
 		box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
 	}
@@ -121,6 +121,7 @@ export default {
 	}
 
 	.selection-body {
+		font-size: 18px;
 		display: flex;
 		justify-content: space-between;
 		margin: auto;
@@ -164,6 +165,7 @@ export default {
 	.selection-footer {
 		border-top: solid 1px #ddd;
 		padding: 1rem;
+		padding-bottom: 0;
 		margin-top: 1rem;
 	}
 

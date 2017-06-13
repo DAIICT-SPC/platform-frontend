@@ -20,7 +20,7 @@ import Auth from '@/packages/auth/Auth'
 export default {
   name: 'education-dropdown',
   props: {
-    ed_id: {
+    education_id_rec: {
       required: true,
     },
     category_id: {
@@ -28,7 +28,7 @@ export default {
     }
   },
   created() {
-    this.education_id = this.ed_id;
+    this.education_id = this.education_id_rec;
     // this.callEducation();
     this.placement_id = this.$route.params.placement_id;
     this.getEducation();

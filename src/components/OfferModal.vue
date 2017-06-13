@@ -8,7 +8,7 @@
         <div class="modal-background"></div>
         <div class="modal-card">
           <header class="modal-card-head">
-            <p class="modal-card-title">Offer Letter for {{studentData.enroll_no}}</p>
+            <p class="modal-card-title">Offer Letter for {{studentData.user.name}} <small>({{studentData.enroll_no}})</small></p>
             <button class="delete" @click="hidden=false"></button>
           </header>
           <section class="modal-card-body">

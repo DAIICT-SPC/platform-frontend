@@ -90,9 +90,6 @@ export default {
 			}
 		}
 	},
-	computed() {
-
-	},
 	methods: {
 		getRoundNo() {
 			this.placementDrive.ProcessName = '';

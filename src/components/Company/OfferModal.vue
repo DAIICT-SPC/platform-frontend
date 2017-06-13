@@ -8,7 +8,7 @@
         <div class="modal-background"></div>
         <div class="modal-card">
           <header class="modal-card-head">
-            <p class="modal-card-title">Offer Letter</p>
+            <p class="modal-card-title">Offer Letter for {{studentData.user.name}} <small>({{studentData.enroll_no}})</small></p>
             <button class="delete" @click="hidden=false"></button>
           </header>
           <section class="modal-card-body">
@@ -68,7 +68,12 @@ export default {
           this.hidden=true;
         }
         else {
-          alert('Request you to please kindly give Feedback first.');
+          // alert('Request you to please kindly give Feedback first.');
+          let toast = this.$toasted.show("Request you to please kindly give Feedback first.", {
+            theme: "outline",
+            position: "top-center",
+            duration : 3000
+          });
         }
       })
       .catch((error) => {

@@ -1,5 +1,5 @@
 <template>
-	<div class="view-full-list">
+	<div class="company-application-view-full-list">
 		<div class="modal is-active">
 			<div class="modal-background"></div>
 			<div class="modal-card">
@@ -19,36 +19,29 @@
 
 				<section class="modal-card-body">
 
-					<div class="a">
-						<div class="selection-body" v-for="st in students">
-							<input v-validate="'required'" :value="st.enroll_no" type="checkbox"
-							class="checkbox" v-model="selected" name="terms">
-							<span class="enroll title is-5"> {{ st.enroll_no }} </span>
-							<span class="name title is-5" > {{ st.student.user.name }} </span>
-							<span class="category title is-5">{{ st.student.category.name }}</span>
+					<div class="application-list">
+
+						<div class="company-selection-body" v-for="st in students">
+							<div class="">
+								<input v-validate="'required'" :value="st.enroll_no" type="checkbox"
+								class="checkbox" v-model="selected" name="terms">
+								<span class="enroll"> {{ st.enroll_no }} </span>
+								<span class="name"> {{ st.student.user.name }} </span>
+							</div>
+							<div class="catname">
+								<span>{{ st.student.category.name }}</span>
+							</div>
 						</div>
-						<div class="help is-danger" v-show="errors.has('terms')">
-				      Please Select At Least one
-				    </div>
 					</div>
 
-					<!-- <div>
-        <p class="control">
-            <label class="checkbox">
-                <input name="terms" v-validate="'required'" type="checkbox">
-                I agree to the terms and conditions.
-            </label>
-            <span class="help is-danger" v-show="errors.has('terms')">{{ errors.first('terms') }}</span>
-        </p>
-    </div> -->
+					<div class="help is-danger" v-show="errors.has('terms')">
+						Please Select At Least one
+					</div>
 
-
-					<div class="select-all title is-5">
+					<div class="select-all">
 						<input type="checkbox" name='selectCheckboxes' class="select-all-checkbox" v-model="selectAll" />
 						<span>Select All</span>
 					</div>
-
-
 
 				</section>
 				<footer class="modal-card-foot">
@@ -65,7 +58,7 @@ import company from '@/api/company';
 import Auth from '@/packages/auth/Auth';
 
 export default{
-	name: 'view-full-list',
+	name: 'company-application-view-full-list',
 	data() {
 		return {
 			search:'',
@@ -95,7 +88,6 @@ export default{
 				.then((response) => {
 					if(response.status == 200) {
 						this.modalValue = response.data;
-
 					}
 				})
 				.catch((error) => {
@@ -138,25 +130,37 @@ export default{
 </script>
 
 <style lang="scss">
-.view-full-list {
+.company-application-view-full-list {
 
 	.modal-card-body {
-		padding: 1rem;
+		// padding: 1rem;
 	}
 
 	.modal-card-title {
 		padding-bottom: 0.5rem;
 	}
 
-	.a {
-		.selection-body {
-			margin: 0;
-			padding: 0;
-			padding-bottom: 0.3rem;
+
+	.application-list {
+
+		.company-selection-body {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			max-width: 350px;
+			margin-left: 0;
+			padding: 0.1rem;
+			.enroll .name {
+				padding-right: 0.2rem;
+			}
+			.catname {
+
+			}
 		}
+
 	}
 
-	.select-all.title.is-5 {
+	.select-all {
 		border-top: solid 1px #ddd;
 		padding-top: 0.5rem;
 		margin-top: 0.5rem;

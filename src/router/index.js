@@ -53,6 +53,7 @@ import AdminProfile from '@/container/Admin/Profile'
 import Category from '@/container/Admin/Category'
 import JobType from '@/container/Admin/JobType'
 import Education from '@/container/Admin/Education'
+import AddUsers from '@/container/Admin/AddUsers'
 
 
 Vue.use(Router)
@@ -477,6 +478,15 @@ let router = new Router({
           path: 'education',
           name: 'show-add-education',
           component: Education,
+          meta: {
+            requiresAuth: true,
+            shouldBeAdmin: true
+          }
+        },
+        {
+          path: 'add-users',
+          name: 'add-users',
+          component: AddUsers,
           meta: {
             requiresAuth: true,
             shouldBeAdmin: true

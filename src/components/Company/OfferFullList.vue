@@ -9,7 +9,7 @@
 					<button class="delete" @click="$emit('close')"></button>
 				</header>
 
-				<section class="modal-card-body">
+				<section class="modal-card-body" v-if="showData">
 					<div class="columns" v-for="st in students">
 						<div class="column">
 							<span>{{st.enroll_no}}</span>
@@ -22,6 +22,9 @@
 						</div>
 					</div>
 
+				</section>
+				<section class="modal-card-body" v-if="!showData">
+					<h3 class="title">No Data to show</h3>
 				</section>
 				<footer class="modal-card-foot">
 					<a class="button" @click="$emit('close')">Cancel</a>
@@ -45,14 +48,21 @@ export default {
 		return {
 			students: [],
 			placement_id: null,
-			season_id: null
+			season_id: null,
+			showData: false
 		};
 	},
 	methods: {
 		getAllStudents() {
 			company.getOfferRoundList(this.getUserId(), this.placement_id)
 			.then((response) => {
-				this.students = response.data;
+				if(response.data.length == 0) {
+					this.showData = false;
+				}
+				else {
+					this.showData = true;
+					this.students = response.data;
+				}
 			})
 			.catch((error) => {
 				console.log(error);

@@ -2,6 +2,7 @@
   <div class="eligibility-criteria-box">
     <a class="button is-white" @click="hidden=false" v-if="hidden">Edit</a>
     <a class="button is-white" @click="hidden=true" v-if="!hidden">Hide</a>
+
     <div class="box" v-if="!hidden">
 
       <div class="columns">
@@ -42,7 +43,7 @@ import company from '@/api/company'
 import Auth from '@/packages/auth/Auth'
 
 export default {
-  name: 'placement-drive-box',
+  name: 'eligibility-criteria-box',
   data() {
     return {
       hidden: true,
@@ -75,7 +76,7 @@ export default {
       this.id = this.getUserId();
       company.deleteCriteria(this.id, this.placement_id, education_id, category_id)
       .then((response) => {
-        this.$emit.$emit('deleted');
+        this.$bus.$emit('deleted');
         this.hidden = true;
       })
       .catch((error) => {
@@ -91,6 +92,11 @@ export default {
 
 <style lang="scss">
 .eligibility-criteria-box {
+
+  .box {
+    margin-top: 0.1rem;
+    margin-left: 1rem;
+  }
 
   .button.is-white {
     display: flex;

@@ -1,24 +1,25 @@
 <template lang="html">
-  <div class="eligibility-criteria-box">
+  <div class="add-eligibility-criteria-box">
     <a class="button is-white" @click="hidden=false" v-if="hidden">Add</a>
     <a class="button is-white" @click="hidden=true" v-if="!hidden">Hide</a>
+
     <div class="box" v-if="!hidden">
 
-      <div class="field is-horizontal abt-admin">
+      <div class="field is-horizontal">
         <div class="field-label">
           <p>Education</p>
         </div>
         <div class="field-body">
           <div>
             <p class="control">
-              <input type="hidden" v-model="ed_id=education[0].id">
-              <edit-dropdown :ed_id="ed_id" :category_id="category_id"></edit-dropdown>
+              <input type="hidden" v-model="education_id_rec=education[0].id">
+              <edit-dropdown :education_id_rec="education_id_rec" :category_id="category_id"></edit-dropdown>
             </p>
           </div>
         </div>
       </div>
 
-      <div class="field is-horizontal abt-admin">
+      <div class="field is-horizontal abt-input">
         <div class="field-label">
           <p>CPI</p>
         </div>
@@ -26,16 +27,19 @@
           <div>
             <p class="control ">
               <input v-model="cpi_required" v-validate="'required|numeric'" type="number"
-              name="cpi_required" class="input">
+              name="cpi_required" :class="{'input': true, 'is-danger': errors.has('cpi_required') }"
+              @keyup.enter="addCriteria">
             </p>
-            <div class="help is-danger" v-show="errors.has('cpi_required')">
-              CPI is a required field.
-            </div>
+
           </div>
         </div>
       </div>
 
-      <a class="button is-success" @click="addCriteria">Submit</a>
+      <div class="field register-button">
+        <p class="has-text-centered">
+          <a class="button is-success" @click="addCriteria">Submit</a>
+        </p>
+      </div>
 
 
     </div>
@@ -47,7 +51,7 @@ import company from '@/api/company'
 import Auth from '@/packages/auth/Auth'
 import EditEducationDropdown from '@/components/Company/EditEducationDropdown'
 export default {
-  name: 'placement-drive-box',
+  name: 'add-eligibility-criteria-box',
   components: {
     'edit-dropdown': EditEducationDropdown
   },
@@ -56,38 +60,45 @@ export default {
       hidden: true,
       cpi_required: null,
       category_id: null,
-      education_id: null
+      education_id_send: null,
+      education_id_rec: null
     };
   },
   props: {
-    category_id: {
+    categories: {
       required: true,
     }
   },
-  beforeUpdate() {
-    this.$bus.$on('education-change', (data) => {
-      this.education_id = data.id;
-    });
-  },
   created() {
+    this.category_id = this.categories.id;
     this.placement_id = this.$route.params.placement_id;
 
-			company.getEducationForPlacementCriteria(this.getUserId(), this.placement_id, this.category_id)
-			.then((response) => {
-				this.education = response.data;
-				this.ed_id = this.education[0].id;
-			})
-			.catch((error) => {
-				console.log(error);
-			})
+    this.$bus.$on('education-change', (data) => {
+      this.education_id_send = data.id;
+    });
+
+    company.getEducationForPlacementCriteria(this.getUserId(), this.placement_id, this.category_id)
+    .then((response) => {
+      this.education = response.data;
+      this.education_id_rec = this.education[0].id;
+    })
+    .catch((error) => {
+      console.log(error);
+    })
   },
   methods: {
     addCriteria() {
-      company.setPlacementCriteria(this.getUserId(), this.placement_id, this.education_id,
+      company.setPlacementCriteria(this.getUserId(), this.placement_id, this.education_id_send,
       this.category_id, this.cpi_required)
       .then((response) => {
         if(response.status == 200) {
-          // $emit('close');
+          this.hidden = true
+          this.$bus.$emit('added-eligibility-criteria');
+          let toast = this.$toasted.success("Criteria Added", {
+            theme: "outline",
+            position: "top-center",
+            duration : 3000
+          });
         }
       })
       .catch((error) => {
@@ -114,7 +125,13 @@ export default {
 </script>
 
 <style lang="scss">
-.eligibility-criteria-box {
+.add-eligibility-criteria-box {
+
+  .box {
+    margin-top: 0.1rem;
+    margin-bottom: 0.5rem;
+    margin-right: 1rem;
+  }
 
   .button.is-white {
     display: flex;
@@ -122,10 +139,10 @@ export default {
   }
 
   .columns {
-      margin-bottom: 0;
-      .column {
-        padding-bottom: 0
-      }
+    margin-bottom: 0;
+    .column {
+      padding-bottom: 0
+    }
   }
 
   .register-button {
@@ -137,13 +154,25 @@ export default {
     text-align: center;
   }
 
+  .abt-input {
+    margin: 0;
+  }
 
-    .control {
-      display: flex;
-      justify-content: center;
-      margin: auto;
-      padding-bottom: 1rem;
-    }
+  .field.register-button {
+    padding: 0;
+  }
+
+  .has-text-centered {
+    width: 274px;
+  }
+
+
+  .control {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    padding-bottom: 1rem;
+  }
 
   .label {
     display: flex;

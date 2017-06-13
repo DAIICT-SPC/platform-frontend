@@ -1,5 +1,5 @@
 <template lang="html">
-	<div class="selection-rounds">
+	<div class="admin-application-selection-rounds">
 		<div class="box">
 			<div v-if="showData">
 				<div class="selection-header">
@@ -10,24 +10,27 @@
 				<application-list-modal @close="showModal = false" v-if="showModal == true"></application-list-modal>
 
 				<div v-for="studentData in remainingStudents">
-					<div class="selection-body" v-if="studentData.user">
-						<input v-model="selectedStudents" :value="studentData.enroll_no" type="checkbox" name="checkbox" class="checkbox">
-						<span class="enroll title is-4">{{ studentData.enroll_no }}</span>
-						<span class="name title is-4">{{ studentData.user.name }}</span>
-						<span class="category title is-4">{{ studentData.category.name }}</span>
-						<a class="is-success view-profile"> View Profile </a>
+					<div class="admin-application-selection-body" v-if="studentData.user">
+						<div class="part1">
+							<input v-model="selectedStudents" :value="studentData.enroll_no" type="checkbox" name="checkbox" class="checkbox">
+							<span class="enroll">{{ studentData.enroll_no }}</span>
+							<span class="name">{{ studentData.user.name }}</span>
+							<span class="category">{{ studentData.category.name }}</span>
+						</div>
+						<div class="part2 student-preview">
+							<student-preview :key="studentData.enroll_no" :studentData="studentData"></student-preview>
+						</div>
 					</div>
 				</div>
 
 				<div class="selection-checkbox">
-					<input type="checkbox" class="checkbox" />
-					<span class="text title is-4">Select All</span>
+					<input type="checkbox" class="checkbox" v-model="selectAll" />
+					<span class="text">Select All</span>
 				</div>
 
 				<div class="selection-footer">
 					<router-link :to="{ name: 'placements-drive-description', params: { placement_id: placement_id } }" class="button is-primary back-button">Back</router-link>
 					<a class="button is-primary applicant-button" @click="moveStudentsToNextRound">Move to next round</a>
-					<a class="button close-btn">Close</a>
 				</div>
 			</div>
 			<div v-if="!showData && !allStudents">
@@ -47,25 +50,42 @@
 import admin from '@/api/admin';
 import Auth from '@/packages/auth/Auth';
 import ApplicationFullList from '@/components/ApplicationFullList';
+import StudentPreviewModal from '@/components/StudentPreviewModal';
 
 export default {
-	name: 'selection-rounds',
+	name: 'admin-application-selection-rounds',
 	components: {
-		'application-list-modal': ApplicationFullList
+		'application-list-modal': ApplicationFullList,
+		'student-preview': StudentPreviewModal
+	},
+	computed: {
+		selectAll: {
+			get:function() {
+				return this.remainingStudents ? this.selectedStudents.length == this.remainingStudents.length : false;
+			},
+			set:function(value) {
+				var selectedStudents = [];
+				if(value){
+					this.remainingStudents.forEach((rstudent)=>{
+						selectedStudents.push(rstudent.enroll_no);
+					})
+				}
+				this.selectedStudents = selectedStudents;
+			}
+		}
 	},
 	created() {
-		console.log(this.$route.params);
 		this.placement_id = this.$route.params.placement_id;
 		this.season_id = this.$route.params.season_id;
 		this.getRemainingStudents();
 
-},
+	},
 	data() {
 		return {
 			placement_id: null,
 			season_id: null,
-			remainingStudents: [],
 			showData: false,
+			remainingStudents: [],
 			selectedStudents: [],
 			allStudents: false,
 			showModal: false,
@@ -94,7 +114,11 @@ export default {
 		},
 		moveStudentsToNextRound() {
 			if(this.selectedStudents.length == 0) {
-				alert("No student Selected");
+				let toast = this.$toasted.show("No student Selected", {
+					theme: "outline",
+					position: "top-center",
+					duration : 3000
+				});
 			}
 			else {
 				admin.postAdminMoveToFirstRound(this.getUserId(), this.placement_id, this.selectedStudents)
@@ -118,7 +142,7 @@ export default {
 </script>
 
 <style lang="scss">
-.selection-rounds {
+.admin-application-selection-rounds {
 
 	.allow {
 		display: flex;
@@ -137,6 +161,7 @@ export default {
 		padding: 1rem;
 		display: flex;
 		justify-content: space-between;
+		align-items: center;
 		margin: auto;
 		border-bottom: solid 1px #ddd;
 		margin-bottom: 1rem;
@@ -158,11 +183,15 @@ export default {
 		padding-top: 5px;
 	}
 
-	.selection-body {
+	.admin-application-selection-body {
 		padding: 0.5rem;
 		margin-left: 1rem;
+		padding-left: 1.5rem;
 		padding-right: 2.2rem;
 		// border-bottom: solid 1px #ddd;
+		display: flex;
+		justify-content: space-between;
+		margin: auto;
 	}
 
 	.view-profile {

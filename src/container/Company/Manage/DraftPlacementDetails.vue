@@ -38,11 +38,10 @@
           <div class="column" v-for="categories in placementDescription.categories">
             <div class="card">
               <header class="card-header">
-                <p class="card-header-title"> {{ categories.name }} </p>
-                <div class="header-action is-pulled-right">
+                <div class="card-header-title"> {{ categories.name }} </div>
+                <div class="header-action">
                   <input type="hidden" v-model="category_id = categories.id">
-                  <!-- {{categories.id}} -->
-                  <a class="button is-white" @click="delOpenFor(categories.id)">Delete</a>
+                  <a class="button is-white delete-btn" @click="delOpenFor(categories.id)">Delete</a>
                 </div>
               </header>
               <input type="hidden" v-model="category_id_new = categories.id">
@@ -53,9 +52,13 @@
                   <div class="column" v-for="cat in categories.criterias">{{ cat.education.name }} <br> {{cat.cpi_required}}</div>
                 </div>
               </footer>
-              <div class="criteria-box">
-                <criteria-box :key="categories.id" :criterias="categories.criterias"></criteria-box>
-                <add-criteria-box :key="categories.id" :category_id="categories.id"></add-criteria-box>
+              <div class="columns criteria-box">
+                <div class="column">
+                  <criteria-box :key="categories.id" :criterias="categories.criterias"></criteria-box>
+                </div>
+                <div class="column">
+                  <add-criteria-box :key="category_id_new" :categories="categories"></add-criteria-box>
+                </div>
               </div>
             </div>
           </div>
@@ -156,20 +159,22 @@ export default {
   created() {
     this.placement_id = this.$route.params.placement_id;
     // this.getEducation();
+    this.getDetails();
     this.$bus.$on('closeDescription', () => {
       this.showDesc = false;
     });
-    this.getDetails();
+    this.$bus.$on('added-eligibility-criteria', () => {
+      this.getDetails();
+    });
     this.$bus.$on('close', () => {
       this.showOpenFor = false;
       this.getDetails();
     })
-  },
-  beforeUpdate() {
     this.$bus.$on('deleted', () => {
       this.getDetails();
     });
   },
+
   methods: {
     getDetails() {
       company.getPlacementDetails(this.getUserId(), this.placement_id)
@@ -181,7 +186,6 @@ export default {
       });
     },
     getEducation() {
-      console.log("cat: " + this.category_id);
       company.getEducationForPlacementCriteria(this.getUserId(), this.placement_id, this.category_id)
       .then((response) => {
         // console.log(response);
@@ -226,8 +230,12 @@ export default {
     padding: 0;
   }
 
-  .criteria-box {
-    margin-top: 1rem;
+  .columns.criteria-box {
+    margin-top: 0;
+    .column {
+      padding-bottom: 0;
+      padding-top: 0;
+    }
   }
 
   .job-section {
@@ -285,6 +293,9 @@ export default {
     padding-right: 1.5rem;
 
     .stripe-footer {
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: solid 1px #ddd;
       .column {
         padding: 1rem;
         text-align: center;
@@ -328,7 +339,17 @@ export default {
       }
     }
 
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+    }
 
+    .header-action.is-pulled-right {
+      .button.is-white.delete-btn {
+        margin-top: 0.3rem;
+      }
+    }
 
     .process {
       position: relative;

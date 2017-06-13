@@ -22,14 +22,13 @@
 				</div>
 
 				<div class="selection-checkbox">
-					<input type="checkbox" class="checkbox" />
+					<input type="checkbox" class="checkbox" v-model="selectAll" />
 					<span class="text title is-4">Select All</span>
 				</div>
 
 				<div class="selection-footer">
 					<router-link :to="{ name: 'view-placement-detail', params: { placement_id: placement_id } }" class="button is-primary back-button">Back</router-link>
 					<a class="button is-primary applicant-button" @click="moveStudentsToNextRound">Move to next round</a>
-					<a class="button close-btn">Close</a>
 				</div>
 			</div>
 			<div v-if="!showData && !allStudents && !offerStudents">
@@ -66,13 +65,29 @@ export default {
 		this.round_id = this.$route.params.round_id;
 		this.getRemainingStudents()
 	},
+	computed: {
+		selectAll: {
+			get:function() {
+				return this.remainingStudents ? this.selectedStudents.length == this.remainingStudents.length : false;
+			},
+			set:function(value) {
+				var selectedStudents = [];
+				if(value){
+					this.remainingStudents.forEach((rstudent)=>{
+						selectedStudents.push(rstudent.enroll_no);
+					})
+				}
+				this.selectedStudents = selectedStudents;
+			}
+		}
+	},
 	data() {
 		return {
 			placement_id: null,
 			season_id: null,
 			round_id: null,
-			remainingStudents: [],
 			showData: true,
+			remainingStudents: [],
 			selectedStudents: [],
 			allStudents: false,
 			offerStudents: false,
@@ -139,6 +154,13 @@ export default {
 
 <style lang="scss">
 .company-selection-rounds {
+
+	.box {
+		margin-top: 1.5rem;
+		margin-bottom: 2rem;
+		border-radius: 4px;
+	  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
+	}
 
 	.allow {
 		display: flex;

@@ -1,5 +1,5 @@
 <template>
-	<div class="selection-round-offer">
+	<div class="admin-selection-round-offer">
 		<div class="box">
 			<div v-if="showData">
 				<div class="selection-header">
@@ -7,24 +7,26 @@
 					<button @click="showModal = true" class="button is-success">Reports</button>
 				</div>
 
-				<div v-for="studentData in remainingStudents">
+				<div class="head-selection-body" v-for="studentData in remainingStudents">
 					<div class="selection-body" v-if="studentData.user">
-						<div>
-							<span class="enroll title is-4">{{studentData.enroll_no}}</span>
-							<span class="name title is-4">{{studentData.user.name}}</span>
-							<span class="category title is-4">{{studentData.category.name}}</span>
+						<div class="">
+							<span class="enroll">{{studentData.enroll_no}}</span>
+							<span class="name">{{studentData.user.name}}</span>
 						</div>
 
+						<div>
+							<span class="category">{{studentData.category.name}}</span>
+						</div>
+					</div>
+
+					<div>
 						<offer-modal :key="studentData.enroll_no" :placement_id="placement_id" :studentData="studentData">
-
 						</offer-modal>
-
 					</div>
 				</div>
 
 				<div class="selection-footer">
 					<router-link :to="{ name: 'placements-drive-description', params: { placement_id: placement_id } }" class="button is-primary back-button">Back</router-link>
-					<a class="button close-btn">Close</a>
 				</div>
 			</div>
 			<div v-if="!showData && !allStudents">
@@ -46,7 +48,7 @@ import OfferModal from '@/components/OfferModal';
 import OfferFullList from '@/components/OfferFullList';
 
 export default {
-	name: 'selection-round-offer',
+	name: 'admin-selection-round-offer',
 	components: {
 		OfferModal,
 		OfferFullList
@@ -71,7 +73,6 @@ export default {
 		getStudentsOffer() {
 			admin.getStudentsForOffer(this.getuserId(), this.placement_id)
 			.then((response) => {
-				console.log(response);
 				this.remainingStudents = response.data;
 				if(response.data == 'All Students in offer layer got Offer!'){
 					this.allStudents = true;
@@ -90,12 +91,12 @@ export default {
 </script>
 
 <style lang="scss">
-.selection-round-offer {
+.admin-selection-round-offer {
 
 	.allow {
 		display: flex;
-		justify-content: space-between;
 		align-items: center;
+		justify-content: space-between;
 		.button {
 			margin-right: 1rem;
 		}
@@ -109,14 +110,28 @@ export default {
 		padding: 1rem;
 		padding-right: 1.5rem;
 		display: flex;
+		align-items: center;
 		justify-content: space-between;
 		margin: auto;
 		border-bottom: solid 1px #ddd;
 		margin-bottom: 1rem;
 	}
 
-	.selection-body {
+	.head-selection-body {
+		padding-left: 1rem;
+		padding-right: 0.8rem;
+		padding-bottom: 0.4rem;
 		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin: auto;
+	}
+
+	.selection-body {
+		font-size: 18px;
+		width: 350px;
+		display: flex;
+		align-items: center;
 		justify-content: space-between;
 		margin: auto;
 	}

@@ -54,7 +54,19 @@ export default {
         this.userDetails = response.data;
       })
       .catch((error) => {
-        console.log(error.message);
+        // if(error.response.status == 500) {
+        //   let toast = this.$toasted.error("Internal Server Error." + this.userName, {
+        //     theme: "outline",
+        //     position: "top-center",
+        //     duration : 3000
+        //   });
+        // this.$toasted.error("Please Logout and then Login to continue." + this.userName, {
+        //     theme: "outline",
+        //     position: "top-center",
+        //     duration : 3000
+        //   });
+        // }
+        console.log(error);
       })
     },
     getUserId() {
