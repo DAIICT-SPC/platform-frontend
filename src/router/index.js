@@ -76,6 +76,10 @@ let router = new Router({
     path: '/education',
     name: 'education-first',
     component: EducationFirst,
+    meta: {
+      requiresAuth: true,
+      shouldBeStudent: true
+    }
   },
   {
     path: '/404-page-not-found',

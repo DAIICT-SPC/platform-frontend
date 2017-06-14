@@ -63,6 +63,7 @@ export default {
 						position: "top-center",
 						duration : 3000
 					});
+					this.$bus.$emit('created-season');
 				}
 			})
 			.catch((error) => {

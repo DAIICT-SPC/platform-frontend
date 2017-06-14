@@ -161,7 +161,12 @@ export default {
         }
       })
       .catch((error) => {
-        console.log(error.response);
+        console.log(error);
+        let toast = this.$toasted.error(error.response.data.message, {
+          theme: "outline",
+          position: "top-center",
+          duration : 3000
+        });
       })
     },
     userCancelPlacement() {

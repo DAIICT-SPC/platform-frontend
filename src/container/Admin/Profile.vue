@@ -89,6 +89,7 @@ export default{
 	created() {
 		admin.getUserDetails(this.getUserId())
 		.then((response) => {
+			// shows only name, email and profilepicture
 			this.adminDetails = response.data;
 		})
 		.catch((error) => {

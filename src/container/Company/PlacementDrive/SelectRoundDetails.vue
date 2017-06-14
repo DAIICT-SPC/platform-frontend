@@ -16,7 +16,7 @@
 			<div class="field">
 				<label class="label">Process Name</label>
 				<p class="control">
-					<input v-validate="'required|alpha'" type="text" name="processName" placeholder="Process Name" class="input"
+					<input v-validate="'required'" type="text" name="processName" placeholder="Process Name" class="input"
 					v-model="placementDrive.ProcessName">
 				</p>
 				<div class="help is-danger" v-show="errors.has('processName')">{{ errors.first('processName') }}</div>
@@ -25,7 +25,7 @@
 			<div class="field">
 				<label class="label">Process Description</label>
 				<p class="control">
-					<textarea v-validate="'required|alpha'" name="processDescription" class="textarea" placeholder="Enter Process Discription"
+					<textarea v-validate="'required'" name="processDescription" class="textarea" placeholder="Enter Process Discription"
 					v-model="placementDrive.ProcessDescription"></textarea>
 				</p>
 				<div class="help is-danger" v-show="errors.has('processDescription')">{{ errors.first('processDescription') }}</div>

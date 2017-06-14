@@ -160,12 +160,11 @@ export default {
     }
   },
   created() {
-
+    console.log(this.userMainDetails);
   },
   methods: {
 
     modalPage() {
-
       this.studentDetails = this.userMainDetails;
 
       this.showModal = true;

@@ -280,6 +280,14 @@ export default {
     // /users/3/admin/studentDetail/201612105
     let url = '/users/' + user_id + '/admin/studentDetail/' + enroll_no;
     return HTTP.get(url);
+  },
+
+  activationViaFileUpload(csvfile, role) {
+    let url = '/activation/file';
+    return HTTP.get(url, {
+      csv: csvfile,
+      role: role
+    });
   }
 
 }

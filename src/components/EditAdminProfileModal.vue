@@ -107,8 +107,12 @@ export default{
 			this.validate().then(() => {
 				admin.postUserDetails(this.getUserId(), this.name, this.contact_no, this.position)
 				.then((response) => {
-					if(response.status == 200){
-						alert('Profile Updated');
+					if(response.status == 200) {
+						let toast = this.$toasted.success("Profile Updated", {
+	            theme: "outline",
+	            position: "top-center",
+	            duration : 3000
+	          });
 						this.$emit('close');
 					}
 				})

@@ -47,17 +47,17 @@ import Auth from '@/packages/auth/Auth'
 			return {
 				placement_id: null,
 				drives: [],
-				showData: null,
+				showData: false,
 				placement_season_id: null
 			};
 		},
 		created() {
 			this.placement_id = this.$route.params.season_id;
 			if(this.placement_id == null){
-				this.showData = null;
+				this.showData = false;
 			}
 			else {
-				this.showData = 1;
+				this.showData = true;
 			}
 			this.funcPlacementSeasons();
 		},
@@ -65,7 +65,13 @@ import Auth from '@/packages/auth/Auth'
 			funcPlacementSeasons() {
 				admin.getPlacementsInSeasons(this.placement_id)
 				.then((response) => {
-					this.drives = response.data;
+					if(response.data.length == 0) {
+						this.showData = false;
+					}
+					else {
+						this.showData = true;
+						this.drives = response.data;
+					}
 				})
 				.catch((error) => {
 					console.log(error);

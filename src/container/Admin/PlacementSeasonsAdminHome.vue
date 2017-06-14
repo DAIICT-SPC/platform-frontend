@@ -4,7 +4,7 @@
 
 			<div class="columns is-multiline">
 				<!-- 1/3 col -->
-				<div class="column is-one-third" v-for="season in placementsSeasons">
+				<div class="column is-one-third" v-if="showData" v-for="season in placementsSeasons">
 					<div class="card placement-tiles">
 						<header class="card-header">
 							<p class="card-header-title">
@@ -24,6 +24,9 @@
 				</div>
 				<!-- 1/3 col -->
 
+				<div class="column box" v-if="!showData">
+					<h3 class="title">No Data to Show</h3>
+				</div>
 
 
 			</div>
@@ -41,6 +44,7 @@ export default {
 	},
 	data() {
 		return {
+			showData: false,
 			placementsSeasons: [],
 		};
 	},
@@ -48,8 +52,13 @@ export default {
 		callDashboard() {
 			admin.adminDashboard()
 			.then((response) => {
-				// console.log(response.data);
-	      this.placementsSeasons = response.data;
+				if(response.data.length == 0) {
+					this.showData = false;
+				}
+				else {
+					this.showData = true;
+					this.placementsSeasons = response.data;
+				}
 	    })
 	    .catch((error) => {
 	      console.log(error);
@@ -61,6 +70,13 @@ export default {
 
 <style lang="scss">
 .placement-seasons-admin-home {
+
+	.box {
+		padding: 1rem;
+		margin-top: 0.8rem;
+		border-radius: 4px;
+		box-shadow: 0px 4px 5px #d0cfcf;
+	}
 
 	.container.dashboard-admin {
 		padding: 0;

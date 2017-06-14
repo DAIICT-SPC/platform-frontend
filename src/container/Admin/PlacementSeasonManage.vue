@@ -3,7 +3,7 @@
 		<div class="columns is-multiline">
 
 			<!-- 1/3 col -->
-			<div class="column is-one-third" v-for="season in seasons_list">
+			<div class="column is-one-third" v-if="showData" v-for="season in seasons_list">
 				<div class="card placement-tiles">
 
 					<header class="card-header">
@@ -28,6 +28,10 @@
 			</div>
 			<!-- 1/3 col -->
 
+			<div class="column box" v-if="!showData">
+				<h3 class="title">No Data to Show</h3>
+			</div>
+
 		</div>
 	</div>
 </template>
@@ -39,9 +43,13 @@ export default {
 	name: 'placement-tiles-page',
 	created() {
 		this.getAllManagePlacements();
+		this.$bus.$on('created-season', () => {
+			this.getAllManagePlacements();
+		});
 	},
 	data() {
 		return {
+			showData: false,
 			seasons_list: [],
 			placement_season_id: null
 		};
@@ -50,7 +58,13 @@ export default {
 		getAllManagePlacements() {
 			admin.getManagePlacementSeason()
 			.then((response) => {
-				this.seasons_list = response.data;
+				if(response.data.length == 0) {
+					this.showData = false;
+				}
+				else {
+					this.showData = true;
+					this.seasons_list = response.data;
+				}
 			})
 			.catch((error) => {
 				console.log(error);
@@ -84,13 +98,14 @@ export default {
 
 <style lang="scss">
 .placement-tiles-page {
-	.placement-tiles{
+
+	.placement-tiles {
 		margin-top: 0rem;
 		border-radius: 4px;
 		box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
 	}
 
-	.status{
+	.status {
 		margin-right: 0.9rem;
 	}
 

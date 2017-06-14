@@ -11,21 +11,24 @@ export default {
     });
   },
 
-  registerStudent(name, password, code, enroll_no, category_id, temp_address, perm_address, gender, dob) {
+  registerStudent(name, password, code, enroll_no, contact_no, category_id, temp_address, perm_address, gender, dob, alternate_email) {
     return HTTP.post('/users/registerUser', {
       name: name,
       password: password,
       code: code,
       enroll_no: enroll_no,
+      contact_no: contact_no,
       category_id: category_id,
       temp_address: temp_address,
       perm_address: perm_address,
       gender: gender,
-      dob: dob
+      dob: dob,
+      alternate_email: alternate_email
     });
   },
 
-  registerCompany(user_name, user_email, user_password, company_name, address, contact_no, company_expertise, company_url, code){
+  registerCompany(user_name, user_email, user_password, company_name, address, contact_no, company_expertise,
+    company_url, alternate_email, code){
     return HTTP.post('/users/registerUser', {
       name: user_name,
       email: user_email,
@@ -35,6 +38,7 @@ export default {
       contact_no: contact_no,
       company_expertise: company_expertise,
       company_url: company_url,
+      alternate_email: alternate_email,
       code: code
     });
   },

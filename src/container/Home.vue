@@ -30,6 +30,7 @@
               <hr>
               <p class="control">
                 <button @click="login" class="button is-primary">Login</button>
+                <a class="forgot"><small class="forgot">Forgot Password</small></a>
               </p>
             </div>
           </div>
@@ -93,7 +94,17 @@ export default {
       user.login(this.email, this.password)
       .then(this.storeToken)
       .catch((error) => {
-        console.log(error);
+        if(error.response.status == 404) {
+          console.log(error);
+          let toast = this.$toasted.error(error.response.data.message, {
+            theme: "outline",
+            position: "bottom-center",
+            duration : 3000
+          });
+        }
+        else {
+          console.log(error);
+        }
       })
       // .then(this.redirect);
     },
@@ -160,6 +171,12 @@ export default {
     padding: 0.5rem;
     background: rgba(260,0,0,0.4);
     filter: alpha(opacity=80);
+  }
+
+  .control {
+    .forgot {
+      color: #000000;
+    }
   }
 }
 

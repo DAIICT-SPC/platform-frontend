@@ -13,7 +13,7 @@
                 <div class="field">
                   <label class="label">Name</label>
                   <p class="control">
-                    <input v-model="student.name" class="input" name="student_name" v-validate="'required|alpha_spaces'" type="text" placeholder="Name">
+                    <input v-model="student.name" class="input" name="student_name" v-validate="'required'" type="text" placeholder="Name">
                   </p>
                   <div v-show="errors.has('student_name')" class="help is-danger">
                     The Student Name is required and should contain only letters.
@@ -38,7 +38,7 @@
                 <div class="field">
                   <label class="label">Password</label>
                   <p class="control">
-                    <input v-model="student.password" name="student_password" v-validate="'required|min:8|alpha_dash'" type="password" placeholder="Password" class="input">
+                    <input v-model="student.password" name="student_password" v-validate="'required|min:8'" type="password" placeholder="Password" class="input">
                   </p>
                   <div v-show="errors.has('student_password')" class="help is-danger">
                     The Password is required and should be greater than 8 characters.
@@ -150,7 +150,8 @@
               <div class="field">
                 <label class="label">Enrollnment no</label>
                 <p class="control">
-                  <input v-model.number="student.enroll_no" class="input" name="student_enroll_no" v-validate="'required|numeric'" type="text" placeholder="Enrollnment Number">
+                  <input v-model.number="student.enroll_no" class="input" name="student_enroll_no"
+                  v-validate="'required|numeric'" type="text" placeholder="Enrollnment Number">
                 </p>
                 <div v-show="errors.has('student_enroll_no')" class="help is-danger">
                   The Student Enrollnment Number is required and should be of 9 digits.
@@ -158,6 +159,15 @@
               </div>
             </div>
             <div class="column">
+              <div class="field">
+                <label class="label">Alternate Email</label>
+                <p class="control">
+                  <input v-model="student.alternate_email" name="alternate_email" v-validate="'required|email'" type="email" placeholder="Alternate Email" class="input">
+                </p>
+                <div class="help is-danger" v-show="errors.has('alternate_email')">
+                  The Alternative Email is required and should be a valid Email.
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -168,9 +178,7 @@
             </button>
           </p>
         </div>
-
-
-
+        <pre>{{$data}}</pre>
       </div>
 
 
@@ -185,7 +193,7 @@
                 <div class="field">
                   <label class="label">Contact Person Name</label>
                   <p class="control">
-                    <input v-model="company.user_name" name="user_name" v-validate="'required|alpha_spaces'" type="text" placeholder="Name" class="input">
+                    <input v-model="company.user_name" name="user_name" v-validate="'required'" type="text" placeholder="Name" class="input">
                   </p>
                   <div class="help is-danger" v-show="errors.has('user_name')">
                     The Name is required and should contain only letters.
@@ -210,7 +218,7 @@
                 <div class="field">
                   <label class="label">Password</label>
                   <p class="control">
-                    <input v-model="company.password" name="user_password" v-validate="'required|min:8|alpha_dash'" type="password" placeholder="Password" class="input">
+                    <input v-model="company.password" name="user_password" v-validate="'required|min:8'" type="password" placeholder="Password" class="input">
                   </p>
                   <div class="help is-danger" v-show="errors.has('user_password')">
                     The Password is required and should be greater than 8 characters.
@@ -237,7 +245,7 @@
                 <div class="field">
                   <label class="label">Company Name</label>
                   <p class="control">
-                    <input v-model="company.companyName" name="company_name" v-validate="'required|alpha_spaces'" type="text" placeholder="Company Name" class="input">
+                    <input v-model="company.companyName" name="company_name" v-validate="'required'" type="text" placeholder="Company Name" class="input">
                   </p>
                   <div class="help is-danger" v-show="errors.has('company_name')">
                     The Company Name is required and should contain only letters.
@@ -263,7 +271,7 @@
                 <div class="field">
                   <label class="label">Company Address</label>
                   <p class="control">
-                    <textarea v-model="company.companyAddress" name="company_address" v-validate="'required|min:10'" placeholder="Company Address" class="textarea"></textarea>
+                    <textarea v-model="company.companyAddress" name="company_address" v-validate="'required'" placeholder="Company Address" class="textarea"></textarea>
                   </p>
                   <div class="help is-danger" v-show="errors.has('company_address')">
                     The Company Address is required.
@@ -274,7 +282,7 @@
                 <div class="field">
                   <label class="label">Company Description</label>
                   <p class="control">
-                    <textarea v-model="company.companyDescription" name="company_description" v-validate="'required|min:10'" placeholder="Company Description" class="textarea"></textarea>
+                    <textarea v-model="company.companyDescription" name="company_description" v-validate="'required'" placeholder="Company Description" class="textarea"></textarea>
                   </p>
                   <div class="help is-danger" v-show="errors.has('company_description')">
                     The Company Description is required.
@@ -283,15 +291,31 @@
               </div>
             </div>
 
-            <div class="field">
-              <label class="label">Company Url</label>
-              <p class="control">
-                <input v-model="company.companyURL" name="company_url" v-validate="'required|url'" type="text" placeholder="Company URL" class="input">
-              </p>
-              <div class="help is-danger" v-show="errors.has('company_url')">
-                The Company URL is required and should be a valid URL.
+            <div class="columns">
+              <div class="column">
+                <div class="field">
+                  <label class="label">Company Url</label>
+                  <p class="control">
+                    <input v-model="company.companyURL" name="company_url" v-validate="'required|url'" type="text" placeholder="Company URL" class="input">
+                  </p>
+                  <div class="help is-danger" v-show="errors.has('company_url')">
+                    The Company URL is required and should be a valid URL.
+                  </div>
+                </div>
+              </div>
+              <div class="column">
+                <div class="field">
+                  <label class="label">Alternate Email</label>
+                  <p class="control">
+                    <input v-model="company.alternate_email" name="alternate_email" v-validate="'required|email'" type="email" placeholder="Alternate Email" class="input">
+                  </p>
+                  <div class="help is-danger" v-show="errors.has('alternate_email')">
+                    The Alternative Email is required and should be a valid Email.
+                  </div>
+                </div>
               </div>
             </div>
+
           </div>
 
 
@@ -299,18 +323,19 @@
             <input class="input" type="hidden" :value="code">
           </p>
 
+
           <div class="field">
             <p class="has-text-centered">
-              <button name="company" class="button is-success submit-button" @click="registerAndValidate('company')">
-                Register
-              </button>
-            </p>
-          </div>
-
+              <button name="company" class="button is-success submit-button"
+              @click="registerAndValidate('company')">
+              Register
+            </button>
+          </p>
         </div>
       </div>
     </div>
   </div>
+</div>
 </div>
 </template>
 
@@ -352,7 +377,8 @@ export default {
         temporaryAddress: '',
         permanentAddress: '',
         gender: '',
-        dob: ''
+        dob: '',
+        alternate_email: ''
       },
       company: {
         user_name: '',
@@ -361,7 +387,8 @@ export default {
         contact: null,
         companyAddress: '',
         companyDescription: '',
-        companyURL: ''
+        companyURL: '',
+        alternate_email: ''
       }
     }
   },
@@ -410,19 +437,21 @@ export default {
       if (str === 'student') {
         this.validateStudent().then(() => {
           user.registerStudent(this.student.name, this.student.password,
-            this.code, this.student.enroll_no, this.student.category, this.student.temporaryAddress,
-            this.student.permanentAddress, this.student.gender, this.student.dob)
+            this.code, this.student.enroll_no, this.student.contact, this.student.category, this.student.temporaryAddress,
+            this.student.permanentAddress, this.student.gender, this.student.dob, this.student.alternate_email)
             .then((response) => {
               if(response.status == 200) {
-                alert('User Registration Successful');
-                // this.$router.push({
-                //   name: 'home'
-                // });
+                let toast = this.$toasted.success("Company Registration Successful", {
+                  theme: "outline",
+                  position: "top-center",
+                  duration : 3000
+                });
                 user.login(this.email, this.student.password)
-                .then(this.storeToken)
+                .then(this.storeTokenStudent)
                 .catch((error) => {
                   console.log(error);
                 })
+                //takes u to education-first page
                 .then(this.redirect);
               }
 
@@ -430,84 +459,92 @@ export default {
             .catch((error) => {
               console.log(error)
             })
-            // this.$router.push({ name:'dashboard' });
           }).catch((error) => {
             console.log(error)
           })
         } else if (str === 'company') {
-          this.validateCompany().then(() => {
+          this.$validator.validateAll()
+          .then(() => {
             user.registerCompany(this.company.user_name, this.email,
               this.company.password, this.company.companyName, this.company.companyAddress,
               this.company.contact, this.company.companyDescription, this.company.companyURL,
-              this.code)
-              .then((response) => { alert('Company Registration Successful');
-              this.$router.push({
-                name: 'home'
-              });
+              this.company.alternate_email, this.code)
+              .then((response) => {
+                let toast = this.$toasted.success("Company Registration Successful", {
+                  theme: "outline",
+                  position: "top-center",
+                  duration : 3000
+                });
+                this.$router.push({
+                  name: 'home'
+                });
+              })
+              .catch((error) => {
+                console.log(error)
+              })
             })
             .catch((error) => {
               console.log(error)
             })
-          }).catch(() => {
-            console.log(error)
-          })
+          }
+        },
+        validateStudent() {
+          return this.$validator.validateAll();
+        },
+        validateCompany() {
+          return this.$validator.validateAll();
+        },
+        storeTokenStudent: (response) => {
+          this.decodedToken = jwtDecode(response.data.token)
+          Auth.setUserToken(this.decodedToken.sub);
+          Auth.setToken(response.data.token);
+          Auth.setUserRole('student');
+          this.redirect;
+        },
+        redirect() {
+          this.$router.push({
+            name: 'education-first'
+          });
         }
-      },
-      validateStudent() {
-        return this.$validator.validateAll();
-      },
-      validateCompany() {
-        return this.$validator.validateAll();
-      },
-      storeToken: (response) => {
-        this.decodedToken = jwtDecode(response.data.token)
-        Auth.setUserToken(this.decodedToken.sub)
-        Auth.setToken(response.data.token)
-      },
-      redirect() {
-        this.$router.push({
-          name: 'education-first'
-        });
       }
     }
-  }
-  </script>
+    </script>
 
-  <style lang="scss">
-  .signup-page {
-    margin: 2rem;
-    .container {
-      max-width: 700px;
-      width: 100%;
-      .title.main {
-        border: 0;
+    <style lang="scss">
+    .signup-page {
+      margin: 2rem;
+      .container {
+        max-width: 700px;
+        width: 100%;
+        .title.main {
+          border: 0;
+          padding: 0;
+          text-align: center;
+        }
+      }
+      .box {
         padding: 0;
-        text-align: center;
       }
-    }
-    .box {
-      padding: 0;
-    }
-    .title {
-      border-bottom: solid 1px #ddd;
-      margin-bottom: 1rem;
-      padding: 1rem;
-    }
-    .submit-button {
-      padding-left: 2rem;
-      padding-right: 2rem;
-      margin-top: 1rem;
-    }
-    .form-content {
-      padding: 1rem;
-      .student-name {
-        text-transform: capitalize;
+      .title {
+        border-bottom: solid 1px #ddd;
+        margin-bottom: 1rem;
+        padding: 1rem;
       }
-    }
+      .submit-button {
+        padding-left: 2rem;
+        padding-right: 2rem;
+        margin-top: 1rem;
+      }
+      .form-content {
+        padding: 1rem;
+        .student-name {
+          text-transform: capitalize;
+        }
+      }
 
-    .field.register-button {
-      border-top: solid 1px #ddd;
-      padding-bottom: 1rem;
+      .field.register-button {
+        border-top: solid 1px #ddd;
+        padding-bottom: 1rem;
+      }
     }
-  }
-  </style>
+    </style>

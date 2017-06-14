@@ -35,7 +35,7 @@
 						<div class="field-body">
 							<div>
 								<p class="control ">
-									<input v-model="student_name = studentDetails.name" v-validate="'required'" type="text" name="student_name" class="input">
+									<input disabled v-model="student_name = studentDetails.name" v-validate="'required'" type="text" name="student_name" class="input">
 								</p>
 								<div class="help is-danger" v-show="errors.has('student_name')">
 									{{errors.first('student_name')}}
@@ -186,11 +186,12 @@ export default{
 			this.validate().then(() => {
 				user.postUserPersonalName(this.getUserId(), this.student_name)
 				.then((response) => {
+					// console.log(response);
 				})
 				.catch((error) => {
 					console.log(error);
 				})
-				user.postUserDetails(this.getUserId(), this.student_id, this.category, this.temp_address, this.perm_address,
+				user.postUserDetails(this.getUserId(), this.student_id, this.student_name, this.category, this.temp_address, this.perm_address,
 				this.contact_no, this.dob, this.gender)
 				.then((response) => {
 					if(response.status == 200) {
@@ -200,7 +201,7 @@ export default{
 							duration : 3000
 						});
 						//close modal
-						this.$emit('close');
+						// this.$emit('close');
 					}
 				})
 				.catch((error) => {

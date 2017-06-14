@@ -6,7 +6,7 @@
       <div class="columns is-multiline">
 
         <!-- 1/3 col -->
-        <div class="column is-one-third" v-for="company in companyDetails">
+        <div class="column is-one-third" v-if="showData" v-for="company in companyDetails">
           <div class="card">
             <header class="card-header">
               <p class="card-header-title" v-if="company.placement_season">
@@ -33,6 +33,10 @@
         </div>
         <!-- 1/3 col -->
 
+        <div class="column box" v-if="!showData">
+					<h3 class="title">No Data to Show</h3>
+				</div>
+
 
       </div>
       <!-- main div ends -->
@@ -51,6 +55,7 @@ export default {
   },
   data() {
     return {
+      showData: false,
       companyDetails: []
     };
   },
@@ -58,7 +63,13 @@ export default {
     getDashboard() {
       company.getCompanyDashboard(this.getUserId())
       .then((response) => {
-        this.companyDetails = response.data;
+        if(response.data.length == 0) {
+          this.showData = false;
+        }
+        else {
+          this.showData = true;
+          this.companyDetails = response.data;
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -75,6 +86,11 @@ export default {
 <style lang="scss">
 .view-all-placement-page {
   margin: 1.5rem;
+
+  .box {
+		padding: 1rem;
+		margin-top: 0.6rem;
+	}
 
   .column .card{
     border-radius: 4px;

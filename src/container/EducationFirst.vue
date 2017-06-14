@@ -105,8 +105,11 @@
 
 				<div class="field education-button">
 					<p class="has-text-centered">
-						<button name="company" class="button is-success submit-button" @click="validateAndAddNewEducation">
+						<button class="button is-success submit-button" @click="validateAndAddNewEducation">
 							Save and Next
+						</button>
+						<button class="button is-success submit-button" v-if="oneLeft" @click="validateAndAddNewEducation">
+							Finish
 						</button>
 					</p>
 				</div>
@@ -132,6 +135,7 @@ export default{
 	},
 	data() {
 		return {
+			oneLeft: false,
 			educationArr: [],
 			ed_id: null,
 			enroll_no: null,
@@ -162,12 +166,14 @@ export default{
 		getUserEdForCat() {
 			user.getUserEducationForCategory(this.getUserId())
 			.then((response) => {
-				console.log("array length: " + this.educationArr.length);
-				if(this.educationArr.length == 0) {
+				if(response.data.length == 0) {
 					this.$router.push({ name: 'home' });
 				}
 				else {
 					this.educationArr = response.data;
+					if(this.educationArr.length == 1) {
+						this.oneLeft = true;
+					}
 				}
 			})
 			.catch((error) => {
@@ -184,9 +190,14 @@ export default{
 				this.edDetails.start_year, this.edDetails.end_year, this.edDetails.cpi)
 				.then((response) => {
 					if(response.status == 200) {
-						alert('Education Details Entered. Now Proceed to fill the Next Details');
-						//refresh all
-						this.$router.push({ name: 'education-first' });
+						// let toast = this.$toasted.success("Education Details Entered. Now Proceed to fill the Next Details", {
+						// 	theme: "outline",
+						// 	position: "top-center",
+						// 	duration : 3000
+						// });
+						this.getUserEdForCat();
+						// this.$router.replace({ name: 'education-first', force: true	 });
+						setTimeout(location.reload(), 7000);
 					}
 				})
 				.catch((error) => {
@@ -202,6 +213,9 @@ export default{
 		},
 		getUserId() {
 			return Auth.getUserToken();
+		},
+		home() {
+			this.$router.push({ name: 'home' });
 		}
 	}
 }
