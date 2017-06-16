@@ -12,22 +12,22 @@
   <div class="field">
     <label class="label">Round Name</label>
     <p class="control">
-      <input class="input" name="student_name" v-validate="'required|alpha_spaces'"
+      <input class="input" name="round_name" v-validate="'required'"
       type="text" placeholder="Name" v-model="round_name = round.round_name">
     </p>
-    <div v-show="errors.has('student_name')" class="help is-danger">
-      The Student Name is required and should contain only letters.
+    <div v-show="errors.has('round_name')" class="help is-danger">
+      The Round Name is required.
     </div>
   </div>
 
   <div class="field">
     <label class="label">Round Description</label>
     <p class="control">
-      <textarea name="temp_address" v-validate="'required'"
+      <textarea name="round_desc" v-validate="'required'"
       class="textarea" placeholder="Temporary Address" v-model="round_description = round.round_description"></textarea>
     </p>
-    <div v-show="errors.has('student_name')" class="help is-danger">
-      The Student Name is required and should contain only letters.
+    <div v-show="errors.has('round_desc')" class="help is-danger">
+      The Round Description is required.
     </div>
   </div>
 
@@ -36,7 +36,6 @@
       <a name="student" class="submit-button" @click="updateRoundDetails">
         Submit
       </a>
-      <pre>{{$data}}</pre>
     </p>
   </div>
 
@@ -79,6 +78,14 @@ export default {
       company.patchRoundDetails(this.getUserId(), this.placement_id, this.round_no,
       this.round_name, this.round_description)
       .then((response) => {
+        //toast confirmation and close
+        let toast = this.$toasted.success("Round Details Updated", {
+          theme: "outline",
+          position: "top-center",
+          duration : 3000
+        });
+        this.$bus.$emit('edit-selection-roundbox');
+        this.hidden = true;
       })
       .catch((error) => {
         console.log(error);
@@ -87,6 +94,14 @@ export default {
     deleteSelectionRound() {
       company.deleteSelectionRound(this.getUserId(), this.placement_id, this.round_no)
       .then((response) => {
+        //toast confirmation and close
+        let toast = this.$toasted.error("Round Deleted", {
+          theme: "outline",
+          position: "top-center",
+          duration : 3000
+        });
+        this.$bus.$emit('edit-selection-roundbox');
+        this.hidden = true;
       })
       .catch((error) => {
         console.log(error);

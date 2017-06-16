@@ -54,6 +54,7 @@ export default {
 		this.placement_id = this.$route.params.placement_id;
 		this.getStudentsOffer();
 		this.$bus.$on('refresh', () => {
+
 			this.getStudentsOffer();
 		})
 	},

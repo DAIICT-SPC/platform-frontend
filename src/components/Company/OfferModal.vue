@@ -64,11 +64,10 @@ export default {
     isFeedbackGiven() {
       company.isFeedbackGiven(this.getUserId(), this.placement_id)
       .then((response) => {
-        if(response.data == 'true') {
+        if(response.data == true) {
           this.hidden=true;
         }
         else {
-          // alert('Request you to please kindly give Feedback first.');
           let toast = this.$toasted.show("Request you to please kindly give Feedback first.", {
             theme: "outline",
             position: "top-center",
@@ -84,6 +83,11 @@ export default {
       company.postGiveOffer(this.getUserId(), this.placement_id, this.studentData.enroll_no, this.packageOffer)
       .then((response) => {
         if(response.status == 200) {
+          let toast = this.$toasted.success(this.studentData.user.name + " has been given the Offer.", {
+  					theme: "outline",
+  					position: "top-center",
+  					duration : 3000
+  				});
           this.hidden = false;
           this.$bus.$emit('refresh');
         }

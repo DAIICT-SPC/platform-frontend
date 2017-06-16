@@ -17,7 +17,7 @@
 						<!-- <education :placement_id="placement_id" :category_id="category_id"></education> -->
 						<select v-validate="'required|not_in:null'" v-model="education_id" name="education">
 							<option value=null>Select dropdown</option>
-							<option v-for="ed in ed_arr" :value="ed.id">{{ed.name}}</option>
+							<option selected v-for="ed in ed_arr" :value="ed.id">{{ed.name}}</option>
 						</select>
 					</span>
 				</p>
@@ -44,7 +44,6 @@
 import Auth from '@/packages/auth/Auth';
 import company from '@/api/company';
 import Datepicker from 'vue-bulma-datepicker';
-// import EducationNormalModal from '@/components/EducationNormalModal';
 
 export default {
 	name: 'placement-criteria',
@@ -86,7 +85,6 @@ export default {
 				this.cat_ref_id = response.data[0].id;
 				this.cat_name = response.data[0].name;
 				this.setId();
-
 			})
 			.catch((error) => {
 				console.log(error);
@@ -131,7 +129,6 @@ export default {
 			return Auth.getCriteriaId();
 		}
 	},
-
 }
 </script>
 

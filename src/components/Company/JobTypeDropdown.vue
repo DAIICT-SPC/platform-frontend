@@ -7,7 +7,7 @@
 			</select>
 		</span>
 		<div class="help is-danger" v-show="errors.has('jobType-select')">
-			{{errors.first('jobType-select')}}
+			The Job Type is a required field.
 		</div>
 	</div>
 

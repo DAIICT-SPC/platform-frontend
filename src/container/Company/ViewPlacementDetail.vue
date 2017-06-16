@@ -17,7 +17,6 @@
         <p>{{ placementDescription.job_description }}</p>
       </div>
 
-
       <div class="eligibility-criteria job-section">
         <b class="section-header">Eligibility Criteria</b>
 
@@ -50,12 +49,12 @@
         <div class="processes">
 
           <div class="box process-application process">
-            <a class="application">
+            <p class="application">
               <span class="icon">
                 <i class="fa fa-user-o"></i>
               </span>
               <span>Application</span> &nbsp;
-            </a>
+            </p>
             <div>
               <router-link :to="{name: 'company-selection-rounds', params: { placement_id: this.placement_id} }">
                 View Info
@@ -73,7 +72,6 @@
             <!-- round box date time not set -->
           </div>
 
-
           <div class="process-offer process">
             <div class="box offer">
               <p>Offer</p>
@@ -81,10 +79,8 @@
             </div>
           </div>
 
-
         </div>
-        <div class="">
-
+        <div>
           <a class="button"><i class="fa fa-comments" aria-hidden="true"></i> &nbsp; Feedback</a>
         </div>
       </div>
@@ -94,20 +90,11 @@
 </template>
 
 <script>
-import PlacementRoundDetail from '@/components/PlacementRoundDetail'
-import ViewPlacementEditModal from '@/components/ViewPlacementEditModal'
-import placement from '@/api/placement'
-// import education from '@/api/education'
-import company from '@/api/company'
-import Auth from '@/packages/auth/Auth'
-import EligibilityCriteriaBoxCompany from '@/components/EligibilityCriteriaBoxCompany'
+import placement from '@/api/placement';
+import company from '@/api/company';
+import Auth from '@/packages/auth/Auth';
 export default {
   name: 'placement',
-  components: {
-    'roundBox': PlacementRoundDetail,
-    'drive-box': ViewPlacementEditModal,
-    'criteria-box': EligibilityCriteriaBoxCompany,
-  },
   data() {
     return {
       showCriteria: false,
@@ -141,12 +128,6 @@ export default {
     getUserId() {
       return Auth.getUserToken();
     },
-    userApplyForPlacement() {
-
-    },
-    userCancelPlacement() {
-
-    }
   }
 }
 </script>

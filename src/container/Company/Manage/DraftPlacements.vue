@@ -79,6 +79,11 @@ export default {
     startPlacement() {
       company.startPlacement(this.getUserId(), this.placement_id)
       .then((response) => {
+        let toast = this.$toasted.success("Placement Drive has been Initiated.", {
+          theme: "outline",
+          position: "top-center",
+          duration : 3000
+        });
         this.getDraftPlacements();
       })
       .catch((error) => {

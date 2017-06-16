@@ -105,8 +105,6 @@ export default {
 		padding-left: 2rem;
 	}
 
-	span{
-		font-size: 18px;
-	}
+
 }
 </style>

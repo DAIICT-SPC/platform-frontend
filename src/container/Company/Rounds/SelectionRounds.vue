@@ -114,12 +114,32 @@ export default {
 		},
 		moveStudentsToNextRound() {
 			if(this.selectedStudents.length == 0) {
-				alert("No student Selected");
+				let toast = this.$toasted.error("No student Selected", {
+					theme: "outline",
+					position: "top-center",
+					duration : 3000
+				});
 			}
 			else {
 				company.postCompanyMoveToFirstRound(this.getUserId(), this.placement_id, this.selectedStudents)
 				.then((response) => {
 					if(response.status == 200) {
+						if(response.data.length == 1) {
+							let toast = this.$toasted.success(response.data.length + " student moved to round no " + response.data[0].round_no,
+							{
+								theme: "outline",
+								position: "top-center",
+								duration : 3000
+							});
+						}
+						else {
+							let toast = this.$toasted.success(response.data.length + " students moved to round no " + response.data[0].round_no,
+							{
+								theme: "outline",
+								position: "top-center",
+								duration : 3000
+							});
+						}
 						this.getRemainingStudents();
 					}
 				})

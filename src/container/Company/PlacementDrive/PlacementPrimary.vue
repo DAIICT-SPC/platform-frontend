@@ -18,7 +18,7 @@
           <input v-validate="'required'" name="jobTitle" placeholder="Job Title" v-model="placementDrive.jobTitle" type="text" class="input">
         </p>
         <div v-show="errors.has('jobTitle')" class="help is-danger">
-          {{ errors.first('jobTitle') }}
+          The Job Title Field is a required field.
         </div>
       </div>
 
@@ -28,7 +28,7 @@
           <textarea v-validate="'required'" v-model="placementDrive.jobProfileDescription" name="job_desc" class="textarea" placeholder="Job Description"></textarea>
         </p>
         <div v-show="errors.has('job_desc')" class="help is-danger">
-          {{ errors.first('job_desc') }}
+          The Job Title Description is a required field.
         </div>
       </div>
 
@@ -36,9 +36,12 @@
         <div class="field">
           <label class="label">Last Date of Registration</label>
           <p class="control is-fullwidth">
-            <datepicker placeholder="Date" :config="{ dateFormat: 'Y-m-d', static: true }"
+            <datepicker v-validate="'required'" placeholder="Date" :config="{ dateFormat: 'Y-m-d', static: true }"
             v-model="placementDrive.lastDateofRegistration" name="date"></datepicker>
           </p>
+          <div v-show="errors.has('date')" class="help is-danger">
+            The Job Title Description is a required field.
+          </div>
         </div>
         <div class="field time">
           <label class="label">Time</label>
@@ -54,17 +57,17 @@
           <input v-validate="'required'" type="text" placeholder="Enter Location" class="input" name="location" v-model="placementDrive.loaction">
         </p>
         <div v-show="errors.has('location')" class="help is-danger">
-          {{ errors.first('location') }}
+          The Location is a required field.
         </div>
       </div>
 
       <div class="field">
-        <label class="label">No of Students</label>
+        <label class="label">No of Vacancies</label>
         <p class="control">
           <input v-validate="'required'" type="number" placeholder="No of students" name="numberOfStudents" class="input" v-model="placementDrive.noOfStudents">
         </p>
         <div v-show="errors.has('numberOfStudents')" class="help is-danger">
-          {{ errors.first('numberOfStudents') }}
+          The Number of Vacancies is a required field.
         </div>
       </div>
 
@@ -74,7 +77,7 @@
           <input v-validate="'required|numeric'" type="number" placeholder="Enter Package" class="input" name="package" v-model="placementDrive.package">
         </p>
         <div v-show="errors.has('package')" class="help is-danger">
-          {{ errors.first('package') }}
+          The Package is a required field.
         </div>
       </div>
 
@@ -84,35 +87,30 @@
         <p class="control">
           <jobtype-dropdown></jobtype-dropdown>
         </p>
-        <div v-show="errors.has('jobType-select')" class="help is-danger">
-          {{ errors.first('jobType-select') }}
-        </div>
       </div>
 
-
-      <div class="field is-grouped">
-        <p class="control buttons">
-          <button class="button is-primary" @click="validateAndSendPlacementDetails">Submit</button>
-          <!-- <button class="button is-primary" @click="moveToNextRound">Next</button> -->
-        </p>
-      </div>
+    </div>
+    <div class="field is-grouped submit-button">
+      <p class="control buttons">
+        <button class="button is-primary" @click="validateAndSendPlacementDetails">Submit</button>
+      </p>
     </div>
   </div>
 </template>
 
 <script>
-import company from '@/api/company'
-import Datepicker from 'vue-bulma-datepicker'
-import JobTypeDropdown from '@/components/JobTypeDropdown'
-import PlacementSeasonDropdown from '@/components/PlacementSeasonDropdown'
-import Auth from '@/packages/auth/Auth'
+import company from '@/api/company';
+import Auth from '@/packages/auth/Auth';
+import Datepicker from 'vue-bulma-datepicker';
+import PlacementSeasonDropdown from '@/components/Company/PlacementSeasonDropdown';
+import JobTypeDropdown from '@/components/Company/JobTypeDropdown';
 
 export default {
   name: 'placement-drive',
   components:{
     Datepicker,
+    'placementseason-dropdown': PlacementSeasonDropdown,
     'jobtype-dropdown': JobTypeDropdown,
-    'placementseason-dropdown': PlacementSeasonDropdown
   },
   data() {
     return {
@@ -212,6 +210,12 @@ export default {
 
   .placement-body {
     padding: 1rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .submit-button {
+    padding: 1rem;
+    border-top: solid 1px #ddd;
   }
 }
 </style>

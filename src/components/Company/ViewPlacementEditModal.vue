@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="placement-round-detail">
+  <div class="company-placement-edit-modal">
 
     <div class="box">
 
@@ -47,7 +47,7 @@
               </div>
             </div>
             <div class="field">
-              <label class="label">No. of Students</label>
+              <label class="label">No. of Vacancies</label>
               <p class="control">
                 <input v-model="no_of_students = placementDescription.no_of_students" v-validate="'required'" class="input" type="text" name="no_of_students" placeholder="No of Students">
               </p>
@@ -73,7 +73,7 @@ import Auth from '@/packages/auth/Auth'
 import company from '@/api/company'
 
 export default {
-  name: 'placement-drive-box',
+  name: 'company-placement-edit-modal',
   props: {
     placementDescription: {
       required: true,
@@ -100,6 +100,11 @@ export default {
           this.job_title, this.location, this.job_description)
           .then((response) => {
             if(response.status == 200) {
+              let toast = this.$toasted.success("Details Updated", {
+                theme: "outline",
+                position: "top-center",
+                duration : 3000
+              });
               this.$bus.$emit('closeDescription');
             }
           })
@@ -122,4 +127,12 @@ export default {
 </script>
 
 <style lang="scss">
+.company-placement-edit-modal {
+
+  margin-top: 1rem;
+
+  .update-btn {
+    padding-top: 0.5rem;
+  }
+}
 </style>

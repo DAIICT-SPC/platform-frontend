@@ -11,9 +11,9 @@
 					<div class="selection-body" v-if="studentData.user">
 						<div class="part1">
 							<input v-model="selectedStudents" :value="studentData.enroll_no" type="checkbox" name="checkbox" class="checkbox">
-							<span class="enroll title is-4">{{ studentData.enroll_no }}</span>
-							<span class="name title is-4">{{ studentData.user.name }}</span>
-							<span class="category title is-4">{{ studentData.category.name }}</span>
+							<span class="enroll">{{ studentData.enroll_no }}</span>
+							<span class="name">{{ studentData.user.name }}</span>
+							<span class="category">{{ studentData.category.name }}</span>
 						</div>
 						<div class="part2 student-preview">
 							<student-preview :key="studentData.enroll_no" :studentData="studentData"></student-preview>
@@ -23,7 +23,7 @@
 
 				<div class="selection-checkbox">
 					<input type="checkbox" class="checkbox" v-model="selectAll" />
-					<span class="text title is-4">Select All</span>
+					<span class="text">Select All</span>
 				</div>
 
 				<div class="selection-footer">
@@ -99,6 +99,7 @@ export default {
 		getRemainingStudents() {
 			company.getRemainingStudentsRoundwise(this.getUserId(), this.placement_id, this.round_id)
 			.then((response) => {
+				// console.log(response);
 				if(response.data == 'None has applied yet!'){
 					this.showData = false;
 				}
@@ -117,6 +118,11 @@ export default {
 					this.allStudents = false;
 					this.offerStudents = true;
 				}
+				else if(response.data == 'All Students of this round moved to Offer Layer!'){
+					this.showData = false;
+					this.allStudents = false;
+					this.offerStudents = true;
+				}
 				else {
 					this.showData = true;
 					this.allStudents = false;
@@ -129,13 +135,39 @@ export default {
 		},
 		moveStudentsToNextRound() {
 			if(this.selectedStudents.length == 0) {
-				alert("No student Selected");
+				let toast = this.$toasted.error("No student Selected.", {
+					theme: "outline",
+					position: "top-center",
+					duration : 3000
+				});
 			}
 			else {
 				company.postCompanyMoveToNextRound(this.getUserId(), this.placement_id, this.selectedStudents, this.round_id)
 				.then((response) => {
-					console.log(response);
 					if(response.status == 200) {
+						if(response.data[0].package == 0) {
+							let toast = this.$toasted.success(response.data.length + " student moved to Offer Layer", {
+								theme: "outline",
+								position: "top-center",
+								duration : 3000
+							});
+						}
+						else if(response.data.length == 1) {
+							let toast = this.$toasted.success(response.data.length + " student moved to round no " + response.data[0].round_no,
+							{
+								theme: "outline",
+								position: "top-center",
+								duration : 3000
+							});
+						}
+						else {
+							let toast = this.$toasted.success(response.data.length + " students moved to round no " + response.data[0].round_no,
+							{
+								theme: "outline",
+								position: "top-center",
+								duration : 3000
+							});
+						}
 						this.getRemainingStudents();
 					}
 				})

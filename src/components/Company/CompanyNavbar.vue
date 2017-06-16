@@ -5,20 +5,26 @@
       <div class="container">
         <div class="nav-left">
           <router-link class="nav-item" :to="{name:'company-home'}">
-            <img src="../../images/daiict.jpg" alt="daiict"> &nbsp; DA-IICT
+            <img src="../../../images/daiict.jpg" alt="daiict"> &nbsp; DA-IICT
           </router-link>
           <router-link :to="{ name: 'company-home' }" class="nav-item is-tab is-hidden-mobile">Home</router-link>
           <router-link :to="{ name: 'placement-primary' }" class="nav-item is-tab is-hidden-mobile">New Placement Drive</router-link>
           <router-link :to="{ name: 'manage-drafts' }" class="nav-item is-tab is-hidden-mobile">Manage</router-link>
           <router-link :to="{ name: 'company-profile' }" class="nav-item is-tab is-hidden-mobile">My Profile</router-link>
         </div>
-        <span class="nav-toggle">
+        <span @click="toggle = !toggle" class="nav-toggle">
           <span></span>
           <span></span>
           <span></span>
         </span>
+        <!-- <div v-if="toggle" class="nav-right nav-menu">
+          <dropdown :title="userName" align="right">
+            <a @click="editCompany = true">Account Settings</a><br>
+            <a @click="logout">Logout</a>
+          </dropdown>
+          <edit-company-modal @close="editCompany = false" v-if="editCompany"></edit-company-modal>
+        </div> -->
         <div class="nav-right nav-menu">
-          <!-- <div class="nav-item is-tab" @click="logout"><a class="button">Logout!</a></div> -->
           <dropdown :title="userName" align="right">
             <a @click="editCompany = true">Account Settings</a><br>
             <a @click="logout">Logout</a>
@@ -50,7 +56,8 @@ export default {
   },
   data() {
     return {
-      editCompany: false
+      editCompany: false,
+      toggle: false
     };
   },
   methods: {

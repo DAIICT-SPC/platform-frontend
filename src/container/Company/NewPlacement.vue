@@ -23,7 +23,7 @@
 <script>
 import placementSeason from '@/api/placementSeason';
 import Auth from '@/packages/auth/Auth';
-import CompanySidebar from '@/components/CompanySidebar';
+import CompanySidebar from '@/components/Company/CompanySidebar';
 
 export default {
   name: 'new-placement-page',

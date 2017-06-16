@@ -139,6 +139,8 @@ export default {
 		})
 	},
 	moveNext() {
+		// first save the data then proceed next
+		this.selectionRounds();
 		Auth.setCriteriaId(0);
 		this.$router.push({ name: 'placement-criteria', params: { placement_id: this.placement_id } });
 	},

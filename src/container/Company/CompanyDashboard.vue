@@ -9,10 +9,10 @@
 
 <script>
 import Auth from '@/packages/auth/Auth'
-import CompanyNavbar from '@/components/CompanyNavbar'
+import CompanyNavbar from '@/components/Company/CompanyNavbar'
 import company from '@/api/company'
 export default {
-  name: 'company',
+  name: 'company-dashboard-page',
   components: {
     CompanyNavbar
   },

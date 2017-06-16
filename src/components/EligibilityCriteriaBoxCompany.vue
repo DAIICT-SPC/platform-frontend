@@ -66,6 +66,12 @@ export default {
     updateCriteria(education_id, category_id, cpi_required) {
       company.patchUpdateEligibilityCriteria(this.getUserId(), this.placement_id, education_id, category_id, cpi_required)
       .then((response) => {
+        //update message
+        let toast = this.$toasted.success("Details Updated", {
+          theme: "outline",
+          position: "top-center",
+          duration : 3000
+        });
         this.hidden = true;
       })
       .catch((error) => {
@@ -76,6 +82,12 @@ export default {
       this.id = this.getUserId();
       company.deleteCriteria(this.id, this.placement_id, education_id, category_id)
       .then((response) => {
+        //delete message
+        let toast = this.$toasted.error("Criteria Deleted", {
+          theme: "outline",
+          position: "top-center",
+          duration : 3000
+        });
         this.$bus.$emit('deleted');
         this.hidden = true;
       })
@@ -96,6 +108,7 @@ export default {
   .box {
     margin-top: 0.1rem;
     margin-left: 1rem;
+    padding-bottom: 0;
   }
 
   .button.is-white {

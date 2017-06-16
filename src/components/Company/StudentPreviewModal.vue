@@ -91,7 +91,6 @@ import company from '@/api/company';
 export default {
   name: 'student-preview',
   created() {
-    console.log(this.studentData);
     this.getStudentDetail();
   },
   props: {

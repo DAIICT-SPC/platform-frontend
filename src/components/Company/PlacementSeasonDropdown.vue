@@ -8,7 +8,7 @@
 				</select>
 			</span>
 			<div class="help is-danger" v-show="errors.has('placement-select')">
-				{{errors.first('placement-select')}}
+				The Placement Season must be a valid value.
 			</div>
 		</div>
 		<div v-if="!showData">
@@ -37,7 +37,6 @@ export default{
 		getAllPlacementSeason() {
 			placementSeason.all(this.getUserId())
 			.then((response) => {
-				console.log(response);
 				if(response.data == 'No Placement Season Found!')
 				{
 					this.showData = false;

@@ -2,7 +2,7 @@
 	<div class="select-round-details">
 
 
-		<h2 class="title category-header">Open For</h2>
+		<h2 class="title category-header">Programs Open For</h2>
 		<div class="category-body">
 
 			<div class="field">
@@ -12,15 +12,15 @@
 					</label>
 				</p>
 				<div v-show="errors.has('categories')" class="help is-danger">
-					{{errors.first('categories')}}
+					The Categories is required field.
 				</div>
 			</div>
 
-			<div class="field is-grouped">
-				<p class="control">
-					<button class="button is-primary" @click="validateAndSendCategory">Save And Next</button>
-				</p>
-			</div>
+		</div>
+		<div class="field is-grouped save-next-button">
+			<p class="control">
+				<button class="button is-primary" @click="validateAndSendCategory">Save And Next</button>
+			</p>
 		</div>
 	</div>
 </template>
@@ -107,7 +107,7 @@ export default {
 		margin-bottom: 0;
 		padding: 1rem;
 	}
-	
+
 	.category-body {
 		padding: 1rem;
 	}
@@ -117,6 +117,10 @@ export default {
 		position: relative;
 		text-align: left;
 		padding: 1rem;
+	}
+
+	.save-next-button {
+		border-top: solid 1px #ddd;
 	}
 
 }

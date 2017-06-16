@@ -5,7 +5,7 @@
 				<div class="modal-background"></div>
 				<div class="modal-card">
 					<header class="modal-card-head">
-						<p class="modal-card-title">Open For</p>
+						<p class="modal-card-title">Programs Open For</p>
 						<button class="delete" @click="$emit('close')"></button>
 					</header>
 					<section class="modal-card-body" v-if="showData">
@@ -96,6 +96,11 @@ export default {
 				company.patchOpenForDetail(this.getUserId(), this.placement_id, this.categories_selected)
 				.then((response) => {
 					if(response.status == 200) {
+						let toast = this.$toasted.success("Category Added", {
+	            theme: "outline",
+	            position: "top-center",
+	            duration : 3000
+	          });
 						this.$bus.$emit('close')
 					}
 				})

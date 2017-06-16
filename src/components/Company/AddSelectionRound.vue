@@ -6,7 +6,7 @@
 				<div class="modal-card">
 					<header class="modal-card-head">
 						<p class="modal-card-title">Open For</p>
-						<button class="delete" @click="$emit('close')"></button>
+						<button class="delete" @click="close"></button>
 					</header>
 					<section class="modal-card-body">
 
@@ -57,7 +57,7 @@
 					</section>
 					<footer class="modal-card-foot">
 						<a class="button is-success" @click="selectionRounds">Submit</a>
-						<a class="button" @click="$emit('close')">Close</a>
+						<a class="button" @click="close">Close</a>
 					</footer>
 				</div>
 			</div>
@@ -104,7 +104,7 @@ export default {
 			company.getRoundNo(this.getUserId(), this.placement_id)
 			.then((response) => {
 				if(response.data == 'No Primary Details for this Placement!') {
-					this.$router.push({ name: 'placement-primary' });
+					// this.$router.push({ name: 'placement-primary' });
 				}
 				else {
 					this.round_no_this = response.data;
@@ -124,35 +124,41 @@ export default {
 				this.placementDrive.ProcessDescription, this.placementDrive.dateTime)
 				.then((response) => {
 					if(response.data == 'Already DB has entry!') {
-						this.$router.push({ name: 'select-round-details', params:
-						{
-							placement_id: this.placement_id
-						}
-					})
-				}
-				else if(response.data == 'No Primary Details for this Placement!') {
-					this.$router.push({ name: 'placement-primary' });
-				}
-				else {
-					setTimeout(this.getRoundNo, 1);
-				}
+						// this.$router.push({ name: 'select-round-details', params:
+						// { placement_id: this.placement_id } });
+					}
+					else if(response.data == 'No Primary Details for this Placement!') {
+						// this.$router.push({ name: 'placement-primary' });
+					}
+					else {
+						let toast = this.$toasted.success("Round Added", {
+							theme: "outline",
+							position: "top-center",
+							duration : 3000
+						});
+						setTimeout(this.getRoundNo, 1);
+					}
+				})
+				.catch((error) => {
+					console.log(error);
+				})
 			})
 			.catch((error) => {
 				console.log(error);
 			})
-		})
-		.catch((error) => {
-			console.log(error);
-		})
-	},
+		},
 
-	validate() {
-		return this.$validator.validateAll();
-	},
-	getUserId() {
-		return Auth.getUserToken();
+		validate() {
+			return this.$validator.validateAll();
+		},
+		getUserId() {
+			return Auth.getUserToken();
+		},
+
+		close() {
+			this.$bus.$emit('close-add-selection-round');
+		}
 	}
-}
 }
 
 </script>
