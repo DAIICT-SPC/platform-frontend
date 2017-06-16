@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import CategoryDropdownAdmin from '@/components/CategoryDropdownAdmin';
+import CategoryDropdownAdmin from '@/components/Admin/CategoryDropdownAdmin';
 import admin from '@/api/admin';
 import Auth from '@/packages/auth/Auth';
 

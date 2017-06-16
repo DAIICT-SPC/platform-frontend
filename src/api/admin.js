@@ -134,13 +134,15 @@ export default {
   },
 
   // updates job_title, job_description and location details for a placement drive
-  updatePlacementDriveDescription(user_id, palcement_id, job_title, location, job_description) {
-    // /users/2/company/6/updatePlacementsPrimary
+  updatePlacementDriveDescription(user_id, palcement_id, job_title, location, job_description, package_amount, no_of_students) {
+    // /users/2/admin/6/updatePlacementsPrimary
     let url = '/users/' + user_id + '/admin/' + palcement_id + '/updatePlacementsPrimary';
     return HTTP.patch(url, {
       job_title: job_title,
       location: location,
-      job_description: job_description
+      job_description: job_description,
+      package: package_amount,
+      no_of_students: no_of_students
     });
   },
 
@@ -161,6 +163,12 @@ export default {
       category_id: category_id,
       cpi_required: cpi_required
     });
+  },
+
+  deleteCriteria(user_id, placement_id, category_id, education_id) {
+    // /users/user_id/admin/deleteEducationCriteria/{placement_id}/{category_id}
+    let url = '/users/' + user_id + '/admin/deleteEducationCriteria/' + placement_id + '/' + category_id + '/' + education_id;
+    return HTTP.delete(url);
   },
 
   postReOpenRegistration(user_id, placement_id, last_data_for_registration) {

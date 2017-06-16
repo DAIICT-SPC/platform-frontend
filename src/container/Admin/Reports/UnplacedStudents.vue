@@ -14,7 +14,7 @@
 				</div>
 			</div>
 
-			<div class="columns section-body" v-for="st in students">
+			<div class="columns section-body" v-for="st in students" v-if="st.user">
 				<div class="column">
 					<span class="texts">{{st.enroll_no}}</span>
 				</div>
@@ -55,7 +55,10 @@ export default{
 		getUnplacedStudents() {
 			admin.getUnplacedStudents(this.getUserId(), this.season_id)
 			.then((response) => {
-				if(response.data == 'All Registered Student got placement!')
+				if(response.data == 'No Placements for this season!') {
+					this.showData = false;
+				}
+				else if(response.data == 'All Registered Student got placement!')
 				{
 					console.log('placed all');
 					this.showData = false;

@@ -29,18 +29,17 @@ import SelectCategory from '@/container/Company/PlacementDrive/SelectCategory'
 import SelectRoundDetails from '@/container/Company/PlacementDrive/SelectRoundDetails'
 import PlacementCriteria from '@/container/Company/PlacementDrive/PlacementCriteria'
 import AdminDashboard from '@/container/Admin/AdminDashboard'
-import PlacementSeasonsAdminHome from '@/container/Admin/PlacementSeasonsAdminHome'
+import DashboardPlacementSeasonsAdminHome from '@/container/Admin/DashboardPlacementSeasonsAdminHome'
 import PlacementSeasonDrivesAdmin from '@/container/Admin/PlacementSeasonDrivesAdmin'
-import PlacementsInSeasons from '@/container/Admin/PlacementsInSeasons'
-import PlacementDriveDescription from '@/container/Admin/PlacementDriveDescription'
+import PlacementsInSeasons from '@/container/Admin/SeasonDrives/PlacementsInSeasons'
+import PlacementDriveDescription from '@/container/Admin/SeasonDrives/PlacementDriveDescription'
 //Admin Selection Rounds
-import SelectionRounds from '@/container/Admin/SelectionRounds'
-import SelectionRoundsDynamic from '@/container/Admin/SelectionRoundsDynamic'
-import SelectedForOffer from '@/container/Admin/SelectedForOffer'
-import CompanywisePlacement from '@/container/Admin/CompanywisePlacement'
-import CompanywisePlacementCards from '@/container/Admin/CompanywisePlacementCards'
-import PlacementCompanywiseDescription from '@/container/Admin/PlacementCompanywiseDescription'
-import CompaniesList from '@/container/Admin/CompaniesList'
+import SelectionRounds from '@/container/Admin/Rounds/SelectionRounds'
+import SelectionRoundsDynamic from '@/container/Admin/Rounds/SelectionRoundsDynamic'
+import SelectedForOffer from '@/container/Admin/Rounds/SelectedForOffer'
+import CompanywisePlacement from '@/container/Admin/SeasonDrives/CompanywisePlacement'
+import CompanywisePlacementCards from '@/container/Admin/SeasonDrives/CompanywisePlacementCards'
+import CompaniesList from '@/container/Admin/SeasonDrives/CompaniesList'
 import NewPlacementSeason from '@/container/Admin/NewPlacementSeason'
 import AdminReportsPage from '@/container/Admin/AdminReportsPage'
 import PlacedStudents from '@/container/Admin/Reports/PlacedStudents'
@@ -48,12 +47,12 @@ import PlacedCategorywise from '@/container/Admin/Reports/PlacedCategorywise'
 import UnplacedStudents from '@/container/Admin/Reports/UnplacedStudents'
 import UnplacedCategorywise from '@/container/Admin/Reports/UnplacedCategorywise'
 import ExternallyAllowed from '@/container/Admin/Reports/ExternallyAllowed'
-import PlacementSeasonManage from '@/container/Admin/PlacementSeasonManage'
+import PlacementSeasonManage from '@/container/Admin/Manage/PlacementSeasonManage'
 import AdminProfile from '@/container/Admin/Profile'
-import Category from '@/container/Admin/Category'
-import JobType from '@/container/Admin/JobType'
-import Education from '@/container/Admin/Education'
-import AddUsers from '@/container/Admin/AddUsers'
+import Category from '@/container/Admin/Manage/Category'
+import JobType from '@/container/Admin/Manage/JobType'
+import Education from '@/container/Admin/Manage/Education'
+import AddUsers from '@/container/Admin/Manage/AddUsers'
 
 
 Vue.use(Router)
@@ -289,7 +288,7 @@ let router = new Router({
     {
       path: '/',
       name: 'admin-home',
-      component: PlacementSeasonsAdminHome,
+      component: DashboardPlacementSeasonsAdminHome,
       meta: {
         requiresAuth: true,
         shouldBeAdmin: true
@@ -352,15 +351,6 @@ let router = new Router({
           path: 'companywise-placement',
           name: 'companywise-placement',
           component: CompanywisePlacement,
-          meta: {
-            requiresAuth: true,
-            shouldBeAdmin: true
-          }
-        },
-        {
-          path: 'placement-companywise-description',
-          name: 'placement-companywise-description',
-          component: PlacementCompanywiseDescription,
           meta: {
             requiresAuth: true,
             shouldBeAdmin: true

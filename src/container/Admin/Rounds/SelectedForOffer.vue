@@ -44,8 +44,8 @@
 <script>
 import admin from '@/api/admin';
 import Auth from '@/packages/auth/Auth';
-import OfferModal from '@/components/OfferModal';
-import OfferFullList from '@/components/OfferFullList';
+import OfferModal from '@/components/Admin/PlacementDriveDescription/OfferModal';
+import OfferFullList from '@/components/Admin/Rounds/OfferFullList';
 
 export default {
 	name: 'admin-selection-round-offer',

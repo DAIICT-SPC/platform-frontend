@@ -58,13 +58,18 @@ export default {
     };
   },
   created() {
-    console.log(this.studentData.enroll_no);
+    // console.log(this.studentData.enroll_no);
   },
   methods: {
     giveOffer() {
       admin.postGiveOffer(this.getUserId(), this.placement_id, this.studentData.enroll_no, this.packageOffer)
       .then((response) => {
         if(response.status == 200) {
+          let toast = this.$toasted.success(this.studentData.user.name + " has been given the Offer.", {
+  					theme: "outline",
+  					position: "top-center",
+  					duration : 3000
+  				});
           this.hidden = false;
           this.$bus.$emit('refresh');
         }

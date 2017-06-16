@@ -100,7 +100,7 @@
 </template>
 
 <script>
-import CompanyModal from '@/components/EditCompanyProfileModal'
+import CompanyModal from '@/components/Company/EditCompanyProfileModal'
 import Auth from '@/packages/auth/Auth'
 import company from '@/api/company'
 
@@ -117,6 +117,9 @@ export default {
     }
   },
   created() {
+    this.$bus.$on('close-edit-modal', () => {
+      this.showModal = false;
+    })
     company.getUserDetails(this.getUserId()).then((response) => {
       this.companyDetails = response.data;
     })

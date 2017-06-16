@@ -135,6 +135,7 @@ export default{
 	},
 	data() {
 		return {
+			stringBtech: '',
 			oneLeft: false,
 			educationArr: [],
 			ed_id: null,
@@ -157,6 +158,9 @@ export default{
 		getUserDetails() {
 			user.getUserDetails(this.getUserId())
 			.then((response) => {
+				// console.log('UserDetails');
+				// console.log(response.data.category.name == 'BTECH');
+				this.stringBtech = response.data.category.name;
 				this.enroll_no = response.data.enroll_no;
 			})
 			.catch((error) => {
@@ -166,10 +170,20 @@ export default{
 		getUserEdForCat() {
 			user.getUserEducationForCategory(this.getUserId())
 			.then((response) => {
+				try {
+					if(this.stringBtech.match(/btech/i).length == 1 && response.data.length == 3) {
+						this.edDetails.clg_school = 'Dhirubhai Ambani Institute of Information and Communication Technology';
+					}
+				} catch (e) {
+					console.log(e.message);
+				}
 				if(response.data.length == 0) {
 					this.$router.push({ name: 'home' });
 				}
 				else {
+					if(response.data.length == 4) {
+						 this.edDetails.clg_school = 'Dhirubhai Ambani Institute of Information and Communication Technology';
+					}
 					this.educationArr = response.data;
 					if(this.educationArr.length == 1) {
 						this.oneLeft = true;
@@ -186,8 +200,8 @@ export default{
 		validateAndAddNewEducation() {
 			this.validate()
 			.then(() => {
-				user.postNewUserEducation(this.getUserId(), this.edDetails.education_id, this.edDetails.clg_school, this.edDetails.cpi,
-				this.edDetails.start_year, this.edDetails.end_year, this.edDetails.cpi)
+				user.postNewUserEducation(this.getUserId(), this.edDetails.education_id, this.edDetails.clg_school,
+				this.edDetails.cpi, this.edDetails.start_year, this.edDetails.end_year, this.edDetails.drive_link)
 				.then((response) => {
 					if(response.status == 200) {
 						// let toast = this.$toasted.success("Education Details Entered. Now Proceed to fill the Next Details", {

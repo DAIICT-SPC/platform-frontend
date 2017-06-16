@@ -1,7 +1,8 @@
 <template lang="html">
-  <div class="eligibility-criteria-box">
+  <div class="edit-eligibility-criteria-box">
     <a class="button is-white" @click="hidden=false" v-if="hidden">Edit</a>
     <a class="button is-white" @click="hidden=true" v-if="!hidden">Hide</a>
+
     <div class="box" v-if="!hidden">
 
       <div class="columns">
@@ -23,6 +24,9 @@
               <button @click="updateCriteria(cr.education_id, cr.category_id, cr.cpi_required)" name="student" class="button is-success submit-button">
                 Submit
               </button>
+              <button @click="deleteCriteria(cr.education_id, cr.category_id)" name="student" class="button is-danger submit-button">
+                Delete
+              </button>
             </p>
           </div>
         </div>
@@ -38,7 +42,7 @@
 import admin from '@/api/admin'
 import Auth from '@/packages/auth/Auth'
 export default {
-  name: 'placement-drive-box',
+  name: 'edit-eligibility-criteria-box',
   data() {
     return {
       hidden: true,
@@ -60,7 +64,38 @@ export default {
     updateCriteria(education_id, category_id, cpi_required) {
       admin.patchUpdateEligibilityCriteria(this.getUserId(), this.placement_id, education_id, category_id, cpi_required)
       .then((response) => {
+        //notification
+        let toast = this.$toasted.success("Details Updated", {
+          theme: "outline",
+          position: "top-center",
+          duration : 3000
+        });
         this.hidden = true;
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    },
+    deleteCriteria(education_id, category_id) {
+      // console.log( this.placement_id + "-" + education_id + "-" + category_id);
+      admin.deleteCriteria(this.getUserId(), this.placement_id, education_id, category_id)
+      .then((response) => {
+        if(response.data == 'Cant Fetch Education Criteria!') {
+          let toast = this.$toasted.error("Cannot Delete", {
+            theme: "outline",
+            position: "top-center",
+            duration : 3000
+          });
+        }
+        else {
+          let toast = this.$toasted.error("Criteria Deleted", {
+            theme: "outline",
+            position: "top-center",
+            duration : 3000
+          });
+          this.$bus.$emit('criteria-deleted');
+          this.hidden = true;
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -74,7 +109,18 @@ export default {
 </script>
 
 <style lang="scss">
-.eligibility-criteria-box {
+.edit-eligibility-criteria-box {
+
+  padding-bottom: 0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+
+  .box {
+    padding: 0.5rem;
+    border-radius: 0px;
+    box-shadow: 0px 0px 0px;
+    border: solid 1px #ddd;
+  }
 
   .button.is-white {
     display: flex;

@@ -49,8 +49,8 @@
 <script>
 import admin from '@/api/admin';
 import Auth from '@/packages/auth/Auth';
-import ApplicationFullList from '@/components/ApplicationFullList';
-import StudentPreviewModal from '@/components/StudentPreviewModal';
+import ApplicationFullList from '@/components/Admin/Rounds/ApplicationFullList';
+import StudentPreviewModal from '@/components/Admin/Rounds/StudentPreviewModal';
 
 export default {
 	name: 'admin-application-selection-rounds',
@@ -124,6 +124,22 @@ export default {
 				admin.postAdminMoveToFirstRound(this.getUserId(), this.placement_id, this.selectedStudents)
 				.then((response) => {
 					if(response.status == 200) {
+						if(response.data.length == 1) {
+							let toast = this.$toasted.success(response.data.length + " student moved to round no " + response.data[0].round_no,
+							{
+								theme: "outline",
+								position: "top-center",
+								duration : 3000
+							});
+						}
+						else {
+							let toast = this.$toasted.success(response.data.length + " students moved to round no " + response.data[0].round_no,
+							{
+								theme: "outline",
+								position: "top-center",
+								duration : 3000
+							});
+						}
 						this.getRemainingStudents();
 					}
 				})

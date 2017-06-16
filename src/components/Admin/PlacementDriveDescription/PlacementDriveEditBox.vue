@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="placement-round-detail">
+  <div class="placement-drive-edit-box">
 
     <div class="box">
 
@@ -25,6 +25,16 @@
                 The Job Location is a required field.
               </div>
             </div>
+
+            <div class="field">
+              <label class="label">Package</label>
+              <p class="control">
+                <input v-model="package = placementDescription.package" v-validate="'required'" class="input" type="text" name="package" placeholder="Package">
+              </p>
+              <div v-show="errors.has('package')" class="help is-danger">
+                The Package is a required field.
+              </div>
+            </div>
           </div>
           <div class="column">
             <div class="field">
@@ -34,6 +44,15 @@
               </p>
               <div class="help is-danger" v-show="errors.has('job_description')">
                 The Job Description is a required field.
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">No. of Vacancies</label>
+              <p class="control">
+                <input v-model="no_of_students = placementDescription.no_of_students" v-validate="'required'" class="input" type="text" name="no_of_students" placeholder="No of Students">
+              </p>
+              <div v-show="errors.has('no_of_students')" class="help is-danger">
+                The No of Students is a required field.
               </div>
             </div>
           </div>
@@ -54,7 +73,7 @@ import Auth from '@/packages/auth/Auth'
 import admin from '@/api/admin'
 
 export default {
-  name: 'placement-drive-box',
+  name: 'placement-drive-edit-box',
   props: {
     placementDescription: {
       required: true,
@@ -66,7 +85,9 @@ export default {
       job_title: '',
       job_description: '',
       location: '',
-      placement_id: null
+      placement_id: null,
+      package: null,
+      no_of_students: null
     }
   },
   methods: {
@@ -74,9 +95,15 @@ export default {
         this.validate()
         .then(() => {
           //call update
-          admin.updatePlacementDriveDescription(this.getUserId(), this.placement_id, this.job_title, this.location, this.job_description)
+          admin.updatePlacementDriveDescription(this.getUserId(), this.placement_id, this.job_title,
+          this.location, this.job_description, this.package, this.no_of_students)
           .then((response) => {
             if(response.status == 200) {
+              let toast = this.$toasted.success("Details Updated", {
+                theme: "outline",
+                position: "top-center",
+                duration : 3000
+              });
               this.$bus.$emit('closeDescription');
             }
           })
@@ -99,4 +126,19 @@ export default {
 </script>
 
 <style lang="scss">
+.placement-drive-edit-box {
+
+  margin: 1rem;
+
+  .box {
+    padding: 0.5rem;
+    border-radius: 0px;
+    box-shadow: 0px 0px 0px;
+    border: solid 1px #ddd;
+  }
+
+  .update-btn {
+    padding-top: 0.5rem;
+  }
+}
 </style>

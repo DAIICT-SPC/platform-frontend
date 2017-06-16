@@ -11,7 +11,10 @@ export default {
     });
   },
 
-  registerStudent(name, password, code, enroll_no, contact_no, category_id, temp_address, perm_address, gender, dob, alternate_email) {
+  registerStudent(name, password, code, enroll_no, contact_no, category_id, temp_address,
+    perm_address, gender, dob, alternate_email) {
+    // console.log(name+" - "+ password+" - "+ code+" - "+ enroll_no+" - "+ contact_no+" - "+ category_id+" - "+ temp_address+" - "+
+    //   perm_address+" - "+ gender+" - "+ dob+" - "+ alternate_email);
     return HTTP.post('/users/registerUser', {
       name: name,
       password: password,

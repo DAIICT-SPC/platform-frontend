@@ -51,8 +51,8 @@
 <script>
 import admin from '@/api/admin';
 import Auth from '@/packages/auth/Auth';
-import RoundFullListModal from '@/components/RoundFullListModal';
-import StudentPreviewModal from '@/components/StudentPreviewModal';
+import RoundFullListModal from '@/components/Admin/Rounds/RoundFullListModal';
+import StudentPreviewModal from '@/components/Admin/Rounds/StudentPreviewModal';
 
 export default {
 	name: 'admin-dynamic-selection-rounds',
@@ -146,6 +146,29 @@ export default {
 				admin.postAdminMoveToNextRound(this.getUserId(), this.placement_id, this.selectedStudents, this.round_id)
 				.then((response) => {
 					if(response.status == 200) {
+						if(response.data[0].package == 0) {
+							let toast = this.$toasted.success(response.data.length + " student moved to Offer Layer", {
+								theme: "outline",
+								position: "top-center",
+								duration : 3000
+							});
+						}
+						else if(response.data.length == 1) {
+							let toast = this.$toasted.success(response.data.length + " student moved to round no " + response.data[0].round_no,
+							{
+								theme: "outline",
+								position: "top-center",
+								duration : 3000
+							});
+						}
+						else {
+							let toast = this.$toasted.success(response.data.length + " students moved to round no " + response.data[0].round_no,
+							{
+								theme: "outline",
+								position: "top-center",
+								duration : 3000
+							});
+						}s
 						this.getRemainingStudents();
 					}
 				})

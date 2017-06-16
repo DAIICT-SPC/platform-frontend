@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="student-preview">
+  <div class="admin-student-preview">
 
     <a @click="hidden = true" class="is-success view-profile" v-if="!hidden"> View Profile </a>
 
@@ -89,7 +89,7 @@ import Auth from '@/packages/auth/Auth';
 import admin from '@/api/admin';
 
 export default {
-  name: 'student-preview',
+  name: 'admin-student-preview',
   created() {
     this.getStudentDetail();
   },
@@ -123,7 +123,7 @@ export default {
 </script>
 
 <style lang="scss">
-.student-preview {
+.admin-student-preview {
 
   .modal-card-head {
     padding: 1rem;

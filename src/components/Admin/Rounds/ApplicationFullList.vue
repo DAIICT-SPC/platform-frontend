@@ -1,5 +1,5 @@
 <template>
-	<div class="application-view-full-list">
+	<div class="admin-application-view-full-list">
 		<div class="modal is-active">
 			<div class="modal-background"></div>
 			<div class="modal-card">
@@ -58,7 +58,7 @@ import admin from '@/api/admin';
 import Auth from '@/packages/auth/Auth';
 
 export default{
-	name: 'application-view-full-list',
+	name: 'admin-application-view-full-list',
 	data() {
 		return {
 			search:'',
@@ -131,7 +131,7 @@ export default{
 </script>
 
 <style lang="scss">
-.application-view-full-list {
+.admin-application-view-full-list {
 
 	.modal-card-body {
 		// padding: 1rem;

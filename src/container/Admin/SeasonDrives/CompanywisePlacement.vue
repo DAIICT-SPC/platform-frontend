@@ -9,19 +9,18 @@
 			<div class="companywise-body">
 				<div class="one-company" v-for="company in companies">
 					<span class="text title is-4">{{ company.company_name }}</span>
-					<router-link :to="{ name: 'companywise-placement-cards', params:
-					{
-						company_id: company.id
-					}
-				}" class="a-tag">View</router-link>
-			</div>
+					<router-link :to="{ name: 'companywise-placement-cards',
+					params: { company_id: company.id } }" class="a-tag">
+						View
+					</router-link>
+				</div>
 
+			</div>
+		</div>
+		<div class="box null" v-if="!showData">
+			<h3 class="title">No Companies have been Allowed yet.</h3>
 		</div>
 	</div>
-	<div class="box null" v-if="!showData">
-		<h3 class="title">No Companies have been Allowed yet.</h3>
-	</div>
-</div>
 </template>
 
 <script>

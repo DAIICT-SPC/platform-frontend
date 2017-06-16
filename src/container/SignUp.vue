@@ -456,9 +456,12 @@ export default {
 
             })
             .catch((error) => {
-              console.log(error)
+              console.log('api error');
+              console.log(error);
             })
-          }).catch((error) => {
+          })
+          .catch((error) => {
+            console.log('validate error');
             console.log(error)
           })
         } else if (str === 'company') {

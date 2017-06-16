@@ -1,6 +1,8 @@
 <template>
 	<div class="placement-detail-page">
 		<div class="details box">
+
+			<!-- Header -->
 			<div class="job-header job-section" v-if="placementDescription.company">
 				<div class="heading-main">
 					<p class="title is-3 job-title">{{ placementDescription.job_title }}</p>
@@ -10,20 +12,25 @@
 					<span v-if="placementDescription.status == 'closed'" class="tag is-light">{{ placementDescription.status }}</span>
 					<span v-if="placementDescription.status == 'application'" class="tag is-success">{{ placementDescription.status }}</span>
 					<div class="apply-box">
-						<a @click="showReOpen = !showReOpen" v-if="placementDescription.status == 'closed'" class="button is-success">Re Open</a>
-						<a @click="showExternalAllow = true" v-if="placementDescription.status == 'application'" class="button is-success ex-allow">External Allow</a>
+						<!-- re-open and externally allowed -->
+						<a @click="showReOpen = !showReOpen" v-if="placementDescription.status == 'closed'"
+						class="button is-success">Re Open</a>
+						<a @click="showExternalAllow = true" v-if="placementDescription.status == 'application'"
+						class="button is-success ex-allow">External Allow</a>
 					</div>
 				</div>
 			</div>
 
-			<external-allow v-if="showExternalAllow" @close="showExternalAllow = false"></external-allow>
 			<re-open v-if="showReOpen" @close="showReOpen = false"></re-open>
+			<external-allow v-if="showExternalAllow" @close="showExternalAllow = false"></external-allow>
 
+			<!-- Job Description -->
 			<div class="job-description job-section">
 				<b class="section-header">Job Description
 					<div class="header-action is-pulled-right">
 						<!-- placementDescription.status == 'closed' -->
-						<div class="button is-white" @click="showDesc = !showDesc" v-if="!showDesc && placementDescription.status == 'application'"> {{show}} </div>
+						<div class="button is-white" @click="showDesc = !showDesc" v-if="!showDesc &&
+						placementDescription.status == 'application'"> {{show}} </div>
 						<div class="button is-white" @click="showDesc = !showDesc" v-if="showDesc"> {{hide}} </div>
 					</div>
 				</b>
@@ -32,6 +39,7 @@
 				<drive-box :placementDescription="placementDescription" v-if="showDesc"></drive-box>
 			</div>
 
+			<!-- Eligibility Criteria -->
 			<div class="eligibility-criteria job-section">
 				<b class="section-header">Eligibility Criteria</b>
 
@@ -51,7 +59,8 @@
 								</div>
 							</footer>
 							<div>
-								<criteria-box v-if="placementDescription.status == 'application'" :key="categories.id" :criterias="categories.criterias"></criteria-box>
+								<edit-criteria-box v-if="placementDescription.status == 'application'" :key="categories.id"
+								:criterias="categories.criterias"></edit-criteria-box>
 							</div>
 						</div>
 					</div>
@@ -103,21 +112,21 @@
 <script>
 import Auth from '@/packages/auth/Auth';
 import admin from '@/api/admin';
-import PlacementDriveEditBox from '@/components/PlacementDriveEditBox'
-import EligibilityCriteriaBox from '@/components/EligibilityCriteriaBox'
-import ExternalAllow from '@/components/ExternalAllow'
-import ReOpenModal from '@/components/ReOpenModal'
-import SetVenueDate from '@/components/SetVenueDate'
-import OfferModal from '@/components/OfferModal'
+import ReOpenModal from '@/components/Admin/PlacementDriveDescription/ReOpenModal'
+import ExternalAllow from '@/components/Admin/PlacementDriveDescription/ExternalAllow';
+import PlacementDriveEditBox from '@/components/Admin/PlacementDriveDescription/PlacementDriveEditBox';
+import EditEligibilityCriteriaBox from '@/components/Admin/PlacementDriveDescription/EditEligibilityCriteriaBox';
+import SetVenueDate from '@/components/Admin/PlacementDriveDescription/SetVenueDate';
+import OfferModal from '@/components/Admin/PlacementDriveDescription/OfferModal';
 
 export default {
 	name: 'placement-detail-page',
 
 	components: {
-		'drive-box': PlacementDriveEditBox,
-		'criteria-box': EligibilityCriteriaBox,
-		'external-allow': ExternalAllow,
 		're-open': ReOpenModal,
+		'external-allow': ExternalAllow,
+		'drive-box': PlacementDriveEditBox,
+		'edit-criteria-box': EditEligibilityCriteriaBox,
 		'set-venue-date': SetVenueDate,
 		OfferModal
 	},
@@ -136,6 +145,9 @@ export default {
 		this.$bus.$on('close_external', () => {
 			this.getPlacementDetails();
 			this.showExternalAllow = false;
+		});
+		this.$bus.$on('criteria-deleted', () => {
+			this.getPlacementDetails();
 		});
 	},
 

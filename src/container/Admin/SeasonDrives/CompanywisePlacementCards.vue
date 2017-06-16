@@ -2,7 +2,7 @@
 	<div class="placement-season-tiles">
 
 		<div class="company-header">
-			<h2 class="title"> {{ placement_details[0].company.company_name }}</h2>
+			<h2 class="title"> {{ company_name }}</h2>
 		</div>
 
 		<div class="columns is-multiline">
@@ -27,7 +27,6 @@
 						</div>
 					</div>
 					<footer class="card-footer">
-						<!-- <router-link :to="{ name: 'placement-companywise-description' }" class="card-footer-item">View</router-link> -->
 						<router-link :to="{ name: 'placements-drive-description', params: { placement_id: placements.placement_id } }" class="card-footer-item">View</router-link>
 					</footer>
 				</div>
@@ -49,8 +48,8 @@ export default {
 		return {
 			season_id: null,
 			company_id: null,
+			company_name: '',
 			placement_details: [],
-
 		};
 	},
 	created() {
@@ -63,8 +62,8 @@ export default {
 		getCompanywisePlacements() {
 			admin.getCompanywisePlacement(this.season_id, this.company_id)
 			.then((response) => {
+				this.company_name = response.data[0].company.company_name;
 				this.placement_details = response.data;
-				console.log(this.placement_details);
 			})
 			.catch((error) => {
 				console.log(error);

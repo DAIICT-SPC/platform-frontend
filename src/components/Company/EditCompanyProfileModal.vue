@@ -131,8 +131,8 @@
 </template>
 
 <script>
-import Auth from '@/packages/auth/Auth'
-import company from '@/api/company'
+import Auth from '@/packages/auth/Auth';
+import company from '@/api/company';
 
 export default{
 	name: 'company-modal',
@@ -158,6 +158,12 @@ export default{
 				company.postUserDetails(this.getUserId(), this.company_name, this.address,
 				this.contact_no, this.company_expertise, this.company_url)
 				.then((response) => {
+					let toast = this.$toasted.success("Details Updated", {
+            theme: "outline",
+            position: "top-center",
+            duration : 3000
+          });
+					this.$bus.$emit('close-edit-modal');
 				})
 				.catch((error) => {
 					console.log(error);

@@ -33,7 +33,7 @@
       </div>
 
 
-      <div class="section-bottom">
+      <div class="section-bottom" v-if="">
 
         <h2 class="title">Previous Education</h2>
 
