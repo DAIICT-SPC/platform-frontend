@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="jobprofile-page">
+  <div class="student-jobprofile-page">
     <div class="container">
 
       <!-- main div starts -->
@@ -51,7 +51,7 @@ import user from '@/api/user'
 import Auth from '@/packages/auth/Auth'
 
 export default {
-  name: 'jobprofile',
+  name: 'student-jobprofile-page',
   created() {
     this.getJobProfile();
   },
@@ -84,7 +84,8 @@ export default {
 </script>
 
 <style lang="scss">
-.jobprofile-page {
+
+.student-jobprofile-page {
   .column .card {
     border-radius: 4px;
     box-shadow: 0px 4px 5px #d0cfcf;

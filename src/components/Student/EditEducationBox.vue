@@ -1,5 +1,5 @@
 <template>
-  <div class="placement-round-detail">
+  <div class="student-edit-education-box">
     <span class="button is-white" @click="hidden=false" v-if="hidden">Edit</span>
     <span class="button is-white hide-btn" @click="hidden=true" v-if="!hidden">Hide</span>
     <div class="box" v-if="!hidden">
@@ -96,7 +96,7 @@ import EducationDropDown from '@/components/EducationDropdown'
 import user from '@/api/user'
 
 export default {
-  name: 'admin-edit-modal',
+  name: 'student-edit-education-box',
   components: {
     Datepicker,
     'dropdown': EducationDropDown
@@ -158,7 +158,7 @@ export default {
 }
 </script>
 <style lang="scss">
-.placement-round-detail {
+.student-edit-education-box {
 
   .box {
     padding: 0;

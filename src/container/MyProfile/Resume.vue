@@ -1,9 +1,9 @@
 <template>
-  <div class="resume-page">
+  <div class="student-resume-tab">
 
     <div class="resume-top">
       <h2 class="title">Resume</h2>
-      <button class="button is-deafult">+ Add Resume</button>
+      <button class="button is-deafult" @click="showResume = true">+ Add Resume</button>
     </div>
 
     <div class="resume-body">
@@ -35,11 +35,17 @@
 
 <script>
 export default {
+  name: 'student-resume-tab',
+  data() {
+    return {
+      showResume: false
+    };
+  },
 }
 </script>
 
 <style lang="scss">
-.resume-page {
+.student-resume-tab {
 
   .resume-top {
     display: flex;

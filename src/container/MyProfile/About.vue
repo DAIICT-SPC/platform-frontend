@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="about-tab">
+  <div class="student-about-tab">
     <h2 class="title">Overview</h2>
 
     <!-- form data starts -->
@@ -83,6 +83,19 @@
         </div>
       </div>
 
+      <div class="field is-horizontal">
+        <div class="field-label">
+          <p>Alternate Email</p>
+        </div>
+        <div class="field-body">
+          <div>
+            <p class="control ">
+              {{  }}
+            </p>
+          </div>
+        </div>
+      </div>
+
       <br>
     </div>
     <!-- form data ends -->
@@ -131,9 +144,9 @@
 </template>
 
 <script>
-import EditStudentProfileModal from '@/components/EditStudentProfileModal'
+import EditStudentProfileModal from '@/components/Student/EditStudentProfileModal'
 export default {
-  name: 'about',
+  name: 'student-about-tab',
   data() {
     return {
       showModal: false,
@@ -146,7 +159,8 @@ export default {
         gender: '',
         category: '',
         primary_address: '',
-        current_address: ''
+        current_address: '',
+        alternate_email: ''
       }
     }
   },
@@ -160,13 +174,12 @@ export default {
     }
   },
   created() {
-    console.log(this.userMainDetails);
+    // console.log(this.userMainDetails);
   },
   methods: {
 
     modalPage() {
       this.studentDetails = this.userMainDetails;
-
       this.showModal = true;
     }
   }
@@ -174,7 +187,7 @@ export default {
 </script>
 
 <style lang="scss">
-.about-tab
+.student-about-tab
 {
   .field
   {

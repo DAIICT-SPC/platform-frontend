@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="academic-tab">
+  <div class="student-academic-tab">
     <div v-if="showEducation">
 
       <div class="section-top">
@@ -73,10 +73,10 @@
 <script>
 import user from '@/api/user'
 import Auth from '@/packages/auth/Auth'
-import EditEducationBox from '@/components/EditEducationBox'
+import EditEducationBox from '@/components/Student/EditEducationBox'
 
 export default {
-  name: 'academic',
+  name: 'student-academic-tab',
   components: {
     'editEducation' : EditEducationBox
   },
@@ -119,7 +119,7 @@ export default {
 </script>
 
 <style lang="scss">
-.academic-tab {
+.student-academic-tab {
 
   .academic-year {
     padding: 1rem;

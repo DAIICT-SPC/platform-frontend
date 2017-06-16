@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="container">
+  <div class="container student-feed">
     <!-- media content starts -->
     <div class="dashboard-body">
 
@@ -56,7 +56,7 @@ import user from '@/api/user'
 import Auth from '@/packages/auth/Auth'
 
 export default {
-  name: 'feed',
+  name: 'student-feed',
   data() {
     return {
       feeds: { },
@@ -93,7 +93,7 @@ export default {
 </script>
 
 <style lang="scss">
-
+// .student-feed
 .container {
   padding-left: 15px;
 

@@ -102,6 +102,22 @@
 
 					<div class="field is-horizontal abt-admin">
 						<div class="field-label">
+							<p>Alternate Email</p>
+						</div>
+						<div class="field-body">
+							<div>
+								<p class="control ">
+									<input v-model="alternate_email" type="email" name="alternate_email" class="input">
+								</p>
+								<!-- <div class="help is-danger" v-show="errors.has('alternate_email')">
+									{{errors.first('alternate_email')}}
+								</div> -->
+							</div>
+						</div>
+					</div>
+
+					<div class="field is-horizontal abt-admin">
+						<div class="field-label">
 							<p>Permanent Address</p>
 						</div>
 						<div class="field-body">
@@ -132,7 +148,6 @@
 						</div>
 					</div>
 
-					<pre>{{$data}}</pre>
 				</section>
 				<footer class="modal-card-foot">
 					<a class="button is-success" @click="validateAndUpdateStudentDetails">Save changes</a>
@@ -165,7 +180,7 @@ export default{
 		}
 	},
 	created() {
-		console.log(this.category = this.studentDetails.category_id);
+		this.category = this.studentDetails.category_id
 		this.$bus.$on('category-change-before', (category_obj) => {
 			this.category = category_obj.id;
 		});
@@ -180,21 +195,31 @@ export default{
 			gender: '',
 			category: null,
 			perm_address: '',
-			temp_address: ''
+			temp_address: '',
+			alternate_email: ''
 		}
 	},
 	methods: {
 		validateAndUpdateStudentDetails() {
 			this.validate().then(() => {
-				user.postUserPersonalName(this.getUserId(), this.student_name)
+				// send name here
+				// user.postUserPersonalName(this.getUserId(), this.student_name)
+				// .then((response) => {
+				// 	// console.log(response);
+				// })
+				// .catch((error) => {
+				// 	console.log(error);
+				// })
+				user.postUserPersonalAltEmail(this.getUserId(), this.alternate_email)
 				.then((response) => {
 					// console.log(response);
 				})
 				.catch((error) => {
 					console.log(error);
 				})
-				user.postUserDetails(this.getUserId(), this.student_id, this.student_name, this.category, this.temp_address,
-				this.perm_address, this.contact_no, this.dob, this.gender)
+				// send other details here
+				user.postUserDetails(this.getUserId(), this.student_id, this.category,
+				this.temp_address, this.perm_address, this.contact_no, this.dob, this.gender)
 				.then((response) => {
 					if(response.status == 200) {
 						let toast = this.$toasted.success("Details Successfully Updated", {

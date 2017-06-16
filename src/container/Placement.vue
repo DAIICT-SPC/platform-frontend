@@ -1,5 +1,5 @@
 <template>
-  <div class="placement-page">
+  <div class="student-placement-page">
     <div class="container box">
 
       <div class="job-header job-section" v-if="dashboardJobDetails.company">
@@ -12,11 +12,11 @@
           <div v-if="dashboardJobDetails.status == 'closed'">
             <span class="tag is-light">{{dashboardJobDetails.status}}</span>
           </div>
-          <div v-if="dashboardJobDetails.status == 'application'">
+          <!-- <div v-if="dashboardJobDetails.status == 'application'">
             <span class="tag is-success">{{dashboardJobDetails.status}}</span>
-          </div>
+          </div> -->
           <div class="apply-box" v-if="dashboardJobDetails.status != 'closed'">
-            <a v-if="!applyKey" class="button is-success" @click="userApplyForPlacement">{{apply}}</a>
+            <a v-if="!applyKey" class="button is-success" @click="userApplyForPlacement">Apply</a>
             <a v-if="applyKey" class="button is-danger" @click="userCancelPlacement">Cancel</a>
           </div>
         </div>
@@ -98,7 +98,7 @@ import user from '@/api/user'
 import Auth from '@/packages/auth/Auth'
 
 export default {
-  name: 'placement',
+  name: 'student-placement-page',
   components: {
     'roundBox': PlacementRoundDetail
   },
@@ -109,16 +109,30 @@ export default {
       dashboardJobDetails: [],
       roundsData: {
       },
-      apply: null,
-      applyKey: 0
+      applyKey: null
     }
   },
   created() {
     this.placement_id = this.$route.params.id;
+    this.checkIfSameCategory();
     this.getUserAppliedForPlacement();
     this.getUserPlacementDetails();
   },
   methods: {
+    checkIfSameCategory() {
+      user.checkIfSameCategory(this.getUserId(), this.placement_id)
+      .then((response) => {
+        if(response.data == 'category exists') {
+          //working properly
+        }
+        else {
+          this.$router.push({ name: 'page-404' });
+        }
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+    },
     getUserPlacementDetails() {
       user.getUserPlacementDetails(this.getUserId(), this.placement_id)
       .then((response) => {
@@ -132,11 +146,9 @@ export default {
       user.getUserAppliedForPlacement(this.getUserId(), this.placement_id)
       .then((response) => {
         if(response.data == 0) {
-          this.apply = 'Apply'
           this.applyKey = 0;
         }
         else {
-          this.apply = 'Applied'
           this.applyKey = 1;
         }
       })
@@ -156,7 +168,9 @@ export default {
             position: "top-center",
             duration : 3000
           });
-          this.apply = 'Applied';
+          this.applyKey = 0;
+          this.checkIfSameCategory();
+          this.getUserAppliedForPlacement();
           this.getUserPlacementDetails();
         }
       })
@@ -179,6 +193,9 @@ export default {
             duration : 3000
           });
           this.apply = 1;
+          this.checkIfSameCategory();
+          this.getUserAppliedForPlacement();
+          this.getUserPlacementDetails();
         }
       })
       .catch((error) => {
@@ -190,7 +207,7 @@ export default {
 </script>
 
 <style lang="scss">
-.placement-page {
+.student-placement-page {
   padding: 0.5rem 1.5rem;
 
   .container.box {
