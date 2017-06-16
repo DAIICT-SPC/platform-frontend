@@ -4,10 +4,10 @@
     <div class="dashboard-body">
 
       <div class="columns is-multiline">
-        <div class="column is-full" v-if="!feedsNull">
-          <div v-for="feed in feeds">
+        <div class="column is-full" v-if="!feedsNull" v-for="feed in feeds">
+          <div class="media media-card">
             <!-- {{ placement_id = feed.placement_id }} -->
-            <router-link :to="{ name: 'view-job-profile', params: { id: feed.placement_id } }" class="media media-card">
+            <!-- <router-link :to="{ name: 'view-job-profile', params: { id: feed.placement_id } }" > -->
               <figure class="media-left">
                 <p class="image is-64x64">
                   <img src="../../images/daiict.jpg">
@@ -30,7 +30,7 @@
                   </div>
                 </div>
               </div>
-            </router-link>
+            <!-- </router-link> -->
           </div>
         </div>
 

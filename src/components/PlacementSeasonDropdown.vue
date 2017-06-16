@@ -37,6 +37,7 @@ export default{
 		getAllPlacementSeason() {
 			placementSeason.all(this.getUserId())
 			.then((response) => {
+				console.log(response);
 				if(response.data == 'No Placement Season Found!')
 				{
 					this.showData = false;

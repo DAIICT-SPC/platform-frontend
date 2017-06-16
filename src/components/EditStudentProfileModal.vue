@@ -132,13 +132,14 @@
 						</div>
 					</div>
 
-
+					<pre>{{$data}}</pre>
 				</section>
 				<footer class="modal-card-foot">
 					<a class="button is-success" @click="validateAndUpdateStudentDetails">Save changes</a>
 					<a class="button" v-on:click="$emit('close')">Cancel</a>
 				</footer>
 			</div>
+
 		</div>
 		<!-- modal ends -->
 
@@ -164,6 +165,7 @@ export default{
 		}
 	},
 	created() {
+		console.log(this.category = this.studentDetails.category_id);
 		this.$bus.$on('category-change-before', (category_obj) => {
 			this.category = category_obj.id;
 		});
@@ -191,8 +193,8 @@ export default{
 				.catch((error) => {
 					console.log(error);
 				})
-				user.postUserDetails(this.getUserId(), this.student_id, this.student_name, this.category, this.temp_address, this.perm_address,
-				this.contact_no, this.dob, this.gender)
+				user.postUserDetails(this.getUserId(), this.student_id, this.student_name, this.category, this.temp_address,
+				this.perm_address, this.contact_no, this.dob, this.gender)
 				.then((response) => {
 					if(response.status == 200) {
 						let toast = this.$toasted.success("Details Successfully Updated", {
@@ -201,7 +203,7 @@ export default{
 							duration : 3000
 						});
 						//close modal
-						// this.$emit('close');
+						this.$emit('close');
 					}
 				})
 				.catch((error) => {

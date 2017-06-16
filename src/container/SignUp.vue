@@ -178,7 +178,6 @@
             </button>
           </p>
         </div>
-        <pre>{{$data}}</pre>
       </div>
 
 
@@ -441,7 +440,7 @@ export default {
             this.student.permanentAddress, this.student.gender, this.student.dob, this.student.alternate_email)
             .then((response) => {
               if(response.status == 200) {
-                let toast = this.$toasted.success("Company Registration Successful", {
+                let toast = this.$toasted.success("Student Registration Successful", {
                   theme: "outline",
                   position: "top-center",
                   duration : 3000

@@ -21,8 +21,8 @@
 
 					<footer class="card-footer">
 						<router-link :to="{ name: 'placed-students', params: { season_id: season.id } }" v-if="season.status != 'draft'" class="card-footer-item">View</router-link>
-						<a v-if="season.status == 'open'" @click="closeSeason" class="card-footer-item">Close</a>
-						<a v-if="season.status == 'draft' || season.status == 'closed'" @click="startSeason" class="card-footer-item">Start</a>
+						<a v-if="season.status == 'open'" @click="closeSeason(season.id)" class="card-footer-item">Close</a>
+						<a v-if="season.status == 'draft' || season.status == 'closed'" @click="startSeason(season.id)" class="card-footer-item">Start</a>
 					</footer>
 				</div>
 			</div>
@@ -70,8 +70,8 @@ export default {
 				console.log(error);
 			})
 		},
-		startSeason() {
-			admin.postStartSeason(this.placement_season_id)
+		startSeason(season_id) {
+			admin.postStartSeason(season_id)
 			.then((response) => {
 				if(response.status == 200) {
 					this.getAllManagePlacements();
@@ -81,8 +81,8 @@ export default {
 				console.log(error);
 			})
 		},
-		closeSeason() {
-			admin.postCloseSeason(this.placement_season_id)
+		closeSeason(season_id) {
+			admin.postCloseSeason(season_id)
 			.then((response) => {
 				if(response.status == 200) {
 					this.getAllManagePlacements();
