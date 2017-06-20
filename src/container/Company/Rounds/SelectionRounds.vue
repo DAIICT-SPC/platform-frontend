@@ -33,13 +33,19 @@
 					<a class="button is-primary applicant-button" @click="moveStudentsToNextRound">Move to next round</a>
 				</div>
 			</div>
-			<div v-if="!showData && !allStudents">
+
+			<div v-if="!showData && !allStudents && showStudentNumericData">
 				<h3 class="title no-data">No Student has applied yet!</h3>
 			</div>
 			<div class="allow" v-if="allStudents">
 				<h3 class="title no-data">All Students moved to next Round</h3>
 				<button @click="showModal = true" class="button is-success">View Full-List</button>
 				<application-list-modal @close="showModal = false" v-if="showModal == true"></application-list-modal>
+			</div>
+
+			<div v-if="!showData && !allStudents && !showStudentNumericData">
+				<h3 class="title no-data" v-if="studentLength">{{studentLength}} students have applied.</h3>
+				<h3 class="title no-data" v-if="!studentLength">No students have applied.</h3>
 			</div>
 		</div>
 		<!-- <a href="D:\A\platform-backend\public\test.zip" download>Path</a> -->
@@ -65,8 +71,8 @@ export default {
 			},
 			set:function(value) {
 				var selectedStudents = [];
-				if(value){
-					this.remainingStudents.forEach((rstudent)=>{
+				if(value) {
+					this.remainingStudents.forEach( (rstudent)=> {
 						selectedStudents.push(rstudent.enroll_no);
 					})
 				}
@@ -77,8 +83,7 @@ export default {
 	created() {
 		this.placement_id = this.$route.params.placement_id;
 		// this.season_id = this.$route.params.season_id;
-		this.getRemainingStudents();
-
+		this.isStudentDataAllowed();
 },
 	data() {
 		return {
@@ -89,23 +94,55 @@ export default {
 			allStudents: false,
 			showModal: false,
 			modalValue: '',
-			showViewModal: false
+			showViewModal: false,
+			showStudentNumericData: false,
+			studentLength: false
 		};
 	},
 	methods: {
+		isStudentDataAllowed() {
+			company.isStudentDataAllowed(this.getUserId(), this.placement_id)
+			.then((response) => {
+				if(response.data.status == 'false') {
+					//show numeric values
+					this.showData = false;
+					this.showStudentNumericData = false;
+					this.getRemainingStudents();
+				}
+				else {
+					this.showData = false;
+					this.showStudentNumericData = true;
+					//show the data
+					this.getRemainingStudents();
+				}
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+		},
 		getRemainingStudents() {
 			company.getRemainingStudentsInApplication(this.getUserId(), this.placement_id)
 			.then((response) => {
-				if(response.data == 'None has applied yet!'){
-					this.showData = false;
-				}
-				else if(response.data == 'All Students move to Rounds'){
-					this.showData = false;
-					this.allStudents = true;
+				if(this.showStudentNumericData == false) {
+					if(response.data == 'None has applied yet!') {
+						this.showData = false;
+					}
+					else {
+						this.studentLength = response.data.length;
+					}
 				}
 				else {
-					this.showData = true;
-					this.remainingStudents = response.data;
+					if(response.data == 'None has applied yet!') {
+						this.showData = false;
+					}
+					else if(response.data == 'All Students move to Rounds') {
+						this.showData = false;
+						this.allStudents = true;
+					}
+					else {
+						this.showData = true;
+						this.remainingStudents = response.data;
+					}
 				}
 			})
 			.catch((error) => {

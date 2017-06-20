@@ -261,9 +261,24 @@ export default {
         return HTTP.get(url);
       },
 
+      giveFeedback(user_id, placement_id, description, rating) {
+        // /users/{user_id}/company/giveFeedback/{placement_id}
+        let url = '/users/' + user_id + '/company/giveFeedback/' + placement_id;
+        return HTTP.post(url, {
+          description: description,
+          rating: rating
+        });
+      },
+
       getStudentDetail(user_id, enroll_no) {
         // /users/3/company/studentDetail/201612105
         let url = '/users/' + user_id + '/company/studentDetail/' + enroll_no;
+        return HTTP.get(url);
+      },
+
+      isStudentDataAllowed(user_id, placement_id) {
+        // /users/3/company/isStudentDataAllowed/2
+        let url = '/users/' + user_id + '/company/isStudentDataAllowed/' + placement_id;
         return HTTP.get(url);
       }
 

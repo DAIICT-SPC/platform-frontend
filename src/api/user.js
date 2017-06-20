@@ -179,6 +179,12 @@ export default {
       // /users/6/student/checkIfSameCategory/1
       let url = '/users/' + user_id + '/student/checkIfSameCategory/' + placement_id;
       return HTTP.get(url);
+    },
+
+    checksEligibility(user_id, placement_id) {
+      // /users/6/student/eligibility/4
+      let url = '/users/' + user_id + '/student/eligibility/' + placement_id;
+      return HTTP.get(url);
     }
 
   };

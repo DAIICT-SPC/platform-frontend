@@ -33,14 +33,14 @@
 			</div>
 			<!-- 1/3 col -->
 
-
 			<!-- <router-view></router-view> -->
 		</div>
 	</div>
 </template>
 
 <script>
-import admin from '@/api/admin'
+import admin from '@/api/admin';
+import Auth from '@/packages/auth/Auth';
 
 export default {
 	name: 'placement-tiles-page',
@@ -50,7 +50,10 @@ export default {
 			company_id: null,
 			company_name: '',
 			placement_details: [],
+			showAllowedButton: false
 		};
+	},
+	watch() {
 	},
 	created() {
 		this.season_id = this.$route.params.season_id;
@@ -68,6 +71,10 @@ export default {
 			.catch((error) => {
 				console.log(error);
 			})
+		},
+
+		getUserId() {
+			return Auth.getUserToken();
 		}
 
 	}

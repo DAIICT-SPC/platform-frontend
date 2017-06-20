@@ -15,8 +15,7 @@
 							<span class="category">{{studentData.category.name}}</span>
 						</div>
 
-						<offer-modal :key="studentData.enroll_no" :placement_id="placement_id" :studentData="studentData">
-
+						<offer-modal :key="studentData.enroll_no" :studentData="studentData">
 						</offer-modal>
 
 					</div>

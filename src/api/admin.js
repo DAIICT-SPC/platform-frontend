@@ -296,6 +296,18 @@ export default {
       csv: csvfile,
       role: role
     });
-  }
+  },
+
+  isStudentDataAllowed(user_id, placement_id) {
+    // /users/3/admin/isStudentDataAllowed/2
+    let url = '/users/' + user_id + '/admin/isStudentDataAllowed/' + placement_id;
+    return HTTP.get(url);
+  },
+
+  allowStudentData(user_id, placement_id) {
+    // /users/{user_id}/admin/allowStudentData/{placement_id}
+    let url = '/users/' + user_id + '/admin/allowStudentData/' + placement_id;
+    return HTTP.post(url);
+  },
 
 }

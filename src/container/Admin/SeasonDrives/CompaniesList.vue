@@ -10,8 +10,10 @@
 				<input type="hidden" v-model="user_id = company.company_detail.user_id">
 				<span class="text title is-4">{{ company.company_detail.company_name }}</span>
 				<a @click="loginas()" class="button is-success is-outlined a-tag login">Login As</a>
-				<a @click="allowCompany(company.company_detail.id)" class="button is-success is-outlined a-tag" v-if="company.status != 'allowed'">Allow</a>
-				<a @click="disallowCompany(company.company_detail.id)" class="button is-danger is-outlined a-tag" v-if="company.status == 'allowed'">Cancel</a>
+				<a @click="allowCompany(company.company_detail.id)" class="button is-success is-outlined a-tag allow-btn"
+				v-if="company.status != 'allowed'">Allow</a>
+				<a @click="disallowCompany(company.company_detail.id)" class="button is-danger is-outlined a-tag"
+				v-if="company.status == 'allowed'">Cancel</a>
 			</div>
 
 		</div>
@@ -121,6 +123,11 @@ export default {
 
 	.a-tag {
 		float: right;
+	}
+
+	.allow-btn {
+		padding-left: 1rem;
+		padding-right: 1rem;
 	}
 
 }

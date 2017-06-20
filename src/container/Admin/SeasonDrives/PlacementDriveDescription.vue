@@ -71,7 +71,8 @@
 			<div class="hiring-process job-section">
 				<b class="section-header">Hiring Process
 					<div class="header-action is-pulled-right">
-
+						<a v-if="!allowListingData" @click="allowListing" class="button is-small">Allow User Listing</a>
+						<a disabled v-if="allowListingData" class="button is-small">The Details have been Allowed</a>
 					</div>
 				</b>
 
@@ -134,6 +135,7 @@ export default {
 	created() {
 		this.season_id = this.$route.params.season_id;
 		this.placement_id = this.$route.params.placement_id;
+		this.checkAllowListing();
 		this.getPlacementDetails();
 		this.$bus.$on('closeDescription', () => {
 			this.showDesc = false;
@@ -153,6 +155,7 @@ export default {
 
 	data() {
 		return {
+			allowListingData: false,
 			season_id: null,
 			placement_id: null,
 			placementDescription: { },
@@ -169,6 +172,39 @@ export default {
 	},
 
 	methods: {
+		checkAllowListing() {
+			//check if listing allowed or not
+			admin.isStudentDataAllowed(this.getUserId(), this.placement_id)
+			.then((response) => {
+				if(response.data.status == false) {
+					this.allowListingData = false;
+				}
+				else {
+					this.allowListingData = true;
+				}
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+		},
+
+		allowListing() {
+			admin.allowStudentData(this.getUserId(), this.placement_id)
+			.then((response) => {
+				if(response.status == 200) {
+					let toast = this.$toasted.success("Details Allowed", {
+	          theme: "outline",
+	          position: "top-center",
+	          duration : 3000
+	        });
+					this.checkAllowListing();
+				}
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+		},
+
 		getPlacementDetails() {
 			admin.getAdminPlacementDetails(this.getUserId(), this.placement_id)
 			.then((response) => {

@@ -25,9 +25,11 @@
                     <br>
                     <b>Job Description: </b>{{ feed.job_description }}
                   </p>
-                  <div class="placement-courses">
-                    <span class="tag is-info" v-for="cat in feed.categories">{{ cat.name }}</span>
-                  </div>
+                    <div class="placement-courses">
+                      <span class="tag is-info" v-for="cat in feed.categories">{{ cat.name }}</span>
+                      <router-link :to="{ name: 'view-job-profile', params: { id: feed.placement_id } }" >
+                        <span class="tag is-light is-pulled-right">Click here for more details...</span></router-link>
+                    </div>
                 </div>
               </div>
             <!-- </router-link> -->

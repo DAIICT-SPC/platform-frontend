@@ -34,38 +34,47 @@
         </div>
       </div>
     </div>
+    <feedback-modal v-if="feedbackModal" @close="feedbackModal = false"></feedback-modal>
   </div>
 </template>
 
 <script>
 import Auth from '@/packages/auth/Auth';
 import company from '@/api/company';
+import FeedbackModal from '@/components/Company/FeedbackModal';
 
 export default {
   name: 'offer-modal',
+  components: {
+    'feedback-modal': FeedbackModal
+  },
   props: {
     studentData: {
-      required: true
-    },
-    placement_id: {
       required: true
     }
   },
   data() {
     return {
+      palcement_id: null,
       hidden: false,
-      packageOffer: null
+      packageOffer: null,
+      feedbackModal: false
     };
   },
   created() {
-
+    this.placement_id = this.$route.params.placement_id;
+    this.$bus.$on('feedback-done', () => {
+      // refresh
+      this.feedbackModal = false;
+      this.isFeedbackGiven();
+    })
   },
   methods: {
     isFeedbackGiven() {
       company.isFeedbackGiven(this.getUserId(), this.placement_id)
       .then((response) => {
         if(response.data == true) {
-          this.hidden=true;
+          this.hidden = true;
         }
         else {
           let toast = this.$toasted.show("Request you to please kindly give Feedback first.", {
@@ -73,6 +82,8 @@ export default {
             position: "top-center",
             duration : 3000
           });
+          // open feedback Modal
+          this.feedbackModal = true;
         }
       })
       .catch((error) => {

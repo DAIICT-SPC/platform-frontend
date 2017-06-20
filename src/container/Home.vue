@@ -30,8 +30,9 @@
               <hr>
               <p class="control">
                 <button @click="login" class="button is-primary">Login</button>
-                <a class="forgot"><small class="forgot">Forgot Password</small></a>
+                <a class="forgot is-pulled-right" @click="forgotModal = true"><small class="forgot">Forgot Password</small></a>
               </p>
+              <forgot-password v-if="forgotModal" @close="forgotModal = false"></forgot-password>
             </div>
           </div>
         </div>
@@ -43,17 +44,22 @@
 </template>
 
 <script>
-import Auth from '@/packages/auth/Auth'
-import user from '@/api/user'
-import jwtDecode from 'jwt-decode'
+import Auth from '@/packages/auth/Auth';
+import user from '@/api/user';
+import jwtDecode from 'jwt-decode';
+import ForgotPassword from '@/components/ForgotPasswordModal';
 
 export default {
   name: 'home',
+  components: {
+    ForgotPassword
+  },
   data() {
     return {
       email: '',
       password: '',
-      decodedToken: ''
+      decodedToken: '',
+      forgotModal: false
     }
   },
   // before coming to '/'' or home or signin page, if u have a token, go to dashboard page

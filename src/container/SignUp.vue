@@ -434,7 +434,8 @@ export default {
     },
     checkUserValidation(str) {
       if (str === 'student') {
-        this.validateStudent().then(() => {
+        this.validateStudent()
+        .then(() => {
           user.registerStudent(this.student.name, this.student.password,
             this.code, this.student.enroll_no, this.student.contact, this.student.category, this.student.temporaryAddress,
             this.student.permanentAddress, this.student.gender, this.student.dob, this.student.alternate_email)

@@ -16,8 +16,8 @@
             <span class="tag is-success">{{dashboardJobDetails.status}}</span>
           </div> -->
           <div class="apply-box" v-if="dashboardJobDetails.status != 'closed'">
-            <a v-if="!applyKey" class="button is-success" @click="userApplyForPlacement">Apply</a>
-            <a v-if="applyKey" class="button is-danger" @click="userCancelPlacement">Cancel</a>
+            <a v-if="!applyKey && eligible" class="button is-success" @click="userApplyForPlacement">Apply</a>
+            <a v-if="applyKey && eligible" class="button is-danger" @click="userCancelPlacement">Cancel</a>
           </div>
         </div>
       </div>
@@ -104,6 +104,7 @@ export default {
   },
   data() {
     return {
+      eligible: true,
       placement_id: null,
       jobProfile: {},
       dashboardJobDetails: [],
@@ -114,11 +115,27 @@ export default {
   },
   created() {
     this.placement_id = this.$route.params.id;
+    this.checksEligibility();
     this.checkIfSameCategory();
     this.getUserAppliedForPlacement();
     this.getUserPlacementDetails();
   },
   methods: {
+    checksEligibility() {
+      user.checksEligibility(this.getUserId(), this.placement_id)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        if(error.response.data.status == 'ineligible') {
+          this.eligible = false;
+        }
+        else {
+          this.eligible = true;
+          console.log(error);
+        }
+      });
+    },
     checkIfSameCategory() {
       user.checkIfSameCategory(this.getUserId(), this.placement_id)
       .then((response) => {
