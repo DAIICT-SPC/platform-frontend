@@ -190,6 +190,11 @@ export default {
     this.$bus.$on('edit-selection-roundbox', () => {
       this.getDetails();
     })
+    // // close-selection-round
+    // this.$bus.$on('close-selection-round', () => {
+    //   this.showAddSelection = false;
+    //   this.getDetails();
+    // })
   },
 
   methods: {

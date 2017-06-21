@@ -13,85 +13,90 @@
             <span class="tag is-light">{{dashboardJobDetails.status}}</span>
           </div>
           <!-- <div v-if="dashboardJobDetails.status == 'application'">
-            <span class="tag is-success">{{dashboardJobDetails.status}}</span>
-          </div> -->
-          <div class="apply-box" v-if="dashboardJobDetails.status != 'closed'">
-            <a v-if="!applyKey && eligible" class="button is-success" @click="userApplyForPlacement">Apply</a>
-            <a v-if="applyKey && eligible" class="button is-danger" @click="userCancelPlacement">Cancel</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="job-description job-section">
-        <b class="section-header">Job Description</b>
-        <p> {{dashboardJobDetails.job_description}} </p>
-      </div>
-
-
-      <div class="eligibility-criteria job-section">
-        <b class="section-header">Eligibility Criteria</b>
-
-        <div class="columns">
-
-          <div class="column" v-for="categories in dashboardJobDetails.categories">
-            <div class="card">
-              <header class="card-header">
-                <p class="card-header-title"> {{ categories.name }} </p>
-              </header>
-              <footer class="stripe-footer">
-                <div class="columns is-gapless is-mobile">
-                  <div class="column" v-for="cat in categories.criterias">
-                    {{ cat.education.name }} <br> CPI Required: {{cat.cpi_required}}
-                  </div>
-                </div>
-              </footer>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <div class="hiring-process job-section">
-        <b class="section-header">Hiring Process</b>
-
-        <div class="processes">
-
-          <div class="process-application process">
-            <a class="button">
-              <span class="icon">
-                <i class="fa fa-user-o"></i>
-              </span>
-              <span>Application</span>
-            </a>
-          </div>
-
-
-          <div class="box process" v-for="round in dashboardJobDetails.placement_selection">
-            <p>
-              <b>{{ round.round_name }}</b>
-            </p>
-            <roundBox :key="round.id" :round="round"></roundBox>
-          </div>
-
-
-          <div class="process-offer process">
-            <a class="button">
-              <span class="icon">
-                <i class="fa fa-file-text-o"></i>
-              </span>
-              <span>Offer</span>
-            </a>
-          </div>
-
+          <span class="tag is-success">{{dashboardJobDetails.status}}</span>
+        </div> -->
+        <div class="apply-box" v-if="dashboardJobDetails.status != 'closed'">
+          <a v-if="!applyKey && eligible" class="button is-success" @click="userApplyForPlacement">Apply</a>
+          <a v-if="applyKey && eligible" class="button is-danger" @click="userCancelPlacement">Cancel</a>
         </div>
       </div>
     </div>
+
+    <div class="job-description job-section">
+      <b class="section-header">Job Description</b>
+      <p> {{dashboardJobDetails.job_description}} </p>
+    </div>
+
+
+    <div class="eligibility-criteria job-section">
+      <b class="section-header">Eligibility Criteria</b>
+
+      <div class="columns">
+
+        <div class="column" v-for="categories in dashboardJobDetails.categories">
+          <div class="card">
+            <header class="card-header">
+              <p class="card-header-title"> {{ categories.name }} </p>
+            </header>
+            <footer class="stripe-footer">
+              <div class="columns is-gapless is-mobile">
+                <div class="column" v-for="cat in categories.criterias">
+                  {{ cat.education.name }} <br> CPI Required: {{cat.cpi_required}}
+                </div>
+              </div>
+            </footer>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="hiring-process job-section">
+      <b class="section-header">Hiring Process</b>
+
+      <div class="processes">
+
+        <div class="process-application process">
+          <a class="button">
+            <span class="icon">
+              <i class="fa fa-user-o"></i>
+            </span>
+            <span>Application</span>
+          </a>
+        </div>
+
+
+        <div class="box process" v-for="round in dashboardJobDetails.placement_selection">
+          <p>
+            <b>{{ round.round_name }}</b>
+          </p>
+          <roundBox :key="round.id" :round="round"></roundBox>
+        </div>
+
+
+        <div class="process-offer process">
+          <a class="button">
+            <span class="icon">
+              <i class="fa fa-file-text-o"></i>
+            </span>
+            <span>Offer</span>
+          </a>
+        </div>
+
+      </div>
+      <div>
+        <a @click="isFeedbackGiven" class="button"><i class="fa fa-comments" aria-hidden="true"></i> &nbsp; Feedback</a>
+      </div>
+    </div>
   </div>
+  <feedback-modal v-if="feedbackModal" @close="feedbackModal = false"></feedback-modal>
+</div>
 </div>
 </template>
 
 <script>
 import PlacementRoundDetail from '@/components/PlacementRoundDetail'
+import FeedBackModal from '@/components/Student/FeedBackModal';
 import placement from '@/api/placement'
 // import education from '@/api/education'
 import user from '@/api/user'
@@ -100,7 +105,8 @@ import Auth from '@/packages/auth/Auth'
 export default {
   name: 'student-placement-page',
   components: {
-    'roundBox': PlacementRoundDetail
+    'roundBox': PlacementRoundDetail,
+    'feedback-modal': FeedBackModal
   },
   data() {
     return {
@@ -110,7 +116,8 @@ export default {
       dashboardJobDetails: [],
       roundsData: {
       },
-      applyKey: null
+      applyKey: null,
+      feedbackModal: false
     }
   },
   created() {
@@ -121,10 +128,34 @@ export default {
     this.getUserPlacementDetails();
   },
   methods: {
+    isFeedbackGiven() {
+      user.isFeedbackGiven(this.getUserId(), this.placement_id)
+      .then((response) => {
+        //if true then dont allow, if false then allow
+        if(response.data == false) {
+          this.feedbackModal = true;
+        }
+        else {
+          let toast = this.$toasted.error("Feedback already Provided.", {
+            theme: "outline",
+            position: "top-center",
+            duration : 3000
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    },
     checksEligibility() {
       user.checksEligibility(this.getUserId(), this.placement_id)
       .then((response) => {
-        console.log(response.data);
+        if(response.data.status == 'eligible') {
+          this.eligible = true;
+        }
+        else {
+          this.eligible = false;
+        }
       })
       .catch((error) => {
         if(error.response.data.status == 'ineligible') {

@@ -7,7 +7,7 @@
 				<div class="field has-addons">
 					<p class="control is-fullwidth">
 						<input v-model="title" v-validate="'required'" name="season" class="input input-box" type="text"
-						placeholder="Create New Placement Season">
+						placeholder="Create New Placement Season" @keyup.enter="createSeason">
 					</p>
 					<p class="control">
 						<a class="button is-success" @click="createSeason"> Submit </a>

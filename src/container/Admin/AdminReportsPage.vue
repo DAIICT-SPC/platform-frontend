@@ -9,11 +9,12 @@
 			<!-- tabs starts -->
 			<div class="tabs">
 				<ul>
-					<li><router-link :to="{ name: 'placed-students' }">Placed Students</router-link></li>
-					<li><router-link :to="{ name: 'placed-categorywise' }">Placed Categorywise</router-link></li>
-					<li><router-link :to="{ name: 'unplaced-students' }">Unplaced Students</router-link></li>
-					<li><router-link :to="{ name: 'unplaced-categorywise' }">Unplaced Categorywise</router-link></li>
-					<li><router-link :to="{ name: 'externally-allowed' }">Externally Allowed</router-link></li>
+					<li class="li-tabs"><router-link :to="{ name: 'placed-students' }">Placed Students</router-link></li>
+					<li class="li-tabs"><router-link :to="{ name: 'placed-categorywise' }">Placed Categorywise</router-link></li>
+					<li class="li-tabs"><router-link :to="{ name: 'unplaced-students' }">Unplaced Students</router-link></li>
+					<li class="li-tabs"><router-link :to="{ name: 'unplaced-categorywise' }">Unplaced Categorywise</router-link></li>
+					<li class="li-tabs"><router-link :to="{ name: 'externally-allowed' }">Externally Allowed</router-link></li>
+					<li class="li-tabs"><router-link :to="{ name: 'student-info' }">Student Info</router-link></li>
 				</ul>
 			</div>
 			<!-- tabs ends -->
@@ -87,6 +88,10 @@ export default {
 
  .tabs {
  	margin: 0;
+ }
+
+ .li-tabs {
+ 	border-right: solid 1px #ddd;
  }
 
 

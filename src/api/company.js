@@ -35,7 +35,7 @@ export default {
     },
 
     placementPrimary(user_id, job_title, job_description, last_date_for_registration, location, no_of_students,
-      packages, job_type_id, placement_season_id) {
+      packages, job_type_id, placement_season_id, start_date, end_date) {
         let url = '/users/' + user_id + '/company/createPlacement';
         return HTTP.post(url, {
           job_title: job_title,
@@ -45,7 +45,9 @@ export default {
           no_of_students: no_of_students,
           package: packages,
           job_type_id: job_type_id,
-          placement_season_id: placement_season_id
+          placement_season_id: placement_season_id,
+          start_date: start_date,
+          end_date: end_date
         });
       },
 

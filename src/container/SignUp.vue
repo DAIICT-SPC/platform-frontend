@@ -473,14 +473,23 @@ export default {
               this.company.contact, this.company.companyDescription, this.company.companyURL,
               this.company.alternate_email, this.code)
               .then((response) => {
+                console.log(response);
                 let toast = this.$toasted.success("Company Registration Successful", {
                   theme: "outline",
                   position: "top-center",
                   duration : 3000
                 });
-                this.$router.push({
-                  name: 'home'
-                });
+                // log them in
+                console.log('login');
+                user.login(this.email, this.company.password)
+                .then(this.storeTokenCompany)
+                .catch((error) => {
+                  console.log(error);
+                })
+                .then(this.redirectCompanyHome);
+                // this.$router.push({
+                //   name: 'home'
+                // });
               })
               .catch((error) => {
                 console.log(error)
@@ -504,9 +513,21 @@ export default {
           Auth.setUserRole('student');
           this.redirect;
         },
+        storeTokenCompany: (response) => {
+          this.decodedToken = jwtDecode(response.data.token)
+          Auth.setUserToken(this.decodedToken.sub);
+          Auth.setToken(response.data.token);
+          Auth.setUserRole('company');
+          this.redirectCompanyHome;
+        },
         redirect() {
           this.$router.push({
             name: 'education-first'
+          });
+        },
+        redirectCompanyHome() {
+          this.$router.push({
+            name: 'company-home'
           });
         }
       }

@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="student-jobprofile-page">
-    <div class="container">
+    <div v-if="showData" class="container">
 
       <!-- main div starts -->
       <div class="columns is-multiline">
@@ -43,6 +43,11 @@
 
     </div>
   </div>
+  <div v-if="!showData" class="container">
+    <div class="box">
+      <h3 class="title">No Data to show.</h3>
+    </div>
+  </div>
 </div>
 </template>
 
@@ -57,6 +62,7 @@ export default {
   },
   data() {
     return {
+      showData: true,
       jobProfiles: [],
       jobsNull: false
     }
@@ -65,6 +71,7 @@ export default {
     getJobProfile() {
       user.getUserJobProfile(this.getUserId())
       .then((response) => {
+        console.log(response);
         if(response.data[0] == null) {
           this.jobsNull = true;
         }
@@ -73,7 +80,12 @@ export default {
         }
       })
       .catch((error) => {
-        console.log(error);
+        if(error.response.data.message == 'No placement Primary Found!') {
+          this.showData = false;
+        }
+        else {
+          console.log(error);
+        }
       })
     },
     getUserId() {

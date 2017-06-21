@@ -1,7 +1,6 @@
 <template>
 	<div class="placed-students">
 
-
 		<div v-if="showData">
 			<div class="columns section-header">
 				<div class="column">

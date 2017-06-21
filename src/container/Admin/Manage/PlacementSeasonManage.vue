@@ -74,6 +74,11 @@ export default {
 			admin.postStartSeason(season_id)
 			.then((response) => {
 				if(response.status == 200) {
+					let toast = this.$toasted.success("Season Started", {
+						theme: "outline",
+						position: "top-center",
+						duration : 3000
+					});
 					this.getAllManagePlacements();
 				}
 			})
@@ -85,6 +90,11 @@ export default {
 			admin.postCloseSeason(season_id)
 			.then((response) => {
 				if(response.status == 200) {
+					let toast = this.$toasted.show("Season Ended", {
+						theme: "outline",
+						position: "top-center",
+						duration : 3000
+					});
 					this.getAllManagePlacements();
 				}
 			})

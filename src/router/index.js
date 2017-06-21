@@ -47,6 +47,7 @@ import PlacedCategorywise from '@/container/Admin/Reports/PlacedCategorywise'
 import UnplacedStudents from '@/container/Admin/Reports/UnplacedStudents'
 import UnplacedCategorywise from '@/container/Admin/Reports/UnplacedCategorywise'
 import ExternallyAllowed from '@/container/Admin/Reports/ExternallyAllowed'
+import StudentInfo from '@/container/Admin/Reports/StudentInfo'
 import PlacementSeasonManage from '@/container/Admin/Manage/PlacementSeasonManage'
 import AdminProfile from '@/container/Admin/Profile'
 import Category from '@/container/Admin/Manage/Category'
@@ -425,6 +426,16 @@ let router = new Router({
           path: 'externally-allowed',
           name: 'externally-allowed',
           component: ExternallyAllowed,
+          meta: {
+            requiresAuth: true,
+            shouldBeAdmin: true
+          }
+        },
+        // StudentInfo
+        {
+          path: 'student-info',
+          name: 'student-info',
+          component: StudentInfo,
           meta: {
             requiresAuth: true,
             shouldBeAdmin: true

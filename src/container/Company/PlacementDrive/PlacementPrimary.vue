@@ -40,7 +40,7 @@
             v-model="placementDrive.lastDateofRegistration" name="date"></datepicker>
           </p>
           <div v-show="errors.has('date')" class="help is-danger">
-            The Job Title Description is a required field.
+            The Last Date of Registration is a required field.
           </div>
         </div>
         <div class="field time">
@@ -89,6 +89,29 @@
         </p>
       </div>
 
+      <div class="start-end-date">
+        <div class="field">
+          <label class="label">Start Date</label>
+          <p class="control is-fullwidth">
+            <datepicker v-validate="'required'" placeholder="Date" :config="{ dateFormat: 'Y-m-d', static: true }"
+            v-model="placementDrive.start_date" name="start_date"></datepicker>
+          </p>
+          <div v-show="errors.has('start_date')" class="help is-danger">
+            The Start Date is a required field.
+          </div>
+        </div>
+        <div class="field end">
+          <label class="label">End Date</label>
+          <p class="control is-fullwidth">
+            <datepicker v-validate="'required'" placeholder="Date" :config="{ dateFormat: 'Y-m-d', static: true }"
+            v-model="placementDrive.end_date" name="end_date"></datepicker>
+          </p>
+          <div v-show="errors.has('end_date')" class="help is-danger">
+            The End Date is a required field.
+          </div>
+        </div>
+      </div>
+
     </div>
     <div class="field is-grouped submit-button">
       <p class="control buttons">
@@ -124,7 +147,9 @@ export default {
         loaction: '',
         noOfStudents: '',
         package: null,
-        jobTypeId: null
+        jobTypeId: null,
+        start_date: '',
+        end_date: '',
       }
       // isError: false
     }
@@ -156,9 +181,11 @@ export default {
       this.dateTime = this.placementDrive.lastDateofRegistration + " " + this.placementDrive.time + ':00';
       company.placementPrimary(this.getUserId(), this.placementDrive.jobTitle, this.placementDrive.jobProfileDescription,
       this.dateTime, this.placementDrive.loaction, this.placementDrive.noOfStudents,
-      this.placementDrive.package, this.placementDrive.jobTypeId, this.placementDrive.seasonId)
+      this.placementDrive.package, this.placementDrive.jobTypeId, this.placementDrive.seasonId,
+      this.placementDrive.start_date, this.placementDrive.end_date)
       .then((response) => {
-        this.moveToNextRound(response.data.placement_id);
+        // this.moveToNextRound(response.data.placement_id);
+        this.moveToManage(response.data.placement_id);
       })
       .catch((error) => {
         // this.isError = true;
@@ -172,6 +199,12 @@ export default {
         params: {
           placement_id: placement_id
         }
+      })
+    },
+    moveToManage(placement_id) {
+      this.$router.push({
+        name: 'draft-placement-details',
+        params: { placement_id: placement_id }
       })
     },
     emptyFields() {
@@ -198,6 +231,14 @@ export default {
     display: flex;
     justify-content:  flex-start;
     .field.time {
+      padding-left: 1rem;
+    }
+  }
+
+  .start-end-date {
+    display: flex;
+    justify-content:  flex-start;
+    .end {
       padding-left: 1rem;
     }
   }

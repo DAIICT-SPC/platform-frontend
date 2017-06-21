@@ -2,9 +2,9 @@
   <div class="new-placement-page">
     <div class="container">
       <div class="columns" v-if="showData">
-        <div class="column is-one-quarter">
-          <company-sidebar></company-sidebar>
-        </div>
+        <!-- <div class="column is-one-quarter"> -->
+          <!-- <company-sidebar></company-sidebar> -->
+        <!-- </div> -->
         <div class="column is-auto">
           <div class="box">
             <router-view></router-view>

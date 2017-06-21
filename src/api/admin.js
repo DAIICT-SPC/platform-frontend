@@ -284,6 +284,12 @@ export default {
     return HTTP.get(url);
   },
 
+  getStudentWiseReport(user_id, placement_id, enroll_no) {
+    // /users/user_id}/admin/reportStudentWise/{placement_season_id}/{enroll_no}
+    let url = '/users/' + user_id + '/admin/reportStudentWise/' + placement_id + '/' + enroll_no;
+    return HTTP.get(url);
+  },
+
   getStudentDetail(user_id, enroll_no) {
     // /users/3/admin/studentDetail/201612105
     let url = '/users/' + user_id + '/admin/studentDetail/' + enroll_no;

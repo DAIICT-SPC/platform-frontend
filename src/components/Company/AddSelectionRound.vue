@@ -1,11 +1,11 @@
 <template lang="html">
-	<div class="open-for-modal">
+	<div class="add-selection-round-modal">
 		<div class="open-for-modal">
 			<div class="modal is-active">
 				<div class="modal-background"></div>
 				<div class="modal-card">
 					<header class="modal-card-head">
-						<p class="modal-card-title">Open For</p>
+						<p class="modal-card-title">Selection Round Details</p>
 						<button class="delete" @click="close"></button>
 					</header>
 					<section class="modal-card-body">
@@ -22,19 +22,23 @@
 							<div class="field">
 								<label class="label">Process Name</label>
 								<p class="control">
-									<input v-validate="'required|alpha'" type="text" name="processName" placeholder="Process Name" class="input"
+									<input v-validate="'required'" type="text" name="processName" placeholder="Process Name" class="input"
 									v-model="placementDrive.ProcessName">
 								</p>
-								<div class="help is-danger" v-show="errors.has('processName')">{{ errors.first('processName') }}</div>
+								<div class="help is-danger" v-show="errors.has('processName')">
+									The Process Name is a required field.
+								</div>
 							</div>
 
 							<div class="field">
 								<label class="label">Process Description</label>
 								<p class="control">
-									<textarea v-validate="'required|alpha'" name="processDescription" class="textarea" placeholder="Enter Process Discription"
+									<textarea v-validate="'required'" name="processDescription" class="textarea" placeholder="Enter Process Discription"
 									v-model="placementDrive.ProcessDescription"></textarea>
 								</p>
-								<div class="help is-danger" v-show="errors.has('processDescription')">{{ errors.first('processDescription') }}</div>
+								<div class="help is-danger" v-show="errors.has('processDescription')">
+									The Process Description is a required field.
+								</div>
 							</div>
 
 							<div class="date-time">
@@ -71,7 +75,7 @@ import Auth from '@/packages/auth/Auth';
 import Datepicker from 'vue-bulma-datepicker';
 
 export default {
-	name: 'open-for-modal',
+	name: 'add-selection-round-modal',
 	components: {
 		Datepicker
 	},
@@ -136,7 +140,10 @@ export default {
 							position: "top-center",
 							duration : 3000
 						});
-						setTimeout(this.getRoundNo, 1);
+						// close the modal and refresh
+						this.$bus.$emit('close-add-selection-round');
+						//clear the input boxes and start afresh
+						// this.getRoundNo();
 					}
 				})
 				.catch((error) => {
@@ -164,7 +171,13 @@ export default {
 </script>
 
 <style lang="scss">
-.open-for-modal {
-
+.add-selection-round-modal {
+	.date-time {
+    display: flex;
+    justify-content:  flex-start;
+    .field.time {
+      padding-left: 1rem;
+    }
+  }
 }
 </style>

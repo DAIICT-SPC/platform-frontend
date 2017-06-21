@@ -13,6 +13,7 @@ export default {
 
   registerStudent(name, password, code, enroll_no, contact_no, category_id, temp_address,
     perm_address, gender, dob, alternate_email) {
+      console.log(contact_no);
     // console.log(name+" - "+ password+" - "+ code+" - "+ enroll_no+" - "+ contact_no+" - "+ category_id+" - "+ temp_address+" - "+
     //   perm_address+" - "+ gender+" - "+ dob+" - "+ alternate_email);
     return HTTP.post('/users/registerUser', {
@@ -185,6 +186,26 @@ export default {
       // /users/6/student/eligibility/4
       let url = '/users/' + user_id + '/student/eligibility/' + placement_id;
       return HTTP.get(url);
-    }
+    },
+
+    isFeedbackGiven(user_id, placement_id) {
+      // /users/{user_id}/student/isFeedbackGiven/{placement_id}
+      let url = '/users/' + user_id + '/student/isFeedbackGiven/' + placement_id;
+      return HTTP.get(url);
+    },
+
+    isFeedbackGiven(user_id, placement_id) {
+      let url = '/users/' + user_id + '/student/isFeedbackGiven/' + placement_id;
+      return HTTP.get(url);
+    },
+
+    giveFeedback(user_id, placement_id, description, rating) {
+      // /users/{user_id}/student/giveFeedback/{placement_id}
+      let url = '/users/' + user_id + '/student/giveFeedback/' + placement_id;
+      return HTTP.post(url, {
+        description: description,
+        rating: rating
+      });
+    },
 
   };
