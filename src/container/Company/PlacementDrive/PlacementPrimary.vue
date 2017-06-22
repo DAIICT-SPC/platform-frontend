@@ -46,7 +46,7 @@
         <div class="field time">
           <label class="label">Time</label>
           <p class="control">
-            <input v-model="placementDrive.time" type="time" name="time" class="input" placeholder="Enter Date">
+            <input v-model="placementDrive.time" type="time" name="time" class="input" placeholder="Enter Time">
           </p>
         </div>
       </div>
