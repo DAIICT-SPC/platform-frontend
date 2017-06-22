@@ -537,9 +537,11 @@ export default {
     <style lang="scss">
     .signup-page {
       margin: 2rem;
+      margin-top: 1rem;
       .container {
         max-width: 700px;
         width: 100%;
+        margin: auto;
         .title.main {
           border: 0;
           padding: 0;

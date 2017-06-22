@@ -11,15 +11,18 @@
 				</header>
 				<section class="modal-card-body">
 
-					<div class="field is-horizontal abt-admin">
+					<div class="field is-horizontal">
 						<div class="field-label">
 							<p class="email-text">Email</p>
 						</div>
 						<div class="field-body">
 							<div>
 								<p class="control ">
-									<input v-validate="'required'" v-model="email" type="email" name="email" class="input">
+									<input @keyup.enter="validateAndEmail" v-validate="'required|email'" v-model="email" type="email" name="email" class="input">
 								</p>
+								<div class="help is-danger" v-show="errors.has('email')">
+									Please Enter the Valied Email.
+								</div>
 							</div>
 						</div>
 					</div>
@@ -38,6 +41,7 @@
 
 <script>
 import Auth from '@/packages/auth/Auth';
+import user from '@/api/user';
 
 export default{
 	name: 'forgot-password-modal',
@@ -48,10 +52,24 @@ export default{
 	},
 	methods: {
 		validateAndEmail() {
-			this.validate().then(() => {
-				// .catch((error) => {
-				// 	console.log(error.message);
-				// })
+			this.validate()
+			.then(() => {
+				user.postEmailForPasswordForget(this.email)
+				.then((response) => {
+					if(response.data == 'No such Email exist!') {
+						let toast = this.$toasted.error("No such Email exist!", {
+			        theme: "outline",
+			        position: "bottom-center",
+			        duration : 3000
+			      });
+					}
+					else {
+						// safe
+					}
+				})
+				.catch((error) => {
+					console.log(error.message);
+				})
 			})
 			.catch((error) => {
 				console.log(error)
@@ -77,6 +95,11 @@ export default{
 
 	.email-text {
 		color: black;
+	}
+
+	.field.is-horizontal {
+		display: flex;
+		align-items: center;
 	}
 }
 

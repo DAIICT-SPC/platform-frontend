@@ -131,6 +131,7 @@ export default {
     isFeedbackGiven() {
       user.isFeedbackGiven(this.getUserId(), this.placement_id)
       .then((response) => {
+        console.log(response);
         //if true then dont allow, if false then allow
         if(response.data == false) {
           this.feedbackModal = true;

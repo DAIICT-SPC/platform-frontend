@@ -4,6 +4,7 @@ import Auth from '@/packages/auth/Auth'
 import Home from '@/container/Home'
 import EducationFirst from '@/container/EducationFirst'
 import SignUp from '@/container/SignUp'
+import ChangePassword from '@/container/ChangePassword'
 import Page404 from '@/container/Page404'
 import Dashboard from '@/container/Dashboard'
 import Feed from '@/container/Feed'
@@ -71,6 +72,11 @@ let router = new Router({
     path: '/signup/:code',
     name: 'signup',
     component: SignUp,
+  },
+  {
+    path: '/change-password/:code',
+    name: 'change-password',
+    component: ChangePassword,
   },
   {
     path: '/education',

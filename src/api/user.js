@@ -208,4 +208,20 @@ export default {
       });
     },
 
+    postEmailForPasswordForget(email) {
+      // /generateCodeForNewPassword
+      let url = '/generateCodeForNewPassword';
+      return HTTP.post(url, {
+        email: email
+      })
+    },
+
+    postChangePassword(password, code) {
+      let url = '/changePassword';
+      return HTTP.post(url, {
+        password: password,
+        code: code
+      })
+    }
+
   };

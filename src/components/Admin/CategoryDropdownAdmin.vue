@@ -1,7 +1,7 @@
 <template>
   <div>
     <span class="select is-fullwidth">
-      <select v-validate="'required|not_in:null'" v-model="category_id" @change="categoryChange()" name="category" >
+      <select v-validate="'required|not_in:null'" v-model="category_id" @change="categoryChange" name="category" >
         <option value=null>Select dropdown</option>
         <option v-for="cat in categories" :value="cat.id">{{cat.name}}</option>
       </select>

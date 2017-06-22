@@ -20,20 +20,20 @@
 				</div>
 			</div>
 
-			<div class="columns section-body" v-for="st in students" v-if="st.user">
+			<div class="columns section-body" v-for="st in students">
 				<div class="column">
 					<span class="texts">{{st.enroll_no}}</span>
 				</div>
-				<div class="column is-4">
+				<div class="column is-4" v-if="st.student">
 					<span class="texts">{{st.student.user.name}}</span>
 				</div>
-				<div class="column">
+				<div class="column" v-if="st.student">
 					<span class="texts">{{st.student.category.name}}</span>
 				</div>
 				<div class="column">
 					<span class="texts">{{st.package}}</span>
 				</div>
-				<div class="column is-4">
+				<div class="column is-4" v-if="st.placement">
 					<span class="texts">{{st.placement.company.company_name}}</span>
 				</div>
 			</div>
@@ -73,7 +73,7 @@ export default{
 				else if(response.data == "No Student got Offer!") {
 					this.showData = false;
 				}
-				else {
+				else if(response.data.length != 0) {
 					this.showData = true;
 					this.students = response.data;
 				}

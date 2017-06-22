@@ -1,46 +1,50 @@
 <template lang="html">
-<div class="login-page">
+  <div class="login-page">
 
-  <section class="hero is-fullheight is-dark is-bold">
-    <div class="hero-body">
-      <div class="container">
-        <div class="columns is-vcentered">
-          <div class="column is-4 is-offset-4">
-            <div class="box">
-              <img class="image is-256x256" src="../../images/daiict.jpg" alt="DAIICT">
-              <hr class=image-text>
-              <h3 class="title">Student Placement Cell</h3>
-              <hr class="text-body">
-              <label class="label">Email</label>
-              <p class="control">
-                <input v-model="email" name="email" v-validate="'required|email'" class="input" type="text" placeholder="abc@example.ac.in">
-              </p>
-              <div class="notification is-danger" v-show="errors.has('email')">
-                <span>{{ errors.first('email') }}</span>
-              </div>
+    <section class="hero is-fullheight is-dark is-bold">
+      <div class="hero-body">
+        <div class="container">
+          <div class="columns is-vcentered">
+            <div class="column is-4 is-offset-4">
+              <div class="box">
+                <img class="image is-256x256" src="../../images/daiict.jpg" alt="DAIICT">
+                <hr class=image-text>
+                <h3 class="title">Student Placement Cell</h3>
+                <hr class="text-body">
+                <label class="label">Email</label>
+                <p class="control">
+                  <input v-model="email" name="email" v-validate="'required|email'" class="input" type="text" placeholder="abc@example.ac.in">
+                </p>
+                <div class="notification is-danger" v-show="errors.has('email')">
+                  <span>{{ errors.first('email') }}</span>
+                </div>
 
-              <label class="label">Password</label>
-              <p class="control">
-                <input @keyup.enter="login" v-validate="'required'" v-model="password" name="password"
-                class="input" type="password" placeholder="●●●●●●●">
-              </p>
-              <div @change="time" class="notification is-danger" v-show="errors.has('password')">
-                <span>{{ errors.first('password') }}</span>
+                <label class="label">Password</label>
+                <p class="control">
+                  <input @keyup.enter="login" v-validate="'required'" v-model="password" name="password"
+                  class="input" type="password" placeholder="●●●●●●●">
+                </p>
+                <div @change="time" class="notification is-danger" v-show="errors.has('password')">
+                  <span>{{ errors.first('password') }}</span>
+                </div>
+                <hr>
+                <p class="control">
+                  <button @click="login" class="button is-primary">Login</button>
+                  <a class="button forgot is-pulled-right" @click="forgotModal = true">
+                    <small class="forgot">
+                      Forgot Password
+                    </small>
+                  </a>
+                </p>
+                <forgot-password v-if="forgotModal" @close="forgotModal = false"></forgot-password>
               </div>
-              <hr>
-              <p class="control">
-                <button @click="login" class="button is-primary">Login</button>
-                <a class="forgot is-pulled-right" @click="forgotModal = true"><small class="forgot">Forgot Password</small></a>
-              </p>
-              <forgot-password v-if="forgotModal" @close="forgotModal = false"></forgot-password>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-  </section>
-</div>
+    </section>
+  </div>
 </template>
 
 <script>

@@ -13,7 +13,7 @@
 							<label class="title is-4">Enrollment Number</label>
 						</div>
 						<p class="control">
-							<input name="enroll_no" v-validate="'required'" v-model="enroll_no" class="input" type="number" placeholder="Please Enter the External Enrollment Number to allow">
+							<input @keyup.enter="allowStudent" name="enroll_no" v-validate="'required'" v-model="enroll_no" class="input" type="number" placeholder="Please Enter the External Enrollment Number to allow">
 						</p>
 						<div class="help is-danger" v-show="errors.has('enroll_no')">
 							The Enrollnment Number is required
@@ -50,6 +50,7 @@ export default{
 			admin.allowExternalStudents(this.getUserId(), this.placement_id, this.enroll_no)
 			.then((response) => {
 				if(response.status == 200) {
+					console.log(response);
 					this.$bus.$emit('close_external');
 				}
 			})

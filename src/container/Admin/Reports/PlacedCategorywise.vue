@@ -27,21 +27,21 @@
 				</div>
 			</div>
 
-			<div class="columns section-body">
+			<div class="columns section-body" v-for="st in students">
 				<div class="column">
-					<span class="texts">201612105</span>
+					<span class="texts">{{st.enroll_no}}</span>
 				</div>
-				<div class="column is-4">
-					<span class="texts">Sagar Makhija Gurmukh</span>
+				<div class="column is-4" v-if="st.student">
+					<span class="texts">{{st.student.user.name}}</span>
+				</div>
+				<div class="column" v-if="st.student">
+					<span class="texts">{{st.student.category.name}}</span>
 				</div>
 				<div class="column">
-					<span class="texts">Msc(IT)</span>
+					<span class="texts">{{st.package}}</span>
 				</div>
-				<div class="column">
-					<span class="texts">500000</span>
-				</div>
-				<div class="column is-4">
-					<span class="texts">XYZ Company Pvt. Ltd.</span>
+				<div class="column is-4" v-if="st.placement">
+					<span class="texts">{{st.placement.company.company_name}}</span>
 				</div>
 			</div>
 		</div>
@@ -73,7 +73,7 @@ export default {
 			students: [ ],
 			season_id: null,
 			category_id: 1,
-			showData: false
+			showData: true
 		}
 	},
 	created() {
@@ -90,13 +90,18 @@ export default {
 		getStudentsPlacedCategorywise() {
 			admin.getStudentsPlacedCategorywise(this.getUserId(), this.season_id, this.category_id)
 			.then((response) => {
+				console.log(response.data);
 				if(response.data == 'No Student got Offer!') {
 					this.showData = false;
 				}
 				else if (response.data == "No student of this category registered!") {
 					this.showData = false;
 				}
+				else if (response.data == "Not open for this category") {
+					this.showData = false;
+				}
 				else {
+					this.showData = true;
 					this.students = response.data;
 				}
 			})

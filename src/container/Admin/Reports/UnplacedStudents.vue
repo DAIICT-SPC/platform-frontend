@@ -18,10 +18,10 @@
 				<div class="column">
 					<span class="texts">{{st.enroll_no}}</span>
 				</div>
-				<div class="column is-4">
+				<div class="column is-4" v-if="st.user">
 					<span class="texts">{{st.user.name}}</span>
 				</div>
-				<div class="column">
+				<div class="column" v-if="st.category">
 					<span class="texts">{{st.category.name}}</span>
 				</div>
 			</div>
