@@ -13,7 +13,7 @@
                 <hr class="text-body">
                 <label class="label">Email</label>
                 <p class="control">
-                  <input v-model="email" name="email" v-validate="'required|email'" class="input" type="text" placeholder="abc@example.ac.in">
+                  <input :disabled="block" v-model="email" name="email" v-validate="'required|email'" class="input" type="text" placeholder="abc@example.ac.in">
                 </p>
                 <div class="notification is-danger" v-show="errors.has('email')">
                   <span>{{ errors.first('email') }}</span>
@@ -21,7 +21,7 @@
 
                 <label class="label">Password</label>
                 <p class="control">
-                  <input @keyup.enter="login" v-validate="'required'" v-model="password" name="password"
+                  <input :disabled="block" @keyup.enter="login" v-validate="'required'" v-model="password" name="password"
                   class="input" type="password" placeholder="●●●●●●●">
                 </p>
                 <div @change="time" class="notification is-danger" v-show="errors.has('password')">
@@ -30,13 +30,14 @@
                 <hr>
                 <p class="control">
                   <button @click="login" class="button is-primary">Login</button>
-                  <a class="button forgot is-pulled-right" @click="forgotModal = true">
+                  <a class="button npm ruforgot is-pulled-right" @click="forgotModal = true">
                     <small class="forgot">
                       Forgot Password
                     </small>
                   </a>
                 </p>
                 <forgot-password v-if="forgotModal" @close="forgotModal = false"></forgot-password>
+                <reason-modal :email="email" :password="password" v-if="reasonModal"></reason-modal>
               </div>
             </div>
           </div>
@@ -52,18 +53,31 @@ import Auth from '@/packages/auth/Auth';
 import user from '@/api/user';
 import jwtDecode from 'jwt-decode';
 import ForgotPassword from '@/components/ForgotPasswordModal';
+import ReasonModal from '@/components/ReasonModal';
 
 export default {
   name: 'home',
   components: {
-    ForgotPassword
+    ForgotPassword,
+    ReasonModal
+  },
+  created() {
+    this.$bus.$on('forgot-password-modal-close', () => {
+      this.forgotModal = false;
+    })
+    this.$bus.$on('reason-modal', (response) => {
+      this.reasonModal = false;
+      this.storeToken(response.response);
+    });
   },
   data() {
     return {
       email: '',
       password: '',
       decodedToken: '',
-      forgotModal: false
+      forgotModal: false,
+      block: false,
+      reasonModal: false
     }
   },
   // before coming to '/'' or home or signin page, if u have a token, go to dashboard page
@@ -92,7 +106,7 @@ export default {
   methods: {
     login() {
       this.validate()
-      .then(this.loginUser)
+      .then(this.checkForAdmin)
       .catch(() => {
         console.log("Error");
       });
@@ -103,6 +117,7 @@ export default {
     loginUser() {
       user.login(this.email, this.password)
       .then(this.storeToken)
+
       .catch((error) => {
         if(error.response.status == 404) {
           console.log(error);
@@ -116,7 +131,33 @@ export default {
           console.log(error);
         }
       })
-      // .then(this.redirect);
+      .then(this.redirect);
+    },
+
+    checkForAdmin() {
+      user.checkForAdmin(this.email, this.password)
+      .then((response) => {
+        // false no admin
+        if(response.data.status == false) {
+          this.loginUser();
+        }
+        // if admin
+        else {
+          //if true, then ask a reason (disable the boxes)
+          this.block = true;
+          this.reasonModal = true;
+          // user.login(this.email, this.password)
+          // .then((response) => {
+          //   console.log(response);
+          // })
+          // .catch((error) => {
+          //   console.log(error);
+          // })
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      })
     },
 
     storeToken: (response) => {
@@ -141,6 +182,10 @@ export default {
       .catch((error) => {
         console.log(error);
       })
+    },
+
+    storeAdminToken(token) {
+
     },
 
     time() {

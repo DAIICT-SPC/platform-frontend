@@ -35,7 +35,7 @@
 						<div class="field-body">
 							<div>
 								<p class="control ">
-									<input v-model="rating" v-validate="'required'" type="number" name="rating" class="input" placeholder="*****">
+									<input @keyup.enter="validateAndGiveFeedback" v-model="rating" v-validate="'required'" type="number" name="rating" class="input" placeholder="*****">
 								</p>
 								<div class="help is-danger" v-show="errors.has('rating')">
 									The Ratings cannot be Null.
@@ -80,7 +80,6 @@ export default{
 				// call api
 				user.giveFeedback(this.getUserId(), this.placement_id, this.feedbackDescription, this.rating)
 				.then((response) => {
-					console.log(response);
 					if(response.status == 200) {
 						// notification feedback given successfully
 						let toast = this.$toasted.success("Feedback Sent Successfully.", {

@@ -1,5 +1,5 @@
 <template>
-	<div class="feedback-modal">
+	<div class="company-feedback-modal">
 
 		<!-- modal starts -->
 		<div class="modal is-active">
@@ -62,7 +62,7 @@ import company from '@/api/company';
 import Auth from '@/packages/auth/Auth';
 
 export default{
-	name: 'feedback-modal',
+	name: 'company-feedback-modal',
 	created() {
 		this.placement_id = this.$route.params.placement_id;
 	},
@@ -110,7 +110,7 @@ export default{
 </script>
 
 <style lang="scss">
-.feedback-modal {
+.company-feedback-modal {
 
 }
 </style>

@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import PlacementDriveSidebar from '@/components/Admin/PlacementDriveSidebar'
+import PlacementDriveSidebar from '@/components/Admin/PlacementDriveSidebar';
 export default {
   name: '',
   components: {

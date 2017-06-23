@@ -9,7 +9,7 @@
           <div class="field">
             <!-- <label class="label">Password</label> -->
             <p class="control">
-              <input name="student_password" v-validate="'required|min:8'" type="password" placeholder="New Password" class="input">
+              <input v-model="password" name="student_password" v-validate="'required|min:8'" type="password" placeholder="New Password" class="input">
             </p>
             <div v-show="errors.has('student_password')" class="help is-danger">
               The Password is required and should be greater than 8 characters.
@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import Auth from '@/packages/auth/Auth';
 import user from '@/api/user';
 export default {
   name: 'change-password',
@@ -52,8 +53,8 @@ export default {
     }
   },
   created() {
-    // if no code then push 404
     this.code = this.$route.params.code;
+    this.verify();
   },
   data() {
     return {
@@ -62,12 +63,27 @@ export default {
     };
   },
   methods: {
+    verify() {
+      if(this.code.length > 1 && this.code != null) {
+        //proceed
+      }
+      else {
+        this.push404();
+      }
+    },
     validateAndChangePassword() {
       this.validate()
       .then(() => {
-        user.postChangePassword()
+        user.postChangePassword(this.password, this.code)
         .then((response) => {
-          console.log(response);
+          if(response.status == 200) {
+            let toast = this.$toasted.success("Password Change Successful", {
+              theme: "outline",
+              position: "top-center",
+              duration : 3000
+            });
+            this.pushHome();
+          }
           // console.log(response.data == 'Wrong Code');
         })
         .catch((error) => {
@@ -80,6 +96,16 @@ export default {
     },
     validate() {
       return this.$validator.validateAll();
+    },
+    push404() {
+      this.$router.push({
+        name: 'page-404'
+      });
+    },
+    pushHome() {
+      this.$router.push({
+        name: 'home'
+      });
     }
   },
 }

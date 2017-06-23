@@ -3,7 +3,7 @@
 		<div class=" box placement-page">
 
 			<div class="reports-header">
-				<h2 class="title header">Manage</h2>
+				<h2 class="title header">Reports</h2>
 			</div>
 
 			<!-- tabs starts -->
@@ -15,6 +15,7 @@
 					<li class="li-tabs"><router-link :to="{ name: 'unplaced-categorywise' }">Unplaced Categorywise</router-link></li>
 					<li class="li-tabs"><router-link :to="{ name: 'externally-allowed' }">Externally Allowed</router-link></li>
 					<li class="li-tabs"><router-link :to="{ name: 'student-info' }">Student Info</router-link></li>
+					<li class="li-tabs"><router-link :to="{ name: 'feedbacks-view' }">Feedbacks</router-link></li>
 				</ul>
 			</div>
 			<!-- tabs ends -->
@@ -26,7 +27,7 @@
 </template>
 
 <script>
-import admin from '@/api/admin'
+import admin from '@/api/admin';
 export default {
 	name: 'placement',
 	data() {

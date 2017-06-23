@@ -81,10 +81,11 @@
 
         </div>
         <div>
-          <a class="button"><i class="fa fa-comments" aria-hidden="true"></i> &nbsp; Feedback</a>
+          <a @click="isFeedbackGiven" class="button"><i class="fa fa-comments" aria-hidden="true"></i> &nbsp; Feedback</a>
         </div>
       </div>
     </div>
+    <feedback-modal v-if="showFeedbackModal" @close="showFeedbackModal = false"></feedback-modal>
   </div>
 </div>
 </template>
@@ -93,10 +94,16 @@
 import placement from '@/api/placement';
 import company from '@/api/company';
 import Auth from '@/packages/auth/Auth';
+import FeedBackModal from '@/components/Company/FeedBackModal';
+
 export default {
   name: 'placement',
+  components: {
+    'feedback-modal': FeedBackModal
+  },
   data() {
     return {
+      showFeedbackModal: false,
       showCriteria: false,
       placement_id: null,
       jobProfile: {},
@@ -114,6 +121,10 @@ export default {
   created() {
     this.placement_id = this.$route.params.placement_id;
     this.$bus.$on('closeDescription', () => {
+      this.showFeedbackModal = false;
+    });
+    // feedback-done
+    this.$bus.$on('feedback-done', () => {
       this.showDesc = false;
     });
     company.getPlacementDetails(this.getUserId(), this.placement_id)
@@ -128,6 +139,25 @@ export default {
     getUserId() {
       return Auth.getUserToken();
     },
+    isFeedbackGiven() {
+      company.isFeedbackGiven(this.getUserId(), this.placement_id)
+      .then((response) => {
+        //if true then dont allow, if false then allow
+        if(response.data == false) {
+          this.showFeedbackModal = true;
+        }
+        else {
+          let toast = this.$toasted.error("Feedback already Provided.", {
+            theme: "outline",
+            position: "top-center",
+            duration : 3000
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    }
   }
 }
 </script>

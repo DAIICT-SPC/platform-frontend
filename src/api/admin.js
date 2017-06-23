@@ -316,4 +316,10 @@ export default {
     return HTTP.post(url);
   },
 
+  getFeedbackByPlacementId(user_id, placement_id) {
+    // /users/{user_id}/admin/getFeedbackList/{placement_id}
+    let url = '/users/' + user_id + '/admin/getFeedbackList/' + placement_id;
+    return HTTP.get(url);
+  }
+
 }

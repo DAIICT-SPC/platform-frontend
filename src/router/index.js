@@ -49,6 +49,7 @@ import UnplacedStudents from '@/container/Admin/Reports/UnplacedStudents'
 import UnplacedCategorywise from '@/container/Admin/Reports/UnplacedCategorywise'
 import ExternallyAllowed from '@/container/Admin/Reports/ExternallyAllowed'
 import StudentInfo from '@/container/Admin/Reports/StudentInfo'
+import FeedbacksView from '@/container/Admin/Reports/FeedbacksView'
 import PlacementSeasonManage from '@/container/Admin/Manage/PlacementSeasonManage'
 import AdminProfile from '@/container/Admin/Profile'
 import Category from '@/container/Admin/Manage/Category'
@@ -114,7 +115,7 @@ let router = new Router({
       component: JobProfile
     },
     {
-      path: 'job-profiles/:id',
+      path: 'job-profiles/:placement_id',
       name: 'view-job-profile',
       meta: {
         requiresAuth: true,
@@ -442,6 +443,16 @@ let router = new Router({
           path: 'student-info',
           name: 'student-info',
           component: StudentInfo,
+          meta: {
+            requiresAuth: true,
+            shouldBeAdmin: true
+          }
+        },
+        // FeedbacksView
+        {
+          path: 'feedbacks-view',
+          name: 'feedbacks-view',
+          component: FeedbacksView,
           meta: {
             requiresAuth: true,
             shouldBeAdmin: true

@@ -296,7 +296,6 @@
 			</div>
 			<!-- Offer-Letter modal -->
 
-
 		</div>
 	</template>
 

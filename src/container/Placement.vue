@@ -89,7 +89,7 @@
       </div>
     </div>
   </div>
-  <feedback-modal v-if="feedbackModal" @close="feedbackModal = false"></feedback-modal>
+  <company-feedback-modal v-if="feedbackModal" @close="feedbackModal = false"></company-feedback-modal>
 </div>
 </div>
 </template>
@@ -106,7 +106,7 @@ export default {
   name: 'student-placement-page',
   components: {
     'roundBox': PlacementRoundDetail,
-    'feedback-modal': FeedBackModal
+    'company-feedback-modal': FeedBackModal
   },
   data() {
     return {
@@ -121,17 +121,20 @@ export default {
     }
   },
   created() {
-    this.placement_id = this.$route.params.id;
+    this.placement_id = this.$route.params.placement_id;
     this.checksEligibility();
     this.checkIfSameCategory();
     this.getUserAppliedForPlacement();
     this.getUserPlacementDetails();
+    this.$bus.$on('feedback-done', () => {
+      this.feedbackModal = false;
+      this.getUserPlacementDetails();
+    })
   },
   methods: {
     isFeedbackGiven() {
       user.isFeedbackGiven(this.getUserId(), this.placement_id)
       .then((response) => {
-        console.log(response);
         //if true then dont allow, if false then allow
         if(response.data == false) {
           this.feedbackModal = true;

@@ -65,6 +65,14 @@ export default{
 					}
 					else {
 						// safe
+						if(response.data.email == this.email) {
+							let toast = this.$toasted.success("An Email have been sent to your Registered Email ID. Please Check for Password Change.", {
+				        theme: "outline",
+				        position: "top-center",
+				        duration : 3000
+				      });
+							this.$bus.$emit('forgot-password-modal-close');
+						}
 					}
 				})
 				.catch((error) => {

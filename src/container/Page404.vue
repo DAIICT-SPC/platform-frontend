@@ -2,7 +2,10 @@
   <div class="page-404">
     <div class="container">
       <div class="box">
-        <h1 class="title">404</h1>
+        <div class="header">
+          <h1 class="title">404</h1>
+          <a @click="pushHome" class="button">Get Back To Home</a>
+        </div>
         <h3 class="subtitle">The page you were looking for may exist outside our campus.;)</h3>
       </div>
     </div>
@@ -11,7 +14,14 @@
 
 <script>
 export default {
-  name: 'page-404'
+  name: 'page-404',
+  methods: {
+    pushHome() {
+      this.$router.push({
+        name: 'home'
+      });
+    }
+  }
 }
 </script>
 
@@ -26,11 +36,16 @@ export default {
     display: table;
     padding-top: 0;
     padding-bottom: 1rem;
-    .title {
-      font-size: 10rem;
-      border-bottom: solid 1px #ddd;
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      .title {
+        font-size: 10rem;
+      }
       padding-bottom: 0.5rem;
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
+      border-bottom: solid 1px #ddd;
     }
   }
 }

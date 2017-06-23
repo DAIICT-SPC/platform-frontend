@@ -50,7 +50,16 @@ export default {
         this.userDetails = response.data;
       })
       .catch((error) => {
-        console.log(error);
+        if(error.response.status == 500) {
+					let toast = this.$toasted.error("Please Logout and come back again to continue.", {
+            theme: "outline",
+            position: "top-center",
+            duration : 3000
+          });
+				}
+				else {
+					console.log(error);
+				}
       })
     },
   }

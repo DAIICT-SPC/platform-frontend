@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import admin from '@/api/admin'
+import admin from '@/api/admin';
 export default {
 	name: 'placement',
 	data() {

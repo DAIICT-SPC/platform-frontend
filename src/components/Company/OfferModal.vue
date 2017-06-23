@@ -41,12 +41,12 @@
 <script>
 import Auth from '@/packages/auth/Auth';
 import company from '@/api/company';
-import FeedbackModal from '@/components/Company/FeedbackModal';
+import FeedBackModal from '@/components/Company/FeedBackModal';
 
 export default {
   name: 'offer-modal',
   components: {
-    'feedback-modal': FeedbackModal
+    'feedback-modal': FeedBackModal
   },
   props: {
     studentData: {

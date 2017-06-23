@@ -27,7 +27,7 @@
               </div>
             </div>
             <footer class="card-footer">
-              <router-link :to="{ name: 'view-job-profile', params: { id: jobs.placement_id } }" class="card-footer-item">View</router-link>
+              <router-link :to="{ name: 'view-job-profile', params: { placement_id: jobs.placement_id } }" class="card-footer-item">View</router-link>
             </footer>
           </div>
           <!-- 1/3 col -->
@@ -71,7 +71,6 @@ export default {
     getJobProfile() {
       user.getUserJobProfile(this.getUserId())
       .then((response) => {
-        console.log(response);
         if(response.data[0] == null) {
           this.jobsNull = true;
         }

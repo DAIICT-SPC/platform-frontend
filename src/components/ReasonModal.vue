@@ -1,0 +1,90 @@
+<template>
+	<div class="reason-modal">
+
+		<!-- modal starts -->
+		<div class="modal is-active">
+			<div class="modal-background"></div>
+			<div class="modal-card">
+				<header class="modal-card-head">
+					<p class="modal-card-title">Reason for Login</p>
+				</header>
+				<section class="modal-card-body">
+
+					<!-- <div class="field is-horizontal"> -->
+					<div class="">
+						<!-- <div class="field-label">
+							<p>Password</p>
+						</div> -->
+							<div>
+								<p class="control ">
+									<textarea v-model="reason" v-validate="'required'" type="text" name="reason" class="textarea" placeholder="Reason for Login">
+									</textarea>
+								</p>
+								<div class="help is-danger" v-show="errors.has('reason')">
+									The Reason cannot be Empty.
+								</div>
+							</div>
+					</div>
+
+				</section>
+				<footer class="modal-card-foot">
+					<a class="button is-success" @click="validateAndSubmitReason">Save changes</a>
+				</footer>
+			</div>
+		</div>
+		<!-- modal ends -->
+
+	</div>
+</template>
+
+<script>
+import user from '@/api/user'
+import Auth from '@/packages/auth/Auth'
+
+export default {
+	name: 'reason-modal',
+	props: {
+		email: {
+			required: true
+		},
+		password: {
+			required: true
+		}
+	},
+	created() {
+	},
+	data() {
+		return {
+			reason: ''
+		}
+	},
+	methods: {
+		validateAndSubmitReason() {
+			this.validate()
+			.then(() => {
+				// call api
+				user.loginAdmin(this.email, this.password, this.reason)
+				.then((response) => {
+					// return token
+					this.$bus.$emit('reason-modal', { response: response });
+				})
+				.catch((error) => {
+					console.log(error);
+				})
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+		},
+		validate() {
+			return this.$validator.validateAll();
+		}
+	}
+}
+</script>
+
+<style lang="scss">
+.reason-modal {
+
+}
+</style>

@@ -11,6 +11,14 @@ export default {
     });
   },
 
+  loginAdmin(email, password, reason) {
+    return HTTP.post('/login', {
+      email: email,
+      password: password,
+      reason: reason
+    });
+  },
+
   registerStudent(name, password, code, enroll_no, contact_no, category_id, temp_address,
     perm_address, gender, dob, alternate_email) {
       console.log(contact_no);
@@ -221,6 +229,15 @@ export default {
       return HTTP.post(url, {
         password: password,
         code: code
+      })
+    },
+
+    checkForAdmin(email, password) {
+      // /checkIfAdmin
+      let url = '/checkIfAdmin';
+      return HTTP.post(url, {
+        email: email,
+        password: password
       })
     }
 
