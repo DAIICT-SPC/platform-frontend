@@ -10,11 +10,7 @@
 				</header>
 				<section class="modal-card-body">
 
-					<!-- <div class="field is-horizontal"> -->
 					<div class="">
-						<!-- <div class="field-label">
-							<p>Password</p>
-						</div> -->
 							<div>
 								<p class="control ">
 									<textarea v-model="reason" v-validate="'required'" type="text" name="reason" class="textarea" placeholder="Reason for Login">
@@ -38,16 +34,13 @@
 </template>
 
 <script>
-import user from '@/api/user';
+import admin from '@/api/admin';
 import Auth from '@/packages/auth/Auth';
 
 export default {
 	name: 'reason-modal',
 	props: {
-		email: {
-			required: true
-		},
-		password: {
+		to_user_id: {
 			required: true
 		}
 	},
@@ -55,7 +48,7 @@ export default {
 	},
 	data() {
 		return {
-			reason: ''
+			reason: '',
 		}
 	},
 	methods: {
@@ -63,10 +56,11 @@ export default {
 			this.validate()
 			.then(() => {
 				// call api
-				user.loginAdmin(this.email, this.password, this.reason)
+				admin.loginasReason(this.getUserId(), this.to_user_id, this.reason)
 				.then((response) => {
-					// return token
-					this.$bus.$emit('reason-modal', { response: response });
+					if(response.status == 200) {
+						this.$bus.$emit('reason-modal', {token: response.data.token});
+					}
 				})
 				.catch((error) => {
 					console.log(error);
@@ -78,6 +72,9 @@ export default {
 		},
 		validate() {
 			return this.$validator.validateAll();
+		},
+		getUserId() {
+			return Auth.getUserToken();
 		}
 	}
 }

@@ -42,6 +42,14 @@ export default {
     return HTTP.post(url);
   },
 
+  loginasReason(user_id, to_user_id, reason) {
+    // /users/{user_id}/admin/loginAs/{to_user_id}
+    let url = '/users/' + user_id + '/admin/loginAs/' + to_user_id;
+     return HTTP.post(url, {
+       reason: reason
+     });
+  },
+
   createSeason(title) {
     let url = '/placement_season'
     return HTTP.post(url, {
