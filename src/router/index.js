@@ -56,6 +56,7 @@ import Category from '@/container/Admin/Manage/Category'
 import JobType from '@/container/Admin/Manage/JobType'
 import Education from '@/container/Admin/Manage/Education'
 import AddUsers from '@/container/Admin/Manage/AddUsers'
+import LoginRecords from '@/container/Admin/Manage/LoginRecords'
 
 
 Vue.use(Router)
@@ -509,6 +510,15 @@ let router = new Router({
           path: 'add-users',
           name: 'add-users',
           component: AddUsers,
+          meta: {
+            requiresAuth: true,
+            shouldBeAdmin: true
+          }
+        },
+        {
+          path: 'login-records',
+          name: 'login-records',
+          component: LoginRecords,
           meta: {
             requiresAuth: true,
             shouldBeAdmin: true

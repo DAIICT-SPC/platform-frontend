@@ -328,6 +328,19 @@ export default {
     // /users/{user_id}/admin/getFeedbackList/{placement_id}
     let url = '/users/' + user_id + '/admin/getFeedbackList/' + placement_id;
     return HTTP.get(url);
-  }
+  },
+
+  getLoginRecordsForAdmin(user_id) {
+    // /users/{user_id}/admin/loginRecordsForAdmin
+    let url = '/users/' + user_id + '/admin/loginRecordsForAdmin';
+    return HTTP.get(url);
+  },
+
+  getLoginRecordsForAdmin(user_id) {
+    // /users/{user_id}/admin/loginRecordsForCompany
+    let url = '/users/' + user_id + '/admin/loginRecordsForCompany';
+    return HTTP.get(url);
+  },
+
 
 }

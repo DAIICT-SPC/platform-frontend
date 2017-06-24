@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="new-placement-page">
+  <div class="placement-seasons-drive-admin">
     <div class="container">
       <div class="columns">
         <div class="column is-one-quarter">
@@ -16,7 +16,7 @@
 <script>
 import PlacementDriveSidebar from '@/components/Admin/PlacementDriveSidebar';
 export default {
-  name: '',
+  name: 'placement-seasons-drive-admin',
   components: {
     'placement-sidebar': PlacementDriveSidebar
   },
@@ -26,5 +26,8 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="scss">
+.placement-seasons-drive-admin {
+  
+}
 </style>
