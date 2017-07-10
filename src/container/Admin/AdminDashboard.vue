@@ -11,9 +11,9 @@
 </template>
 
 <script>
-import Auth from '@/packages/auth/Auth'
-import AdminNavbar from '@/components/AdminNavbar'
-import admin from '@/api/admin'
+import Auth from '@/packages/auth/Auth';
+import AdminNavbar from '@/components/AdminNavbar';
+import admin from '@/api/admin';
 
 export default {
   name: 'admin-dashboard',

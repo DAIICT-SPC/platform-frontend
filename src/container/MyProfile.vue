@@ -57,6 +57,7 @@ export default {
     getUserDetails() {
       userApi.getUserDetails(this.getUserId())
       .then((response) => {
+        console.log(response.data);
         this.userMainDetails = response.data;
       })
       .catch((error) => {

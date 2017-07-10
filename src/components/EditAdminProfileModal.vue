@@ -39,7 +39,7 @@
 						</div>
 					</div>
 
-					<div class="field is-horizontal abt-admin">
+					<!-- <div class="field is-horizontal abt-admin">
 						<div class="field-label">
 							<p>Position</p>
 						</div>
@@ -69,7 +69,7 @@
 								</div>
 							</div>
 						</div>
-					</div>
+					</div> -->
 				</section>
 				<footer class="modal-card-foot">
 					<a class="button is-success" @click="validateAndUpdateAdminDetails">Save changes</a>
@@ -83,8 +83,8 @@
 </template>
 
 <script>
-import admin from '@/api/admin'
-import Auth from '@/packages/auth/Auth'
+import admin from '@/api/admin';
+import Auth from '@/packages/auth/Auth';
 
 export default{
 	name: 'admin-edit-modal',
@@ -105,7 +105,7 @@ export default{
 	methods: {
 		validateAndUpdateAdminDetails() {
 			this.validate().then(() => {
-				admin.postUserDetails(this.getUserId(), this.name, this.contact_no, this.position)
+				admin.postUserDetails(this.getUserId(), this.name)
 				.then((response) => {
 					if(response.status == 200) {
 						let toast = this.$toasted.success("Profile Updated", {

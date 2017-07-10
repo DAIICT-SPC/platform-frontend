@@ -18,11 +18,11 @@
 						<div class="field-body">
 							<div>
 								<p class="control ">
-									<textarea v-model="feedbackDescription" v-validate="'required'" type="text" name="feedbackDescription" class="textarea" placeholder="Feedback Description">
+									<textarea v-model="feedbackDescription" v-validate="'required'" type="text" name="Feedback" class="textarea" placeholder="Feedback Description">
 									</textarea>
 								</p>
-								<div class="help is-danger" v-show="errors.has('feedbackDescription')">
-									The Feedback Description cannot be Empty.
+								<div class="help is-danger" v-show="errors.has('Feedback')">
+									{{errors.first('Feedback')}}
 								</div>
 							</div>
 						</div>
@@ -35,10 +35,10 @@
 						<div class="field-body">
 							<div>
 								<p class="control ">
-									<input @keyup.enter="validateAndGiveFeedback" v-model="rating" v-validate="'required'" type="number" name="rating" class="input" placeholder="*****">
+									<input @keyup.enter="validateAndGiveFeedback" v-model="Rating" v-validate="'required|max_value:10'" type="number" name="Rating" class="input" placeholder="*****">
 								</p>
-								<div class="help is-danger" v-show="errors.has('rating')">
-									The Ratings cannot be Null.
+								<div class="help is-danger" v-show="errors.has('Rating')">
+									{{errors.first('Rating')}}
 								</div>
 							</div>
 						</div>

@@ -35,32 +35,6 @@
 						</div>
 					</div>
 
-					<div class="field is-horizontal abt-admin">
-						<div class="field-label">
-							<p>Position</p>
-						</div>
-						<div class="field-body">
-							<div>
-								<p class="control ">
-									{{ adminDetails.position }}
-								</p>
-							</div>
-						</div>
-					</div>
-
-					<div class="field is-horizontal abt-admin">
-						<div class="field-label">
-							<p>Contact No</p>
-						</div>
-						<div class="field-body">
-							<div>
-								<p class="control ">
-									{{ adminDetails.contact_no }}
-								</p>
-							</div>
-						</div>
-					</div>
-
 					<modal :adminDetails="adminDetails" v-if="showModal" @close="showModal = false"></modal>
 
 					<div class="field is-grouped">

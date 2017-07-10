@@ -95,12 +95,12 @@
 </template>
 
 <script>
-import PlacementRoundDetail from '@/components/PlacementRoundDetail'
+import PlacementRoundDetail from '@/components/PlacementRoundDetail';
 import FeedBackModal from '@/components/Student/FeedBackModal';
 import placement from '@/api/placement'
 // import education from '@/api/education'
-import user from '@/api/user'
-import Auth from '@/packages/auth/Auth'
+import user from '@/api/user';
+import Auth from '@/packages/auth/Auth';
 
 export default {
   name: 'student-placement-page',
@@ -154,6 +154,7 @@ export default {
     checksEligibility() {
       user.checksEligibility(this.getUserId(), this.placement_id)
       .then((response) => {
+        console.log(response.data);
         if(response.data.status == 'eligible') {
           this.eligible = true;
         }

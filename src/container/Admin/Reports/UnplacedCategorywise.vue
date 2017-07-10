@@ -82,7 +82,6 @@ export default {
 		getStudentsUnplacedCategoryWise() {
 			admin.getStudentsUnplacedCategoryWise(this.getUserId(), this.season_id, this.category_id)
 			.then((response) => {
-				console.log(response);
 				if(response.data == 'No Student got Offer!') {
 					this.showData = false;
 				}

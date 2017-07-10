@@ -94,7 +94,7 @@ export default {
       })
     },
     getCompanyRecords() {
-      admin.getLoginRecordsForAdmin(this.getUserId())
+      admin.getLoginRecordsForCompany(this.getUserId())
       .then((response) => {
         this.company = response.data;
       })

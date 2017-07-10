@@ -35,7 +35,7 @@
 						<div class="field-body">
 							<div>
 								<p class="control ">
-									<input disabled v-model="student_name = studentDetails.name" v-validate="'required'" type="text" name="student_name" class="input">
+									<input v-model="student_name = studentDetails.name" v-validate="'required'" type="text" name="student_name" class="input">
 								</p>
 								<div class="help is-danger" v-show="errors.has('student_name')">
 									{{errors.first('student_name')}}
@@ -162,10 +162,10 @@
 </template>
 
 <script>
-import user from '@/api/user'
-import Auth from '@/packages/auth/Auth'
-import Datepicker from 'vue-bulma-datepicker'
-import CategoryDropdown from '@/components/CategoryDropdown'
+import user from '@/api/user';
+import Auth from '@/packages/auth/Auth';
+import Datepicker from 'vue-bulma-datepicker';
+import CategoryDropdown from '@/components/CategoryDropdown';
 
 export default{
 	name: 'student-edit-modal',
@@ -218,7 +218,7 @@ export default{
 					console.log(error);
 				})
 				// send other details here
-				user.postUserDetails(this.getUserId(), this.student_id, this.category,
+				user.postUserDetails(this.getUserId(), this.student_id, this.student_name, this.category,
 				this.temp_address, this.perm_address, this.contact_no, this.dob, this.gender)
 				.then((response) => {
 					if(response.status == 200) {

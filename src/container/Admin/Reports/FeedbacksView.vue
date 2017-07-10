@@ -133,7 +133,6 @@ export default{
 		getFeedbackByPlacementId() {
 			admin.getFeedbackByPlacementId(this.getUserId(), this.placement_id)
 			.then((response) => {
-				console.log(response.data);
 				if(response.data == "No Feedback") {
 					this.noFeedback = true;
 				}

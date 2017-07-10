@@ -90,7 +90,6 @@ export default {
 		getStudentsPlacedCategorywise() {
 			admin.getStudentsPlacedCategorywise(this.getUserId(), this.season_id, this.category_id)
 			.then((response) => {
-				console.log(response.data);
 				if(response.data == 'No Student got Offer!') {
 					this.showData = false;
 				}

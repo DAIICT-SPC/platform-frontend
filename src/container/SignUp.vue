@@ -339,12 +339,12 @@
 </template>
 
 <script>
-import activation from '@/api/activation'
-import Datepicker from 'vue-bulma-datepicker'
-import Auth from '@/packages/auth/Auth'
-import CategoryDropdown from '@/components/CategoryDropdown'
-import user from '@/api/user'
-import jwtDecode from 'jwt-decode'
+import activation from '@/api/activation';
+import Datepicker from 'vue-bulma-datepicker';
+import Auth from '@/packages/auth/Auth';
+import CategoryDropdown from '@/components/CategoryDropdown';
+import user from '@/api/user';
+import jwtDecode from 'jwt-decode';
 
 export default {
   name: 'signup',

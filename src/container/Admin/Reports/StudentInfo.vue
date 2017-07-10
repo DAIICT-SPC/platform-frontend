@@ -117,7 +117,7 @@
 </div>
 
 <div v-if="!showData && !noData && !showFailedData" class="no-data">
-  <h3 class="title">Sorry No Student Data Exists</h3>
+  <h3 class="title">Sorry No Student Data Exists.</h3>
 </div>
 <div v-if="noData" class="no-data">
 </div>
@@ -155,6 +155,7 @@ export default {
       .then(() => {
         admin.getStudentWiseReport(this.getUserId(), this.season_id, this.student_enroll)
         .then((response) => {
+          console.log(response.data);
           // no data to display
           if(response.data.length == 0) {
             this.showData = false;
@@ -249,6 +250,7 @@ export default {
   }
 
   .no-data {
+    padding: 1rem;
   }
 }
 </style>

@@ -21,9 +21,7 @@ export default {
 
   registerStudent(name, password, code, enroll_no, contact_no, category_id, temp_address,
     perm_address, gender, dob, alternate_email) {
-      console.log(contact_no);
-    // console.log(name+" - "+ password+" - "+ code+" - "+ enroll_no+" - "+ contact_no+" - "+ category_id+" - "+ temp_address+" - "+
-    //   perm_address+" - "+ gender+" - "+ dob+" - "+ alternate_email);
+    console.log("api" + contact_no);
     return HTTP.post('/users/registerUser', {
       name: name,
       password: password,
@@ -61,12 +59,13 @@ export default {
       return HTTP.get(url);
     },
 
-    postUserDetails(id, enroll_no, category_id, temp_address, perm_address, contact_no, dob, gender) {
+    postUserDetails(id, enroll_no, name, category_id, temp_address, perm_address, contact_no, dob, gender) {
       // /users/2/student/update
       // 4 enroll 1 temp perm contact dob gender
       let url = '/users/' + id + '/student/update'
       return HTTP.patch(url , {
-        enroll_no, enroll_no,
+        enroll_no: enroll_no,
+        name: name,
         category_id: category_id,
         temp_address: temp_address,
         perm_address: perm_address,
@@ -86,17 +85,17 @@ export default {
 
     postUserPersonalPassword(id, password) {
       // /users/2/student/updatePersonal
-      let url = '/users/' + id + '/student/updatePersonal'
+      let url = '/users/' + id + '/student/updatePersonal';
       return HTTP.patch(url, {
         password: password
       });
     },
 
-    postUserPersonalAltEmail(id, name) {
+    postUserPersonalAltEmail(id, alternate_email) {
       // /users/2/student/updatePersonal
-      let url = '/users/' + id + '/student/updatePersonal'
+      let url = '/users/' + id + '/student/updatePersonal';
       return HTTP.patch(url, {
-        name: name
+        alternate_email: alternate_email
       });
     },
 

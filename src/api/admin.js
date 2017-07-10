@@ -20,12 +20,10 @@ export default {
     return HTTP.get(url);
   },
 
-  postUserDetails(id, name, contact_no, position) {
+  postUserDetails(id, name) {
     let url = '/users/' + id + '/admin/update'
     return HTTP.patch(url, {
-      name: name,
-      contact_no: contact_no,
-      position: position
+      name: name
     });
   },
 
@@ -336,7 +334,7 @@ export default {
     return HTTP.get(url);
   },
 
-  getLoginRecordsForAdmin(user_id) {
+  getLoginRecordsForCompany(user_id) {
     // /users/{user_id}/admin/loginRecordsForCompany
     let url = '/users/' + user_id + '/admin/loginRecordsForCompany';
     return HTTP.get(url);
