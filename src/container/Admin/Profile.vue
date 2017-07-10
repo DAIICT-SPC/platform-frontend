@@ -51,9 +51,9 @@
 </template>
 
 <script>
-import EditAdminProfileModal from '@/components/EditAdminProfileModal';
-import Auth from '@/packages/auth/Auth';
 import admin from '@/api/admin';
+import Auth from '@/packages/auth/Auth';
+import EditAdminProfileModal from '@/components/EditAdminProfileModal';
 
 export default{
 	name: 'admin-profile-page',

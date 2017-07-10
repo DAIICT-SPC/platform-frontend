@@ -81,6 +81,22 @@
 
 						<div class="field is-horizontal">
 							<div class="field-label">
+								<p>ALternate Email</p>
+							</div>
+							<div class="field-body">
+								<div>
+									<p class="control ">
+										<input v-validate="'required|email'" v-model="alternate_email" type="text" name="alternate_email" class="input">
+									</p>
+									<div class="help is-danger" v-show="errors.has('alternate_email')">
+										{{errors.first('alternate_email')}}
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="field is-horizontal">
+							<div class="field-label">
 								<p>Company Description</p>
 							</div>
 							<div class="field-body">
@@ -148,6 +164,7 @@ export default{
 			address: '',
 			contact_person: '',
 			contact_no: null,
+			alternate_email: '',
 			company_expertise: '',
 			company_url: ''
 		}
@@ -155,15 +172,21 @@ export default{
 	methods: {
 		validateAndUpdateCompanyDetails() {
 			this.$validator.validateAll().then(() => {
-				company.postUserDetails(this.getUserId(), this.company_name, this.address,
+				company.postUserDetails(this.getUserId(), this.contact_person, this.company_name, this.address,
 				this.contact_no, this.company_expertise, this.company_url)
 				.then((response) => {
-					let toast = this.$toasted.success("Details Updated", {
-            theme: "outline",
-            position: "top-center",
-            duration : 3000
-          });
-					this.$bus.$emit('close-edit-modal');
+					company.patchCompanyAltEmail(this.getUserId(), this.alternate_email)
+					.then((response) => {
+						let toast = this.$toasted.success("Details Updated", {
+							theme: "outline",
+							position: "top-center",
+							duration : 3000
+						});
+						this.$bus.$emit('close-edit-modal');
+					})
+					.catch((error) => {
+						console.log(error);
+					})
 				})
 				.catch((error) => {
 					console.log(error);

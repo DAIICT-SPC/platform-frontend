@@ -61,6 +61,19 @@
 
           <div class="field is-horizontal">
             <div class="field-label">
+              <p>Alternate Email</p>
+            </div>
+            <div class="field-body">
+              <div>
+                <p class="control ">
+                  Alternate Email
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="field is-horizontal">
+            <div class="field-label">
               <p>Company Description</p>
             </div>
             <div class="field-body">
@@ -100,9 +113,9 @@
 </template>
 
 <script>
-import CompanyModal from '@/components/Company/EditCompanyProfileModal'
-import Auth from '@/packages/auth/Auth'
-import company from '@/api/company'
+import company from '@/api/company';
+import Auth from '@/packages/auth/Auth';
+import CompanyModal from '@/components/Company/EditCompanyProfileModal';
 
 export default {
   name: 'myprofile-page',

@@ -8,9 +8,10 @@
 </template>
 
 <script>
-import Auth from '@/packages/auth/Auth'
-import CompanyNavbar from '@/components/Company/CompanyNavbar'
-import company from '@/api/company'
+import company from '@/api/company';
+import Auth from '@/packages/auth/Auth';
+import CompanyNavbar from '@/components/Company/CompanyNavbar';
+
 export default {
   name: 'company-dashboard-page',
   components: {

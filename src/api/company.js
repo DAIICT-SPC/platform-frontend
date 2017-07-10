@@ -8,10 +8,11 @@ export default {
     return HTTP.get(url);
   },
 
-  postUserDetails(user_id, company_name, address,
+  postUserDetails(user_id, name, company_name, address,
     contact_no, company_expertise, company_url) {
       let url = '/users/' + user_id + '/company/update'
       return HTTP.patch(url, {
+        name: name,
         company_name: company_name,
         address: address,
         contact_no: contact_no,
@@ -27,6 +28,13 @@ export default {
           password: password
         });
       },
+
+      patchCompanyAltEmail(user_id, alternate_email) {
+          let url = '/users/' + user_id + '/company/updatePersonal'
+          return HTTP.patch(url, {
+            alternate_email: alternate_email
+          });
+        },
 
     getCompanyDashboard(user_id) {
       // /users / {user_id} / company /placementPrimaryAll
