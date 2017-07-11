@@ -43,7 +43,7 @@
 </div>
 <a @click="hidden=true" v-if="!hidden">Hide Info</a>
 <br />
-<a class="is-danger" @click="deleteSelectionRound">Delete</a>
+<a class="is-danger" @click="askDeleteSelectionRound">Delete</a>
 
 </div>
 </template>
@@ -74,6 +74,20 @@ export default {
     };
   },
   methods: {
+    askDeleteSelectionRound() {
+      this.swal({
+        // title: 'Are you sure?',
+        text: "Delete the Round?",
+        // type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#428aff',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes',
+        allowOutsideClick: true
+      }).then(() => {
+        this.deleteSelectionRound();
+      })
+    },
     updateRoundDetails() {
       company.patchRoundDetails(this.getUserId(), this.placement_id, this.round_no,
       this.round_name, this.round_description)

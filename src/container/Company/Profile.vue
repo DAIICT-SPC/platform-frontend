@@ -2,7 +2,9 @@
   <div class="myprofile-page">
     <div class="container">
       <div class="box company-profile">
-        <h2 class="title header">Overview</h2>
+        <div class="profile-head">
+          <h2 class="title header">Overview</h2>
+        </div>
 
         <!-- form data starts -->
         <div class="form">
@@ -85,7 +87,7 @@
             </div>
           </div>
 
-          <div class="field is-horizontal">
+          <div class="field is-horizontal last">
             <div class="field-label">
               <p>Company URL</p>
             </div>
@@ -103,7 +105,9 @@
         <modal :companyDetails="companyDetails" v-if="showModal" @close="showModal = false"></modal>
         <!-- modal ends -->
 
-        <button @click="showModal = true" class="button is-success edit-btn">Edit Details</button>
+        <div class="profile-bottom">
+          <button @click="showModal = true" class="button is-success edit-btn">Edit Details</button>
+        </div>
 
       </div>
     </div>
@@ -151,11 +155,15 @@ export default {
 <style lang="scss">
 .myprofile-page
 {
-  .container{
+  .container {
     padding: 2rem;
   }
 
-  .company-profile{
+  .profile-head {
+    border-bottom: solid 1px #ddd;
+  }
+
+  .company-profile {
     margin-top: 2rem;
     padding: 0;
     border-radius: 0.5rem;
@@ -165,7 +173,7 @@ export default {
     margin: auto;
   }
 
-  .title{
+  .title {
     padding: 1rem;
     margin: 0;
 
@@ -176,22 +184,29 @@ export default {
     padding-bottom: 0;
   }
 
-  .field
-  {
+  .field {
     border-bottom: solid 1px #ddd;
     margin-bottom: 1rem;
     padding-bottom: 1rem;
-
-    .field-label
-    {
+    .field-label {
       text-align: left;
       font-weight: bold;
     }
   }
 
-  .edit-btn{
+  .field:last-child {
+    border-bottom: none;
+    margin: 0;
+   }
+
+  .edit-btn {
     margin: 1rem;
     margin-top: 0;
+  }
+
+  .profile-bottom {
+    padding-top: 1rem;
+    border-top: solid 1px #ddd;
   }
 }
 </style>

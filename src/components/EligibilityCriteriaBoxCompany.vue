@@ -21,10 +21,10 @@
           </div>
           <div class="field register-button">
             <p class="has-text-centered">
-              <button @click="updateCriteria(cr.education_id, cr.category_id, cr.cpi_required)" name="student" class="button is-success submit-button">
+              <button @click="updateCriteria(cr.education_id, cr.category_id, cr.cpi_required)" class="button is-success submit-button">
                 Submit
               </button>
-              <button @click="deleteCriteria1(cr.education_id, cr.category_id)" name="student" class="button is-danger delete-button">
+              <button @click="askDeleteCriteria(cr.education_id, cr.category_id)" class="button is-danger delete-button">
                 Delete
               </button>
             </p>
@@ -56,6 +56,20 @@ export default {
     this.placement_id = this.$route.params.placement_id;
   },
   methods: {
+    askDeleteCriteria(edid, catid) {
+      this.swal({
+        // title: 'Are you sure?',
+        text: "Delete the Criteria?",
+        // type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#428aff',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes',
+        allowOutsideClick: true
+      }).then(() => {
+        this.deleteCriteria1(edid, catid);
+      })
+    },
     updateCriteria(education_id, category_id, cpi_required) {
       company.patchUpdateEligibilityCriteria(this.getUserId(), this.placement_id, education_id, category_id, cpi_required)
       .then((response) => {

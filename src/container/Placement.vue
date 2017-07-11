@@ -84,7 +84,7 @@
         </div>
 
       </div>
-      <div>
+      <div v-if="eligible">
         <a @click="isFeedbackGiven" class="button"><i class="fa fa-comments" aria-hidden="true"></i> &nbsp; Feedback</a>
       </div>
     </div>
@@ -153,17 +153,23 @@ export default {
     checksEligibility() {
       user.checksEligibility(this.getUserId(), this.placement_id)
       .then((response) => {
-        console.log(response.data);
+        console.log(response);
         if(response.data.status == 'eligible') {
           this.eligible = true;
         }
-        else {
+        else if (response.data.status == 'applied') {
+          this.eligible = true;
+          this.applyKey = 1;
+        }
+        else if (response.data.status == 'ineligible'){
           this.eligible = false;
+          this.alertIneligibility();
         }
       })
       .catch((error) => {
         if(error.response.data.status == 'ineligible') {
           this.eligible = false;
+          this.alertIneligibility();
         }
         else {
           this.eligible = true;
@@ -252,6 +258,20 @@ export default {
       })
       .catch((error) => {
         console.log(error);
+      })
+    },
+    alertIneligibility() {
+      this.swal({
+        // title: 'Are you sure?',
+        text: "Sorry, you are not Eligible to Register for the Process",
+        // type: 'warning',
+        confirmButtonColor: '#428aff',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'OK',
+        allowOutsideClick: true,
+        timer: 3000
+      })
+      .then(() => {
       })
     }
   }

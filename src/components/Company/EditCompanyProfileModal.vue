@@ -1,5 +1,5 @@
 <template>
-	<div class="company-modal">
+	<div class="edit-company-modal">
 
 		<!-- company modal starts -->
 		<div class="modal is-active">
@@ -81,7 +81,7 @@
 
 						<div class="field is-horizontal">
 							<div class="field-label">
-								<p>ALternate Email</p>
+								<p>Alternate Email</p>
 							</div>
 							<div class="field-body">
 								<div>
@@ -100,14 +100,13 @@
 								<p>Company Description</p>
 							</div>
 							<div class="field-body">
-								<div>
-									<p class="control ">
-										<textarea v-validate="'required'" v-model="company_expertise = companyDetails.company_expertise" type="text" name="companyDescription" class="input">
+									<p class="control">
+										<textarea rows="5" cols='23' v-validate="'required'" type="text" name="companyDescription"
+										v-model="company_expertise = companyDetails.company_expertise" class="input">
 										</textarea>
 									</p>
 									<div class="help is-danger" v-show="errors.has('companyDescription')">
 										{{errors.first('companyDescription')}}
-									</div>
 								</div>
 							</div>
 						</div>
@@ -151,7 +150,7 @@ import Auth from '@/packages/auth/Auth';
 import company from '@/api/company';
 
 export default{
-	name: 'company-modal',
+	name: 'edit-company-modal',
 	props: {
 		companyDetails: {
 			required: true,
@@ -204,5 +203,9 @@ export default{
 </script>
 
 <style lang="scss">
-
+.edit-company-modal {
+	textarea {
+		height: auto;
+	}
+}
 </style>

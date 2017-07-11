@@ -30,8 +30,7 @@
             <footer class="card-footer">
               <router-link :to="{ name: 'draft-placement-details', params: { placement_id: drafts.placement_id } }"
               class="card-footer-item"> Edit </router-link>
-              <a @click="askModal = true" class="card-footer-item"> Start </a>
-              <AskModal :message="message" v-if="askModal" @close="askModal = false"></AskModal>
+              <a @click="alert" class="card-footer-item"> Start </a>
             </footer>
           </div>
         </div>
@@ -49,13 +48,9 @@
 <script>
 import company from '@/api/company';
 import Auth from '@/packages/auth/Auth';
-import AskModal from '@/components/AskModal';
 
 export default {
   name: 'view-all-placement',
-  components: {
-    AskModal
-  },
   created() {
     this.getDraftPlacements();
 
@@ -74,6 +69,20 @@ export default {
     };
   },
   methods: {
+    alert() {
+      this.swal({
+        // title: 'Are you sure?',
+        text: "Start the Placement Drive?",
+        // type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#428aff',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes',
+        allowOutsideClick: true
+      }).then(() => {
+        this.startPlacement();
+      })
+    },
     getDraftPlacements() {
       company.getDraftPlacements(this.getUserId())
       .then((response) => {

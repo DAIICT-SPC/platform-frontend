@@ -10,8 +10,7 @@
         </div>
         <div class="header-action start-but">
           <span class="tag">{{placementDescription.job_type.job_type}}</span><br>
-          <a class="button is-primary start-btn" @click="askModal = true">Start</a>
-          <AskModal :message="message" v-if="askModal" @close="askModal = false"></AskModal>
+          <a class="button is-primary start-btn" @click="alert">Start</a>
         </div>
       </div>
 
@@ -48,7 +47,7 @@
                 <div class="card-header-title"> {{ categories.name }} </div>
                 <div class="header-action top-add-delete">
                   <input type="hidden" v-model="category_id = categories.id">
-                  <a class="button is-white delete-btn" @click="delOpenFor(categories.id)">
+                  <a @click="askCatDelete(categories.id)" class="button is-white delete-btn">
                     Delete </a>
                     <a class="button is-white" @click="showAddEligibilityCriteria = true">Add</a>
                     <AddEligibilityCriteria @close="showAddEligibilityCriteria = false" v-if="showAddEligibilityCriteria"
@@ -135,7 +134,6 @@ import EligibilityCriteriaBoxCompany from '@/components/EligibilityCriteriaBoxCo
 import AddEligibilityCriteria from '@/components/Company/AddEligibilityCriteria';
 import AddSelectionRound from '@/components/Company/AddSelectionRound';
 import EditSelectionRounds from '@/components/Company/EditSelectionRounds';
-import AskModal from '@/components/AskModal';
 // import DraftEligibilityCriteriaModal from '@/components/Company/DraftEligibilityCriteriaModal';
 
 export default {
@@ -147,7 +145,6 @@ export default {
     AddEligibilityCriteria,
     'add-selection-round': AddSelectionRound,
     'edit-selection-roundBox': EditSelectionRounds,
-    AskModal
     // 'category-education-modal': DraftEligibilityCriteriaModal,
   },
   data() {
@@ -201,68 +198,94 @@ export default {
     this.$bus.$on('edit-selection-roundbox', () => {
       this.getDetails();
     })
-    this.$bus.$on('yes', () => {
-      this.startPlacement();
-    })
+
   },
 
   methods: {
-  getDetails() {
-    company.getPlacementDetails(this.getUserId(), this.placement_id)
-    .then((response) => {
-      this.lastDateRegistration = response.data.last_date_for_registration;
-      this.placementDescription = response.data;
-    })
-    .catch((error) => {
-      console.log(error.message);
-    });
-  },
-  getEducation() {
-    company.getEducationForPlacementCriteria(this.getUserId(), this.placement_id, this.category_id)
-    .then((response) => {
-      // console.log(response);
-    })
-    .catch((error) => {
-      console.log(error);
-    })
-  },
-  getUserId() {
-    return Auth.getUserToken();
-  },
-  delOpenFor(category_id) {
-    company.deleteOpenFor(this.getUserId(), this.placement_id, category_id)
-    .then((response) => {
-      if(response.status == 204) {
-        let toast = this.$toasted.error("Criteria Deleted", {
+    alert() {
+      this.swal({
+        // title: 'Are you sure?',
+        text: "Start the Placement Drive?",
+        // type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#428aff',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes',
+        allowOutsideClick: true
+      }).then(() => {
+        this.startPlacement();
+      })
+    },
+    askCatDelete(id) {
+        this.swal({
+          // title: 'Are you sure?',
+          text: "Delete the Category?",
+          // type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#428aff',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes',
+          allowOutsideClick: true
+        }).then(() => {
+          this.delOpenFor(id);
+        })
+    },
+    getDetails() {
+      company.getPlacementDetails(this.getUserId(), this.placement_id)
+      .then((response) => {
+        this.lastDateRegistration = response.data.last_date_for_registration;
+        this.placementDescription = response.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+    },
+    getEducation() {
+      company.getEducationForPlacementCriteria(this.getUserId(), this.placement_id, this.category_id)
+      .then((response) => {
+        // console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    },
+    getUserId() {
+      return Auth.getUserToken();
+    },
+    delOpenFor(category_id) {
+      company.deleteOpenFor(this.getUserId(), this.placement_id, category_id)
+      .then((response) => {
+        if(response.status == 204) {
+          let toast = this.$toasted.error("Category Deleted", {
+            theme: "outline",
+            position: "top-center",
+            duration : 3000
+          });
+          this.getDetails();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    },
+    startPlacement() {
+      company.startPlacement(this.getUserId(), this.placement_id)
+      .then((response) => {
+        let toast = this.$toasted.success("Placement Drive has been Initiated.", {
           theme: "outline",
           position: "top-center",
           duration : 3000
         });
-        this.getDetails();
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    })
-  },
-  startPlacement() {
-    company.startPlacement(this.getUserId(), this.placement_id)
-    .then((response) => {
-      let toast = this.$toasted.success("Placement Drive has been Initiated.", {
-        theme: "outline",
-        position: "top-center",
-        duration : 3000
-      });
-      this.goToHome();
-    })
-    .catch((error) => {
-      console.log(error);
-    })
-  },
-  goToHome() {
-    this.$router.push({name: 'company-home'})
-  },
-}
+        this.goToHome();
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    },
+    goToHome() {
+      this.$router.push({name: 'company-home'})
+    },
+  }
 }
 </script>
 
