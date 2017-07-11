@@ -95,12 +95,11 @@
 </template>
 
 <script>
+import user from '@/api/user';
+import placement from '@/api/placement';
+import Auth from '@/packages/auth/Auth';
 import PlacementRoundDetail from '@/components/PlacementRoundDetail';
 import FeedBackModal from '@/components/Student/FeedBackModal';
-import placement from '@/api/placement'
-// import education from '@/api/education'
-import user from '@/api/user';
-import Auth from '@/packages/auth/Auth';
 
 export default {
   name: 'student-placement-page',

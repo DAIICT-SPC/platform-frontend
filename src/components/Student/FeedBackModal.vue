@@ -6,7 +6,7 @@
 			<div class="modal-background"></div>
 			<div class="modal-card">
 				<header class="modal-card-head">
-					<p class="modal-card-title">Change Password</p>
+					<p class="modal-card-title">Feedback</p>
 					<button class="delete" @click="$emit('close')"></button>
 				</header>
 				<section class="modal-card-body">
@@ -18,7 +18,7 @@
 						<div class="field-body">
 							<div>
 								<p class="control ">
-									<textarea v-model="feedbackDescription" v-validate="'required'" type="text" name="Feedback" class="textarea" placeholder="Feedback Description">
+									<textarea cols="50" v-model="feedbackDescription" v-validate="'required'" type="text" name="Feedback" class="textarea" placeholder="Feedback Description">
 									</textarea>
 								</p>
 								<div class="help is-danger" v-show="errors.has('Feedback')">
@@ -35,7 +35,8 @@
 						<div class="field-body">
 							<div>
 								<p class="control ">
-									<input @keyup.enter="validateAndGiveFeedback" v-model="Rating" v-validate="'required|max_value:10'" type="number" name="Rating" class="input" placeholder="*****">
+									<StarRating v-model="rating" :max-rating="5" :star-size="50"></StarRating>
+									<!-- <input @keyup.enter="validateAndGiveFeedback" v-model="Rating" v-validate="'required|max_value:10'" type="number" name="Rating" class="input" placeholder="*****"> -->
 								</p>
 								<div class="help is-danger" v-show="errors.has('Rating')">
 									{{errors.first('Rating')}}
@@ -60,9 +61,13 @@
 <script>
 import user from '@/api/user';
 import Auth from '@/packages/auth/Auth';
+import StarRating from 'vue-star-rating';
 
 export default{
 	name: 'feedback-modal',
+	components: {
+		StarRating
+	},
 	created() {
 		this.placement_id = this.$route.params.placement_id;
 	},
@@ -75,6 +80,7 @@ export default{
 	},
 	methods: {
 		validateAndGiveFeedback() {
+			console.log(this.rating);
 			this.$validator.validateAll()
 			.then(() => {
 				// call api
@@ -83,10 +89,10 @@ export default{
 					if(response.status == 200) {
 						// notification feedback given successfully
 						let toast = this.$toasted.success("Feedback Sent Successfully.", {
-	            theme: "outline",
-	            position: "top-center",
-	            duration : 3000
-	          });
+							theme: "outline",
+							position: "top-center",
+							duration : 3000
+						});
 						this.$bus.$emit('feedback-done');
 					}
 				})
@@ -99,11 +105,11 @@ export default{
 			})
 		},
 		validate() {
-      return this.$validator.validateAll();
-    },
-    getUserId() {
-      return Auth.getUserToken();
-    },
+			return this.$validator.validateAll();
+		},
+		getUserId() {
+			return Auth.getUserToken();
+		},
 	}
 }
 </script>

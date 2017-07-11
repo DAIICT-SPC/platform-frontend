@@ -156,7 +156,16 @@ export default {
         }
       })
       .catch((error) => {
-        console.log(error);
+        if(error.response.status == 500) {
+          let toast = this.$toasted.error(error.response.statusText + ". Please try after sometime.", {
+            theme: "outline",
+            position: "bottom-center",
+            duration : 3000
+          });
+        }
+        else {
+          console.log(error);
+        }
       })
     },
 

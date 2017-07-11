@@ -115,7 +115,7 @@ export default {
       showVenue: false,
       hide: "Hide",
       show: "Edit",
-      showDesc: false
+      showDesc: false,
     }
   },
   created() {
@@ -125,7 +125,7 @@ export default {
     });
     // feedback-done
     this.$bus.$on('feedback-done', () => {
-      this.showDesc = false;
+      this.showFeedbackModal = false;
     });
     company.getPlacementDetails(this.getUserId(), this.placement_id)
     .then((response) => {

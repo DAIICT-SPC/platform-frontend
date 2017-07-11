@@ -6,7 +6,7 @@
 			<div class="modal-background"></div>
 			<div class="modal-card">
 				<header class="modal-card-head">
-					<p class="modal-card-title">Change Password</p>
+					<p class="modal-card-title">Feedback</p>
 					<button class="delete" @click="$emit('close')"></button>
 				</header>
 				<section class="modal-card-body">
@@ -18,7 +18,7 @@
 						<div class="field-body">
 							<div>
 								<p class="control ">
-									<textarea v-model="feedbackDescription" v-validate="'required|max_value:10'" type="text" name="Feedback" class="textarea" placeholder="Feedback Description">
+									<textarea cols="50" v-model="feedbackDescription" v-validate="'required'" type="text" name="Feedback" class="textarea" placeholder="Feedback Description">
 									</textarea>
 								</p>
 								<div class="help is-danger" v-show="errors.has('Feedback')">
@@ -34,8 +34,8 @@
 						</div>
 						<div class="field-body">
 							<div>
-								<p class="control ">
-									<input v-model="rating" v-validate="'required'" type="number" name="Rating" class="input" placeholder="*****">
+								<p class="control">
+									<StarRating v-model="rating" :max-rating="5" :star-size="50"></StarRating>
 								</p>
 								<div class="help is-danger" v-show="errors.has('Rating')">
 									{{errors.first('Rating')}}
@@ -60,9 +60,13 @@
 <script>
 import company from '@/api/company';
 import Auth from '@/packages/auth/Auth';
+import StarRating from 'vue-star-rating';
 
 export default{
 	name: 'company-feedback-modal',
+	components: {
+		StarRating
+	},
 	created() {
 		this.placement_id = this.$route.params.placement_id;
 	},

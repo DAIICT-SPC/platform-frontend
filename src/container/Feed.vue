@@ -8,31 +8,33 @@
           <div class="media media-card">
             <!-- {{ placement_id = feed.placement_id }} -->
             <!-- <router-link :to="{ name: 'view-job-profile', params: { id: feed.placement_id } }" > -->
-              <figure class="media-left">
-                <p class="image is-64x64">
-                  <img src="../../images/daiict.jpg">
+            <figure class="media-left">
+              <p class="image is-64x64">
+                <img src="../../images/daiict.jpg">
+              </p>
+            </figure>
+            <div class="media-content" >
+              <div class="content">
+                <div>
+                  <strong>Placement cycle {{ feed.placement_season.title }}</strong>
+                  <span v-if="feed.status == 'application'" class="is-pulled-right tag is-success">{{ feed.status }}</span>
+                  <span v-if="feed.status == 'closed'" class="is-pulled-right tag is-light">{{feed.status}}</span>
+                </div>
+                <small>{{ feed.created_at }}</small> <br>
+                <p class="p-content"><b>Job Title: </b>{{ feed.job_title }}
+                  <br>
+                  <b>Job Description: </b>{{ feed.job_description }}
                 </p>
-              </figure>
-              <div class="media-content" >
-                <div class="content">
+                <div class="placement-courses">
                   <div>
-                    <strong>Placement cycle {{ feed.placement_season.title }}</strong>
-                    <span v-if="feed.status == 'application'" class="is-pulled-right tag is-success">{{ feed.status }}</span>
-                    <span v-if="feed.status == 'closed'" class="is-pulled-right tag is-light">{{feed.status}}</span>
+                    <span class="tag is-info" v-for="cat in feed.categories">{{ cat.name }}</span>
                   </div>
-                  <small>{{ feed.created_at }}</small> <br>
-                  <p class="p-content"><b>Job Title: </b>{{ feed.job_title }}
-                    <br>
-                    <b>Job Description: </b>{{ feed.job_description }}
-                  </p>
-                    <div class="placement-courses">
-                      <span class="tag is-info" v-for="cat in feed.categories">{{ cat.name }}</span>
-                      <router-link :to="{ name: 'view-job-profile',
-                      params: { placement_id: feed.placement_id } }" >
-                        <span class="tag is-light is-pulled-right">Click here for more details...</span></router-link>
-                    </div>
+                  <router-link :to="{ name: 'view-job-profile',
+                  params: { placement_id: feed.placement_id } }" >
+                  <span class="button">Click here for more details...</span></router-link>
                 </div>
               </div>
+            </div>
             <!-- </router-link> -->
           </div>
         </div>
@@ -130,8 +132,13 @@ export default {
     margin-top: 15px;
   }
 
-  .placement-courses .tag {
-    margin: 0.1rem;
+  .placement-courses{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .tag {
+      margin: 0.1rem;
+    }
   }
 }
 

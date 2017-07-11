@@ -36,19 +36,20 @@
         <div class="field">
           <label class="label">Last Date of Registration</label>
           <p class="control is-fullwidth">
-            <datepicker v-validate="'required'" placeholder="Date" :config="{ dateFormat: 'Y-m-d', static: true }"
+            <datepicker placeholder="Date"
+            :config="{ dateFormat: 'Y-m-d H:i', enableTime: true }"
             v-model="placementDrive.lastDateofRegistration" name="date"></datepicker>
           </p>
           <div v-show="errors.has('date')" class="help is-danger">
             The Last Date of Registration is a required field.
           </div>
         </div>
-        <div class="field time">
+        <!-- <div class="field time">
           <label class="label">Time</label>
           <p class="control">
             <input v-model="placementDrive.time" type="time" name="time" class="input" placeholder="Enter Time">
           </p>
-        </div>
+        </div> -->
       </div>
 
       <div class="field">
@@ -178,7 +179,7 @@ export default {
       return this.$validator.validateAll();
     },
     saveAndSendPlacementDetails() {
-      this.dateTime = this.placementDrive.lastDateofRegistration + " " + this.placementDrive.time + ':00';
+      this.dateTime = this.placementDrive.lastDateofRegistration + ':00';
       company.placementPrimary(this.getUserId(), this.placementDrive.jobTitle, this.placementDrive.jobProfileDescription,
       this.dateTime, this.placementDrive.loaction, this.placementDrive.noOfStudents,
       this.placementDrive.package, this.placementDrive.jobTypeId, this.placementDrive.seasonId,

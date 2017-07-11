@@ -9,6 +9,11 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+@import "../node_modules/bulma/sass/utilities/initial-variables";
 
+@import "./scss/variables";
+
+// 4. Import the rest of Bulma
+@import "../node_modules/bulma/bulma";
 </style>
