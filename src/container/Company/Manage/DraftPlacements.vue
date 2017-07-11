@@ -28,8 +28,10 @@
               </div>
             </div>
             <footer class="card-footer">
-              <router-link :to="{ name: 'draft-placement-details', params: { placement_id: drafts.placement_id } }" class="card-footer-item">Edit</router-link>
-              <a @click="startPlacement" class="card-footer-item">Start</a>
+              <router-link :to="{ name: 'draft-placement-details', params: { placement_id: drafts.placement_id } }"
+              class="card-footer-item"> Edit </router-link>
+              <a @click="askModal = true" class="card-footer-item"> Start </a>
+              <AskModal :message="message" v-if="askModal" @close="askModal = false"></AskModal>
             </footer>
           </div>
         </div>
@@ -47,17 +49,28 @@
 <script>
 import company from '@/api/company';
 import Auth from '@/packages/auth/Auth';
+import AskModal from '@/components/AskModal';
 
 export default {
   name: 'view-all-placement',
+  components: {
+    AskModal
+  },
   created() {
     this.getDraftPlacements();
+
+    this.$bus.$on('yes', () => {
+      this.askModal = false;
+      this.startPlacement();
+    })
   },
   data() {
     return {
       draftPlacements: [],
       placement_id: null,
-      showData: false
+      showData: false,
+      askModal: false,
+      message: 'to start the Placement Drive'
     };
   },
   methods: {

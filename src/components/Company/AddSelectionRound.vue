@@ -43,16 +43,11 @@
 
 							<div class="date-time">
 								<div class="field">
-									<label class="label">Date</label>
+									<label class="label">Date Last</label>
 									<p class="control is-fullwidth">
-										<datepicker placeholder="Date" :config="{ dateFormat: 'Y-m-d', static: true }"
-										v-model="placementDrive.date"></datepicker>
-									</p>
-								</div>
-								<div class="field time">
-									<label class="label">Time</label>
-									<p class="control">
-										<input v-model="placementDrive.time" type="time" name="time" class="input" placeholder="Enter Date">
+										<datepicker placeholder="Date" v-model="placementDrive.date"
+										:config="{ dateFormat: 'Y-m-d H:i', enableTime: true, minDate:lastDateRegistration }">
+										</datepicker>
 									</p>
 								</div>
 							</div>
@@ -79,6 +74,7 @@ export default {
 	components: {
 		Datepicker
 	},
+	props: ['lastDateRegistration'],
 	created() {
 		this.placement_id =  this.$route.params.placement_id;
 	},
@@ -122,7 +118,7 @@ export default {
 		selectionRounds() {
 			// this.dateTime = this.placementDrive.date + " " + this.placementDrive.time + ':00';
 			this.validate().then(() => {
-				this.placementDrive.dateTime = this.placementDrive.date + " " + this.placementDrive.time + ':00';
+				this.placementDrive.dateTime = this.placementDrive.date + ':00';
 				company.selectionRounds(this.getUserId(), this.placement_id,
 				this.placementDrive.ProcessNo, this.placementDrive.ProcessName,
 				this.placementDrive.ProcessDescription, this.placementDrive.dateTime)

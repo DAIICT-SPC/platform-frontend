@@ -1,5 +1,5 @@
 <template>
-  <div class="placement-page">
+  <div class="draft-placement-details">
     <div class="container box">
 
       <!-- Header -->
@@ -8,8 +8,10 @@
           <p class="title is-3 job-title">{{placementDescription.job_title}}</p>
           <p class="subtitle is-6 company-details">{{placementDescription.company.company_name}}, {{placementDescription.location}}</p>
         </div>
-        <div class="header-action is-pulled-right">
-          <span class="tag">{{placementDescription.job_type.job_type}}</span>
+        <div class="header-action start-but">
+          <span class="tag">{{placementDescription.job_type.job_type}}</span><br>
+          <a class="button is-primary start-btn" @click="askModal = true">Start</a>
+          <AskModal :message="message" v-if="askModal" @close="askModal = false"></AskModal>
         </div>
       </div>
 
@@ -35,7 +37,8 @@
           </div>
         </b>
 
-        <open-for-modal v-if="showOpenFor" @close="showOpenFor = !showOpenFor"></open-for-modal>
+        <OpenForModal v-if="showOpenFor" @close="showOpenFor = !showOpenFor" :placementDescription="placementDescription">
+        </OpenForModal>
 
         <!-- All Criterias in a loop  -->
         <div class="columns is-multiline margin-set">
@@ -43,81 +46,82 @@
             <div class="card">
               <header class="card-header">
                 <div class="card-header-title"> {{ categories.name }} </div>
-                <div class="header-action">
+                <div class="header-action top-add-delete">
                   <input type="hidden" v-model="category_id = categories.id">
                   <a class="button is-white delete-btn" @click="delOpenFor(categories.id)">
-                  Delete </a>
-                </div>
-              </header>
-              <!-- <input type="hidden" v-model="category_id_new = categories.id"> -->
-              <!-- <category-education-modal :key="category_id_new" :category_id="category_id_new"
-              v-if="" @close="showCatEd=!showCatEd"></category-education-modal> -->
-
-              <footer class="stripe-footer">
-                <div class="columns">
-                  <div class="column" v-for="cat in categories.criterias">{{ cat.education.name }}
-                    <br> {{cat.cpi_required}}
+                    Delete </a>
+                    <a class="button is-white" @click="showAddEligibilityCriteria = true">Add</a>
+                    <AddEligibilityCriteria @close="showAddEligibilityCriteria = false" v-if="showAddEligibilityCriteria"
+                    :key="categories.id" :categories="categories"></AddEligibilityCriteria>
+                  </div>
+                </header>
+                <!-- <input type="hidden" v-model="category_id_new = categories.id"> -->
+                <!-- <category-education-modal :key="category_id_new" :category_id="category_id_new"
+                v-if="" @close="showCatEd=!showCatEd"></category-education-modal> -->
+                <footer class="stripe-footer">
+                  <div class="columns">
+                    <div class="column" v-for="cat in categories.criterias">{{ cat.education.name }}
+                      <br> {{cat.cpi_required}}
+                      <br> <edit-criteria-box :key="categories.id" :cat_name="cat.education.name"
+                      :criterias='categories.criterias'>
+                    </edit-criteria-box>
                   </div>
                 </div>
               </footer>
-              <div class="columns criteria-box">
-                <div class="column">
-                  <edit-criteria-box :key="categories.id" :criterias="categories.criterias"></edit-criteria-box>
-                </div>
-                <div class="column">
-                  <add-criteria-box :key="categories.id" :categories="categories"></add-criteria-box>
-                </div>
-              </div>
+              <!-- <div class="columns criteria-box">
+              <div class="column">
             </div>
-          </div>
-
+          </div> -->
         </div>
       </div>
 
-      <!-- Hiring Process -->
-      <div class="hiring-process job-section">
-        <b class="section-header">Hiring Process
-          <div class="header-action is-pulled-right">
-            <div class="button is-white" @click="showAddSelection = true"> Add </div>
-          </div>
-        </b>
-        <add-selection-round v-if="showAddSelection"></add-selection-round>
-        <div class="processes">
-
-          <div class="process-application process">
-            <a class="button">
-              <span class="icon">
-                <i class="fa fa-user-o"></i>
-              </span>
-              <span> Application </span> &nbsp;
-              <div class="view-info">
-                <!-- <router-link :to="{ name: 'selection-rounds', params: { placement_id: placement_id } }" class="is-success">View info</router-link> -->
-              </div>
-            </a>
-          </div>
-
-
-          <div class="box process" v-for="round in placementDescription.placement_selection">
-            <p>
-              <b>{{ round.round_name }}</b>
-            </p>
-            <edit-selection-roundBox :key="round.id" :round="round"></edit-selection-roundBox>
-          </div>
-
-
-          <div class="process-offer process">
-            <a class="button">
-              <span class="icon">
-                <i class="fa fa-file-text-o"></i>
-              </span>
-              <span>Offer</span>
-            </a>
-          </div>
-
-        </div>
-      </div>
     </div>
   </div>
+
+  <!-- Hiring Process -->
+  <div class="hiring-process job-section">
+    <b class="section-header">Hiring Process
+      <div class="header-action is-pulled-right">
+        <div class="button is-white" @click="showAddSelection = true"> Add </div>
+      </div>
+    </b>
+    <add-selection-round :lastDateRegistration="lastDateRegistration" v-if="showAddSelection"></add-selection-round>
+    <div class="processes">
+
+      <div class="process-application process">
+        <a class="button">
+          <span class="icon">
+            <i class="fa fa-user-o"></i>
+          </span>
+          <span> Application </span> &nbsp;
+          <div class="view-info">
+            <!-- <router-link :to="{ name: 'selection-rounds', params: { placement_id: placement_id } }" class="is-success">View info</router-link> -->
+          </div>
+        </a>
+      </div>
+
+
+      <div class="box process" v-for="round in placementDescription.placement_selection">
+        <p>
+          <b>{{ round.round_name }}</b>
+        </p>
+        <edit-selection-roundBox :key="round.id" :round="round"></edit-selection-roundBox>
+      </div>
+
+
+      <div class="process-offer process">
+        <a class="button">
+          <span class="icon">
+            <i class="fa fa-file-text-o"></i>
+          </span>
+          <span>Offer</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
 </div>
 </template>
 
@@ -131,17 +135,19 @@ import EligibilityCriteriaBoxCompany from '@/components/EligibilityCriteriaBoxCo
 import AddEligibilityCriteria from '@/components/Company/AddEligibilityCriteria';
 import AddSelectionRound from '@/components/Company/AddSelectionRound';
 import EditSelectionRounds from '@/components/Company/EditSelectionRounds';
+import AskModal from '@/components/AskModal';
 // import DraftEligibilityCriteriaModal from '@/components/Company/DraftEligibilityCriteriaModal';
 
 export default {
   name: 'placement',
   components: {
     'drive-box': ViewPlacementEditModal,
-    'open-for-modal': OpenForModal,
+    OpenForModal,
     'edit-criteria-box': EligibilityCriteriaBoxCompany,
-    'add-criteria-box': AddEligibilityCriteria,
+    AddEligibilityCriteria,
     'add-selection-round': AddSelectionRound,
     'edit-selection-roundBox': EditSelectionRounds,
+    AskModal
     // 'category-education-modal': DraftEligibilityCriteriaModal,
   },
   data() {
@@ -162,7 +168,11 @@ export default {
       showDesc: false,
       showCatEd: false,
       showOpenFor: false,
-      showAddSelection: false
+      showAddSelection: false,
+      lastDateRegistration: '',
+      showAddEligibilityCriteria: false,
+      askModal: false,
+      message: 'to start the Placement Drive'
     }
   },
   created() {
@@ -173,6 +183,7 @@ export default {
       this.showDesc = false;
     });
     this.$bus.$on('added-eligibility-criteria', () => {
+      this.showAddEligibilityCriteria = false;
       this.getDetails();
     });
     this.$bus.$on('close', () => {
@@ -190,57 +201,73 @@ export default {
     this.$bus.$on('edit-selection-roundbox', () => {
       this.getDetails();
     })
-    // // close-selection-round
-    // this.$bus.$on('close-selection-round', () => {
-    //   this.showAddSelection = false;
-    //   this.getDetails();
-    // })
+    this.$bus.$on('yes', () => {
+      this.startPlacement();
+    })
   },
 
   methods: {
-    getDetails() {
-      company.getPlacementDetails(this.getUserId(), this.placement_id)
-      .then((response) => {
-        this.placementDescription = response.data;
-      })
-      .catch((error) => {
-        console.log(error.message);
+  getDetails() {
+    company.getPlacementDetails(this.getUserId(), this.placement_id)
+    .then((response) => {
+      this.lastDateRegistration = response.data.last_date_for_registration;
+      this.placementDescription = response.data;
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
+  },
+  getEducation() {
+    company.getEducationForPlacementCriteria(this.getUserId(), this.placement_id, this.category_id)
+    .then((response) => {
+      // console.log(response);
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+  },
+  getUserId() {
+    return Auth.getUserToken();
+  },
+  delOpenFor(category_id) {
+    company.deleteOpenFor(this.getUserId(), this.placement_id, category_id)
+    .then((response) => {
+      if(response.status == 204) {
+        let toast = this.$toasted.error("Criteria Deleted", {
+          theme: "outline",
+          position: "top-center",
+          duration : 3000
+        });
+        this.getDetails();
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+  },
+  startPlacement() {
+    company.startPlacement(this.getUserId(), this.placement_id)
+    .then((response) => {
+      let toast = this.$toasted.success("Placement Drive has been Initiated.", {
+        theme: "outline",
+        position: "top-center",
+        duration : 3000
       });
-    },
-    getEducation() {
-      company.getEducationForPlacementCriteria(this.getUserId(), this.placement_id, this.category_id)
-      .then((response) => {
-        // console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-    },
-    getUserId() {
-      return Auth.getUserToken();
-    },
-    delOpenFor(category_id) {
-      company.deleteOpenFor(this.getUserId(), this.placement_id, category_id)
-      .then((response) => {
-        if(response.status == 204) {
-          let toast = this.$toasted.error("Criteria Deleted", {
-            theme: "outline",
-            position: "top-center",
-            duration : 3000
-          });
-          this.getDetails();
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-    }
-  }
+      this.goToHome();
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+  },
+  goToHome() {
+    this.$router.push({name: 'company-home'})
+  },
+}
 }
 </script>
 
 <style lang="scss">
-.placement-page {
+.draft-placement-details {
 
   .margin-set {
     margin: 0;
@@ -303,14 +330,23 @@ export default {
       margin-top: 0.4rem;
     }
 
-    .header-action {
-      .apply-box {
-        margin-top: 10px;
-        .button {
-          width: 100%;
-        }
-      }
+    .header-action.top-add-delete {
+      display: flex;
+      align-items: center;
+      // .apply-box {
+      //   margin-top: 10px;
+      //   .button {
+      //     width: 100%;
+      //   }
+      // }
     }
+  }
+
+  .button.is-primary.start-btn {
+    margin-left: 0.8rem;
+    margin-top: 0.5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 
   .job-description {

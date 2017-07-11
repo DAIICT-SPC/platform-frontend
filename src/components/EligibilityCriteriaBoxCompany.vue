@@ -6,7 +6,7 @@
     <div class="box" v-if="!hidden">
 
       <div class="columns">
-        <div class="column" v-for="cr in criterias">
+        <div class="column" v-for="cr in criterias" v-if="cr.education.name == cat_name">
           <div class="field">
             <label class="label">{{cr.education.name}}</label>
             <input type="hidden" v-model="education_id = cr.education_id">
@@ -32,8 +32,6 @@
         </div>
       </div>
 
-
-
     </div>
   </div>
 </template>
@@ -53,12 +51,7 @@ export default {
       id: null
     };
   },
-  props: {
-    criterias: {
-      required: true,
-      type: Array
-    }
-  },
+  props: ['cat_name', 'criterias'],
   created() {
     this.placement_id = this.$route.params.placement_id;
   },
@@ -109,6 +102,8 @@ export default {
     margin-top: 0.1rem;
     margin-left: 1rem;
     padding-bottom: 0;
+    width: 25rem;
+    margin: auto;
   }
 
   .button.is-white {

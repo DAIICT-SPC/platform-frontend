@@ -9,7 +9,6 @@
 						<button class="delete" @click="$emit('close')"></button>
 					</header>
 					<section class="modal-card-body" v-if="showData">
-
 						<div class="field">
 							<p class="control">
 								<label class="label" v-if="chk.name" v-for="chk in openForChecked">
@@ -53,8 +52,8 @@ import Auth from '@/packages/auth/Auth';
 
 export default {
 	name: 'open-for-modal',
+	props: ['placementDescription'],
 	created() {
-
 	},
 	data() {
 		return {
@@ -101,7 +100,8 @@ export default {
 	            position: "top-center",
 	            duration : 3000
 	          });
-						this.$bus.$emit('close')
+							this.$bus.$emit('close')
+
 					}
 				})
 				.catch((error) => {

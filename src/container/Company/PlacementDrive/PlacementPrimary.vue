@@ -44,12 +44,6 @@
             The Last Date of Registration is a required field.
           </div>
         </div>
-        <!-- <div class="field time">
-          <label class="label">Time</label>
-          <p class="control">
-            <input v-model="placementDrive.time" type="time" name="time" class="input" placeholder="Enter Time">
-          </p>
-        </div> -->
       </div>
 
       <div class="field">
@@ -94,7 +88,8 @@
         <div class="field">
           <label class="label">Start Date</label>
           <p class="control is-fullwidth">
-            <datepicker v-validate="'required'" placeholder="Date" :config="{ dateFormat: 'Y-m-d', static: true }"
+            <datepicker v-validate="'required'" placeholder="Date"
+            :config="{ dateFormat: 'Y-m-d', static: true, minDate:placementDrive.lastDateofRegistration }"
             v-model="placementDrive.start_date" name="start_date"></datepicker>
           </p>
           <div v-show="errors.has('start_date')" class="help is-danger">
@@ -104,7 +99,8 @@
         <div class="field end">
           <label class="label">End Date</label>
           <p class="control is-fullwidth">
-            <datepicker v-validate="'required'" placeholder="Date" :config="{ dateFormat: 'Y-m-d', static: true }"
+            <datepicker v-validate="'required'" placeholder="Date"
+            :config="{ dateFormat: 'Y-m-d', static: true, minDate:placementDrive.start_date }"
             v-model="placementDrive.end_date" name="end_date"></datepicker>
           </p>
           <div v-show="errors.has('end_date')" class="help is-danger">
@@ -186,6 +182,11 @@ export default {
       this.placementDrive.start_date, this.placementDrive.end_date)
       .then((response) => {
         // this.moveToNextRound(response.data.placement_id);
+        let toast = this.$toasted.success("Placement Drive Created Successfully!", {
+          theme: "outline",
+          position: "top-center",
+          duration : 3000
+        });
         this.moveToManage(response.data.placement_id);
       })
       .catch((error) => {

@@ -1,55 +1,61 @@
 <template lang="html">
   <div class="add-eligibility-criteria-box">
-    <a class="button is-white" @click="hidden=false" v-if="hidden">Add</a>
-    <a class="button is-white" @click="hidden=true" v-if="!hidden">Hide</a>
+    <!-- <a class="button is-white">Add</a>
+    <a class="button is-white">Hide</a> -->
 
-    <div class="box" v-if="!hidden">
+    <div class="modal is-active">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Add Criteria for {{categories.name}}</p>
+          <button class="delete" @click="$emit('close')"></button>
+        </header>
+        <section class="modal-card-body">
 
-      <div class="field is-horizontal">
-        <div class="field-label">
-          <p>Education</p>
-        </div>
-        <div class="field-body">
-          <div>
-            <p class="control">
-              <input type="hidden" v-model="education_id_rec=education[0].id">
-              <edit-dropdown :education_id_rec="education_id_rec" :category_id="category_id"></edit-dropdown>
-            </p>
+          <div class="field is-horizontal">
+            <div class="field-label">
+              <p>Education</p>
+            </div>
+            <div class="field-body">
+              <div>
+                <p class="control" v-if="education">
+                  <!-- {{education_id_rec}} -->
+                  <input type="hidden" v-model="education_id_rec = education[0].id">
+                  <edit-dropdown :education_id_rec="education_id_rec" :category_id="category_id"></edit-dropdown>
+                </p>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <div class="field is-horizontal abt-input">
-        <div class="field-label">
-          <p>CPI</p>
-        </div>
-        <div class="field-body">
-          <div>
-            <p class="control ">
-              <input v-model="cpi_required" v-validate="'required|numeric'" type="number"
-              name="cpi_required" :class="{'input': true, 'is-danger': errors.has('cpi_required') }"
-              @keyup.enter="addCriteria">
-            </p>
+          <div class="field is-horizontal abt-input">
+            <div class="field-label">
+              <p>CPI</p>
+            </div>
+            <div class="field-body">
+              <div>
+                <p class="control ">
+                  <input v-model="cpi_required" v-validate="'required|numeric'" type="number"
+                  name="cpi_required" :class="{'input': true, 'is-danger': errors.has('cpi_required') }"
+                  @keyup.enter="addCriteria">
+                </p>
 
+              </div>
+            </div>
           </div>
-        </div>
+        </section>
+        <footer class="modal-card-foot">
+          <a class="button is-success" @click="addCriteria">Save changes</a>
+          <a class="button" v-on:click="$emit('close')">Cancel</a>
+        </footer>
       </div>
-
-      <div class="field register-button">
-        <p class="has-text-centered">
-          <a class="button is-success" @click="addCriteria">Submit</a>
-        </p>
-      </div>
-
-
     </div>
   </div>
 </template>
 
 <script>
-import company from '@/api/company'
-import Auth from '@/packages/auth/Auth'
-import EditEducationDropdown from '@/components/Company/EditEducationDropdown'
+import company from '@/api/company';
+import Auth from '@/packages/auth/Auth';
+import EditEducationDropdown from '@/components/Company/EditEducationDropdown';
 export default {
   name: 'add-eligibility-criteria-box',
   components: {
@@ -61,7 +67,8 @@ export default {
       cpi_required: null,
       category_id: null,
       education_id_send: null,
-      education_id_rec: null
+      education_id_rec: null,
+      education: {}
     };
   },
   props: {
@@ -70,6 +77,7 @@ export default {
     }
   },
   created() {
+    console.log(this.categories.name);
     this.category_id = this.categories.id;
     this.placement_id = this.$route.params.placement_id;
 
@@ -77,28 +85,31 @@ export default {
       this.education_id_send = data.id;
     });
 
-    company.getEducationForPlacementCriteria(this.getUserId(), this.placement_id, this.category_id)
-    .then((response) => {
-      this.education = response.data;
-      this.education_id_rec = this.education[0].id;
-    })
-    .catch((error) => {
-      console.log(error);
-    })
+    this.getEducation();
   },
   methods: {
+    getEducation() {
+      company.getEducationForPlacementCriteria(this.getUserId(), this.placement_id, this.category_id)
+      .then((response) => {
+        this.education = response.data;
+        this.education_id_rec = response.data[0].id;
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    },
     addCriteria() {
       company.setPlacementCriteria(this.getUserId(), this.placement_id, this.education_id_send,
       this.category_id, this.cpi_required)
       .then((response) => {
         if(response.status == 200) {
-          this.hidden = true
           this.$bus.$emit('added-eligibility-criteria');
           let toast = this.$toasted.success("Criteria Added", {
             theme: "outline",
             position: "top-center",
             duration : 3000
           });
+          this.$bus.$emit('add-eligibility-criteria');
         }
       })
       .catch((error) => {
