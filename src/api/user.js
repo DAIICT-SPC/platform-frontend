@@ -231,6 +231,11 @@ export default {
       })
     },
 
+    checkIfForgotPasswordCodeExists(code) {
+      let url = '/findCodeForForgotPassword/' + code;
+      return HTTP.get(url);
+    },
+
     checkForAdmin(email, password) {
       // /checkIfAdmin
       let url = '/checkIfAdmin';
@@ -238,6 +243,6 @@ export default {
         email: email,
         password: password
       })
-    }
+    },
 
   };

@@ -29,10 +29,10 @@
         <div class="field reset-btn">
           <p>
             <button @click="validateAndChangePassword" name="company" class="button is-success submit-button">
-            Reset
-          </button>
-        </p>
-      </div>
+              Reset
+            </button>
+          </p>
+        </div>
       </div>
     </div>
   </div>
@@ -58,18 +58,26 @@ export default {
   },
   data() {
     return {
+      email: '',
       code: '',
       password: ''
     };
   },
   methods: {
     verify() {
-      if(this.code.length > 1 && this.code != null) {
-        //proceed
-      }
-      else {
-        this.push404();
-      }
+      user.checkIfForgotPasswordCodeExists(this.code)
+      .then((response) => {
+        console.log(response);
+        if (response.data.email) {
+          this.email = response.data.email;  //right code, email in body
+        }
+        else {
+          this.push404();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      })
     },
     validateAndChangePassword() {
       this.validate()
