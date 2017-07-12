@@ -2,7 +2,6 @@
 	<div class="feeedbacks">
 
 		<div class="header">
-			<!-- pass placementsInSeason to dropdown -->
 			<div class="title-header">
 				<span class="title">Placement Name:</span>
 			</div>
@@ -10,7 +9,6 @@
 		</div>
 
 		<div class="body" v-if="!noFeedback">
-			<!-- company -->
 			<div v-for="feeds in feedback">
 				<div class="company" v-if="feeds.company_name">
 					<div class="body-title">
@@ -23,61 +21,55 @@
 								“{{feeds.description}}”
 							</p>
 							<p class="subtitle">
-								rated {{feeds.rating}}
+								<StarRating :read-only=true v-model="feeds.rating" :max-rating="5" :star-size="15" :show-rating=false></StarRating>
 							</p>
 							<div class="foot">
 								<p class="subtitle">
 									by {{feeds.company_name}}
 								</p>
-
-								<feedback-read-modal :key="feeds.user_id" :name="feeds.company_name" :description="feeds.description"
-								:rating="feeds.rating"></feedback-read-modal>
 							</div>
 						</div>
 						<footer class="card-footer">
 							<p class="card-footer-item">
-								<a>Read</a>
+								<feedback-read-modal :key="feeds.user_id" :name="feeds.company_name" :description="feeds.description"
+								:rating="feeds.rating"></feedback-read-modal>
 							</p>
-
 						</footer>
 					</div>
-
 				</div>
 			</div>
 
-			<!-- student -->
 			<div class="body-title" v-if="stuFeedback">
 				<h3 class="title">Student Feedback</h3>
 			</div>
-			<div class="" >
-				<div class="student" >
 
-					<div class="columns is-multiline">
-						<div class="column is-one-third" v-if="feeds.enroll_no" v-for="feeds in feedback">
-							<div class="card">
-								<div class="card-content">
-									<p class="title main-title-stu">
-										“{{feeds.description}}”
-									</p>
-									<p class="subtitle">
-										rated {{feeds.rating}}
-									</p>
-									<div class="foot">
-										<p class="subtitle">
-											by {{feeds.name}}
-										</p>
-										<feedback-read-modal :key="feeds.user_id" :name="feeds.name" :description="feeds.description"
-										:rating="feeds.rating"></feedback-read-modal>
-									</div>
-								</div>
+			<div class="columns is-multiline">
+				<div class="column is-one-third" v-if="feeds.enroll_no" v-for="feeds in feedback">
+					<div class="card">
+						<div class="card-content">
+							<p class="title main-title-stu">
+								“{{feeds.description}}”
+							</p>
+							<p class="subtitle">
+								<StarRating :read-only=true v-model="feeds.rating" :max-rating="5" :star-size="15" :show-rating=false></StarRating>
+							</p>
+							<div class="foot">
+								<p class="subtitle">
+									by {{feeds.name}}
+								</p>
 							</div>
 						</div>
+						<footer class="card-footer">
+							<p class="card-footer-item">
+								<feedback-read-modal :key="feeds.user_id" :name="feeds.name" :description="feeds.description"
+								:rating="feeds.rating"></feedback-read-modal>
+							</p>
+						</footer>
 					</div>
-
-
 				</div>
-			</div>
 
+
+			</div>
 		</div>
 		<!-- <pre>{{feedback}}</pre> -->
 
@@ -94,12 +86,14 @@ import Auth from '@/packages/auth/Auth';
 import admin from '@/api/admin';
 import PlacementSeasonDropdown from '@/components/Admin/PlacementSeasonDropdown';
 import FeedbackReadModal from '@/components/Admin/FeedbackReadModal';
+import StarRating from 'vue-star-rating';
 
 export default{
 	name: 'feeedbacks',
 	components: {
 		'placement-season-dropdown': PlacementSeasonDropdown,
-		'feedback-read-modal': FeedbackReadModal
+		'feedback-read-modal': FeedbackReadModal,
+		StarRating
 	},
 	created() {
 		this.season_id = this.$route.params.season_id;

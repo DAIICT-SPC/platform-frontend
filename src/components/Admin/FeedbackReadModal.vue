@@ -15,7 +15,8 @@
 
         </section>
         <footer class="modal-card-foot">
-          Ratings: {{rating}}
+          Ratings: &nbsp	<StarRating v-model="rating" :max-rating="5" :star-size="20" :show-rating=false
+            :read-only=true></StarRating>
         </footer>
       </div>
     </div>
@@ -23,8 +24,13 @@
 </template>
 
 <script>
+import StarRating from 'vue-star-rating';
+
 export default {
   name: 'feedbackReadModal',
+  components: {
+		StarRating
+	},
   props: {
     description: {
       required: true

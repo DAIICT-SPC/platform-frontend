@@ -2,7 +2,7 @@
 	<div class="company-wise-listing box">
 
 		<div class="company-wise head">
-			<h2 class="title">Companies Wise Listing</h2>
+			<h2 class="title">Manage Companies</h2>
 		</div>
 
 		<div class="companywise-body">

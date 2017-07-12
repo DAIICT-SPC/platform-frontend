@@ -53,7 +53,6 @@ export default {
 	}
 
 	.users-title {
-		padding: 1rem;
 		border-bottom: solid 1px #ddd;
 	}
 

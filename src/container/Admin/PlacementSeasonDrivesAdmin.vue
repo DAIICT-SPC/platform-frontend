@@ -28,6 +28,6 @@ export default {
 
 <style lang="scss">
 .placement-seasons-drive-admin {
-  
+
 }
 </style>

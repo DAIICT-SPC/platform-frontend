@@ -15,7 +15,12 @@
 
         </section>
         <footer class="modal-card-foot">
-          <span>By: {{name}}</span>  <span v-if="to_name"> To: {{to_name}}</span>
+          <span>By: {{name}}</span>
+          <span v-if="to_name"> To: {{to_name}}</span>
+          <div>
+            <span class="icon is-small"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+            {{moment(time).format('MMMM Do YYYY, h:mm a')}}
+          </div>
         </footer>
       </div>
     </div>
@@ -34,6 +39,9 @@ export default {
     },
     to_name: {
 
+    },
+    time: {
+
     }
   },
   created() {
@@ -50,6 +58,11 @@ export default {
 .reason-read-modal {
   span {
     padding-right: 0.5rem;
+  }
+  .modal-card-foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 }
 </style>

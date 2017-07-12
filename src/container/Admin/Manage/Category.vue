@@ -19,7 +19,8 @@
         <div>
           <div class="field has-addons">
             <p class="control">
-              <input v-validate="'required'" v-model="title" :class="{'input': true, 'is-danger': errors.has('cat') }" name="cat" type="text" placeholder="Enter New Category">
+              <input v-validate="'required'" v-model="title" :class="{'input': true, 'is-danger': errors.has('cat') }"
+              name="cat" type="text" placeholder="Enter New Category">
             </p>
             <p class="control">
               <a class="button is-success" @click="addCategory"> Add Category </a>
@@ -96,7 +97,6 @@ export default{
 
   .cat-title {
     border-bottom: solid 1px #ddd;
-    padding: 1rem;
   }
 
   .cat-body {

@@ -99,7 +99,6 @@ export default{
 
   .job-title {
     border-bottom: solid 1px #ddd;
-    padding: 1rem;
   }
 
   .job-body {

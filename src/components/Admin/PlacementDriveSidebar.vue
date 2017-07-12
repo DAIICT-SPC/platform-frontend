@@ -4,7 +4,7 @@
 			<ul class="menu-list">
 				<li><router-link :to="{ name: 'placements-in-seasons' }">General</router-link></li>
 				<li><router-link :to="{ name: 'companywise-placement' }">Companywise Placement</router-link></li>
-				<li><router-link :to="{ name: 'company-list' }">Companies</router-link></li>
+				<li><router-link :to="{ name: 'company-list' }">Manage Companies</router-link></li>
 			</ul>
 		</aside>
 	</div>

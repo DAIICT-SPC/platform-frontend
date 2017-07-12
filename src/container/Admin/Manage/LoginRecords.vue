@@ -10,54 +10,58 @@
         <div class="body-header">
           <h3 class="title is-4">Admin</h3>
         </div>
-          <!-- Records -->
-          <div class="columns is-multiline">
-            <div class="column is-one-third" v-for="ad in admin">
-              <div class="card">
-                <div class="card-content">
-                  <p class="title main-title-reason">
-                    “{{ad.reason}}”
+        <!-- Records -->
+        <div class="columns is-multiline">
+          <div class="column is-one-third" v-for="ad in admin">
+            <div class="card">
+              <div class="card-content">
+                <p class="title main-title-reason">
+                  “{{ad.reason}}”
+                </p>
+                <div class="foot">
+                  <p class="subtitle">
+                    by {{ad.from_users.name}} <br>
+                    <span class="icon is-small"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+                    {{moment(ad.created_at).format('MMMM Do YYYY, h:mm a')}}
                   </p>
-                  <div class="foot">
-                    <p class="subtitle">
-                      by {{ad.from_users.name}}
-                    </p>
-                    <reason-read-modal :key="ad.id" :reason="ad.reason" :name="ad.from_users.name"></reason-read-modal>
-                  </div>
                 </div>
               </div>
+              <footer class="card-footer">
+                <reason-read-modal class="card-footer-item" :key="ad.id" :reason="ad.reason" :name="ad.from_users.name"
+                :time="ad.created_at"></reason-read-modal>
+              </footer>
             </div>
           </div>
-          <!-- <div class="loop" v-for="ad in admin">
-          Reason-{{ad.reason}} <br />
-          Name-{{ad.from_users.name}}
-        </div> -->
-      <!-- company -->
-      <div class="body-header">
-        <h3 class="title is-4">Company</h3>
-      </div>
-      <div class="columns is-multiline">
-        <div class="column is-one-third" v-for="com in company">
-          <div class="card">
-            <div class="card-content">
-              <p class="title main-title-reason">
-                “{{com.reason}}”
-              </p>
-              <div class="foot">
-                <p class="subtitle">
-                  by {{com.from_users.name}} to {{com.to_users.name}}
+        </div>
+        <div class="body-header">
+          <h3 class="title is-4">Company</h3>
+        </div>
+        <div class="columns is-multiline">
+          <div class="column is-one-third" v-for="com in company">
+            <div class="card">
+              <div class="card-content">
+                <p class="title main-title-reason">
+                  “{{com.reason}}”
                 </p>
-                <reason-read-modal :key="com.id" :reason="com.reason" :name="com.from_users.name"
-                :to_name="com.to_users.name"></reason-read-modal>
+                <div class="foot">
+                  <p class="subtitle">
+                    by {{com.from_users.name}} to {{com.to_users.name}} <br>
+                    <span class="icon is-small"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+                    {{moment(com.created_at).format('MMMM Do YYYY, h:mm a')}}
+                  </p>
+                </div>
               </div>
+              <footer class="card-footer">
+                <reason-read-modal class="card-footer-item" :key="com.id" :reason="com.reason" :name="com.from_users.name"
+                :to_name="com.to_users.name" :time="com.created_at"></reason-read-modal>
+              </footer>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
+    </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -69,8 +73,8 @@ import ReasonReadModal from '@/components/Admin/ReasonReadModal';
 export default {
   name: 'login-records',
   components: {
-		'reason-read-modal': ReasonReadModal
-	},
+    'reason-read-modal': ReasonReadModal
+  },
   created() {
     this.getAdminRecords();
     this.getCompanyRecords();
@@ -80,7 +84,8 @@ export default {
       showAdmin: false,
       admin: [],
       showCompany: false,
-      company: []
+      company: [],
+      date: ''
     };
   },
   methods: {
@@ -116,33 +121,40 @@ export default {
     border-bottom: solid 1px #ddd;
   }
 
-  // .column {
-  //   padding: 0;
-  // }
+  .title {
+    font-size: x-large;
+  }
+  .subtitle {
+    font-size: larger;
+  }
 
   .body {
     padding: 1rem;
     .card {
       .card-content {
         padding-left: 1rem;
+        padding: 1rem;
       }
       margin: 0;
-			.main-title {
-				white-space: nowrap;
-				width: 11em;
-				overflow: hidden;
-				text-overflow: ellipsis;
-			}
-			.main-title-reason {
-				white-space: nowrap;
-				width: 10em;
-				overflow: hidden;
-				text-overflow: ellipsis;
+      .main-title {
+        white-space: nowrap;
+        width: 11em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .main-title-reason {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
         margin-bottom: 0;
-			}
-			// margin: 1rem;
-			max-width: 25rem;
-		}
+      }
+      // margin: 1rem;
+      max-width: 25rem;
+    }
+  }
+
+  .card-footer-item {
+    padding: 0.5rem;
   }
 
   .foot {

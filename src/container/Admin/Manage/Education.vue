@@ -95,7 +95,6 @@ export default{
 .education-page{
 
   .education-title {
-    padding: 1rem;
     border-bottom: solid 1px #ddd;
   }
 
