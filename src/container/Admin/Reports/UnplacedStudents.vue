@@ -55,6 +55,7 @@ export default{
 		getUnplacedStudents() {
 			admin.getUnplacedStudents(this.getUserId(), this.season_id)
 			.then((response) => {
+				console.log(response);
 				if(response.data == 'No Placements for this season!') {
 					this.showData = false;
 				}

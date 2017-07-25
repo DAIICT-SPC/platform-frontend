@@ -18,7 +18,7 @@
 						<div class="field-body">
 							<div>
 								<p class="control ">
-									<input @keyup.enter="validateAndEmail" v-validate="'required|email'" v-model="email" type="email" name="email" class="input">
+									<input @keyup.enter="validateAndEmail" v-validate="'required|email'" v-model="forgotEmail" type="email" name="email" class="input">
 								</p>
 								<div class="help is-danger" v-show="errors.has('email')">
 									Please Enter the Valied Email.
@@ -45,9 +45,13 @@ import user from '@/api/user';
 
 export default{
 	name: 'forgot-password-modal',
+	props: ['email'],
+	created() {
+		this.forgotEmail = this.email;
+	},
 	data() {
 		return {
-			email: ''
+			forgotEmail: ''
 		};
 	},
 	methods: {

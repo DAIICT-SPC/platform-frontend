@@ -36,7 +36,7 @@
                     </small>
                   </a>
                 </p>
-                <forgot-password v-if="forgotModal" @close="forgotModal = false"></forgot-password>
+                <forgot-password :email="email" v-if="forgotModal" @close="forgotModal = false"></forgot-password>
                 <reason-modal :email="email" :password="password" v-if="reasonModal"></reason-modal>
               </div>
             </div>
@@ -146,18 +146,18 @@ export default {
           //if true, then ask a reason (disable the boxes)
           this.block = true;
           this.reasonModal = true;
-          // user.login(this.email, this.password)
-          // .then((response) => {
-          //   console.log(response);
-          // })
-          // .catch((error) => {
-          //   console.log(error);
-          // })
         }
       })
       .catch((error) => {
         if(error.response.status == 500) {
           let toast = this.$toasted.error(error.response.statusText + ". Please try after sometime.", {
+            theme: "outline",
+            position: "bottom-center",
+            duration : 3000
+          });
+        }
+        else if(error.response.status == 404) {
+          let toast = this.$toasted.error(error.response.data.message, {
             theme: "outline",
             position: "bottom-center",
             duration : 3000

@@ -30,10 +30,7 @@
               <router-link :to="{ name: 'view-job-profile', params: { placement_id: jobs.placement_id } }" class="card-footer-item">View</router-link>
             </footer>
           </div>
-          <!-- 1/3 col -->
-          <!-- <pre>
-          {{ jobs }}
-        </pre> -->
+
       </div>
       <div class="column is-full" v-if="jobsNull">
         <div class="media media-card">
@@ -52,8 +49,8 @@
 </template>
 
 <script>
-import user from '@/api/user'
-import Auth from '@/packages/auth/Auth'
+import user from '@/api/user';
+import Auth from '@/packages/auth/Auth';
 
 export default {
   name: 'student-jobprofile-page',

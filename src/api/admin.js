@@ -304,7 +304,7 @@ export default {
 
   activationViaFileUpload(csvfile, role) {
     let url = '/activation/file';
-    return HTTP.get(url, {
+    return HTTP.post(url, {
       csv: csvfile,
       role: role
     });

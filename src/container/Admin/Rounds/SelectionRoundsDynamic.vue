@@ -100,6 +100,7 @@ export default {
 		getRemainingStudents() {
 			admin.getRemainingStudentsRoundwise(this.getUserId(), this.placement_id, this.round_id)
 			.then((response) => {
+				console.log(response.data);
 				if(response.data == 'None has applied yet!'){
 					this.showData = false;
 				}
