@@ -28,7 +28,7 @@
 
 				</section>
 				<footer class="modal-card-foot">
-					<a class="button is-success" @click="validateAndSubmitReason">Save changes</a>
+					<a class="button is-success" @click="validateAndSubmitReason">Save and Login</a>
 				</footer>
 			</div>
 		</div>

@@ -2,30 +2,30 @@
 	<div class="external-students">
 
 		<div v-if="showData">
-			<div class="columns section-header">
-				<div class="column">
-					<span class="title is-4">EnrollNo</span>
-				</div>
-				<div class="column is-4">
+			<div class="section-header">
+				<div>
 					<span class="title is-4">Job Title</span>
 				</div>
-				<div class="column">
-					<span class="title is-4">Allowed</span>
+				<div>
+					<span class="title is-4">EnrollNo</span>
+				</div>
+				<div>
+					<span class="title is-4">Allowed By</span>
 				</div>
 			</div>
 
-			<div class="columns section-body" v-for="st in students">
-				<div class="column">
-					<span class="texts"></span>
+			<div class="section-body" v-if="student.externally_allowed[0]" v-for="student in students">
+				<div>
+					<span class="texts">{{student.job_title}}</span>
 				</div>
-				<div class="column is-4">
-					<!-- <span class="texts">{{st.placements.job_title}}</span> -->
+				<div v-for="stud in student.externally_allowed">
+					<span class="texts">{{stud.enroll_no}}</span>
 				</div>
-				<div class="column is-4">
-					<!-- <span class="texts">{{st.users.name}}</span> -->
+				<div v-for="stud in student.externally_allowed">
+					<span class="texts">{{stud.externally_allowed_by[0].name}}</span>
 				</div>
 			</div>
-			<pre>{{students}}</pre>
+			<!-- <pre>{{students}}</pre> -->
 		</div>
 		<div v-if="!showData">
 			<h2 class="title">No Data Available</h2>
@@ -55,7 +55,6 @@ export default{
 		getExternalAllowedStudents() {
 			admin.getExternalAllowedStudents(this.getUserId(), this.season_id)
 			.then((response) => {
-				console.log(response.data);
 				this.students = response.data;
 			})
 			.catch((error) => {
@@ -85,8 +84,10 @@ export default{
 		margin: 0;
 	}
 
-	.section-body{
-		margin-left: 1rem;
+	.section-header, .section-body {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
 	}
 }
 </style>

@@ -48,7 +48,7 @@
 
 				</section>
 				<footer class="modal-card-foot">
-					<a class="button is-success" @click="validateAndGiveFeedback">Save changes</a>
+					<a class="button is-success" @click="validateAndGiveFeedback">Submit</a>
 					<a class="button" v-on:click="$emit('close')">Cancel</a>
 				</footer>
 			</div>

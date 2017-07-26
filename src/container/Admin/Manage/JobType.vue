@@ -10,7 +10,7 @@
       <div class="job-body">
         <div class="job-type-items" v-for="jobType,index in jobTypes">
           <span>{{ jobType.job_type }}</span>
-          <a class="icon is-small" @click="deleteJobType(jobType.id)"> <i class="fa fa-trash-o"></i> </a>
+          <a class="icon is-small" @click="askForDeleteJobType(jobType.id)"> <i class="fa fa-trash-o"></i> </a>
         </div>
       </div>
 
@@ -65,6 +65,20 @@ export default{
       })
       .catch((error) => {
         console.log(error);
+      })
+    },
+    askForDeleteJobType(job_type_id) {
+      this.swal({
+        // title: 'Are you sure?',
+        text: "Delete the Job Category?",
+        // type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#428aff',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes',
+        allowOutsideClick: true
+      }).then(() => {
+        this.deleteJobType(job_type_id);
       })
     },
     deleteJobType(job_type_id) {

@@ -84,7 +84,7 @@
         <div class="button is-white" @click="showAddSelection = true"> Add </div>
       </div>
     </b>
-    <add-selection-round :lastDateRegistration="lastDateRegistration" v-if="showAddSelection"></add-selection-round>
+    <AddSelectionRound :lastDateRegistration="lastDateRegistration" v-if="showAddSelection"></AddSelectionRound>
     <div class="processes">
 
       <div class="process-application process">
@@ -104,7 +104,7 @@
         <p>
           <b>{{ round.round_name }}</b>
         </p>
-        <edit-selection-roundBox :key="round.id" :round="round"></edit-selection-roundBox>
+        <EditSelectionRounds :key="round.id" :round="round"></EditSelectionRounds>
       </div>
 
 
@@ -143,8 +143,8 @@ export default {
     OpenForModal,
     'edit-criteria-box': EligibilityCriteriaBoxCompany,
     AddEligibilityCriteria,
-    'add-selection-round': AddSelectionRound,
-    'edit-selection-roundBox': EditSelectionRounds,
+    AddSelectionRound,
+    EditSelectionRounds,
     // 'category-education-modal': DraftEligibilityCriteriaModal,
   },
   data() {

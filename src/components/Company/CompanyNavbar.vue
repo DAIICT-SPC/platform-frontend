@@ -29,7 +29,7 @@
             <a @click="editCompany = true">Account Settings</a><br>
             <a @click="logout">Logout</a>
           </dropdown>
-          <edit-company-modal @close="editCompany = false" v-if="editCompany"></edit-company-modal>
+          <ChangeCompanyPasswordModal @close="editCompany = false" v-if="editCompany"></ChangeCompanyPasswordModal>
         </div>
       </div>
     </nav>
@@ -39,12 +39,12 @@
 
 <script>
 import Dropdown from '@/components/Dropdown'
-import EditCompanyPersonalModal from '@/components/Company/EditCompanyPersonalModal'
+import ChangeCompanyPasswordModal from '@/components/Company/ChangeCompanyPasswordModal'
 export default {
   name: 'company-navbar',
   components: {
     Dropdown,
-    'edit-company-modal': EditCompanyPersonalModal
+    ChangeCompanyPasswordModal
   },
   props: {
     userName: {

@@ -43,9 +43,9 @@ export default {
   loginasReason(user_id, to_user_id, reason) {
     // /users/{user_id}/admin/loginAs/{to_user_id}
     let url = '/users/' + user_id + '/admin/loginAs/' + to_user_id;
-     return HTTP.post(url, {
-       reason: reason
-     });
+    return HTTP.post(url, {
+      reason: reason
+    });
   },
 
   createSeason(title) {
@@ -194,7 +194,7 @@ export default {
     });
   },
 
-  postRoundDetails(user_id, placement_id, round_id, date_of_round, venue, date, time) {
+  patchRoundDetails(user_id, placement_id, round_id, date_of_round, venue, date, time) {
     // /users/{user_id}/admin/{placement_id}/update/{round_no}
     let url = '/users/' + user_id + '/admin/' + placement_id + '/update/' + round_id;
     return HTTP.patch(url, {
@@ -340,5 +340,60 @@ export default {
     return HTTP.get(url);
   },
 
+  getOpenFor(user_id, placement_id) {
+    // api/users/{user_id}/company/getRemainingOpenFor/{placement_id}
+    let url = '/users/'+ user_id +'/admin/getRemainingOpenFor/' + placement_id;
+    return HTTP.get(url);
+  },
+
+  patchOpenForDetail(user_id, placement_id, categories){
+    let url = '/users/'+ user_id +'/admin/' + placement_id + '/updateOpenFor'
+    return HTTP.patch(url, {
+      update_open_for: categories,
+    });
+  },
+
+  deleteOpenFor(user_id, placement_id, category_id) {
+    let url = '/users/' + user_id + '/admin/deleteOpenFor/' + placement_id + '/' + category_id;
+    return HTTP.delete(url);
+  },
+
+  getEducationForPlacementCriteria(user_id, placement_id, category_id) {
+    let url = '/users/' + user_id + '/admin/remainingEducation/' + placement_id + '/' + category_id;
+    console.log(url);
+    return HTTP.get(url);
+  },
+
+  setPlacementCriteria(user_id, placement_id, education_id, category_id, cpi_required) {
+    // / users / {user_id} / company / {placement_id} /setPlacementCriteria
+    let url = '/users/' + user_id + '/admin/' + placement_id + '/setPlacementCriteria';
+    return HTTP.post(url, {
+      education_id: education_id,
+      category_id: category_id,
+      cpi_required: cpi_required
+    })
+  },
+
+  getRoundNo(user_id, placement_id) {
+    // /users/{user_id}/company/getRoundNumber/{placement_id}
+    let url = '/users/' + user_id + '/admin/getRoundNumber/' + placement_id;
+    return HTTP.get(url);
+  },
+
+  selectionRounds(user_id, placement_id, round_no, round_name, round_description, date_of_round) {
+    // api / users / {user_id} / company / {placement_id} / setSelectionRound
+    let url = '/users/' + user_id + '/admin/' + placement_id + '/setSelectionRound';
+    return HTTP.post(url, {
+      round_no: round_no,
+      round_name: round_name,
+      round_description: round_description,
+      date_of_round: date_of_round
+    });
+  },
+
+  deleteSelectionRound(user_id, placement_id, round_no) {
+    let url = '/users/' + user_id + '/admin/deleteSelectionRound/' + placement_id + '/' + round_no;
+    return HTTP.delete(url);
+  },
 
 }

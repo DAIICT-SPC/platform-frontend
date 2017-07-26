@@ -10,7 +10,7 @@
       <div class="cat-body">
         <div class="category-items" v-for="category,index in categories">
           <span> {{ category.name }}</span>
-          <a class="icon is-small" @click="deleteCategory(category.id)"> <i class="fa fa-trash-o"></i> </a>
+          <a class="icon is-small" @click="askForDeleteCategory(category.id)"> <i class="fa fa-trash-o"></i> </a>
         </div>
       </div>
 
@@ -62,6 +62,20 @@ export default{
       })
       .catch((error) => {
         console.log(error);
+      })
+    },
+    askForDeleteCategory(category_id) {
+      this.swal({
+        // title: 'Are you sure?',
+        text: "Delete the Category?",
+        // type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#428aff',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes',
+        allowOutsideClick: true
+      }).then(() => {
+        this.deleteCategory(category_id);
       })
     },
     deleteCategory(category_id) {

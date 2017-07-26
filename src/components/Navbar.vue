@@ -22,7 +22,7 @@
             <a @click="editStudent = true">Account Settings</a><br>
             <a @click="logout">Logout</a>
           </dropdown>
-          <edit-student-modal @close="editStudent = false" v-if="editStudent"></edit-student-modal>
+          <ChangePasswordStudentModal @close="editStudent = false" v-if="editStudent"></ChangePasswordStudentModal>
         </div>
       </div>
     </nav>
@@ -32,13 +32,13 @@
 
 <script>
 import Dropdown from '@/components/Dropdown'
-import EditStudentPersonalModal from '@/components/EditStudentPersonalModal'
+import ChangePasswordStudentModal from '@/components/Student/ChangePasswordStudentModal'
 
 export default {
   name: 'navbar',
   components: {
     Dropdown,
-    'edit-student-modal': EditStudentPersonalModal
+    ChangePasswordStudentModal
   },
   data() {
     return {

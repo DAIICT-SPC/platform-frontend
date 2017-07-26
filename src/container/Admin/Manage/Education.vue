@@ -10,7 +10,7 @@
       <div class="education-body">
         <div class="education-items" v-for="ed,index in education">
           <span>{{ ed.name }}</span>
-          <a class="icon is-small" @click="deleteEducation(ed.id)"> <i class="fa fa-trash-o"></i> </a>
+          <a class="icon is-small" @click="askForDeleteEducation(ed.id)"> <i class="fa fa-trash-o"></i> </a>
         </div>
       </div>
 
@@ -63,22 +63,35 @@ export default{
         console.log(error);
       })
     },
-    deleteEducation(education_id) {
-      education.deleteEducation(education_id)
-      .then((response) => {
-        this.getAllEducation();
-      })
-      .catch((error) => {
-        console.log(error.response);
-      })
-    },
     addEdHere() {
       education.postEducation(this.name)
       .then((response) => {
         if(response.status == 200){
           this.getAllEducation();
-          this.name = "";
         }
+      })
+      .catch((error) => {
+        console.log(error.response);
+      })
+    },
+    askForDeleteEducation(education_id) {
+      this.swal({
+        // title: 'Are you sure?',
+        text: "Delete the Education?",
+        // type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#428aff',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes',
+        allowOutsideClick: true
+      }).then(() => {
+        this.deleteEducation(education_id);
+      })
+    },
+    deleteEducation(education_id) {
+      education.deleteEducation(education_id)
+      .then((response) => {
+        this.getAllEducation();
       })
       .catch((error) => {
         console.log(error.response);

@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="admin-dashboard">
 
-    <admin-navbar :userName="userName"></admin-navbar>
+    <AdminNavbar :userName="userName"></AdminNavbar>
 
     <div class="admin-dashboard-inner">
       <router-view></router-view>

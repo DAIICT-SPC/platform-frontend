@@ -17,7 +17,7 @@
         </div> -->
         <div class="apply-box" v-if="dashboardJobDetails.status != 'closed'">
           <a v-if="!applyKey && eligible" class="button is-success" @click="userApplyForPlacement">Apply</a>
-          <a v-if="applyKey && eligible" class="button is-danger" @click="userCancelPlacement">Cancel</a>
+          <a v-if="applyKey && eligible" class="button is-danger" @click="askForCancellation">Cancel</a>
         </div>
       </div>
     </div>
@@ -89,7 +89,7 @@
       </div>
     </div>
   </div>
-  <company-feedback-modal v-if="feedbackModal" @close="feedbackModal = false"></company-feedback-modal>
+  <FeedBackModal v-if="feedbackModal" @close="feedbackModal = false"></FeedBackModal>
 </div>
 </div>
 </template>
@@ -105,7 +105,7 @@ export default {
   name: 'student-placement-page',
   components: {
     'roundBox': PlacementRoundDetail,
-    'company-feedback-modal': FeedBackModal
+    FeedBackModal
   },
   data() {
     return {
@@ -241,6 +241,22 @@ export default {
         });
       })
     },
+
+    askForCancellation() {
+      this.swal({
+        // title: 'Are you sure?',
+        text: "Are you sure you want to cancel the Placement Application?",
+        // type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#428aff',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes',
+        allowOutsideClick: true
+      }).then(() => {
+        this.userCancelPlacement();
+      })
+    },
+
     userCancelPlacement() {
       user.cancelPlacement(this.getUserId(), this.placement_id)
       .then((response) => {

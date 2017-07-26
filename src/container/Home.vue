@@ -24,7 +24,7 @@
                   <input :disabled="block" @keyup.enter="login" v-validate="'required'" v-model="password" name="password"
                   class="input" type="password" placeholder="●●●●●●●">
                 </p>
-                <div @change="time" class="notification is-danger" v-show="errors.has('password')">
+                <div class="notification is-danger" v-show="errors.has('password')">
                   <span>{{ errors.first('password') }}</span>
                 </div>
                 <hr>
@@ -36,8 +36,8 @@
                     </small>
                   </a>
                 </p>
-                <forgot-password :email="email" v-if="forgotModal" @close="forgotModal = false"></forgot-password>
-                <reason-modal :email="email" :password="password" v-if="reasonModal"></reason-modal>
+                <ForgotPassword :email="email" v-if="forgotModal" @close="forgotModal = false"></ForgotPassword>
+                <ReasonModal :email="email" :password="password" v-if="reasonModal"></ReasonModal>
               </div>
             </div>
           </div>
@@ -104,6 +104,7 @@ export default {
   },
 
   methods: {
+    //step 1. Login, validates and checks if the user is admin.
     login() {
       this.validate()
       .then(this.checkForAdmin)
@@ -111,33 +112,16 @@ export default {
         console.log("Error");
       });
     },
+    //step 2 validates
     validate() {
       return this.$validator.validateAll();
     },
-    loginUser() {
-      user.login(this.email, this.password)
-      .then(this.storeToken)
-
-      .catch((error) => {
-        if(error.response.status == 404) {
-          console.log(error);
-          let toast = this.$toasted.error(error.response.data.message, {
-            theme: "outline",
-            position: "bottom-center",
-            duration : 3000
-          });
-        }
-        else {
-          console.log(error);
-        }
-      })
-      .then(this.redirect);
-    },
-
+    //step 3 checks for admin, if no, login. else blocks the email password textbox,
+    // asks for reason modal
     checkForAdmin() {
       user.checkForAdmin(this.email, this.password)
       .then((response) => {
-        // false no admin
+        // false, not an admin
         if(response.data.status == false) {
           this.loginUser();
         }
@@ -168,7 +152,27 @@ export default {
         }
       })
     },
+    //step 4 normal user login
+    loginUser() {
+      user.login(this.email, this.password)
+      .then(this.storeToken)
 
+      .catch((error) => {
+        if(error.response.status == 404) {
+          console.log(error);
+          let toast = this.$toasted.error(error.response.data.message, {
+            theme: "outline",
+            position: "bottom-center",
+            duration : 3000
+          });
+        }
+        else {
+          console.log(error);
+        }
+      })
+      .then(this.redirect);
+    },
+    // step 5 store the token and redirects acc to the role
     storeToken: (response) => {
       this.decodedToken = jwtDecode(response.data.token)
       Auth.setUserToken(this.decodedToken.sub)
@@ -196,11 +200,6 @@ export default {
     storeAdminToken(token) {
 
     },
-
-    time() {
-      setTimeout(this.getRoundNo, 1);
-    }
-
   }
 }
 </script>

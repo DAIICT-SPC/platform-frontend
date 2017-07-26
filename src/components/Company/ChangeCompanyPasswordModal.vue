@@ -44,7 +44,7 @@
 					</div>
 				</section>
 				<footer class="modal-card-foot">
-					<a class="button is-success" @click="validateAndUpdateDetails">Save changes</a>
+					<a class="button is-success" @click="validateAndUpdateDetails">Update</a>
 					<a class="button" v-on:click="$emit('close')">Cancel</a>
 				</footer>
 			</div>
@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import admin from '@/api/admin'
+import company from '@/api/company'
 import Auth from '@/packages/auth/Auth'
 
 export default{
@@ -69,15 +69,15 @@ export default{
 	methods: {
 		validateAndUpdateDetails() {
 			this.validate().then(() => {
-				admin.patchCompanyPassword(this.getUserId(), this.password)
+				company.patchCompanyPassword(this.getUserId(), this.password)
 				.then((response) => {
 					if(response.status == 200) {
 						this.$emit('close');
 						let toast = this.$toasted.success("Password Updated", {
-			        theme: "outline",
-			        position: "bottom-center",
-			        duration : 3000
-			      });
+							theme: "outline",
+							position: "bottom-center",
+							duration : 3000
+						});
 					}
 				})
 				.catch((error) => {

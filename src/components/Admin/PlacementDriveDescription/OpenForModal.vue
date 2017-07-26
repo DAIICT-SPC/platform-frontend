@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import company from '@/api/company';
+import admin from '@/api/admin';
 import category from '@/api/category';
 import Auth from '@/packages/auth/Auth';
 
@@ -67,7 +67,7 @@ export default {
 			return this.$validator.validateAll();
 		},
 		callOpenForCategories() {
-			company.getOpenFor(this.getUserId(), this.placement_id)
+			admin.getOpenFor(this.getUserId(), this.placement_id)
 			.then((response) => {
 				if(response.data == 'No Category Left!') {
 					this.showData = false;
@@ -84,7 +84,7 @@ export default {
 		},
 		updateOpenForDetail() {
 			this.validate().then(() => {
-				company.patchOpenForDetail(this.getUserId(), this.placement_id, this.categories_selected)
+				admin.patchOpenForDetail(this.getUserId(), this.placement_id, this.categories_selected)
 				.then((response) => {
 					if(response.status == 200) {
 						let toast = this.$toasted.success("Category Added", {
@@ -93,6 +93,7 @@ export default {
 							duration : 3000
 						});
 						this.$bus.$emit('close')
+
 					}
 				})
 				.catch((error) => {

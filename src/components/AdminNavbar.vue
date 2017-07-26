@@ -21,7 +21,7 @@
             <a @click="editAdmin = true">Account Settings</a><br>
             <a @click="logout">Logout</a>
           </dropdown>
-          <edit-modal @close="editAdmin = false" v-if="editAdmin"></edit-modal>
+          <ChangeAdminPasswordModal @close="editAdmin = false" v-if="editAdmin"></ChangeAdminPasswordModal>
         </div>
       </div>
     </nav>
@@ -30,13 +30,13 @@
 
 <script>
 import Dropdown from '@/components/Dropdown';
-import EditAdminPersonalModal from '@/components/EditAdminPersonalModal';
+import ChangeAdminPasswordModal from '@/components/Admin/ChangeAdminPasswordModal';
 
 export default {
   name: 'admin-navbar',
   components: {
     Dropdown,
-    'edit-modal': EditAdminPersonalModal
+    ChangeAdminPasswordModal
   },
   props: {
     userName: {

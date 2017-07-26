@@ -8,8 +8,11 @@
 
 			<!-- <input name="image" type="file" @change="processFile($event)"> -->
 			<div class="field has-addons">
-				<input name="filename" type="file" class="inputfile inputfile-2" id="file" @change="processFile($event)">
+				<input v-validate="'required'" name="filename" type="file" class="inputfile inputfile-2" id="file" @change="processFile($event)">
 				<label for="file"><span id="filename">{{filename}}</span></label>
+				<div class="notification is-danger" v-show="errors.has('filename')">
+					<span>{{ errors.first('filename') }}</span>
+				</div>
 				<p class="control">
 					<a class="button is-success" @click="addUsers"> Add </a>
 				</p>
