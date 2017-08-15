@@ -1,21 +1,23 @@
 <template>
-	<div class="company-wise-listing box">
+	<div class="company-wise-listing">
+		<div class="box">
 
-		<div class="company-wise head">
-			<h2 class="title">Manage Companies</h2>
-		</div>
-
-		<div class="companywise-body">
-			<div class="one-company" v-for="company in companies">
-				<input type="hidden" v-model="to_user_id = company.company_detail.user_id">
-				<span class="text title is-4">{{ company.company_detail.company_name }}</span>
-				<a @click="modalOpen()" class="button is-success is-outlined a-tag login">Login As</a>
-				<a @click="allowCompany(company.company_detail.id)" class="button is-success is-outlined a-tag allow-btn"
-				v-if="company.status != 'allowed'">Allow</a>
-				<a @click="disallowCompany(company.company_detail.id)" class="button is-danger is-outlined a-tag"
-				v-if="company.status == 'allowed'">Cancel</a>
+			<div class="company-wise head">
+				<h2 class="title">Manage Companies</h2>
 			</div>
-			<reason-modal :to_user_id="to_user_id" v-if="reasonModal"></reason-modal>
+
+			<div class="companywise-body">
+				<div class="one-company" v-for="company in companies">
+					<input type="hidden" v-model="to_user_id = company.company_detail.user_id">
+					<span class="text title is-4">{{ company.company_detail.company_name }}</span>
+					<a @click="modalOpen()" class="button is-success is-outlined a-tag login">Login As</a>
+					<a @click="allowCompany(company.company_detail.id)" class="button is-success is-outlined a-tag allow-btn"
+					v-if="company.status != 'allowed'">Allow</a>
+					<a @click="disallowCompany(company.company_detail.id)" class="button is-danger is-outlined a-tag"
+					v-if="company.status == 'allowed'">Cancel</a>
+				</div>
+				<reason-modal :to_user_id="to_user_id" v-if="reasonModal"></reason-modal>
+			</div>
 		</div>
 	</div>
 </template>
@@ -64,7 +66,12 @@ export default {
 		allowCompany(company_id) {
 			admin.postAllowCompany(this.season_id, company_id)
 			.then((response) => {
-				if(response.status == 200){
+				if(response.status == 200) {
+					let toast = this.$toasted.success("Allowed!", {
+						theme: "outline",
+						position: "top-center",
+						duration : 3000
+					});
 					this.callAllowedCompanies();
 				}
 			})
@@ -75,7 +82,12 @@ export default {
 		disallowCompany(company_id) {
 			admin.postDisallowCompany(this.season_id, company_id)
 			.then((response) => {
-				if(response.status == 200){
+				if(response.status == 200) {
+					let toast = this.$toasted.error("Dis-Allowed!", {
+						theme: "outline",
+						position: "top-center",
+						duration : 3000
+					});
 					this.callAllowedCompanies();
 				}
 			})
@@ -90,14 +102,14 @@ export default {
 		loginas(new_token) {
 			// then login
 			Auth.swapToken(new_token, this.to_user_id);
-			window.location.href='/company';
+			this.$router.push({ name: 'company-home' });
 			// previous logic
 			// admin.postloginas(this.to_user_id)
 			// .then((response) => {
 			// 	if(response.status == 200) {
 			// 		this.token = response.data.token;
 			// 		Auth.swapToken(this.new_token, this.to_user_id);
-			// 		window.location.href='/company';
+			// 		this.$router.push({ name: 'company-home' })
 			// 	}
 			// })
 			// .catch((error) => {
@@ -111,7 +123,7 @@ export default {
 <style lang="scss">
 .company-wise-listing {
 
-	max-width: 500px;
+	max-width: 650px;
 
 	.company-wise {
 		padding: 1rem;

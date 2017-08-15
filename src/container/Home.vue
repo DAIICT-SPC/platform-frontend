@@ -109,6 +109,7 @@ export default {
       this.validate()
       .then(this.checkForAdmin)
       .catch(() => {
+        console.log(error.response);
         console.log("Error");
       });
     },
@@ -182,13 +183,17 @@ export default {
         if(response.data.role == 'student') {
           Auth.setUserRole(response.data.role);
           window.location.href='/dashboard';
+          // this.$router.push({ name: 'dashboard' })
+          window.location.href='/dashboard';
         }
         else if(response.data.role == 'company') {
           Auth.setUserRole(response.data.role);
-          window.location.href='/company';
+          // this.$router.push({ name: 'company-home' });
+           window.location.href='/company';
         }
         else if(response.data.role == 'admin') {
           Auth.setUserRole(response.data.role);
+          // this.$router.push({ name: 'admin-home' })
           window.location.href='/admin';
         }
       })

@@ -69,7 +69,11 @@ export default {
 					this.$bus.$emit('reason-modal', { response: response });
 				})
 				.catch((error) => {
-					console.log(error);
+					let toast = this.$toasted.error(error.response.data.message, {
+						theme: "outline",
+						position: "bottom-center",
+						duration : 3000
+					});
 				})
 			})
 			.catch((error) => {

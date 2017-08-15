@@ -7,19 +7,6 @@
       </select>
     </span>
   </div>
-  <!-- <div class="placementSeason-component">
-		<div class="main">
-			<span class="select is-fullwidth">
-				<select v-validate="'required|not_in:null'" v-model="seasonId" @change="placementseasonChange()" name="placement-select">
-					<option value=null>Select Dropdown</option>
-					<option v-for="season in seasons" :value="season.id">{{season.title}}</option>
-				</select>
-			</span>
-		</div>
-		<div v-if="!showData">
-			<h1>No Data found</h1>
-		</div>
-	</div> -->
 </template>
 
 <script>
@@ -27,9 +14,7 @@ import category from '@/api/category'
 
 export default {
   name: 'category-dropdown',
-  props: {
-    category_id_old : null
-  },
+  props: ['category_id_old'],
   created() {
     this.category_id = this.category_id_old;
     category.all().then((response) => {

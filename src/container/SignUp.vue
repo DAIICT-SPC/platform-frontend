@@ -75,7 +75,7 @@
                 <div class="field">
                   <label class="label">Category</label>
                   <p class="control">
-                    <category-dropdown></category-dropdown>
+                    <CategoryDropdown></CategoryDropdown>
                   </p>
                 </div>
               </div>
