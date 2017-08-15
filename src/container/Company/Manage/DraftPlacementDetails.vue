@@ -49,9 +49,8 @@
                   <input type="hidden" v-model="category_id = categories.id">
                   <a @click="askCatDelete(categories.id)" class="button is-white delete-btn">
                     Delete </a>
-                    <a class="button is-white" @click="showAddEligibilityCriteria = true">Add</a>
-                    <AddEligibilityCriteria @close="showAddEligibilityCriteria = false" v-if="showAddEligibilityCriteria"
-                    :key="categories.id" :categories="categories"></AddEligibilityCriteria>
+                    <!-- <a class="button is-white" @click="showAddEligibilityCriteria = true">Add</a> -->
+                    <AddEligibilityCriteria :key="categories.id" :categories="categories"></AddEligibilityCriteria>
                   </div>
                 </header>
                 <!-- <input type="hidden" v-model="category_id_new = categories.id"> -->
@@ -353,16 +352,17 @@ export default {
       margin-top: 0.4rem;
     }
 
-    .header-action.top-add-delete {
-      display: flex;
-      align-items: center;
-      // .apply-box {
-      //   margin-top: 10px;
-      //   .button {
-      //     width: 100%;
-      //   }
-      // }
-    }
+  }
+  .top-add-delete {
+    display: flex;
+    padding-top: 0.4rem;
+    padding-right: 0.2rem;
+    // .apply-box {
+    //   margin-top: 10px;
+    //   .button {
+    //     width: 100%;
+    //   }
+    // }
   }
 
   .button.is-primary.start-btn {

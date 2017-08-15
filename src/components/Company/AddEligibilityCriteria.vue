@@ -1,14 +1,15 @@
 <template lang="html">
   <div class="add-eligibility-criteria-box">
+    <a @click="hidden = !hidden" class="button" v-if="hidden">Add</a>
     <!-- <a class="button is-white">Add</a>
     <a class="button is-white">Hide</a> -->
 
-    <div class="modal is-active">
+    <div class="modal is-active" v-if="!hidden">
       <div class="modal-background"></div>
       <div class="modal-card">
         <header class="modal-card-head">
           <p class="modal-card-title">Add Criteria for {{categories.name}}</p>
-          <button class="delete" @click="$emit('close')"></button>
+          <button class="delete" @click="hidden = !hidden"></button>
         </header>
         <section class="modal-card-body">
 
@@ -45,7 +46,7 @@
         </section>
         <footer class="modal-card-foot">
           <a class="button is-success" @click="addCriteria">Save changes</a>
-          <a class="button" v-on:click="$emit('close')">Cancel</a>
+          <a class="button" v-on:click="hidden = !hidden">Cancel</a>
         </footer>
       </div>
     </div>
@@ -68,7 +69,8 @@ export default {
       category_id: null,
       education_id_send: null,
       education_id_rec: null,
-      education: {}
+      education: {},
+      hidden: true
     };
   },
   props: {
@@ -77,7 +79,7 @@ export default {
     }
   },
   created() {
-    console.log(this.categories.name);
+    // console.log(this.categories.name);
     this.category_id = this.categories.id;
     this.placement_id = this.$route.params.placement_id;
 
@@ -103,6 +105,7 @@ export default {
       this.category_id, this.cpi_required)
       .then((response) => {
         if(response.status == 200) {
+          this.hidden = true;
           this.$bus.$emit('added-eligibility-criteria');
           let toast = this.$toasted.success("Criteria Added", {
             theme: "outline",
