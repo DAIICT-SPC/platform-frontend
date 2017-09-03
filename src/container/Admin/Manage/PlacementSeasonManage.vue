@@ -43,30 +43,6 @@
 						</footer>
 					</div>
 				</div>
-				<!-- 1/3 col -->
-				<div class="column is-one-third" v-if="showData" v-for="season in seasons_list">
-					<div class="card placement-tiles">
-
-						<header class="card-header">
-							<p class="card-header-title">
-								{{season.title}}
-								<input type="hidden" v-model="placement_season_id = season.id"  />
-							</p>
-							<a class="card-header-icon">
-								<span class="icon">
-									<span v-if="season.status == 'open'" class="tag is-success status">{{season.status}}</span>
-									<span v-if="season.status == 'closed'" class="tag is-light status">{{season.status}}</span>
-								</span>
-							</a>
-						</header>
-
-						<footer class="card-footer">
-							<router-link :to="{ name: 'placed-students', params: { season_id: season.id } }" v-if="season.status != 'draft'" class="card-footer-item">View</router-link>
-							<a v-if="season.status == 'open'" @click="closeSeason(season.id)" class="card-footer-item">Close</a>
-							<a v-if="season.status == 'draft' || season.status == 'closed'" @click="startSeason(season.id)" class="card-footer-item">Start</a>
-						</footer>
-					</div>
-				</div>
 
 			</div>
 			<div class="column box" v-if="!showData">

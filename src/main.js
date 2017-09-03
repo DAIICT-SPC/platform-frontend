@@ -7,7 +7,7 @@ import Auth from './packages/auth/Auth';
 import Toasted from 'vue-toasted';
 import StarRating from 'vue-star-rating';
 import swal from 'sweetalert2';
-import moment from 'moment'
+import moment from 'moment';
 
 Vue.prototype.swal = swal;
 Vue.prototype.moment = moment;

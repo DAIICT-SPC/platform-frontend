@@ -44,6 +44,7 @@ export default {
 
     placementPrimary(user_id, job_title, job_description, last_date_for_registration, location, no_of_students,
       packages, job_type_id, placement_season_id, start_date, end_date) {
+        console.log(packages);
         let url = '/users/' + user_id + '/company/createPlacement';
         return HTTP.post(url, {
           job_title: job_title,

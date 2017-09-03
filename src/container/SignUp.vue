@@ -396,8 +396,6 @@ export default {
     this.$bus.$on('category-change', (category) => {
       this.student.category = category.id;
     });
-
-
     this.fetchActivation();
   },
   computed: {
