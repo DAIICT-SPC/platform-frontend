@@ -83,7 +83,7 @@ html {
 .dashboard {
     margin-bottom: 20px;
     .dashboard-inner {
-        margin-top: 1.5rem;
+        // margin-top: 1.5rem;
     }
 }
 </style>

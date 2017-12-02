@@ -2,10 +2,8 @@
   <div class="student-jobprofile-page">
     <div v-if="showData" class="container">
 
-      <!-- main div starts -->
       <div class="columns is-multiline">
 
-        <!-- 1/3 col -->
         <div class="column is-one-third" v-for="jobs in jobProfiles" v-if="!jobsNull">
           <div class="card">
 
@@ -57,6 +55,7 @@ export default {
   created() {
     this.getJobProfile();
   },
+
   data() {
     return {
       showData: true,
@@ -64,7 +63,9 @@ export default {
       jobsNull: false
     }
   },
+
   methods: {
+
     getJobProfile() {
       user.getUserJobProfile(this.getUserId())
       .then((response) => {
@@ -84,9 +85,11 @@ export default {
         }
       })
     },
+
     getUserId() {
       return Auth.getUserToken();
     }
+    
   }
 }
 </script>

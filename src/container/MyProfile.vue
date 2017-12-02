@@ -2,8 +2,9 @@
   <div class="container profile-page">
     <div class="columns" v-if="error.errorStatus == null">
       <div class="column is-one-quarter">
-        <sidebar :userMainDetails="userMainDetails" :userEducationcpi="userEducationcpi"></sidebar>
+        <Sidebar :userMainDetails="userMainDetails" :userEducationcpi="userEducationcpi"></Sidebar>
       </div>
+
       <div class="column is-auto">
         <div class="profile-box box col-2-tab">
           <div class="tabs profile-tabs">
@@ -18,8 +19,8 @@
           </div>
         </div>
       </div>
+    </div>
 
-    </div> <!-- main div -->
     <div class="column is-full error" v-if="error.errorStatus != null">
       <div class="media media-card">
         There are no posts to follow.
@@ -46,24 +47,27 @@ export default {
       }
     }
   },
+
   components: {
-    'sidebar': Sidebar
+    Sidebar
   },
+
   created() {
     this.getUserDetails();
     this.getUserEducation();
   },
+
   methods: {
     getUserDetails() {
       userApi.getUserDetails(this.getUserId())
       .then((response) => {
-        console.log(response.data);
         this.userMainDetails = response.data;
       })
       .catch((error) => {
         console.log(error.message);
       })
     },
+
     getUserEducation() {
       userApi.getUserEducation(this.getUserId()).then((response) => {
         this.userEducationcpi = response.data[0].cpi;
@@ -77,9 +81,9 @@ export default {
         } else if (error.request) {
           alert(error.request);
         }
-        // console.log(error.config);
       })
     },
+
     getUserId() {
       return Auth.getUserToken();
     }

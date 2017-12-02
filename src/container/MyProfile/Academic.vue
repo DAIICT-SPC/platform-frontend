@@ -24,11 +24,7 @@
               <editEducation :userEd="userEd"></editEducation>
             </div>
           </footer>
-          <!-- <footer class="card-footer">
-            <span class="card-footer-item">
-              <editEducation :userEd="userEd"></editEducation>
-            </span>
-          </footer> -->
+
         </div>
       </div>
 
@@ -54,11 +50,7 @@
             <span class="card-footer-item">{{ userEd.cpi }} CPI</span>
             <editEducation :userEd="userEd"></editEducation>
           </footer>
-          <!-- <footer class="card-footer">
-            <span class="card-footer-item">
-              <editEducation :userEd="userEd"></editEducation>
-            </span>
-          </footer> -->
+
         </div>
 
       </div>

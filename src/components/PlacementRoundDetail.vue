@@ -3,7 +3,7 @@
   <a @click="hidden=false" v-if="hidden">View Info</a>
   <div class="box" v-if="!hidden">
     <p>
-      Date &amp; Time: <b>{{round.date_of_round}}</b>
+      Date &amp; Time: <b> {{moment(round.date_of_round).format('MMMM Do YYYY, h:mm a')}} </b>
     </p>
     <p class="round-description">
       {{round.round_description}}

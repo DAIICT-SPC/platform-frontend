@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="navbar-page">
-    <!-- navbar starts -->
+
     <nav class="nav has-shadow">
       <div class="container">
         <div class="nav-left">
@@ -17,16 +17,17 @@
           <span></span>
         </span>
         <div class="nav-right nav-menu">
-          <!-- <div class="nav-item is-tab" @click="logout"><a class="button">Logout!</a></div> -->
+
           <dropdown :title="userName" align="right">
             <a @click="editStudent = true">Account Settings</a><br>
             <a @click="logout">Logout</a>
           </dropdown>
           <ChangePasswordStudentModal @close="editStudent = false" v-if="editStudent"></ChangePasswordStudentModal>
+
         </div>
       </div>
     </nav>
-    <!-- navbar ends -->
+
   </div>
 </template>
 
@@ -60,11 +61,6 @@ export default {
 
 <style lang="scss">
 .navbar-page {
-  // .select.nav-right.nav-menu {
-  //   margin-top: 0.5rem;
-  //   .navbar-dropdown.nav-item.is-tab {
-  //     border: none;
-  //   }
-  // }
+  margin-bottom: 1.5rem;
 }
 </style>

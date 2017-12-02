@@ -64,7 +64,7 @@
         <div class="field-body">
           <div>
             <p class="control ">
-              {{userMainDetails.dob}}
+              {{moment(userMainDetails.dob).format('LL')}}
             </p>
           </div>
         </div>

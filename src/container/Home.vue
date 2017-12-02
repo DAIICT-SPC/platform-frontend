@@ -108,7 +108,7 @@ export default {
     login() {
       this.validate()
       .then(this.checkForAdmin)
-      .catch(() => {
+      .catch((error) => {
         console.log(error.response);
         console.log("Error");
       });
@@ -134,7 +134,14 @@ export default {
         }
       })
       .catch((error) => {
-        if(error.response.status == 500) {
+        if(error.response == undefined) {
+            let toast = this.$toasted.error(error, {
+              theme: "outline",
+              position: "bottom-center",
+              duration : 3000
+            });
+        }
+        else if(error.response.status == 500) {
           let toast = this.$toasted.error(error.response.statusText + ". Please try after sometime.", {
             theme: "outline",
             position: "bottom-center",
@@ -142,14 +149,11 @@ export default {
           });
         }
         else if(error.response.status == 404) {
-          let toast = this.$toasted.error(error.response.data.message, {
+          let toast = this.$toasted.error(error.response.data.message + " Please enter the valid Credentials.", {
             theme: "outline",
             position: "bottom-center",
             duration : 3000
           });
-        }
-        else {
-          console.log(error);
         }
       })
     },

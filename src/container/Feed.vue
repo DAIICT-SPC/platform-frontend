@@ -1,13 +1,12 @@
 <template lang="html">
   <div class="container student-feed">
-    <!-- media content starts -->
+
     <div class="dashboard-body">
 
       <div class="columns is-multiline">
         <div class="column is-full" v-if="!feedsNull" v-for="feed in feeds">
           <div class="media media-card">
-            <!-- {{ placement_id = feed.placement_id }} -->
-            <!-- <router-link :to="{ name: 'view-job-profile', params: { id: feed.placement_id } }" > -->
+
             <figure class="media-left">
               <p class="image is-64x64">
                 <img src="../../images/daiict.jpg">
@@ -20,7 +19,7 @@
                   <span v-if="feed.status == 'application'" class="is-pulled-right tag is-success">{{ feed.status }}</span>
                   <span v-if="feed.status == 'closed'" class="is-pulled-right tag is-light">{{feed.status}}</span>
                 </div>
-                <small>{{ feed.created_at }}</small> <br>
+                <small>{{moment(feed.created_at).format('MMMM Do YYYY, h:mm a')}}</small>
                 <p class="p-content"><b>Job Title: </b>{{ feed.job_title }}
                   <br>
                   <b>Job Description: </b>{{ feed.job_description }}
@@ -35,7 +34,6 @@
                 </div>
               </div>
             </div>
-            <!-- </router-link> -->
           </div>
         </div>
 
@@ -46,11 +44,6 @@
         </div>
 
       </div>
-
-      <!-- <nav class="pagination is-centered">
-      <a class="button pagination-previous ">Previous</a>
-      <a class="button pagination-next ">Next</a>
-    </nav> -->
 
   </div>
 </div>
@@ -83,6 +76,7 @@ export default {
         console.log(error);
       });
     },
+
     presentFeeds(response) {
       if(response.data[0] == null){
         this.feedsNull = true;
@@ -90,9 +84,11 @@ export default {
         this.feeds = response.data;
       }
     },
+
     getUserId() {
       return Auth.getUserToken();
     }
+
   }
 }
 </script>
