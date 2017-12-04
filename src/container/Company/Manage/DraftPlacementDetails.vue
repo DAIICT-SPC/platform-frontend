@@ -1,124 +1,110 @@
 <template>
-  <div class="draft-placement-details">
-    <div class="container box">
+<div class="draft-placement-details">
+  <div class="box">
 
-      <!-- Header -->
-      <div class="job-header job-section" v-if="placementDescription.company">
-        <div class="heading-main">
-          <p class="title is-3 job-title">{{placementDescription.job_title}}</p>
-          <p class="subtitle is-6 company-details">{{placementDescription.company.company_name}}, {{placementDescription.location}}</p>
-        </div>
-        <div class="header-action start-but">
-          <span class="tag">{{placementDescription.job_type.job_type}}</span><br>
-          <a class="button is-primary start-btn" @click="alert">Start</a>
-        </div>
+    <div class="job-header job-section" v-if="placementDescription.company">
+      <div class="heading-main">
+        <p class="title is-3 job-title">{{placementDescription.job_title}}</p>
+        <p class="subtitle is-6 company-details">{{placementDescription.company.company_name}}, {{placementDescription.location}}</p>
       </div>
+      <div class="header-action start-but">
+        <span class="tag">{{placementDescription.job_type.job_type}}</span><br>
+        <a class="button is-primary start-btn" @click="alert">Start</a>
+      </div>
+    </div>
 
-      <!-- Job Description -->
-      <div class="job-description job-section">
-        <b class="section-header">Job Description
+    <div class="job-description job-section">
+      <b class="section-header">Job Description
           <div class="header-action is-pulled-right">
             <div class="button is-white" @click="showDesc = !showDesc" v-if="!showDesc"> {{show}} </div>
             <div class="button is-white" @click="showDesc = !showDesc" v-if="showDesc"> {{hide}} </div>
           </div>
         </b>
 
-        <p>{{ placementDescription.job_description }}</p>
-        <drive-box :placementDescription="placementDescription" v-if="showDesc"></drive-box>
-      </div>
+      <p>{{ placementDescription.job_description }}</p>
+      <ViewPlacementEditModal :placementDescription="placementDescription" v-if="showDesc"></ViewPlacementEditModal>
+    </div>
 
 
-      <!-- Eligibility Criteria -->
-      <div class="eligibility-criteria job-section">
-        <b class="section-header">Eligibility Criteria
+    <div class="eligibility-criteria job-section">
+      <b class="section-header">Eligibility Criteria
           <div class="header-action is-pulled-right">
             <div class="button is-white" @click="showOpenFor = true"> Add </div>
           </div>
         </b>
 
-        <OpenForModal v-if="showOpenFor" @close="showOpenFor = !showOpenFor" :placementDescription="placementDescription">
-        </OpenForModal>
+      <OpenForModal v-if="showOpenFor" @close="showOpenFor = !showOpenFor" :placementDescription="placementDescription">
+      </OpenForModal>
 
-        <!-- All Criterias in a loop  -->
-        <div class="columns is-multiline margin-set">
-          <div class="column" v-for="categories in placementDescription.categories">
-            <div class="card">
-              <header class="card-header">
-                <div class="card-header-title"> {{ categories.name }} </div>
-                <div class="header-action top-add-delete">
-                  <input type="hidden" v-model="category_id = categories.id">
-                  <a @click="askCatDelete(categories.id)" class="button is-white delete-btn">
+      <div class="columns is-multiline margin-set">
+        <div class="column is-half" v-for="categories in placementDescription.categories">
+          <div class="card">
+            <header class="card-header">
+              <div class="card-header-title"> {{ categories.name }} </div>
+              <div class="header-action top-add-delete">
+                <input type="hidden" v-model="category_id = categories.id">
+                <a @click="askCatDelete(categories.id)" class="button is-white delete-btn">
                     Delete </a>
-                    <!-- <a class="button is-white" @click="showAddEligibilityCriteria = true">Add</a> -->
-                    <AddEligibilityCriteria :key="categories.id" :categories="categories"></AddEligibilityCriteria>
-                  </div>
-                </header>
-                <!-- <input type="hidden" v-model="category_id_new = categories.id"> -->
-                <!-- <category-education-modal :key="category_id_new" :category_id="category_id_new"
-                v-if="" @close="showCatEd=!showCatEd"></category-education-modal> -->
-                <footer class="stripe-footer">
-                  <div class="columns">
-                    <div class="column" v-for="cat in categories.criterias">{{ cat.education.name }}
-                      <br> {{cat.cpi_required}}
-                      <br> <edit-criteria-box :key="categories.id" :cat_name="cat.education.name"
-                      :criterias='categories.criterias'>
-                    </edit-criteria-box>
-                  </div>
+                <AddEligibilityCriteria :key="categories.id" :categories="categories"></AddEligibilityCriteria>
+              </div>
+            </header>
+            <footer class="stripe-footer">
+              <div class="columns">
+                <div class="column" v-for="cat in categories.criterias">{{ cat.education.name }}
+                  <br> {{cat.cpi_required}}
+                  <br>
+                  <EligibilityCriteriaBoxCompany :key="categories.id" :cat_name="cat.education.name" :criterias='categories.criterias'>
+                  </EligibilityCriteriaBoxCompany>
                 </div>
-              </footer>
-              <!-- <div class="columns criteria-box">
-              <div class="column">
-            </div>
-          </div> -->
+              </div>
+            </footer>
+          </div>
         </div>
+
       </div>
-
     </div>
-  </div>
 
-  <!-- Hiring Process -->
-  <div class="hiring-process job-section">
-    <b class="section-header">Hiring Process
+    <div class="hiring-process job-section">
+      <b class="section-header">Hiring Process
       <div class="header-action is-pulled-right">
         <div class="button is-white" @click="showAddSelection = true"> Add </div>
       </div>
     </b>
-    <AddSelectionRound :lastDateRegistration="lastDateRegistration" v-if="showAddSelection"></AddSelectionRound>
-    <div class="processes">
+      <AddSelectionRound :lastDateRegistration="lastDateRegistration" v-if="showAddSelection"></AddSelectionRound>
+      <div class="processes">
 
-      <div class="process-application process">
-        <a class="button">
+        <div class="process-application process">
+          <a class="button">
           <span class="icon">
             <i class="fa fa-user-o"></i>
           </span>
           <span> Application </span> &nbsp;
           <div class="view-info">
-            <!-- <router-link :to="{ name: 'selection-rounds', params: { placement_id: placement_id } }" class="is-success">View info</router-link> -->
           </div>
         </a>
-      </div>
+        </div>
 
 
-      <div class="box process" v-for="round in placementDescription.placement_selection">
-        <p>
-          <b>{{ round.round_name }}</b>
-        </p>
-        <EditSelectionRounds :key="round.id" :round="round"></EditSelectionRounds>
-      </div>
+        <div class="box process" v-for="round in placementDescription.placement_selection">
+          <p>
+            <b>{{ round.round_name }}</b>
+          </p>
+          <EditSelectionRounds :key="round.id" :round="round"></EditSelectionRounds>
+        </div>
 
 
-      <div class="process-offer process">
-        <a class="button">
+        <div class="process-offer process">
+          <a class="button">
           <span class="icon">
             <i class="fa fa-file-text-o"></i>
           </span>
           <span>Offer</span>
         </a>
-      </div>
+        </div>
 
+      </div>
     </div>
   </div>
-</div>
 </div>
 </div>
 </template>
@@ -133,14 +119,13 @@ import EligibilityCriteriaBoxCompany from '@/components/EligibilityCriteriaBoxCo
 import AddEligibilityCriteria from '@/components/Company/AddEligibilityCriteria';
 import AddSelectionRound from '@/components/Company/AddSelectionRound';
 import EditSelectionRounds from '@/components/Company/EditSelectionRounds';
-// import DraftEligibilityCriteriaModal from '@/components/Company/DraftEligibilityCriteriaModal';
 
 export default {
   name: 'placement',
   components: {
-    'drive-box': ViewPlacementEditModal,
+    ViewPlacementEditModal,
     OpenForModal,
-    'edit-criteria-box': EligibilityCriteriaBoxCompany,
+    EligibilityCriteriaBoxCompany,
     AddEligibilityCriteria,
     AddSelectionRound,
     EditSelectionRounds,
@@ -154,8 +139,7 @@ export default {
       placement_id: null,
       jobProfile: {},
       placementDescription: [],
-      roundsData: {
-      },
+      roundsData: {},
       apply: null,
       applyKey: 0,
       showVenue: false,
@@ -216,73 +200,75 @@ export default {
       })
     },
     askCatDelete(id) {
-        this.swal({
-          // title: 'Are you sure?',
-          text: "Delete the Category?",
-          // type: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#428aff',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes',
-          allowOutsideClick: true
-        }).then(() => {
-          this.delOpenFor(id);
-        })
+      this.swal({
+        // title: 'Are you sure?',
+        text: "Delete the Category?",
+        // type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#428aff',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes',
+        allowOutsideClick: true
+      }).then(() => {
+        this.delOpenFor(id);
+      })
     },
     getDetails() {
       company.getPlacementDetails(this.getUserId(), this.placement_id)
-      .then((response) => {
-        this.lastDateRegistration = response.data.last_date_for_registration;
-        this.placementDescription = response.data;
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
+        .then((response) => {
+          this.lastDateRegistration = response.data.last_date_for_registration;
+          this.placementDescription = response.data;
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
     },
     getEducation() {
       company.getEducationForPlacementCriteria(this.getUserId(), this.placement_id, this.category_id)
-      .then((response) => {
-        // console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
+        .then((response) => {
+          // console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
     },
     getUserId() {
       return Auth.getUserToken();
     },
     delOpenFor(category_id) {
       company.deleteOpenFor(this.getUserId(), this.placement_id, category_id)
-      .then((response) => {
-        if(response.status == 204) {
-          let toast = this.$toasted.error("Category Deleted", {
-            theme: "outline",
-            position: "top-center",
-            duration : 3000
-          });
-          this.getDetails();
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      })
+        .then((response) => {
+          if (response.status == 204) {
+            let toast = this.$toasted.error("Category Deleted", {
+              theme: "outline",
+              position: "top-center",
+              duration: 3000
+            });
+            this.getDetails();
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        })
     },
     startPlacement() {
       company.startPlacement(this.getUserId(), this.placement_id)
-      .then((response) => {
-        let toast = this.$toasted.success("Placement Drive has been Initiated.", {
-          theme: "outline",
-          position: "top-center",
-          duration : 3000
-        });
-        this.goToHome();
-      })
-      .catch((error) => {
-        console.log(error);
-      })
+        .then((response) => {
+          let toast = this.$toasted.success("Placement Drive has been Initiated.", {
+            theme: "outline",
+            position: "top-center",
+            duration: 3000
+          });
+          this.goToHome();
+        })
+        .catch((error) => {
+          console.log(error);
+        })
     },
     goToHome() {
-      this.$router.push({name: 'company-home'})
+      this.$router.push({
+        name: 'company-home'
+      })
     },
   }
 }
@@ -291,177 +277,174 @@ export default {
 <style lang="scss">
 .draft-placement-details {
 
-  .margin-set {
-    margin: 0;
-  }
+  margin-bottom: 1.5rem;
 
-  .add-btn {
-    margin-top: 0.4rem;
-  }
-
-  padding: 0.5rem 1.5rem;
-  padding-top: 1.3rem;
-
-  .container.box {
-    border-radius: 4px;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+  .box {
     padding: 0;
   }
 
-  .columns.criteria-box {
-    margin-top: 0;
-    .column {
-      padding-bottom: 0;
-      padding-top: 0;
-      margin-bottom: 0.5rem;
-    }
-  }
-
-  .job-section {
-    border-bottom: solid 1px #ddd;
-    margin-bottom: 1.5rem;
-    padding-bottom: 1.5rem;
-
-    .section-header {
-      display: block;
-      margin-bottom: 1rem;
-    }
-  }
-
-  .job-header {
-    padding: 2.5rem;
-    background: #3273dc;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 4px 4px 0 0;
-    box-shadow: inset 0 -8px 16px rgba(0, 0, 0, 0.2);
-
-    .title {
-      margin-bottom: 0;
-      color: #fff;
+    .margin-set {
+        margin: 0;
     }
 
-    .subtitle {
-      color: #1d4586;
-      font-weight: bold;
-      margin-top: 0.5rem;
+    .add-btn {
+        margin-top: 0.4rem;
     }
 
-    .button.is-white.add {
-      margin-top: 0.4rem;
+    .container.box {
+        border-radius: 4px;
+        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+        padding: 0;
     }
 
-  }
-  .top-add-delete {
-    display: flex;
-    padding-top: 0.4rem;
-    padding-right: 0.2rem;
-    // .apply-box {
-    //   margin-top: 10px;
-    //   .button {
-    //     width: 100%;
-    //   }
-    // }
-  }
-
-  .button.is-primary.start-btn {
-    margin-left: 0.8rem;
-    margin-top: 0.5rem;
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
-
-  .job-description {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-
-  .eligibility-criteria {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-
-    .stripe-footer {
-      padding-top: 1rem;
-      padding-bottom: 1rem;
-      border-bottom: solid 1px #ddd;
-      .column {
-        padding: 1rem;
-        text-align: center;
-        // padding-bottom: 0;
-      }
-    }
-  }
-
-  .hiring-process {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-
-  .processes {
-    max-width: 400px;
-    width: 100%;
-    margin: auto;
-    text-align: center;
-    position: relative;
-    &::after {
-      position: absolute;
-      content: '';
-      height: 100%;
-      width: 2px;
-      background: #ddd;
-      top: 0;
-      left: 50%;
-      margin-left: -1px;
-      z-index: 2;
-    }
-    .box {
-      text-align: center;
-    }
-    .button {
-      pointer-events: none;
-      .icon {
-        margin-right: 0.5rem;
-        .fa {
-          font-size: 1rem;
+    .columns.criteria-box {
+        margin-top: 0;
+        .column {
+            padding-bottom: 0;
+            padding-top: 0;
+            margin-bottom: 0.5rem;
         }
-      }
     }
 
-    .card-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
+    .job-section {
+        border-bottom: solid 1px #ddd;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1.5rem;
+
+        .section-header {
+            display: block;
+            margin-bottom: 1rem;
+        }
     }
 
-    .header-action.is-pulled-right {
-      .button.is-white.delete-btn {
-        margin-top: 0.3rem;
-      }
+    .job-header {
+        padding: 2.5rem;
+        background: #3273dc;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 4px 4px 0 0;
+        box-shadow: inset 0 -8px 16px rgba(0, 0, 0, 0.2);
+
+        .title {
+            margin-bottom: 0;
+            color: #fff;
+        }
+
+        .subtitle {
+            color: #1d4586;
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+
+        .button.is-white.add {
+            margin-top: 0.4rem;
+        }
+
+    }
+    
+    .top-add-delete {
+        display: flex;
+        padding-top: 0.4rem;
+        padding-right: 0.2rem;
     }
 
-    .process {
-      position: relative;
-      margin: 2rem 0;
-      z-index: 3;
-      &:first-child:before {
-        display: none;
-      }
-      &:last-child {
-        padding-top: 0.3rem;
-      }
-      &:before {
-        left: 47.5%;
-        top: -11%;
-        position: absolute;
-        width: 0;
-        height: 0;
-        border-left: 10px solid transparent;
-        border-right: 10px solid transparent;
-        border-top: 10px solid #ddd;
-        content: ' ';
-      }
+    .button.is-primary.start-btn {
+        margin-top: 0.5rem;
+        padding-left: 2rem;
+        padding-right: 2rem;
     }
-  }
+
+    .job-description {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+
+    .eligibility-criteria {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+
+        .stripe-footer {
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: solid 1px #ddd;
+            .column {
+                padding: 1rem;
+                text-align: center;
+            }
+        }
+    }
+
+    .hiring-process {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+
+    .processes {
+        max-width: 400px;
+        width: 100%;
+        margin: auto;
+        text-align: center;
+        position: relative;
+        &::after {
+            position: absolute;
+            content: '';
+            height: 100%;
+            width: 2px;
+            background: #ddd;
+            top: 0;
+            left: 50%;
+            margin-left: -1px;
+            z-index: 2;
+        }
+        .box {
+            text-align: center;
+            padding: 1rem;
+        }
+        .button {
+            pointer-events: none;
+            .icon {
+                margin-right: 0.5rem;
+                .fa {
+                    font-size: 1rem;
+                }
+            }
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+        .header-action.is-pulled-right {
+            .button.is-white.delete-btn {
+                margin-top: 0.3rem;
+            }
+        }
+
+        .process {
+            position: relative;
+            margin: 2rem 0;
+            z-index: 3;
+            &:first-child:before {
+                display: none;
+            }
+            &:last-child {
+                padding-top: 0.3rem;
+            }
+            &:before {
+                left: 47.5%;
+                top: -11%;
+                position: absolute;
+                width: 0;
+                height: 0;
+                border-left: 10px solid transparent;
+                border-right: 10px solid transparent;
+                border-top: 10px solid #ddd;
+                content: ' ';
+            }
+        }
+    }
 }
 </style>

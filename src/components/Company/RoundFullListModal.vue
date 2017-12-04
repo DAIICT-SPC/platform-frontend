@@ -10,20 +10,21 @@
 				</header>
 				<section class="modal-card-body">
 
-					<div class="columns" v-for="st in students">
-						<div class="column">
-							<span>{{st.enroll_no}}</span>
-						</div>
-						<div class="column">
-							<span>{{st.user.name}}</span>
-						</div>
-						<div class="column">
-							<span>{{st.category.name}}</span>
+					<div class="application-list">
+
+						<div class="company-selection-body" v-for="st in students">
+							<div class="">
+								<span class="enroll"> {{ st.enroll_no }} </span>
+								<span class="name"> {{ st.user.name }} </span>
+							</div>
+							<div class="catname">
+								<span>{{ st.category.name }}</span>
+							</div>
 						</div>
 					</div>
 
-
 				</section>
+
 				<footer class="modal-card-foot">
 					<a class="button" @click="$emit('close')">Cancel</a>
 				</footer>
@@ -56,6 +57,7 @@ export default {
 			company.getRoundwiseList(this.getUserId(), this.placement_id, this.round_id)
 			.then((response) => {
 				if(response.status == 200) {
+					console.log(this.students);
 					this.students = response.data;
 				}
 			})
@@ -74,37 +76,24 @@ export default {
 <style lang="scss">
 .new-modal {
 
-	.modal-card {
-		margin-bottom: 10rem;
-	}
+	.application-list {
 
-	.modal-card-head {
-		padding: 1rem;
-	}
+		.company-selection-body {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			max-width: 350px;
+			margin-left: 0;
+			padding: 0.1rem;
+			.enroll .name {
+				padding-right: 0.2rem;
+			}
+			.catname {
 
-	.modal-card-foot {
-		padding: 0.8rem;
-		display: flex;
-		justify-content: flex-end;
-	}
+			}
+		}
 
-	.modal-card-body{
-		padding: 1rem;
 	}
-
-	.column {
-		display: block;
-		flex-basis: 0;
-		flex-grow: 1;
-		flex-shrink: 1;
-		padding: 0.2rem;
-	}
-
-	.columns{
-		width:340px;
-		padding-left: 2rem;
-	}
-
 
 }
 </style>

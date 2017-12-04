@@ -2,7 +2,6 @@
 	<div class="placement-detail-page">
 		<div class="details box">
 
-			<!-- Header -->
 			<div class="job-header job-section" v-if="placementDescription.company">
 				<div class="heading-main">
 					<p class="title is-3 job-title">{{ placementDescription.job_title }}</p>
@@ -12,7 +11,6 @@
 					<span v-if="placementDescription.status == 'closed'" class="tag is-light">{{ placementDescription.status }}</span>
 					<span v-if="placementDescription.status == 'application'" class="tag is-success">{{ placementDescription.status }}</span>
 					<div class="apply-box">
-						<!-- re-open and externally allowed -->
 						<a @click="showReOpen = !showReOpen" v-if="placementDescription.status == 'closed'"
 						class="button is-success">Re Open</a>
 						<a @click="showExternalAllow = true" v-if="placementDescription.status == 'application'"

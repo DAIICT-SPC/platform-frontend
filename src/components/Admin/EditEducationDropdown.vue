@@ -7,7 +7,7 @@
       </select>
     </span>
     <div class="help is-danger" v-show="errors.has('education')">
-      {{errors.first('education')}}
+      ASDASD
     </div>
   </div>
 </template>
@@ -28,9 +28,8 @@ export default {
     }
   },
   created() {
-    console.log(this.category_id);
+    console.log("Education: ", this.education_id_rec);
     this.education_id = this.education_id_rec;
-    // this.callEducation();
     this.placement_id = this.$route.params.placement_id;
     this.getEducation();
 

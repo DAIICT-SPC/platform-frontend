@@ -25,7 +25,7 @@
 					<span class="texts">{{stud.externally_allowed_by[0].name}}</span>
 				</div>
 			</div>
-			<!-- <pre>{{students}}</pre> -->
+
 		</div>
 		<div v-if="!showData">
 			<h2 class="title">No Data Available</h2>

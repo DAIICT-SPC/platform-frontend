@@ -11,6 +11,7 @@
                 <hr class=image-text>
                 <h3 class="title">Student Placement Cell</h3>
                 <hr class="text-body">
+
                 <label class="label">Email</label>
                 <p class="control">
                   <input :disabled="block" v-model="email" name="email" v-validate="'required|email'" class="input" type="text" placeholder="abc@example.ac.in">
@@ -27,7 +28,9 @@
                 <div class="notification is-danger" v-show="errors.has('password')">
                   <span>{{ errors.first('password') }}</span>
                 </div>
+
                 <hr>
+
                 <p class="control">
                   <button @click="login" class="button is-primary">Login</button>
                   <a class="button npm ruforgot is-pulled-right" @click="forgotModal = true">
@@ -36,8 +39,10 @@
                     </small>
                   </a>
                 </p>
+
                 <ForgotPassword :email="email" v-if="forgotModal" @close="forgotModal = false"></ForgotPassword>
                 <ReasonModal :email="email" :password="password" v-if="reasonModal"></ReasonModal>
+
               </div>
             </div>
           </div>
@@ -110,7 +115,6 @@ export default {
       .then(this.checkForAdmin)
       .catch((error) => {
         console.log(error.response);
-        console.log("Error");
       });
     },
     //step 2 validates

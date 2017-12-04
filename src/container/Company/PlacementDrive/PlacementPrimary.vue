@@ -5,6 +5,7 @@
     <h4 class="title placement-header">COMPANY DETAILS</h4>
 
     <div class="placement-body">
+
       <div class="field">
         <label class="label">Placement Season</label>
         <p class="control">
@@ -148,7 +149,6 @@ export default {
         start_date: '',
         end_date: '',
       }
-      // isError: false
     }
   },
   created() {
@@ -181,7 +181,6 @@ export default {
       this.placementDrive.package, this.placementDrive.jobTypeId, this.placementDrive.seasonId,
       this.placementDrive.start_date, this.placementDrive.end_date)
       .then((response) => {
-        // this.moveToNextRound(response.data.placement_id);
         let toast = this.$toasted.success("Placement Drive Created Successfully!", {
           theme: "outline",
           position: "top-center",
@@ -190,7 +189,6 @@ export default {
         this.moveToManage(response.data.placement_id);
       })
       .catch((error) => {
-        // this.isError = true;
         console.log(error);
       })
     },
@@ -232,6 +230,7 @@ export default {
   .date-time {
     display: flex;
     justify-content:  flex-start;
+    margin-bottom: 0.75rem;
     .field.time {
       padding-left: 1rem;
     }
@@ -253,7 +252,6 @@ export default {
 
   .placement-body {
     padding: 1rem;
-    padding-bottom: 1.5rem;
   }
 
   .submit-button {

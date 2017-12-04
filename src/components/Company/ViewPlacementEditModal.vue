@@ -58,6 +58,7 @@
           </div>
         </div>
       </div>
+
       <div class="update-btn">
         <a class="button is-success" @click="validateAndUpdate">Update</a>
       </div>
@@ -131,8 +132,13 @@ export default {
 
   margin-top: 1rem;
 
+  .details {
+    padding: 1rem;
+  }
+
   .update-btn {
-    padding-top: 0.5rem;
+    border: solid 1px #ddd;
+    padding: 1rem;
   }
 }
 </style>

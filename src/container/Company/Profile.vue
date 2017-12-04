@@ -1,12 +1,10 @@
 <template lang="html">
   <div class="myprofile-page">
-    <div class="container">
       <div class="box company-profile">
         <div class="profile-head">
           <h2 class="title header">Overview</h2>
         </div>
 
-        <!-- form data starts -->
         <div class="form">
 
           <div class="field is-horizontal">
@@ -68,7 +66,7 @@
             <div class="field-body">
               <div>
                 <p class="control ">
-                  Alternate Email
+                  {{companyDetails.alternate_email}}
                 </p>
               </div>
             </div>
@@ -100,18 +98,14 @@
             </div>
           </div>
         </div>
-        <!-- form data ends -->
-        <!-- modal starts -->
-        <modal :companyDetails="companyDetails" v-if="showModal" @close="showModal = false"></modal>
-        <!-- modal ends -->
+
+        <EditCompanyProfileModal :companyDetails="companyDetails" v-if="showModal" @close="showModal = false"></EditCompanyProfileModal>
 
         <div class="profile-bottom">
           <button @click="showModal = true" class="button is-success edit-btn">Edit Details</button>
         </div>
 
       </div>
-    </div>
-
 
   </div>
 </template>
@@ -119,12 +113,12 @@
 <script>
 import company from '@/api/company';
 import Auth from '@/packages/auth/Auth';
-import CompanyModal from '@/components/Company/EditCompanyProfileModal';
+import EditCompanyProfileModal from '@/components/Company/EditCompanyProfileModal';
 
 export default {
   name: 'myprofile-page',
   components: {
-    'modal': CompanyModal
+    EditCompanyProfileModal
   },
 
   data(){

@@ -11,7 +11,7 @@
 				</header>
 				<section class="modal-card-body">
 
-					<div class="field is-horizontal abt-admin">
+					<div class="field is-horizontal">
 						<div class="field-label">
 							<p>Password</p>
 						</div>
@@ -27,7 +27,7 @@
 						</div>
 					</div>
 
-					<div class="field is-horizontal abt-admin">
+					<div class="field is-horizontal">
 						<div class="field-label">
 							<p>Confirm Password</p>
 						</div>

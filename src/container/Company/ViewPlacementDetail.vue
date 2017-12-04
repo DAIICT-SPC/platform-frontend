@@ -1,6 +1,6 @@
 <template>
-  <div class="placement-page">
-    <div class="container box">
+  <div class="view-placement-detail">
+    <div class="box">
 
       <div class="job-header job-section" v-if="placementDescription.company">
         <div class="heading-main">
@@ -22,7 +22,7 @@
 
         <div class="columns is-multiline">
 
-          <div class="column" v-for="categories in placementDescription.categories">
+          <div class="column is-half" v-for="categories in placementDescription.categories">
             <div class="card">
               <header class="card-header">
                 <p class="card-header-title"> {{ categories.name }} </p>
@@ -69,7 +69,6 @@
             </p>
             <router-link :to="{ name: 'company-selection-rounds-dynamic', params:
             { placement_id: placement_id, round_id:round.round_no} }" class="is-success">View info</router-link><br>
-            <!-- round box date time not set -->
           </div>
 
           <div class="process-offer process">
@@ -97,7 +96,7 @@ import Auth from '@/packages/auth/Auth';
 import FeedBackModal from '@/components/Company/FeedBackModal';
 
 export default {
-  name: 'placement',
+  name: 'view-placement-detail',
   components: {
     'feedback-modal': FeedBackModal
   },
@@ -123,7 +122,6 @@ export default {
     this.$bus.$on('closeDescription', () => {
       this.showFeedbackModal = false;
     });
-    // feedback-done
     this.$bus.$on('feedback-done', () => {
       this.showFeedbackModal = false;
     });
@@ -163,11 +161,9 @@ export default {
 </script>
 
 <style lang="scss">
-.placement-page {
-  padding: 0.5rem 1.5rem;
-  padding-top: 1.3rem;
+.view-placement-detail {
 
-  .container.box {
+  .box {
     border-radius: 4px;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
     padding: 0;
@@ -231,7 +227,6 @@ export default {
       .column {
         padding: 1rem;
         text-align: center;
-        // padding-bottom: 0;
       }
     }
   }
@@ -260,6 +255,7 @@ export default {
     }
     .box {
       text-align: center;
+      padding: 1.25rem;
     }
     .application {
       // pointer-events: none;

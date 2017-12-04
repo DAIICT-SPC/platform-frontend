@@ -2,8 +2,7 @@
 	<div class="placement-season-tiles">
 		<div class="columns is-multiline">
 
-			<!-- 1/3 col -->
-			<div class="column is-one-third" v-if="showData" v-for="drive in drives">
+			<div class="column is-half" v-if="showData" v-for="drive in drives">
 				<div class="card placement-tiles">
 					<header class="card-header">
 						<p class="card-header-title">
@@ -27,13 +26,11 @@
 					</footer>
 				</div>
 			</div>
-			<!-- 1/3 col -->
+
 			<div class="" v-if="!showData">
 				<h3 class="title box">No Posts to follow. Kindly move back and select Placement Season Again</h3>
 			</div>
 
-
-			<!-- <router-view></router-view> -->
 		</div>
 	</div>
 </template>

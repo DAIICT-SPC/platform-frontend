@@ -11,69 +11,76 @@
           <button class="delete" @click="hidden=false"></button>
         </header>
         <section class="modal-card-body">
+          <div class="personal">
+            <h2 class="title">{{studentData.user.name}}</h2>
 
-          <h2 class="title">{{studentData.user.name}}</h2>
+            <div class="personal-body">
 
-          <div class="field is-horizontal">
-            <div class="field-label">
-              <p>Student Id</p>
-            </div>
-            <div class="field-body">
-              <div>
-                <p class="control ">
-                  201612105
-                </p>
+            <div class="field is-horizontal">
+              <div class="field-label">
+                <p>Student ID:</p>
               </div>
+              <div class="field-body">
+                <div>
+                  <p class="control ">
+                    201612105
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="field is-horizontal">
+              <div class="field-label">
+                <p>Programme: </p>
+              </div>
+              <div class="field-body">
+                <div>
+                  <p class="control ">
+                    {{studentData.category.name}}
+                  </p>
+                </div>
+              </div>
+            </div>
+
             </div>
           </div>
 
-          <div class="field is-horizontal">
-            <div class="field-label">
-              <p>Programme: </p>
-            </div>
-            <div class="field-body">
-              <div>
-                <p class="control ">
-                  {{studentData.category.name}}
-                </p>
+          <div class="education">
+            <h2 class="title">Education</h2>
+            <div class="education-body">
+
+            <div class="field is-horizontal" v-for="education,index in studentDetailEducation">
+              <div class="field-label" v-if="index == 0">
+                <p>Current</p>
               </div>
+              <div class="field-label" v-if="index != 0">
+                <p>Previous</p>
+              </div>
+              <div class="field-body">
+                <div>
+                  <p class="control ">
+                    {{education.clg_school}}
+                  </p>
+                </div>
+              </div>
+              <div class="field-body">
+                <div>
+                  <p class="control ">
+                    {{education.cpi}} CPI
+                  </p>
+                </div>
+              </div>
+              <div class="field-body">
+                <div>
+                  <p class="control ">
+                    {{education.start_year.slice(0, 4)}} - {{education.end_year.slice(0, 4)}}
+                  </p>
+                </div>
+              </div>
+            </div>
+
             </div>
           </div>
-
-          <h2 class="title education">Education</h2>
-          <div class="education-body">
-
-          <div class="field is-horizontal" v-for="education,index in studentDetailEducation">
-            <div class="field-label" v-if="index == 0">
-              <p>Current</p>
-            </div>
-            <div class="field-label" v-if="index != 0">
-              <p>Previous</p>
-            </div>
-            <div class="field-body">
-              <div>
-                <p class="control ">
-                  {{education.clg_school}}
-                </p>
-              </div>
-            </div>
-            <div class="field-body">
-              <div>
-                <p class="control ">
-                  {{education.cpi}} CPI
-                </p>
-              </div>
-            </div>
-            <div class="field-body">
-              <div>
-                <p class="control ">
-                  {{education.start_year.slice(0, 4)}} - {{education.end_year.slice(0, 4)}}
-                </p>
-              </div>
-            </div>
-          </div>
-
-        </div>
 
         </section>
         <footer class="modal-card-foot">
@@ -107,12 +114,12 @@ export default {
   methods: {
     getStudentDetail() {
       company.getStudentDetail(this.getUserId(), this.studentData.enroll_no)
-      .then((response) => {
-        this.studentDetailEducation = response.data.education;
-      })
-      .catch((error) => {
-        console.log(error);
-      })
+        .then((response) => {
+          this.studentDetailEducation = response.data.education;
+        })
+        .catch((error) => {
+          console.log(error);
+        })
     },
     getUserId() {
       return Auth.getUserToken();
@@ -124,29 +131,34 @@ export default {
 <style lang="scss">
 .student-preview {
 
-  .modal-card-head {
-    padding: 1rem;
-  }
+    .modal-card-head {
+        padding: 1rem;
+    }
 
-  .modal-card-body {
-    padding: 1rem;
-    padding-top: 0.5rem;
-    .title {
-      padding-top: 1rem;
-      padding-bottom: 1rem;
+    .modal-card-body {
+        padding: 0;
+        .personal {
+            .field-label {
+                text-align: left;
+            }
+        }
+        .title {
+            padding-left: 0.5rem;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+        .education {
+            border-top: solid 1px #ddd;
+            margin: 1rem 0;
+        }
+        .education-body, .personal-body {
+            padding-left: 1.5rem;
+        }
     }
-    .education {
-      border-top: solid 1px #ddd;
-      margin-top: 1rem;
-    }
-    .education-body {
-      padding-left: 1rem;
-    }
-  }
 
-  .modal-card-foot {
-    padding: 1rem;
-  }
+    .modal-card-foot {
+        padding: 1rem;
+    }
 
 }
 </style>

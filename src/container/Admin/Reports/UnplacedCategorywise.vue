@@ -38,15 +38,6 @@
 			<h3 class="title">No Students have been Unplaced!</h3>
 		</div>
 
-
-
-
-
-		<!-- <div class="section-body" v-for="student in students">
-		<span class="title is-5">{{ student.id }}</span>
-		<span>{{ student.name }}</span>
-	</div> -->
-
 </div>
 </template>
 
@@ -82,6 +73,7 @@ export default {
 		getStudentsUnplacedCategoryWise() {
 			admin.getStudentsUnplacedCategoryWise(this.getUserId(), this.season_id, this.category_id)
 			.then((response) => {
+				console.log(response);
 				if(response.data == 'No Student got Offer!') {
 					this.showData = false;
 				}

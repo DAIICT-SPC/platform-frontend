@@ -1,40 +1,45 @@
 <template>
-	<div class="container company-selection-round-offer">
-		<div class="box">
-			<div v-if="showData">
-				<div class="selection-header">
-					<h3 class="title">Offers <span class="subtitle">(Remaining)</span></h3>
-					<button @click="showModal = true" class="button is-success">Reports</button>
-				</div>
+<div class="company-selection-round-offer">
+  <div class="box">
 
-				<div v-for="studentData in remainingStudents">
-					<div class="selection-body" v-if="studentData.user">
-						<div>
-							<span class="enroll">{{studentData.enroll_no}}</span>
-							<span class="name">{{studentData.user.name}}</span>
-							<span class="category">{{studentData.category.name}}</span>
-						</div>
+    <div class="allow" v-if="allStudents">
+      <h3 class="title no-data">All Students got Offer!</h3>
+      <button class="button is-success" @click="showModal = true">Reports</button>
+    </div>
 
-						<offer-modal :key="studentData.enroll_no" :studentData="studentData">
-						</offer-modal>
+    <div v-if="showData">
+      <div class="selection-header">
+        <h3 class="title">Offers <span class="subtitle">(Remaining)</span></h3>
+        <button @click="showModal = true" class="button is-success">Reports</button>
+      </div>
 
-					</div>
-				</div>
+      <div v-for="studentData in remainingStudents">
+        <div class="selection-body" v-if="studentData.user">
+          <div>
+            <span class="enroll">{{studentData.enroll_no}}</span>
+            <span class="name">{{studentData.user.name}}</span>
+            <span class="category">{{studentData.category.name}}</span>
+          </div>
 
-				<div class="selection-footer">
-					<router-link :to="{ name: 'view-placement-detail', params: { placement_id: placement_id } }" class="button is-primary back-button">Back</router-link>
-				</div>
-			</div>
-			<div v-if="!showData && !allStudents">
-				<h3 class="title no-data">No Student has reached till last Round!</h3>
-			</div>
-			<div class="allow" v-if="allStudents">
-				<h3 class="title no-data">All Students got Offer!</h3>
-				<button class="button is-success" @click="showModal = true">Reports</button>
-			</div>
-		</div>
-		<offer-full-list @close="showModal = false" v-if="showModal"></offer-full-list>
-	</div>
+          <OfferModal :key="studentData.enroll_no" :studentData="studentData">
+          </OfferModal>
+
+        </div>
+      </div>
+
+      <div class="selection-footer">
+        <router-link :to="{ name: 'view-placement-detail', params: { placement_id: placement_id } }" class="button is-primary back-button">Back</router-link>
+      </div>
+    </div>
+
+    <div v-if="!showData && !allStudents">
+      <h3 class="title no-data">No Student has reached till last Round!</h3>
+    </div>
+
+    <OfferFullList @close="showModal = false" v-if="showModal"></OfferFullList>
+
+  </div>
+</div>
 </template>
 
 <script>
@@ -44,134 +49,129 @@ import OfferModal from '@/components/Company/OfferModal';
 import OfferFullList from '@/components/Company/OfferFullList';
 
 export default {
-	name: 'company-selection-round-offer',
-	components: {
-		OfferModal,
-		OfferFullList
-	},
-	created() {
-		this.placement_id = this.$route.params.placement_id;
-		this.getStudentsOffer();
-		this.$bus.$on('refresh', () => {
+  name: 'company-selection-round-offer',
+  components: {
+    OfferModal,
+    OfferFullList
+  },
+  created() {
+    this.placement_id = this.$route.params.placement_id;
+    this.getStudentsOffer();
+    this.$bus.$on('refresh', () => {
 
-			this.getStudentsOffer();
-		})
-	},
-	data() {
-		return {
-			placement_id: null,
-			remainingStudents: [],
-			showData: true,
-			allStudents: false,
-			showModal: false
-		};
-	},
-	methods: {
-		getStudentsOffer() {
-			company.getStudentsForOffer(this.getuserId(), this.placement_id)
-			.then((response) => {
-				this.remainingStudents = response.data;
-				if(response.data == 'All Students in offer layer got Offer!'){
-					this.allStudents = true;
-					this.showData = false;
-				}
-			})
-			.catch((error) => {
-				console.log(error);
-			})
-		},
-		getuserId() {
-			return Auth.getUserToken();
-		}
-	},
+      this.getStudentsOffer();
+    })
+  },
+  data() {
+    return {
+      placement_id: null,
+      remainingStudents: [],
+      showData: true,
+      allStudents: false,
+      showModal: false
+    };
+  },
+  methods: {
+    getStudentsOffer() {
+      company.getStudentsForOffer(this.getuserId(), this.placement_id)
+        .then((response) => {
+          this.remainingStudents = response.data;
+          if (response.data == 'All Students in offer layer got Offer!') {
+            this.allStudents = true;
+            this.showData = false;
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+    },
+    getuserId() {
+      return Auth.getUserToken();
+    }
+  },
 }
 </script>
 
 <style lang="scss">
 .company-selection-round-offer {
 
-	.box {
-		margin-top: 1.5rem;
-		margin-bottom: 2rem;
-		border-radius: 4px;
-		box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
-	}
+    .box {
+        margin-top: 1.5rem 0;
+        padding: 1rem;
+        border-radius: 4px;
+        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+    }
 
-	.allow {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		.button {
-			margin-right: 1rem;
-		}
-	}
+    .allow {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .button {
+            margin-right: 1rem;
+        }
+    }
 
-	.title {
-		margin-bottom: 0;
-	}
+    .title {
+        margin-bottom: 0;
+    }
 
-	.selection-header {
-		padding: 1rem;
-		padding-right: 1.5rem;
-		display: flex;
-		justify-content: space-between;
-		margin: auto;
-		border-bottom: solid 1px #ddd;
-		margin-bottom: 1rem;
-	}
+    .selection-header {
+        padding: 1rem 1.5rem 1rem 1rem;
+        display: flex;
+        justify-content: space-between;
+        margin: auto;
+        border-bottom: solid 1px #ddd;
+        margin-bottom: 1rem;
+    }
 
-	.selection-body {
-		font-size: 18px;
-		display: flex;
-		justify-content: space-between;
-		margin: auto;
-	}
+    .selection-body {
+        font-size: 18px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: auto;
+    }
 
-	.checkbox {
-		margin-right: 0.5rem;
-	}
+    .checkbox {
+        margin-right: 0.5rem;
+    }
 
-	.enroll {
-		margin-right: 0.5rem;
-	}
+    .enroll {
+        margin-right: 0.5rem;
+    }
 
-	.name {
-		margin-right: 0.5rem;
-	}
+    .name {
+        margin-right: 0.5rem;
+    }
 
-	.modal-card-title {
-		padding-top: 5px;
-	}
+    .modal-card-title {
+        padding-top: 5px;
+    }
 
-	.selection-body {
-		padding: 0.5rem;
-		margin-left: 1rem;
-		padding-right: 1.0rem;
-		// border-bottom: solid 1px #ddd;
-	}
+    .selection-body {
+        padding: 0.5rem;
+        margin-left: 1rem;
+        padding-right: 1.0rem;
+        // border-bottom: solid 1px #ddd;
+    }
 
-	.view-profile {
-		float: right;
-	}
+    .view-profile {
+        float: right;
+    }
 
-	.selection-checkbox {
-		padding: 0.5rem;
-		margin-left: 1rem;
-		margin-right: 1rem;
-		margin-top: 0.5rem;
-		border-top: solid 1px #ddd;
-	}
+    .selection-checkbox {
+        padding: 0.5rem;
+        margin-left: 1rem;
+        margin-right: 1rem;
+        margin-top: 0.5rem;
+        border-top: solid 1px #ddd;
+    }
 
-	.selection-footer {
-		border-top: solid 1px #ddd;
-		padding: 1rem;
-		padding-bottom: 0;
-		margin-top: 1rem;
-	}
-
-	.no-data {
-		padding: 1rem;
-	}
+    .selection-footer {
+        border-top: solid 1px #ddd;
+        padding: 1rem 1rem 0;
+        margin-top: 1rem;
+    }
 
 }
 </style>

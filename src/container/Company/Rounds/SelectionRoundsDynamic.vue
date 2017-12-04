@@ -1,6 +1,7 @@
 <template lang="html">
-	<div class="container company-selection-rounds">
+	<div class="company-selection-rounds">
 		<div class="box">
+
 			<div v-if="showData">
 				<div class="selection-header">
 					<h3 class="title">Students <span class="subtitle">(Remaining)</span></h3>
@@ -16,7 +17,7 @@
 							<span class="category">{{ studentData.category.name }}</span>
 						</div>
 						<div class="part2 student-preview">
-							<student-preview :key="studentData.enroll_no" :studentData="studentData"></student-preview>
+							<StudentPreviewModal :key="studentData.enroll_no" :studentData="studentData"></StudentPreviewModal>
 						</div>
 					</div>
 				</div>
@@ -31,18 +32,23 @@
 					<a class="button is-primary applicant-button" @click="moveStudentsToNextRound">Move to next round</a>
 				</div>
 			</div>
+
 			<div v-if="!showData && !allStudents && !offerStudents">
 				<h3 class="title no-data">No Student has applied yet!</h3>
 			</div>
+
 			<div class="allow" v-if="allStudents">
 				<h3 class="title no-data">All Students moved to next Round</h3>
 				<button @click="showModal = true" class="button is-success">View Full-List</button>
 			</div>
+
 			<div class="allow" v-if="offerStudents">
 				<h3 class="title no-data">All Students have been moved to Offer Layer</h3>
 				<button @click="showModal = true" class="button is-success">View Full-List</button>
 			</div>
-			<round-list-modal @close="showModal = false" v-if="showModal"></round-list-modal>
+
+			<RoundFullListModal @close="showModal = false" v-if="showModal"></RoundFullListModal>
+
 		</div>
 	</div>
 </template>
@@ -56,8 +62,8 @@ import StudentPreviewModal from '@/components/Company/StudentPreviewModal';
 export default {
 	name: 'company-selection-rounds',
 	components: {
-		'round-list-modal': RoundFullListModal,
-		'student-preview': StudentPreviewModal
+		RoundFullListModal,
+		StudentPreviewModal
 	},
 	created() {
 		this.placement_id = this.$route.params.placement_id;
@@ -188,6 +194,7 @@ export default {
 .company-selection-rounds {
 
 	.box {
+		padding: 1rem;
 		margin-top: 1.5rem;
 		margin-bottom: 2rem;
 		border-radius: 4px;
@@ -239,8 +246,8 @@ export default {
 		padding-right: 2.2rem;
 		display: flex;
 		justify-content: space-between;
+		align-items: center;
 		margin: auto;
-		// border-bottom: solid 1px #ddd;
 	}
 
 	.view-profile {
@@ -259,10 +266,6 @@ export default {
 		border-top: solid 1px #ddd;
 		padding: 1rem;
 		margin-top: 1rem;
-	}
-
-	.no-data {
-		padding: 1rem;
 	}
 
 }

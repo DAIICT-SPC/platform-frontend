@@ -35,7 +35,7 @@
 					</div>
 
 					<div class="help is-danger" v-show="errors.has('terms')">
-						Please Select At Least one
+						Please select at least one!
 					</div>
 
 					<div class="select-all">

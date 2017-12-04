@@ -1,8 +1,6 @@
 <template lang="html">
   <div class="add-eligibility-criteria-box">
     <a @click="hidden = !hidden" class="button" v-if="hidden">Add</a>
-    <!-- <a class="button is-white">Add</a>
-    <a class="button is-white">Hide</a> -->
 
     <div class="modal is-active" v-if="!hidden">
       <div class="modal-background"></div>
@@ -20,9 +18,8 @@
             <div class="field-body">
               <div>
                 <p class="control" v-if="education">
-                  <!-- {{education_id_rec}} -->
                   <input type="hidden" v-model="education_id_rec = education[0].id">
-                  <edit-dropdown :education_id_rec="education_id_rec" :category_id="category_id"></edit-dropdown>
+                  <EditEducationDropdown :education_id_rec="education_id_rec" :category_id="category_id"></EditEducationDropdown>
                 </p>
               </div>
             </div>
@@ -60,7 +57,7 @@ import EditEducationDropdown from '@/components/Company/EditEducationDropdown';
 export default {
   name: 'add-eligibility-criteria-box',
   components: {
-    'edit-dropdown': EditEducationDropdown
+    EditEducationDropdown
   },
   data() {
     return {
@@ -79,7 +76,7 @@ export default {
     }
   },
   created() {
-    // console.log(this.categories.name);
+    this.getEducation();
     this.category_id = this.categories.id;
     this.placement_id = this.$route.params.placement_id;
 
@@ -87,7 +84,6 @@ export default {
       this.education_id_send = data.id;
     });
 
-    this.getEducation();
   },
   methods: {
     getEducation() {
@@ -100,6 +96,7 @@ export default {
         console.log(error);
       })
     },
+
     addCriteria() {
       company.setPlacementCriteria(this.getUserId(), this.placement_id, this.education_id_send,
       this.category_id, this.cpi_required)

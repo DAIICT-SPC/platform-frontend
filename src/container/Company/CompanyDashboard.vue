@@ -1,9 +1,12 @@
 <template lang="html">
   <div class="company-dashboard-page">
+
     <company-navbar :userName="userName"></company-navbar>
-    <div class="dashboard-inner">
+
+    <div class="dashboard-inner container">
       <router-view></router-view>
     </div>
+
   </div>
 </template>
 
@@ -51,15 +54,19 @@ export default {
         this.userDetails = response.data;
       })
       .catch((error) => {
-        if(error.response.status == 500) {
+        if(error.response == undefined) {
+            let toast = this.$toasted.error(error, {
+              theme: "outline",
+              position: "bottom-center",
+              duration : 3000
+            });
+        }
+        else if(error.response.status == 500) {
 					let toast = this.$toasted.error("Please Logout and come back again to continue.", {
             theme: "outline",
             position: "top-center",
             duration : 3000
           });
-				}
-				else {
-					console.log(error);
 				}
       })
     },

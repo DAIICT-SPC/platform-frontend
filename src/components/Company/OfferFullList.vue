@@ -1,5 +1,5 @@
 <template>
-	<div class="new-modal">
+	<div class="offer-full-list">
 
 		<div class="modal is-active">
 			<div class="modal-background"></div>
@@ -9,23 +9,24 @@
 					<button class="delete" @click="$emit('close')"></button>
 				</header>
 
-				<section class="modal-card-body" v-if="showData">
-					<div class="columns" v-for="st in students">
-						<div class="column">
-							<span>{{st.enroll_no}}</span>
-						</div>
-						<div class="column">
-							<span>{{st.user.name}}</span>
-						</div>
-						<div class="column">
-							<span>{{st.category.name}}</span>
+				<section class="modal-card-body">
+
+					<div class="application-list">
+
+						<div class="company-selection-body" v-for="st in students">
+							<div class="">
+								<span class="enroll"> {{ st.enroll_no }} </span>
+								<span class="name"> {{ st.user.name }} </span>
+							</div>
+							<div class="catname">
+								<span>{{ st.category.name }}</span>
+							</div>
 						</div>
 					</div>
 
+					<h3 v-if="!showData" class="title">No Data to show</h3>
 				</section>
-				<section class="modal-card-body" v-if="!showData">
-					<h3 class="title">No Data to show</h3>
-				</section>
+
 				<footer class="modal-card-foot">
 					<a class="button" @click="$emit('close')">Cancel</a>
 				</footer>
@@ -39,7 +40,7 @@ import company from '@/api/company';
 import Auth from '@/packages/auth/Auth';
 
 export default {
-	name: 'new-modal',
+	name: 'offer-full-list',
 	created() {
 		this.placement_id = this.$route.params.placement_id;
 		this.getAllStudents();
@@ -77,37 +78,25 @@ export default {
 </script>
 
 <style lang="scss">
-.new-modal {
+.offer-full-list {
 
-	.modal-card {
-		margin-bottom: 10rem;
-	}
+	.application-list {
 
-	.modal-card-head {
-		padding: 1rem;
-	}
+		.company-selection-body {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			max-width: 350px;
+			margin-left: 0;
+			padding: 0.1rem;
+			.enroll .name {
+				padding-right: 0.2rem;
+			}
+			.catname {
 
-	.modal-card-foot {
-		padding: 0.8rem;
-		display: flex;
-		justify-content: flex-end;
-	}
+			}
+		}
 
-	.modal-card-body{
-		padding: 1rem;
-	}
-
-	.column {
-		display: block;
-		flex-basis: 0;
-		flex-grow: 1;
-		flex-shrink: 1;
-		padding: 0.2rem;
-	}
-
-	.columns{
-		width:340px;
-		padding-left: 2rem;
 	}
 
 	span{

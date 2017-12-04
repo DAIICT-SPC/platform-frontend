@@ -118,6 +118,7 @@ export default {
     padding-bottom: 0;
     width: 25rem;
     margin: auto;
+    border-top: solid 1px #ddd;
   }
 
   .button.is-white {
