@@ -1,6 +1,6 @@
 <template>
 <div class="student-placement-page">
-  <div class="container box">
+  <div class="box">
 
     <div class="job-header job-section" v-if="dashboardJobDetails.company">
       <div class="heading-main">
@@ -295,7 +295,7 @@ export default {
 .student-placement-page {
     padding: 0.5rem 1.5rem;
 
-    .container.box {
+    .box {
         border-radius: 4px;
         box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
         padding: 0;

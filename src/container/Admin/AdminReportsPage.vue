@@ -1,12 +1,11 @@
 <template>
-	<div class="container reports-page">
+	<div class="reports-page">
 		<div class=" box placement-page">
 
 			<div class="reports-header">
 				<h2 class="title header">Reports</h2>
 			</div>
 
-			<!-- tabs starts -->
 			<div class="tabs">
 				<ul>
 					<li class="li-tabs"><router-link :to="{ name: 'placed-students' }">Placed Students</router-link></li>
@@ -18,7 +17,6 @@
 					<li class="li-tabs"><router-link :to="{ name: 'feedbacks-view' }">Feedbacks</router-link></li>
 				</ul>
 			</div>
-			<!-- tabs ends -->
 
 			<router-view></router-view>
 

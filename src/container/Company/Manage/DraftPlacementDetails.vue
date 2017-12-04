@@ -291,7 +291,7 @@ export default {
         margin-top: 0.4rem;
     }
 
-    .container.box {
+    .box {
         border-radius: 4px;
         box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
         padding: 0;
@@ -342,7 +342,7 @@ export default {
         }
 
     }
-    
+
     .top-add-delete {
         display: flex;
         padding-top: 0.4rem;

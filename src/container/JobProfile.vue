@@ -38,11 +38,13 @@
 
     </div>
   </div>
-  <div v-if="!showData" class="container">
+
+  <div v-if="!showData">
     <div class="box">
       <h3 class="title">No Data to show.</h3>
     </div>
   </div>
+  
 </div>
 </template>
 

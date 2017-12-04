@@ -121,10 +121,10 @@ export default {
     EditCompanyProfileModal
   },
 
-  data(){
-    return{
+  data() {
+    return {
       showModal: false,
-      companyDetails: { }
+      companyDetails: {}
     }
   },
   created() {
@@ -132,11 +132,11 @@ export default {
       this.showModal = false;
     })
     company.getUserDetails(this.getUserId()).then((response) => {
-      this.companyDetails = response.data;
-    })
-    .catch((error) => {
-      console.log(error.response.status);
-    })
+        this.companyDetails = response.data;
+      })
+      .catch((error) => {
+        console.log(error.response.status);
+      })
   },
   methods: {
     getUserId() {
@@ -147,60 +147,55 @@ export default {
 </script>
 
 <style lang="scss">
-.myprofile-page
-{
-  .container {
+.myprofile-page {
     padding: 2rem;
-  }
 
-  .profile-head {
-    border-bottom: solid 1px #ddd;
-  }
-
-  .company-profile {
-    margin-top: 2rem;
-    padding: 0;
-    border-radius: 0.5rem;
-    box-shadow: 0px 4px 5px #d0cfcf;
-    max-width: 1100px;
-    width: 100%;
-    margin: auto;
-  }
-
-  .title {
-    padding: 1rem;
-    margin: 0;
-
-  }
-
-  .form {
-    padding: 1rem;
-    padding-bottom: 0;
-  }
-
-  .field {
-    border-bottom: solid 1px #ddd;
-    margin-bottom: 1rem;
-    padding-bottom: 1rem;
-    .field-label {
-      text-align: left;
-      font-weight: bold;
+    .profile-head {
+        border-bottom: solid 1px #ddd;
     }
-  }
 
-  .field:last-child {
-    border-bottom: none;
-    margin: 0;
-   }
+    .company-profile {
+        margin-top: 2rem;
+        padding: 0;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 5px #d0cfcf;
+        max-width: 1100px;
+        width: 100%;
+        margin: auto;
+    }
 
-  .edit-btn {
-    margin: 1rem;
-    margin-top: 0;
-  }
+    .title {
+        padding: 1rem;
+        margin: 0;
 
-  .profile-bottom {
-    padding-top: 1rem;
-    border-top: solid 1px #ddd;
-  }
+    }
+
+    .form {
+        padding: 1rem 1rem 0;
+    }
+
+    .field {
+        border-bottom: solid 1px #ddd;
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+        .field-label {
+            text-align: left;
+            font-weight: bold;
+        }
+    }
+
+    .field:last-child {
+        border-bottom: none;
+        margin: 0;
+    }
+
+    .edit-btn {
+        margin: 0 1rem 1rem;
+    }
+
+    .profile-bottom {
+        padding-top: 1rem;
+        border-top: solid 1px #ddd;
+    }
 }
 </style>

@@ -1,6 +1,7 @@
 <template>
 	<div class="placement-detail-page">
 		<div class="details-box">
+
 			<div class="job-header job-section">
 				<div class="heading-main">
 					<p class="title is-3 job-title">Software Developer</p>
@@ -106,9 +107,6 @@
 			</div>
 
 
-
-
-			<!-- applicantsModal starts-->
 			<div class="box" v-if="showApplicantModal">
 				<div class="modal is-active">
 					<div class="modal-background"></div>
@@ -136,10 +134,7 @@
 					</div>
 				</div>
 			</div>
-			<!-- applicants Modal ends-->
 
-
-			<!-- gd modal -->
 			<div class="box" v-if="showGDModal">
 				<div class="modal is-active">
 					<div class="modal-background"></div>
@@ -177,9 +172,7 @@
 					</div>
 				</div>
 			</div>
-			<!-- gd modal -->
 
-			<!-- technical modal -->
 			<div class="box" v-if="showTechnicalmodal">
 				<div class="modal is-active">
 					<div class="modal-background"></div>
@@ -216,9 +209,7 @@
 					</div>
 				</div>
 			</div>
-			<!-- technical modal -->
 
-			<!-- HR modal -->
 			<div class="box" v-if="showHRmodal">
 				<div class="modal is-active">
 					<div class="modal-background"></div>
@@ -255,9 +246,7 @@
 					</div>
 				</div>
 			</div>
-			<!-- HR modal -->
 
-			<!-- Offer-Letter modal -->
 			<div class="box" v-if="showOffer">
 				<div class="modal is-active">
 					<div class="modal-background"></div>
@@ -294,7 +283,6 @@
 					</div>
 				</div>
 			</div>
-			<!-- Offer-Letter modal -->
 
 		</div>
 	</template>
@@ -353,12 +341,6 @@
 			}
 		},
 
-		// methods: {
-		// 	open: function(){
-		// 		showApplicantModal: false;
-		// 		showViewModal: true;
-		// 	}
-		// }
 	}
 	</script>
 
@@ -369,7 +351,6 @@
 			border-radius: 4px;
 			box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
 			padding: 0;
-			// background-color: #fafcfd;
 		}
 
 		.job-section {

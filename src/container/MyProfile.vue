@@ -36,7 +36,7 @@ import userApi from '@/api/user';
 import Auth from '@/packages/auth/Auth';
 
 export default {
-  name: 'myprofile',
+  name: 'profile-page',
   data() {
     return {
       userEducationcpi: null,
@@ -95,7 +95,7 @@ export default {
 </script>
 
 <style lang="scss">
-.container {
+.profile-page {
 
   .profile-box {
     padding: 0;

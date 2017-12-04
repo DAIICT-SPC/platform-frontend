@@ -1,7 +1,6 @@
 <template>
 <div class="new-placement-season">
   <div class="placement-page">
-    <div class="container ">
 
       <div class="tabs">
         <ul>
@@ -28,7 +27,6 @@
 
       <router-view></router-view>
 
-    </div>
   </div>
 </div>
 </template>
@@ -46,7 +44,7 @@ export default {
 <style lang="scss">
 .new-placement-season {
 
-    .container.placement-page {
+    .placement-page {
         padding-top: 0;
     }
 

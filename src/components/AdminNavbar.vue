@@ -2,6 +2,7 @@
   <div class="admin-navbar">
     <nav class="nav has-shadow">
       <div class="container">
+
         <div class="nav-left">
           <router-link class="nav-item" :to="{name:'admin-home'}">
             <img src="../../images/daiict.jpg" alt="daiict"> &nbsp; DA-IICT
@@ -10,19 +11,23 @@
           <router-link :to="{ name: 'placement-season-manage' }" class="nav-item is-tab is-hidden-mobile">Manage</router-link>
           <router-link :to="{ name: 'admin-profile' }" class="nav-item is-tab is-hidden-mobile">Profile</router-link>
         </div>
+
         <span class="nav-toggle">
           <span></span>
           <span></span>
           <span></span>
         </span>
+
         <div class="nav-right nav-menu">
-          <!-- <div class="nav-item is-tab" @click="logout"><a class="button">Logout!</a></div> -->
           <dropdown :title="userName" align="right">
             <a @click="editAdmin = true">Account Settings</a><br>
             <a @click="logout">Logout</a>
           </dropdown>
+
           <ChangeAdminPasswordModal @close="editAdmin = false" v-if="editAdmin"></ChangeAdminPasswordModal>
+
         </div>
+
       </div>
     </nav>
   </div>
@@ -60,8 +65,8 @@ export default {
 
 <style lang="scss">
 .admin-navbar {
- .container {
-   padding: 0;
- }
+
+  margin-bottom: 1.5rem;
+
 }
 </style>

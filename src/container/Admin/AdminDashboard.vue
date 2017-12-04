@@ -3,7 +3,7 @@
 
     <AdminNavbar :userName="userName"></AdminNavbar>
 
-    <div class="admin-dashboard-inner">
+    <div class="admin-dashboard-inner container">
       <router-view></router-view>
     </div>
 
@@ -28,7 +28,6 @@ export default {
   },
   created() {
     this.getAdminDetails();
-    // Listen for logout event
     this.$bus.$on('logout-admin', () => {
       Auth.destroyToken();
       let toast = this.$toasted.show("Successfully Logged Out", {
@@ -42,6 +41,7 @@ export default {
     });
   },
   methods: {
+
     getAdminDetails() {
       admin.getAdminDetails(this.getUserId())
       .then((response) => {
@@ -66,6 +66,7 @@ export default {
 				}
       })
     },
+
     getUserId() {
       return Auth.getUserToken();
     }
@@ -75,8 +76,10 @@ export default {
 
 <style lang="scss">
 .admin-dashboard {
+
   .admin-dashboard-inner {
-    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
   }
+
 }
 </style>

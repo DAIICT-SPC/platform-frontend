@@ -94,8 +94,7 @@ export default {
 </script>
 
 <style lang="scss">
-// .student-feed
-.container {
+.student-feed {
   padding-left: 15px;
 
   .dashboard-body {
