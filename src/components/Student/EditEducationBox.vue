@@ -162,6 +162,8 @@ export default {
 
   .box {
     padding: 0;
+    border-top: solid 1px #ddd;
+    border-radius: 3px;
   }
   .update-btn {
     display: flex;

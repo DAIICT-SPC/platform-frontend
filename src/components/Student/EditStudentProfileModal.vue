@@ -178,7 +178,6 @@ export default {
 
   created() {
     this.studentMainDetailsModal = this.studentMainDetails;
-    console.log("studentMainDetailsModal", this.studentMainDetailsModal);
     this.$bus.$on('category-change-before', (category_obj) => {
       this.category = category_obj.id;
     });

@@ -168,11 +168,6 @@ export default {
 
   created() {
     this.studentMainDetails = this.userMainDetails;
-    // this.$bus.$on('close', (data) => {
-    //   this.showModal = false;
-    //   // this.studentDetails = this.userMainDetails;
-    //   // this.studentDetails.user.alternate_email = data.alternate_email
-    // })
   },
   methods: {
 

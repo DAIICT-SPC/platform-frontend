@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="container profile-page">
+  <div class="profile-page">
     <div class="columns" v-if="error.errorStatus == null">
       <div class="column is-one-quarter">
         <Sidebar :userMainDetails="userMainDetails" :userEducationcpi="userEducationcpi"></Sidebar>

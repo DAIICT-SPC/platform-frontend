@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="student-jobprofile-page">
-    <div v-if="showData" class="container">
+    <div v-if="showData">
 
       <div class="columns is-multiline">
 
@@ -89,7 +89,7 @@ export default {
     getUserId() {
       return Auth.getUserToken();
     }
-    
+
   }
 }
 </script>

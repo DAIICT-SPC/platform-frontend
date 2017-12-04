@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="container student-feed">
+  <div class="student-feed">
 
     <div class="dashboard-body">
 

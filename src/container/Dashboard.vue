@@ -3,7 +3,7 @@
 
     <navbar :userName="userName"></navbar>
 
-    <div class="dashboard-inner">
+    <div class="dashboard-inner container">
       <router-view></router-view>
     </div>
 

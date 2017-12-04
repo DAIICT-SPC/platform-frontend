@@ -21,7 +21,7 @@
           <footer class="card-footer">
             <span class="card-footer-item">{{ userEd.cpi }} CPI</span>
             <div class="user-current-education">
-              <editEducation :userEd="userEd"></editEducation>
+              <EditEducationBox :userEd="userEd"></EditEducationBox>
             </div>
           </footer>
 
@@ -48,7 +48,7 @@
           </div>
           <footer class="card-footer">
             <span class="card-footer-item">{{ userEd.cpi }} CPI</span>
-            <editEducation :userEd="userEd"></editEducation>
+            <EditEducationBox :userEd="userEd"></EditEducationBox>
           </footer>
 
         </div>
@@ -70,7 +70,7 @@ import EditEducationBox from '@/components/Student/EditEducationBox'
 export default {
   name: 'student-academic-tab',
   components: {
-    'editEducation' : EditEducationBox
+    EditEducationBox
   },
   props: {
     userEducationDetails: {

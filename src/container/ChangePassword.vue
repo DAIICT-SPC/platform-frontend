@@ -7,7 +7,6 @@
         </div>
         <div class="main-body">
           <div class="field">
-            <!-- <label class="label">Password</label> -->
             <p class="control">
               <input v-model="password" name="student_password" v-validate="'required|min:8'" type="password" placeholder="New Password" class="input">
             </p>
@@ -16,7 +15,6 @@
             </div>
           </div>
           <div class="field">
-            <!-- <label class="label">Confirm Password</label> -->
             <p class="control">
               <input @keyup.enter="validateAndChangePassword" data-vv-as="password" class="input" name="confirm_student_password" v-validate="'required|confirmed:student_password'"
               type="password" placeholder="Re-Enter New Password">
@@ -69,7 +67,7 @@ export default {
       .then((response) => {
         console.log(response);
         if (response.data.email) {
-          this.email = response.data.email;  //right code, email in body
+          this.email = response.data.email;
         }
         else {
           this.push404();
@@ -92,7 +90,6 @@ export default {
             });
             this.pushHome();
           }
-          // console.log(response.data == 'Wrong Code');
         })
         .catch((error) => {
           console.log(error);
