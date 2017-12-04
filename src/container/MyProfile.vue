@@ -15,7 +15,8 @@
             </ul>
           </div>
           <div class="profile-tab-content">
-            <router-view :userEducationDetails="userEducationDetails" :userMainDetails="userMainDetails"></router-view>
+            <router-view :userEducationDetails="userEducationDetails" :userMainDetails="userMainDetails"
+              :userPrivateDetails="userPrivateDetails"></router-view>
           </div>
         </div>
       </div>
@@ -30,9 +31,9 @@
 </template>
 
 <script>
-import Sidebar from '@/components/Sidebar'
-import userApi from '@/api/user'
-import Auth from '@/packages/auth/Auth'
+import Sidebar from '@/components/Sidebar';
+import userApi from '@/api/user';
+import Auth from '@/packages/auth/Auth';
 
 export default {
   name: 'myprofile',
@@ -41,6 +42,7 @@ export default {
       userEducationcpi: null,
       userEducationDetails: [],
       userMainDetails: {},
+      userPrivateDetails: {},
       error: {
         errorMessage: '',
         errorStatus: null
@@ -62,6 +64,7 @@ export default {
       userApi.getUserDetails(this.getUserId())
       .then((response) => {
         this.userMainDetails = response.data;
+        this.userPrivateDetails = response.data.user
       })
       .catch((error) => {
         console.log(error.message);
@@ -77,9 +80,9 @@ export default {
         if (error.response) {
           this.error.errorMessage = error.response.data.message;
           this.error.errorStatus = error.response.status;
-          alert(this.error.errorStatus + " - " + this.error.errorMessage);
+          console.log(this.error.errorStatus + " - " + this.error.errorMessage);
         } else if (error.request) {
-          alert(error.request);
+          console.log(error.request);
         }
       })
     },

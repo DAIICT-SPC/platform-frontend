@@ -90,7 +90,6 @@ export default {
     .then((response) => {
       this.userEducation = response.data;
       if(this.userEducation.length == 0) {
-        // alert('Enter Educations Details');
         this.showEducation = false;
       }
       else {

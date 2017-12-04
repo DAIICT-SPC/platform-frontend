@@ -2,7 +2,6 @@
   <div class="student-about-tab">
     <h2 class="title">Overview</h2>
 
-    <!-- form data starts -->
     <div class="form">
       <div class="field is-horizontal">
         <div class="field-label">
@@ -89,8 +88,8 @@
         </div>
         <div class="field-body">
           <div>
-            <p class="control ">
-              Alternate Email
+            <p class="control" v-if="userMainDetails.user">
+              {{userMainDetails.user.alternate_email}}
             </p>
           </div>
         </div>
@@ -98,7 +97,6 @@
 
       <br>
     </div>
-    <!-- form data ends -->
 
     <h2 class="title">Address</h2>
 
@@ -130,59 +128,64 @@
         </div>
       </div>
 
-      <modal :studentDetails="studentDetails" v-if="showModal" @close="showModal = false"></modal>
-
+      <EditStudentProfileModal :studentMainDetails="studentMainDetails" :studentPrivateDetails="studentPrivateDetails"
+       v-if="showModal" @close="showModal=false">
+      </EditStudentProfileModal>
 
       <p class="control student-profile">
-        <!-- <button class="button is-default" v-on:click="redirect">Edit</button> -->
         <button class="button is-success" @click="modalPage">Edit Details</button>
       </p>
 
     </div>
   </div>
-  <!-- box ends -->
+
 </template>
 
 <script>
-import EditStudentProfileModal from '@/components/Student/EditStudentProfileModal'
+import EditStudentProfileModal from '@/components/Student/EditStudentProfileModal';
 export default {
   name: 'student-about-tab',
   data() {
     return {
       showModal: false,
-      studentDetails : {
-        student_id: null,
-        student_name: '',
-        programme_name: '',
-        contact_no: null,
-        dob: '',
-        gender: '',
-        category: '',
-        primary_address: '',
-        current_address: '',
-        alternate_email: ''
-      }
+      studentMainDetails : {
+      },
+      studentPrivateDetails: {
+      },
     }
   },
-  components: {
-    'modal': EditStudentProfileModal
-  },
+
   props: {
     userMainDetails: {
       required: true,
       type: Object
+    },
+    userPrivateDetails: {
+      required: true,
+      type: Object
     }
   },
+
   created() {
-    // console.log(this.userMainDetails);
+    this.studentMainDetails = this.userMainDetails;
+    // this.$bus.$on('close', (data) => {
+    //   this.showModal = false;
+    //   // this.studentDetails = this.userMainDetails;
+    //   // this.studentDetails.user.alternate_email = data.alternate_email
+    // })
   },
   methods: {
 
     modalPage() {
-      this.studentDetails = this.userMainDetails;
+      this.studentMainDetails = this.userMainDetails;
       this.showModal = true;
-    }
-  }
+    },
+
+  },
+
+  components: {
+    EditStudentProfileModal
+  },
 }
 </script>
 

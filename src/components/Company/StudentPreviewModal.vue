@@ -29,7 +29,7 @@
 
           <div class="field is-horizontal">
             <div class="field-label">
-              <p>Programe Name</p>
+              <p>Programme: </p>
             </div>
             <div class="field-body">
               <div>

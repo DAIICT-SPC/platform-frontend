@@ -1,7 +1,7 @@
 <template>
 <div class="edit-modal">
 
-  <!-- modal starts -->
+
   <div class="modal is-active">
     <div class="modal-background"></div>
     <div class="modal-card">
@@ -34,7 +34,9 @@
           <div class="field-body">
             <div class="field">
               <p class="control">
-                <input v-model="confirm" v-validate="'required|confirmed:password'" type="password" name="confirm" class="input" placeholder="●●●●●●●"> </p>
+                <input v-model="confirm" v-validate="'required|confirmed:password'" type="password" name="confirm"
+                class="input" placeholder="●●●●●●●" @keyup.enter="validateAndUpdateDetails"> 
+              </p>
 								<div class="help is-danger" v-show="errors.has('confirm')">
 	                {{errors.first('confirm')}}
 	              </div>
