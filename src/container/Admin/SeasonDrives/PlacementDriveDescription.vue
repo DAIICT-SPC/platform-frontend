@@ -22,11 +22,9 @@
 			<re-open v-if="showReOpen" @close="showReOpen = false"></re-open>
 			<external-allow v-if="showExternalAllow" @close="showExternalAllow = false"></external-allow>
 
-			<!-- Job Description -->
 			<div class="job-description job-section">
 				<b class="section-header">Job Description
 					<div class="header-action is-pulled-right">
-						<!-- placementDescription.status == 'closed' -->
 						<div class="button is-white" @click="showDesc = !showDesc" v-if="!showDesc &&
 						placementDescription.status == 'application'"> {{show}} </div>
 						<div class="button is-white" @click="showDesc = !showDesc" v-if="showDesc"> {{hide}} </div>
@@ -34,10 +32,9 @@
 				</b>
 
 				<p>{{ placementDescription.job_description }}</p>
-				<drive-box :placementDescription="placementDescription" v-if="showDesc"></drive-box>
+				<PlacementDriveEditBox :placementDescription="placementDescription" v-if="showDesc"></PlacementDriveEditBox>
 			</div>
 
-			<!-- Eligibility Criteria -->
 			<div class="eligibility-criteria job-section">
 				<b class="section-header">Eligibility Criteria
 					<div class="header-action is-pulled-right">
@@ -50,7 +47,7 @@
 
 				<div class="columns is-multiline margin-set">
 
-					<div class="column" v-for="categories in placementDescription.categories">
+					<div class="column is-half" v-for="categories in placementDescription.categories">
 						<div class="card">
 							<header class="card-header">
 								<p class="card-header-title"> {{ categories.name }} </p>
@@ -58,8 +55,6 @@
 									<input type="hidden" v-model="category_id = categories.id">
 									<a @click="askCatDelete(categories.id)" class="button is-white delete-btn">
 										Delete </a>
-										<!-- <a class="button is-white" @click="showAddEligibilityCriteria = true">Add</a> -->
-										<!-- <AddEligibilityCriteria :key="categories.id" :categories="categories"></AddEligibilityCriteria> -->
 									</div>
 								</header>
 
@@ -108,10 +103,8 @@
 								<a class="is-danger" @click="askDeleteSelectionRound">Delete</a>
 							</div>
 							<router-link :to="{ name: 'selection-rounds-dynamic', params: { placement_id: placement_id, round_id:round.round_no} }" class="is-success">View info</router-link><br>
-							<!-- <a @click="showVenue=true">Set Venue & Date</a> -->
 							<set-venue-date :key="round.id" :round="round"></set-venue-date>
 						</div>
-
 
 						<div class="process-offer process">
 							<div class="box offer">
@@ -146,7 +139,7 @@
 		components: {
 			're-open': ReOpenModal,
 			'external-allow': ExternalAllow,
-			'drive-box': PlacementDriveEditBox,
+			PlacementDriveEditBox,
 			'edit-criteria-box': EditEligibilityCriteriaBox,
 			'set-venue-date': SetVenueDate,
 			OfferModal,
@@ -323,11 +316,10 @@
 	<style lang="scss">
 	.placement-detail-page {
 
-		.details-box {
+		.details.box {
 			border-radius: 4px;
 			box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
 			padding: 0;
-			background-color: #fafcfd;
 		}
 
 		.header-action {

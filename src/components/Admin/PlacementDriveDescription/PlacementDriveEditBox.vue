@@ -58,6 +58,7 @@
           </div>
         </div>
       </div>
+
       <div class="update-btn">
         <a class="button is-success" @click="validateAndUpdate">Update</a>
       </div>
@@ -91,36 +92,36 @@ export default {
     }
   },
   methods: {
-      validateAndUpdate() {
-        this.validate()
-        .then(() => {
+    validateAndUpdate() {
+      this.validate()
+        .then( () => {
           //call update
-          admin.updatePlacementDriveDescription(this.getUserId(), this.placement_id, this.job_title,
-          this.location, this.job_description, this.package, this.no_of_students)
-          .then((response) => {
-            if(response.status == 200) {
-              let toast = this.$toasted.success("Details Updated", {
-                theme: "outline",
-                position: "top-center",
-                duration : 3000
-              });
-              this.$bus.$emit('closeDescription');
-            }
-          })
-          .catch((error) => {
-            console.log(error);
-          })
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-      },
-      validate() {
-        return this.$validator.validateAll();
-      },
-      getUserId() {
-        return Auth.getUserToken();
-      }
+          admin.updatePlacementDriveDescription( this.getUserId(), this.placement_id, this.job_title,
+              this.location, this.job_description, this.package, this.no_of_students )
+            .then( ( response ) => {
+              if ( response.status == 200 ) {
+                let toast = this.$toasted.success( "Details Updated", {
+                  theme: "outline",
+                  position: "top-center",
+                  duration: 3000
+                } );
+                this.$bus.$emit( 'closeDescription' );
+              }
+            } )
+            .catch( ( error ) => {
+              console.log( error );
+            } )
+        } )
+        .catch( ( error ) => {
+          console.log( error );
+        } )
+    },
+    validate() {
+      return this.$validator.validateAll();
+    },
+    getUserId() {
+      return Auth.getUserToken();
+    }
   }
 }
 </script>
@@ -128,17 +129,22 @@ export default {
 <style lang="scss">
 .placement-drive-edit-box {
 
-  margin: 1rem;
+    margin: 1rem;
 
-  .box {
-    padding: 0.5rem;
-    border-radius: 0px;
-    box-shadow: 0px 0px 0px;
-    border: solid 1px #ddd;
-  }
+    .box {
+        padding: 0;
+        border-radius: 0;
+        box-shadow: 0 0 0;
+        border: solid 1px #ddd;
+    }
 
-  .update-btn {
-    padding-top: 0.5rem;
-  }
+    .details {
+        padding: 1rem;
+    }
+
+    .update-btn {
+        border-top: solid 1px #ddd;
+        padding: 1rem;
+    }
 }
 </style>
