@@ -7,11 +7,6 @@
           {{placement.job_title}} for {{placement.company.company_name}}
         </option>
       </select>
-      <!-- <pre> -->
-        <!-- placement_id -->
-        <!-- job_title for company.company_name-->
-        <!-- {{ placementsInSeason }} -->
-      <!-- </pre> -->
     </span>
   </div>
 </template>
@@ -31,14 +26,14 @@ export default {
   },
   methods: {
     placementChange() {
-      this.$bus.$emit('placement-change', { placement_id: this.placement_id });
+      this.$bus.$emit( 'placement-change', {
+        placement_id: this.placement_id
+      } );
     }
   }
 }
 </script>
 
 <style lang="scss">
-.placement-season-dropdown {
-
-}
+.placement-season-dropdown {}
 </style>

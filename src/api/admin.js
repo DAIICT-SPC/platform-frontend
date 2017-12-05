@@ -302,12 +302,9 @@ export default {
     return HTTP.get(url);
   },
 
-  activationViaFileUpload(csvfile, role) {
+  activationViaFileUpload(data) {
     let url = '/activation/file';
-    return HTTP.post(url, {
-      csv: csvfile,
-      role: role
-    });
+    return HTTP.post(url, data);
   },
 
   isStudentDataAllowed(user_id, placement_id) {
@@ -395,5 +392,14 @@ export default {
     let url = '/users/' + user_id + '/admin/deleteSelectionRound/' + placement_id + '/' + round_no;
     return HTTP.delete(url);
   },
+
+  singleEntry(email, role) {
+    let url = '/activation/single';
+    return HTTP.post(url, {
+      email: email,
+      role: role
+    })
+  }
+
 
 }

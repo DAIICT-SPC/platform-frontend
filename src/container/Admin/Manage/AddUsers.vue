@@ -7,36 +7,43 @@
 
 			<div class="add-users">
 
-				<div class="file">
+				<form id="file-form" class="file" enctype="multipart/form-data">
 					<label class="label">File Upload</label>
 					<div class="field has-addons">
 						<input v-validate="'required'" data-vv-delay="2000" name="filename" type="file"
-						class="inputfile inputfile-2" id="file" @change="processFile($event)">
+						:class="{ 'inputfile': true, 'is-danger': errors.has('filename') }"
+						id="file" @change="processFile($event)">
+						<!-- <input type="file" id="file" name="filename"
+						@change="filesChange($event.target.files[ 0 ].name, $event.target.files[0]);"> -->
 						<label for="file"><span id="filename">{{filename}}</span></label>
-						<div class="notification is-danger" v-show="errors.has('filename')">
-							<span>{{ errors.first('filename') }}</span>
-						</div>
 						<p class="control">
-							<a class="button is-success" @click="addUsers"> Add </a>
+							<a class="button is-success" @click="validateAndAddUsersViaFile"> Add </a>
 						</p>
 					</div>
 
-				</div>
+				</form>
 
 				<div class="single-entry">
-					<label class="label">Single Entry</label>
 					<div class="field has-addons">
-  				<div class="control">
-    			<input class="input" type="text" placeholder="Add a user">
-  				</div>
-  				<div class="control">
-    			<a class="button is-info" @click="validateAndAddSingleEntry">
-      		Add User
-    			</a>
-  				</div>
-					</div>
+						<div class="left">
+							<label class="label">Single Entry</label>
+							<div class="field has-addons">
+		  					<div class="control">
+		    					<input v-validate="'required|email'" v-model="emailSingle" type="text"
+									:class="{ 'input': true, 'is-danger': errors.has('emailSingle') }"
+									placeholder="Add a user" name="emailSingle">
+		  					</div>
+							</div>
+						</div>
+						<div class="right">
+							<RoleDropdown></RoleDropdown>
+						</div>
+							<a class="button is-info" @click="validateAndAddSingleEntry">
+								Add User
+							</a>
 				</div>
 
+				</div>
 			</div>
 
 	</div>
@@ -44,21 +51,51 @@
 
 <script>
 import admin from '@/api/admin';
+import RoleDropdown from '@/components/Admin/RoleDropdown';
 export default {
   name: 'add-users',
+  created() {
+    this.$bus.$on( 'role-change', ( data ) => {
+      this.roleSingle = data.role;
+    } )
+  },
   data() {
     return {
       filename: 'Choose a file..',
-      role: 'student'
+      file: null,
+      role: 'student',
+      name: null,
+      roleSingle: '',
+      emailSingle: ''
     };
   },
   methods: {
     processFile( event ) {
-      this.filename = event.target.files[ 0 ].name
+      this.filename = event.target.files[ 0 ].name;
+      this.file = event.target.files[ 0 ];
     },
 
-    addUsers() {
-      admin.activationViaFileUpload( this.filename, this.role )
+    validateAndAddUsersViaFile() {
+      this.$validator.validateAll( {
+        'filename': this.file
+      } ).then( ( result ) => {
+        if ( result ) {
+          this.addUsersViaFile();
+        } else {
+          this.$toasted.error( "Please select a valid file first!", {
+            theme: "outline",
+            position: "bottom-center",
+            duration: 3000
+          } );
+        }
+      } );
+    },
+
+    addUsersViaFile() {
+      let data = new FormData();
+      data.append( 'csv', this.file );
+      data.append( 'role', this.role );
+      admin.activationViaFileUpload( data )
         .then( ( response ) => {
           console.log( response );
         } )
@@ -68,8 +105,48 @@ export default {
     },
 
     validateAndAddSingleEntry() {
+      this.$validator.validateAll( {
+        'emailSingle': this.emailSingle,
+      } ).then( ( result ) => {
+        if ( this.roleSingle == '' ) {
+          this.fillErrorMessage();
+        } else {
+          if ( result ) {
+            this.singleEntry();
+          } else {
+            this.fillErrorMessage();
+          }
+        }
+      } );
+    },
 
+    singleEntry() {
+      admin.singleEntry( this.emailSingle, this.roleSingle )
+        .then( ( response ) => {
+          if ( response.data == "" ) {
+            this.$toasted.success( "User creation success!", {
+              theme: "outline",
+              position: "top-center",
+              duration: 3000
+            } );
+          }
+        } )
+        .catch( ( error ) => {
+          console.log( error.response );
+        } )
+    },
+
+    fillErrorMessage() {
+      this.$toasted.error( "Please fill all the details first!", {
+        theme: "outline",
+        position: "bottom-center",
+        duration: 3000
+      } );
     }
+  },
+
+  components: {
+    RoleDropdown
   }
 }
 </script>
@@ -142,6 +219,14 @@ export default {
 
     .single-entry {
         margin-top: 0.5rem;
+        .left {
+            margin-bottom: 0.5rem;
+            margin-right: 1rem;
+        }
+        .button.is-info {
+            margin-top: 2rem;
+            margin-left: 1rem;
+        }
     }
 
 }
