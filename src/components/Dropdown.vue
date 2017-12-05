@@ -18,11 +18,11 @@
 <script>
 export default {
   name: 'domain-dropdown',
-  props: ["title", "image", "align"],
+  props: [ "title", "image", "align" ],
   created() {
-    document.addEventListener('click', function(event) {
+    document.addEventListener( 'click', function ( event ) {
       this.isOpen = false;
-    }.bind(this));
+    }.bind( this ) );
   },
   data() {
     return {
@@ -67,6 +67,7 @@ export default {
         height: 100%;
         overflow-x: hidden;
         overflow-y: auto;
+        margin: 0 auto;
     }
 
     .dropdown-section {

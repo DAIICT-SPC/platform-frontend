@@ -1,157 +1,151 @@
 <template>
-  <div class="signup-page">
-    <div class="container">
-      <h1 class="title main">Welcome to the Student Placement Platform</h1>
-      <div class="box">
+<div class="signup-page">
+  <div class="container">
+    <h1 class="title main">Welcome to the Student Placement Platform</h1>
+    <div class="box">
 
-        <div class="student-form" v-if="isStudent">
-          <h2 class="title">Student Registration</h2>
+      <div class="student-form" v-if="isStudent">
+        <h2 class="title">Student Registration</h2>
 
-          <div class="form-content">
-            <div class="columns">
-              <div class="column">
-                <div class="field">
-                  <label class="label">Name</label>
-                  <p class="control">
-                    <input v-model="student.name" class="input" name="student_name" v-validate="'required'" type="text" placeholder="Name">
-                  </p>
-                  <div v-show="errors.has('student_name')" class="help is-danger">
-                    The Student Name is required and should contain only letters.
-                  </div>
-                </div>
-              </div>
-              <div class="column">
-                <div class="field">
-                  <label class="label">Email</label>
-                  <p class="control">
-                    <input v-model="email" class="input" name="student_email" :value="email" v-validate="'required|email'" type="email" disabled placeholder="Email">
-                  </p>
-                  <div v-show="errors.has('student_email')" class="help is-danger">
-                    The Student Email is required and should be a valid Email address.
-                  </div>
+        <div class="form-content">
+          <div class="columns">
+            <div class="column">
+              <div class="field">
+                <label class="label">Name</label>
+                <p class="control">
+                  <input v-model="student.name" class="input" name="student_name" v-validate="'required'" type="text" placeholder="Name">
+                </p>
+                <div v-show="errors.has('student_name')" class="help is-danger">
+                  The Student Name is required and should contain only letters.
                 </div>
               </div>
             </div>
-
-            <div class="columns">
-              <div class="column">
-                <div class="field">
-                  <label class="label">Password</label>
-                  <p class="control">
-                    <input v-model="student.password" name="student_password" v-validate="'required|min:8'" type="password" placeholder="Password" class="input">
-                  </p>
-                  <div v-show="errors.has('student_password')" class="help is-danger">
-                    The Password is required and should be greater than 8 characters.
-                  </div>
-                </div>
-              </div>
-              <div class="column">
-                <div class="field">
-                  <label class="label">Confirm Password</label>
-                  <p class="control">
-                    <input data-vv-as="password" class="input" name="confirm_student_password" v-validate="'required|confirmed:student_password'" type="password" placeholder="Confirm Password">
-                  </p>
-                  <div v-show="errors.has('confirm_student_password')" class="help is-danger">
-                    The Confirm Password field is required and should match the Password field.
-                  </div>
+            <div class="column">
+              <div class="field">
+                <label class="label">Email</label>
+                <p class="control">
+                  <input v-model="email" class="input" name="student_email" v-validate="'required|email'" type="email" disabled placeholder="Email">
+                </p>
+                <div v-show="errors.has('student_email')" class="help is-danger">
+                  The Student Email is required and should be a valid Email address.
                 </div>
               </div>
             </div>
+          </div>
 
-
-            <div class="columns">
-              <div class="column">
-                <div class="field">
-                  <label class="label">Contact No</label>
-                  <p class="control">
-                    <input v-model="student.contact" class="input" name="contact_number" v-validate="'required|numeric|min:8'" type="number" placeholder="Contact No">
-                  </p>
-                  <div v-show="errors.has('contact_number')" class="help is-danger">
-                    The Contact Number field is required and should contain at least 8 numeric values.
-                  </div>
-                </div>
-              </div>
-              <div class="column">
-                <div class="field">
-                  <label class="label">Category</label>
-                  <p class="control">
-                    <CategoryDropdown></CategoryDropdown>
-                  </p>
+          <div class="columns">
+            <div class="column">
+              <div class="field">
+                <label class="label">Password</label>
+                <p class="control">
+                  <input v-model="student.password" name="student_password" v-validate="'required|min:8'" type="password" placeholder="Password" class="input">
+                </p>
+                <div v-show="errors.has('student_password')" class="help is-danger">
+                  The Password is required and should be greater than 8 characters.
                 </div>
               </div>
             </div>
-
-            <div class="columns">
-              <div class="column">
-                <div class="field">
-                  <label class="label">Temporary Address</label>
-                  <p class="control">
-                    <textarea v-model="student.temporaryAddress" name="temp_address" v-validate="'required'" class="textarea" placeholder="Temporary Address"></textarea>
-                  </p>
-                  <div v-show="errors.has('temp_address')" class="help is-danger">
-                    The Temporary Address is a required field with minimum of 10 letters.
-                  </div>
-                </div>
-              </div>
-              <div class="column">
-                <div class="field">
-                  <label class="label">Permanent Address</label>
-                  <p class="control">
-                    <textarea v-model="student.permanentAddress" class="textarea" name="perm_address" v-validate="'required'" placeholder="Permanent Address"></textarea>
-                  </p>
-                  <div v-show="errors.has('perm_address')" class="help is-danger">
-                    The Permanent Address is a required field with minimum of 10 letters.
-                  </div>
+            <div class="column">
+              <div class="field">
+                <label class="label">Confirm Password</label>
+                <p class="control">
+                  <input data-vv-as="password" class="input" name="confirm_student_password" v-validate="'required|confirmed:student_password'" type="password" placeholder="Confirm Password">
+                </p>
+                <div v-show="errors.has('confirm_student_password')" class="help is-danger">
+                  The Confirm Password field is required and should match the Password field.
                 </div>
               </div>
             </div>
+          </div>
 
 
-            <div class="columns">
-              <div class="column">
-                <div class="field">
-                  <label class="label">Gender</label>
-                  <p class="control">
-                    <label class="radio">
+          <div class="columns">
+            <div class="column">
+              <div class="field">
+                <label class="label">Contact No</label>
+                <p class="control">
+                  <input v-model="student.contact" class="input" name="contact_number" v-validate="'required|numeric|min:8'" type="number" placeholder="Contact No">
+                </p>
+                <div v-show="errors.has('contact_number')" class="help is-danger">
+                  The Contact Number field is required and should contain at least 8 numeric values.
+                </div>
+              </div>
+            </div>
+            <div class="column">
+              <div class="field">
+                <label class="label">Category</label>
+                <p class="control">
+                  <CategoryDropdown></CategoryDropdown>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="columns">
+            <div class="column">
+              <div class="field">
+                <label class="label">Temporary Address</label>
+                <p class="control">
+                  <textarea v-model="student.temporaryAddress" name="temp_address" v-validate="'required'" class="textarea" placeholder="Temporary Address"></textarea>
+                </p>
+                <div v-show="errors.has('temp_address')" class="help is-danger">
+                  The Temporary Address is a required field with minimum of 10 letters.
+                </div>
+              </div>
+            </div>
+            <div class="column">
+              <div class="field">
+                <label class="label">Permanent Address</label>
+                <p class="control">
+                  <textarea v-model="student.permanentAddress" class="textarea" name="perm_address" v-validate="'required'" placeholder="Permanent Address"></textarea>
+                </p>
+                <div v-show="errors.has('perm_address')" class="help is-danger">
+                  The Permanent Address is a required field with minimum of 10 letters.
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="columns">
+            <div class="column">
+              <div class="field">
+                <label class="label">Gender</label>
+                <p class="control">
+                  <label class="radio">
                       <input v-model="student.gender" type="radio" v-validate="'required'" name="gender" value="Male">
                       Male
                     </label>
-                    <label class="radio">
+                  <label class="radio">
                       <input v-model="student.gender" type="radio" name="gender" value="Female">
                       Female
                     </label>
-                  </p>
-                  <div v-show="errors.has('gender')" class="help is-danger">
-                    {{ errors.first('gender') }}
-                  </div>
-                </div>
-              </div>
-              <div class="column">
-                <div class="field">
-                  <label class="label">DOB</label>
-                  <p class="control">
-                    <!-- <input type="date" name="student_dob" value=""> -->
-                    <datepicker v-validate="'required'" v-model="student.dob" name="student_dob" placeholder="Date of Birth" :config="{ dateFormat: 'Y-m-d', wrap: true, maxDate: 'today', static: true }">
-                    </datepicker>
-                  </p>
-                  <div v-show="errors.has('student_dob')" class="help is-danger">
-                    {{ errors.first('student_dob') }}
-                  </div>
+                </p>
+                <div v-show="errors.has('gender')" class="help is-danger">
+                  {{ errors.first('gender') }}
                 </div>
               </div>
             </div>
-
-            <!-- <p class="control">
-            <input class="input" type="hidden" :value="code">
-          </p> -->
+            <div class="column">
+              <div class="field">
+                <label class="label">DOB</label>
+                <p class="control">
+                  <datepicker v-validate="'required'" v-model="student.dob" name="student_dob" placeholder="Date of Birth" :config="{ dateFormat: 'Y-m-d', wrap: true, maxDate: 'today', static: true }">
+                  </datepicker>
+                </p>
+                <div v-show="errors.has('student_dob')" class="help is-danger">
+                  {{ errors.first('student_dob') }}
+                </div>
+              </div>
+            </div>
+          </div>
 
           <div class="columns">
             <div class="column">
               <div class="field">
                 <label class="label">Enrollnment no</label>
                 <p class="control">
-                  <input v-model.number="student.enroll_no" class="input" name="student_enroll_no"
-                  v-validate="'required|numeric'" type="text" placeholder="Enrollnment Number">
+                  <input v-model.number="student.enroll_no" class="input" name="student_enroll_no" v-validate="'required|numeric'" type="text" placeholder="Enrollnment Number">
                 </p>
                 <div v-show="errors.has('student_enroll_no')" class="help is-danger">
                   The Student Enrollnment Number is required and should be of 9 digits.
@@ -203,7 +197,7 @@
                 <div class="field">
                   <label class="label">Email</label>
                   <p class="control">
-                    <input v-model="this.email" :value="email" name="user_email" v-validate="'required|email'" disabled type="email" placeholder="Email" class="input">
+                    <input v-model="email" name="user_email" v-validate="'required|email'" disabled type="email" placeholder="Email" class="input">
                   </p>
                   <div class="help is-danger" v-show="errors.has('user_email')">
                     The Email is required and should be a valid Email address.
@@ -325,16 +319,15 @@
 
           <div class="field">
             <p class="has-text-centered">
-              <button name="company" class="button is-success submit-button"
-              @click="registerAndValidate('company')">
+              <button name="company" class="button is-success submit-button" @click="registerAndValidate('company')">
               Register
             </button>
-          </p>
+            </p>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 </div>
 </template>
 

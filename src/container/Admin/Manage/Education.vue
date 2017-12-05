@@ -1,51 +1,42 @@
 <template>
-  <div class="education-page">
+<div class="education-page">
 
-    <div class="education box">
-
-      <div class="education-title">
-        <h2 class="title">Education</h2>
-      </div>
-
-      <div class="education-body">
-        <div class="education-items" v-for="ed,index in education">
-          <span>{{ ed.name }}</span>
-          <a class="icon is-small" @click="askForDeleteEducation(ed.id)"> <i class="fa fa-trash-o"></i> </a>
-        </div>
-      </div>
-
-      <div class="field is-grouped">
-        <p class="control">
-          <!-- <button class="button is-success add-button" v-on:click="showModal=true">+ Add Category</button> -->
-        </p>
-      </div>
-      <div>
-        <div class="field has-addons">
-          <p class="control">
-            <input v-model="name" v-validate="'required'" name="ed" class="input"
-            :class="{'input': true, 'is-danger': errors.has('ed') }" type="text" placeholder="Enter New Education">
-          </p>
-          <p class="control">
-            <a class="button is-success" @click="addEducation"> Add Education </a>
-          </p>
-        </div>
-      </div>
-    </div>
-
+  <div class="education-title">
+    <h2 class="title">Education</h2>
   </div>
+
+  <div class="education-body">
+    <div class="education-items" v-for="ed,index in education">
+      <span>{{ ed.name }}</span>
+      <a class="icon is-small" @click="askForDeleteEducation(ed.id)"> <i class="fa fa-trash-o"></i> </a>
+    </div>
+  </div>
+
+  <div class="add-education">
+    <div class="field has-addons">
+      <p class="control">
+        <input v-model="name" v-validate="'required'" name="ed" class="input" :class="{'input': true, 'is-danger': errors.has('ed') }" type="text" placeholder="Enter New Education">
+      </p>
+      <p class="control">
+        <a class="button is-success" @click="addEducation"> Add Education </a>
+      </p>
+    </div>
+  </div>
+
+</div>
 </template>
 
 <script>
 import education from '@/api/education'
 
-export default{
+export default {
   name: 'myprofile',
   created() {
     this.getAllEducation();
   },
   data() {
-    return{
-      education: [ ],
+    return {
+      education: [],
       name: ''
     }
   },
@@ -57,22 +48,22 @@ export default{
     },
     addEducation() {
       this.validate().then(() => {
-        this.addEdHere();
-      })
-      .catch((error) => {
-        console.log(error);
-      })
+          this.addEdHere();
+        })
+        .catch((error) => {
+          console.log(error);
+        })
     },
     addEdHere() {
       education.postEducation(this.name)
-      .then((response) => {
-        if(response.status == 200){
-          this.getAllEducation();
-        }
-      })
-      .catch((error) => {
-        console.log(error.response);
-      })
+        .then((response) => {
+          if (response.status == 200) {
+            this.getAllEducation();
+          }
+        })
+        .catch((error) => {
+          console.log(error.response);
+        })
     },
     askForDeleteEducation(education_id) {
       this.swal({
@@ -90,12 +81,12 @@ export default{
     },
     deleteEducation(education_id) {
       education.deleteEducation(education_id)
-      .then((response) => {
-        this.getAllEducation();
-      })
-      .catch((error) => {
-        console.log(error.response);
-      })
+        .then((response) => {
+          this.getAllEducation();
+        })
+        .catch((error) => {
+          console.log(error.response);
+        })
     },
     validate() {
       return this.$validator.validateAll();
@@ -105,37 +96,34 @@ export default{
 </script>
 
 <style lang="scss">
-.education-page{
+.education-page {
 
-  .education-title {
-    border-bottom: solid 1px #ddd;
-  }
+    .education-title {
+        padding: 1rem;
+        border-bottom: solid 1px #ddd;
+    }
 
-  .education-body {
-    padding: 1.5rem;
-  }
+    .education-body {
+        padding: 1rem;
+    }
 
-  .education-items {
-    max-width: 200px;
-    width: 100%;
-    padding-bottom: 0.2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+    .education-items {
+        max-width: 200px;
+        width: 100%;
+        padding-bottom: 0.2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 
-  .field.is-grouped {
-    margin: 0;
-  }
+    .field.is-grouped {
+        margin: 0;
+    }
 
-  .field.has-addons {
-    padding: 1rem;
-    border-top: solid 1px #ddd;
-  }
-
-  .field.has-addons {
-    padding-left: 1rem;
-  }
+    .add-education {
+      padding: 1rem;
+      border-top: solid 1px #ddd;
+    }
 
 }
 </style>

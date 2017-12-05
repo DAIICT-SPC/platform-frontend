@@ -53,11 +53,10 @@ export default {
       editAdmin: false
     };
   },
-  created() {
-  },
+  created() {},
   methods: {
     logout() {
-      this.$bus.$emit('logout-admin');
+      this.$bus.$emit( 'logout-admin' );
     }
   }
 }
@@ -66,7 +65,7 @@ export default {
 <style lang="scss">
 .admin-navbar {
 
-  margin-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
 
 }
 </style>

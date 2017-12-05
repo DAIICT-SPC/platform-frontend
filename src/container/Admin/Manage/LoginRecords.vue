@@ -3,14 +3,13 @@
     <div class="box">
 
       <div class="header">
-        <!-- admin -->
         <h3 class="title">Login Records</h3>
       </div>
       <div class="body">
         <div class="body-header">
-          <h3 class="title is-4">Admin</h3>
+          <h3 class="title is-3">Admin</h3>
         </div>
-        <!-- Records -->
+
         <div class="columns is-multiline">
           <div class="column is-one-third" v-for="ad in admin">
             <div class="card">
@@ -34,7 +33,7 @@
           </div>
         </div>
         <div class="body-header">
-          <h3 class="title is-4">Company</h3>
+          <h3 class="title is-3">Company</h3>
         </div>
         <div class="columns is-multiline">
           <div class="column is-one-third" v-for="com in company">
@@ -90,22 +89,22 @@ export default {
   },
   methods: {
     getAdminRecords() {
-      admin.getLoginRecordsForAdmin(this.getUserId())
-      .then((response) => {
-        this.admin = response.data;
-      })
-      .catch((error) => {
-        console.log(error);
-      })
+      admin.getLoginRecordsForAdmin( this.getUserId() )
+        .then( ( response ) => {
+          this.admin = response.data;
+        } )
+        .catch( ( error ) => {
+          console.log( error );
+        } )
     },
     getCompanyRecords() {
-      admin.getLoginRecordsForCompany(this.getUserId())
-      .then((response) => {
-        this.company = response.data;
-      })
-      .catch((error) => {
-        console.log(error);
-      })
+      admin.getLoginRecordsForCompany( this.getUserId() )
+        .then( ( response ) => {
+          this.company = response.data;
+        } )
+        .catch( ( error ) => {
+          console.log( error );
+        } )
     },
     getUserId() {
       return Auth.getUserToken();
@@ -117,54 +116,52 @@ export default {
 <style lang="scss">
 .login-records {
 
-  .header {
-    border-bottom: solid 1px #ddd;
-  }
-
-  .title {
-    font-size: x-large;
-  }
-  .subtitle {
-    font-size: larger;
-  }
-
-  .body {
-    padding: 1rem;
-    .card {
-      .card-content {
-        padding-left: 1rem;
+    .header {
         padding: 1rem;
-      }
-      margin: 0;
-      .main-title {
-        white-space: nowrap;
-        width: 11em;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-      .main-title-reason {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        border-bottom: solid 1px #ddd;
+    }
+
+    .body {
+        .body-header {
+            padding: 1rem;
+        }
+        .card {
+            .card-content {
+                padding: 1rem;
+            }
+            margin: 0;
+            .main-title {
+                white-space: nowrap;
+                width: 11em;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .main-title-reason {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                margin-bottom: 0;
+            }
+            max-width: 25rem;
+        }
+    }
+
+    .columns.is-multiline {
         margin-bottom: 0;
-      }
-      // margin: 1rem;
-      max-width: 25rem;
+        padding: 0.5rem;
     }
-  }
 
-  .card-footer-item {
-    padding: 0.5rem;
-  }
-
-  .foot {
-    display: flex;
-    // align-items: center;
-    justify-content: space-between;
-    .subtitle {
-      padding-left: 1rem;
-      margin: 0;
+    .card-footer-item {
+        padding: 0.5rem;
     }
-  }
+
+    .foot {
+        display: flex;
+        justify-content: space-between;
+        .subtitle {
+            padding-left: 1rem;
+            margin: 0;
+        }
+    }
 }
 </style>

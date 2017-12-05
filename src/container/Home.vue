@@ -67,13 +67,13 @@ export default {
     ReasonModal
   },
   created() {
-    this.$bus.$on('forgot-password-modal-close', () => {
+    this.$bus.$on( 'forgot-password-modal-close', () => {
       this.forgotModal = false;
-    })
-    this.$bus.$on('reason-modal', (response) => {
+    } )
+    this.$bus.$on( 'reason-modal', ( response ) => {
       this.reasonModal = false;
-      this.storeToken(response.response);
-    });
+      this.storeToken( response.response );
+    } );
   },
   data() {
     return {
@@ -86,24 +86,20 @@ export default {
     }
   },
   // before coming to '/'' or home or signin page, if u have a token, go to dashboard page
-  beforeRouteEnter: (to, from, next) => {
-    if (Auth.isAuthenticated() && Auth.isStudent()) {
-      next({
+  beforeRouteEnter: ( to, from, next ) => {
+    if ( Auth.isAuthenticated() && Auth.isStudent() ) {
+      next( {
         name: 'dashboard'
-      });
-    }
-    else if (Auth.isAuthenticated() && Auth.isCompany()) {
-      next({
+      } );
+    } else if ( Auth.isAuthenticated() && Auth.isCompany() ) {
+      next( {
         name: 'company-home'
-      });
-    }
-    else if (Auth.isAuthenticated() && Auth.isAdmin()) {
-      next({
+      } );
+    } else if ( Auth.isAuthenticated() && Auth.isAdmin() ) {
+      next( {
         name: 'admin-home'
-      });
-    }
-    else
-    {
+      } );
+    } else {
       next();
     }
   },
@@ -112,10 +108,10 @@ export default {
     //step 1. Login, validates and checks if the user is admin.
     login() {
       this.validate()
-      .then(this.checkForAdmin)
-      .catch((error) => {
-        console.log(error.response);
-      });
+        .then( this.checkForAdmin )
+        .catch( ( error ) => {
+          console.log( error.response );
+        } );
     },
     //step 2 validates
     validate() {
@@ -124,93 +120,88 @@ export default {
     //step 3 checks for admin, if no, login. else blocks the email password textbox,
     // asks for reason modal
     checkForAdmin() {
-      user.checkForAdmin(this.email, this.password)
-      .then((response) => {
-        // false, not an admin
-        if(response.data.status == false) {
-          this.loginUser();
-        }
-        // if admin
-        else {
-          //if true, then ask a reason (disable the boxes)
-          this.block = true;
-          this.reasonModal = true;
-        }
-      })
-      .catch((error) => {
-        if(error.response == undefined) {
-            let toast = this.$toasted.error(error, {
+      user.checkForAdmin( this.email, this.password )
+        .then( ( response ) => {
+          // false, not an admin
+          if ( response.data.status == false ) {
+            this.loginUser();
+          }
+          // if admin
+          else {
+            //if true, then ask a reason (disable the boxes)
+            this.block = true;
+            this.reasonModal = true;
+          }
+        } )
+        .catch( ( error ) => {
+          if ( error.response == undefined ) {
+            let toast = this.$toasted.error( error, {
               theme: "outline",
               position: "bottom-center",
-              duration : 3000
-            });
-        }
-        else if(error.response.status == 500) {
-          let toast = this.$toasted.error(error.response.statusText + ". Please try after sometime.", {
-            theme: "outline",
-            position: "bottom-center",
-            duration : 3000
-          });
-        }
-        else if(error.response.status == 404) {
-          let toast = this.$toasted.error(error.response.data.message + " Please enter the valid Credentials.", {
-            theme: "outline",
-            position: "bottom-center",
-            duration : 3000
-          });
-        }
-      })
+              duration: 3000
+            } );
+          } else if ( error.response.status == 500 ) {
+            let toast = this.$toasted.error( error.response.statusText + ". Please try after sometime.", {
+              theme: "outline",
+              position: "bottom-center",
+              duration: 3000
+            } );
+          } else if ( error.response.status == 404 ) {
+            let toast = this.$toasted.error( error.response.data.message + " Please enter the valid Credentials.", {
+              theme: "outline",
+              position: "bottom-center",
+              duration: 3000
+            } );
+          }
+        } )
     },
     //step 4 normal user login
     loginUser() {
-      user.login(this.email, this.password)
-      .then(this.storeToken)
+      user.login( this.email, this.password )
+        .then( this.storeToken )
 
-      .catch((error) => {
-        if(error.response.status == 404) {
-          console.log(error);
-          let toast = this.$toasted.error(error.response.data.message, {
-            theme: "outline",
-            position: "bottom-center",
-            duration : 3000
-          });
-        }
-        else {
-          console.log(error);
-        }
-      })
-      .then(this.redirect);
+        .catch( ( error ) => {
+          if ( error.response.status == 404 ) {
+            console.log( error );
+            let toast = this.$toasted.error( error.response.data.message, {
+              theme: "outline",
+              position: "bottom-center",
+              duration: 3000
+            } );
+          } else {
+            console.log( error );
+          }
+        } )
+        .then( this.redirect );
     },
     // step 5 store the token and redirects acc to the role
-    storeToken: (response) => {
-      this.decodedToken = jwtDecode(response.data.token)
-      Auth.setUserToken(this.decodedToken.sub)
-      Auth.setToken(response.data.token)
-      user.getRole(this.decodedToken.sub)
-      .then((response) => {
-        if(response.data.role == 'student') {
-          Auth.setUserRole(response.data.role);
-          window.location.href='/dashboard';
-          // this.$router.push({ name: 'dashboard' })
-          window.location.href='/dashboard';
-        }
-        else if(response.data.role == 'company') {
-          Auth.setUserRole(response.data.role);
-          // this.$router.push({ name: 'company-home' });
-           window.location.href='/company';
-        }
-        else if(response.data.role == 'admin') {
-          Auth.setUserRole(response.data.role);
-          // this.$router.push({ name: 'admin-home' })
-          window.location.href='/admin';
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      })
+    storeToken: ( response ) => {
+      this.decodedToken = jwtDecode( response.data.token )
+      Auth.setUserToken( this.decodedToken.sub )
+      Auth.setToken( response.data.token )
+      user.getRole( this.decodedToken.sub )
+        .then( ( response ) => {
+          if ( response.data.role == 'student' ) {
+            Auth.setUserRole( response.data.role );
+            window.location.href = '/dashboard';
+            // this.$router.push({ name: 'dashboard' })
+            window.location.href = '/dashboard';
+          } else if ( response.data.role == 'company' ) {
+            Auth.setUserRole( response.data.role );
+            // this.$router.push({ name: 'company-home' });
+            window.location.href = '/company';
+          } else if ( response.data.role == 'admin' ) {
+            Auth.setUserRole( response.data.role );
+            // this.$router.push({ name: 'admin-home' })
+            window.location.href = '/admin';
+          }
+        } )
+        .catch( ( error ) => {
+          console.log( error );
+        } )
     },
 
-    storeAdminToken(token) {
+    storeAdminToken( token ) {
 
     },
   }
@@ -218,42 +209,41 @@ export default {
 </script>
 
 <style lang="scss">
-
 .login-page {
 
-  .image {
-    padding-left: 2.4rem;
-  }
-
-  .hero.is-dark .title {
-    color: #000000;
-  }
-
-  hr.image-text {
-    margin-bottom: 0.5rem;
-  }
-
-  h3.title {
-    margin-bottom: 0
-  }
-
-  hr.text-body {
-    margin-top: 0.5rem;
-  }
-
-  .notification.is-danger {
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-    padding: 0.5rem;
-    background: rgba(260,0,0,0.4);
-    filter: alpha(opacity=80);
-  }
-
-  .control {
-    .forgot {
-      color: #000000;
+    .image {
+        padding-left: 2.4rem;
     }
-  }
+
+    .hero.is-dark .title {
+        color: #000000;
+    }
+
+    hr.image-text {
+        margin-bottom: 0.5rem;
+    }
+
+    h3.title {
+        margin-bottom: 0;
+    }
+
+    hr.text-body {
+        margin-top: 0.5rem;
+    }
+
+    .notification.is-danger {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+        padding: 0.5rem;
+        background: rgba(260,0,0,0.4);
+        filter: alpha(opacity=80);
+    }
+
+    .control {
+        .forgot {
+            color: #000000;
+        }
+    }
 }
 
 //
