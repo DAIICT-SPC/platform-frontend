@@ -1,7 +1,7 @@
 <template>
 <div class="admin-profile-page">
+  <div class="box">
 
-  <div class="admin-profile box">
 
     <div class="admin-profile header">
       <h2 class="title">Overview</h2>
@@ -36,6 +36,9 @@
 
       <modal :adminDetails="adminDetails" v-if="showModal" @close="showModal = false"></modal>
 
+    </div>
+
+    <div class="admin-profile-footer">
       <div class="field is-grouped">
         <p class="control admin-profile">
           <button class="button is-success" v-on:click="showModal=true">Edit Details</button>
@@ -84,9 +87,7 @@ export default {
 <style lang="scss">
 .admin-profile-page {
 
-    margin-bottom: 1.5rem;
-
-    .admin-profile.box {
+    .box {
         padding: 0;
         border-radius: 4px;
         box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
@@ -98,8 +99,8 @@ export default {
     }
 
     .admin-profile.body {
-        padding-left: 1.5rem;
-        padding-top: 1.5rem;
+        // padding: 1.5rem 1.5rem 0;
+        padding: 1.5rem 1.5rem 0;
     }
 
     .abt-admin {
@@ -112,8 +113,15 @@ export default {
         }
     }
 
-    .admin-profile button {
-        margin-bottom: 1rem;
+    .field:last-child {
+        border-bottom: none;
+        margin: 0;
+    }
+
+    .admin-profile-footer {
+        padding: 1rem;
+        border-top: solid 1px #ddd;
+
     }
 }
 </style>

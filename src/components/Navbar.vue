@@ -24,6 +24,7 @@
             <a @click="editStudent = true">Account Settings</a><br>
             <a @click="logout">Logout</a>
           </dropdown>
+          
           <ChangePasswordStudentModal @close="editStudent = false" v-if="editStudent"></ChangePasswordStudentModal>
 
         </div>
@@ -50,7 +51,7 @@ export default {
   },
   methods: {
     logout() {
-      this.$bus.$emit('logout');
+      this.$bus.$emit( 'logout' );
     },
   },
   props: {
@@ -63,6 +64,6 @@ export default {
 
 <style lang="scss">
 .navbar-page {
-  margin-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
 }
 </style>

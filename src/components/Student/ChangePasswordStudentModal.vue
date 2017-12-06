@@ -29,17 +29,16 @@
 
         <div class="field">
           <div class="field">
-            <label class="label">Confirm Password</label>
+            <label class="label">Confirm</label>
           </div>
           <div class="field-body">
             <div class="field">
               <p class="control">
-                <input v-model="confirm" v-validate="'required|confirmed:password'" type="password" name="confirm"
-                class="input" placeholder="●●●●●●●" @keyup.enter="validateAndUpdateDetails"> 
+                <input v-model="confirm" v-validate="'required|confirmed:password'" type="password" name="confirm" class="input" placeholder="●●●●●●●" @keyup.enter="validateAndUpdateDetails">
               </p>
-								<div class="help is-danger" v-show="errors.has('confirm')">
-	                {{errors.first('confirm')}}
-	              </div>
+              <div class="help is-danger" v-show="errors.has('confirm')">
+                {{errors.first('confirm')}}
+              </div>
             </div>
           </div>
         </div>
@@ -69,25 +68,25 @@ export default {
   },
   methods: {
     validateAndUpdateDetails() {
-      this.validate().then(() => {
-          user.postUserPersonalPassword(this.getUserId(), this.password)
-            .then((response) => {
-              if (response.status == 200) {
-                this.$emit('close');
-                let toast = this.$toasted.success("Password Updated", {
+      this.validate().then( () => {
+          user.postUserPersonalPassword( this.getUserId(), this.password )
+            .then( ( response ) => {
+              if ( response.status == 200 ) {
+                this.$emit( 'close' );
+                let toast = this.$toasted.success( "Password Updated", {
                   theme: "outline",
                   position: "bottom-center",
                   duration: 3000
-                });
+                } );
               }
-            })
-            .catch((error) => {
-              console.log(error)
-            })
-        })
-        .catch((error) => {
-          console.log(error)
-        })
+            } )
+            .catch( ( error ) => {
+              console.log( error )
+            } )
+        } )
+        .catch( ( error ) => {
+          console.log( error )
+        } )
     },
     validate() {
       return this.$validator.validateAll();

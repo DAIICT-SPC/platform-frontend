@@ -25,8 +25,7 @@
 			<div class="job-description job-section">
 				<b class="section-header">Job Description
 					<div class="header-action is-pulled-right">
-						<div class="button is-white" @click="showDesc = !showDesc" v-if="!showDesc &&
-						placementDescription.status == 'application'"> {{show}} </div>
+						<div class="button is-white" @click="showDesc = !showDesc" v-if="!showDesc"> {{show}} </div>
 						<div class="button is-white" @click="showDesc = !showDesc" v-if="showDesc"> {{hide}} </div>
 					</div>
 				</b>
@@ -65,8 +64,8 @@
 									</div>
 								</footer>
 								<div>
-									<EditEligibilityCriteriaBox v-if="placementDescription.status == 'application'" :key="categories.id"
-									:criterias="categories.criterias"></EditEligibilityCriteriaBox>
+									<EditEligibilityCriteriaBox :key="categories.id" :criterias="categories.criterias">
+									</EditEligibilityCriteriaBox>
 								</div>
 							</div>
 						</div>
@@ -411,81 +410,8 @@
 		.hiring-process {
 			padding-left: 1.5rem;
 			padding-right: 1.5rem;
+			margin-bottom: 0;
 		}
-
-		// .processes {
-		// 	max-width: 400px;
-		// 	width: 100%;
-		// 	margin: auto;
-		// 	text-align: center;
-		// 	position: relative;
-		// 	&::after{
-		// 		position: absolute;
-		// 		content: '';
-		// 		height: 100%;
-		// 		width: 2px;
-		// 		background: #ddd;
-		// 		top: 0;
-		// 		left: 50%;
-		// 		margin-left: -1px;
-		// 		z-index: 2;
-		// 	}
-    //
-		// 	.box {
-		// 		text-align: center;
-		// 	}
-    //
-		// 	.application{
-		// 		width: 50%;
-		// 		margin-left: 100px;
-		// 		padding-top: 10px;
-		// 		padding-left: 10px;
-		// 		padding-right: 10px;
-		// 		padding-bottom: 10px;
-		// 	}
-    //
-		// 	.offer{
-		// 		width: 50%;
-		// 		margin-left: 100px;
-		// 		padding-top: 10px;
-		// 		padding-left: 10px;
-		// 		padding-right: 10px;
-		// 		padding-bottom: 10px;
-		// 	}
-    //
-		// 	.button {
-		// 		pointer-events: none;
-		// 		.icon {
-		// 			margin-right: 0.5rem;
-		// 			.fa {
-		// 				font-size: 1rem;
-		// 			}
-		// 		}
-		// 	}
-    //
-		// 	.process {
-		// 		position: relative;
-		// 		margin: 2rem 0;
-		// 		z-index: 5;
-		// 		&:first-child:before{
-		// 			display: none;
-		// 		}
-		// 		&:last-child{
-		// 			padding-top: 0.3rem;
-		// 		}
-		// 		&:before {
-		// 			left: 47.5%;
-		// 			top: -11%;
-		// 			position: absolute;
-		// 			width: 0;
-		// 			height: 0;
-		// 			border-left: 10px solid transparent;
-		// 			border-right: 10px solid transparent;
-		// 			border-top: 10px solid #ddd;
-		// 			content: ' ';
-		// 		}
-		// 	}
-		// }
 
 		.processes {
         max-width: 400px;

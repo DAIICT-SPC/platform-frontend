@@ -15,7 +15,7 @@
           </p>
           <a class="card-header-icon">
 							<span class="icon">
-								<span class="tag is-success status">{{placements.status}}</span>
+								<span class="tag status">{{placements.status}}</span>
 							</span>
 						</a>
         </header>
