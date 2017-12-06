@@ -16,7 +16,7 @@
 
           <div class="field is-horizontal">
             <div class="field-label">
-              <p>Student Id</p>
+              <p>Student ID:</p>
             </div>
             <div class="field-body">
               <div>
@@ -29,7 +29,7 @@
 
           <div class="field is-horizontal">
             <div class="field-label">
-              <p>Programe Name</p>
+              <p>Programe:</p>
             </div>
             <div class="field-body">
               <div>
@@ -106,14 +106,13 @@ export default {
   },
   methods: {
     getStudentDetail() {
-      admin.getStudentDetail(this.getUserId(), this.studentData.enroll_no)
-      .then((response) => {
-        console.log(response.data.education);
-        this.studentDetailEducation = response.data.education;
-      })
-      .catch((error) => {
-        console.log(error);
-      })
+      admin.getStudentDetail( this.getUserId(), this.studentData.enroll_no )
+        .then( ( response ) => {
+          this.studentDetailEducation = response.data.education;
+        } )
+        .catch( ( error ) => {
+          console.log( error );
+        } )
     },
     getUserId() {
       return Auth.getUserToken();
@@ -125,28 +124,30 @@ export default {
 <style lang="scss">
 .admin-student-preview {
 
-  .modal-card-head {
-    padding: 1rem;
-  }
+    .modal-card-head {
+        padding: 1rem;
+    }
 
-  .modal-card-body {
-    padding: 1rem;
-    padding-top: 0.5rem;
-    .title {
-      padding-top: 1rem;
+    .modal-card-body {
+        .title {
+            padding-top: 1rem;
+        }
+        .education {
+            border-top: solid 1px #ddd;
+            margin-top: 1rem;
+        }
+        .title.education {
+            margin: 0;
+        }
+        .education-body {
+            padding-left: 1rem;
+            margin-bottom: 1rem;
+        }
     }
-    .education {
-      border-top: solid 1px #ddd;
-      margin-top: 1rem;
-    }
-    .education-body {
-      padding-left: 1rem;
-    }
-  }
 
-  .modal-card-foot {
-    padding: 1rem;
-  }
+    .modal-card-foot {
+        padding: 1rem;
+    }
 
 }
 </style>

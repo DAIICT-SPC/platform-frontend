@@ -19,8 +19,8 @@
 				</div>
 			</div>
 
-			<re-open v-if="showReOpen" @close="showReOpen = false"></re-open>
-			<external-allow v-if="showExternalAllow" @close="showExternalAllow = false"></external-allow>
+			<ReOpenModal v-if="showReOpen" @close="showReOpen = false"></ReOpenModal>
+			<ExternalAllow v-if="showExternalAllow" @close="showExternalAllow = false"></ExternalAllow>
 
 			<div class="job-description job-section">
 				<b class="section-header">Job Description
@@ -137,8 +137,8 @@
 		name: 'placement-detail-page',
 
 		components: {
-			're-open': ReOpenModal,
-			'external-allow': ExternalAllow,
+			ReOpenModal,
+			ExternalAllow,
 			PlacementDriveEditBox,
 			'edit-criteria-box': EditEligibilityCriteriaBox,
 			'set-venue-date': SetVenueDate,
@@ -409,79 +409,136 @@
 			padding-right: 1.5rem;
 		}
 
+		// .processes {
+		// 	max-width: 400px;
+		// 	width: 100%;
+		// 	margin: auto;
+		// 	text-align: center;
+		// 	position: relative;
+		// 	&::after{
+		// 		position: absolute;
+		// 		content: '';
+		// 		height: 100%;
+		// 		width: 2px;
+		// 		background: #ddd;
+		// 		top: 0;
+		// 		left: 50%;
+		// 		margin-left: -1px;
+		// 		z-index: 2;
+		// 	}
+    //
+		// 	.box {
+		// 		text-align: center;
+		// 	}
+    //
+		// 	.application{
+		// 		width: 50%;
+		// 		margin-left: 100px;
+		// 		padding-top: 10px;
+		// 		padding-left: 10px;
+		// 		padding-right: 10px;
+		// 		padding-bottom: 10px;
+		// 	}
+    //
+		// 	.offer{
+		// 		width: 50%;
+		// 		margin-left: 100px;
+		// 		padding-top: 10px;
+		// 		padding-left: 10px;
+		// 		padding-right: 10px;
+		// 		padding-bottom: 10px;
+		// 	}
+    //
+		// 	.button {
+		// 		pointer-events: none;
+		// 		.icon {
+		// 			margin-right: 0.5rem;
+		// 			.fa {
+		// 				font-size: 1rem;
+		// 			}
+		// 		}
+		// 	}
+    //
+		// 	.process {
+		// 		position: relative;
+		// 		margin: 2rem 0;
+		// 		z-index: 5;
+		// 		&:first-child:before{
+		// 			display: none;
+		// 		}
+		// 		&:last-child{
+		// 			padding-top: 0.3rem;
+		// 		}
+		// 		&:before {
+		// 			left: 47.5%;
+		// 			top: -11%;
+		// 			position: absolute;
+		// 			width: 0;
+		// 			height: 0;
+		// 			border-left: 10px solid transparent;
+		// 			border-right: 10px solid transparent;
+		// 			border-top: 10px solid #ddd;
+		// 			content: ' ';
+		// 		}
+		// 	}
+		// }
+
 		.processes {
-			max-width: 400px;
-			width: 100%;
-			margin: auto;
-			text-align: center;
-			position: relative;
-			&::after{
-				position: absolute;
-				content: '';
-				height: 100%;
-				width: 2px;
-				background: #ddd;
-				top: 0;
-				left: 50%;
-				margin-left: -1px;
-				z-index: 2;
-			}
+        max-width: 400px;
+        width: 100%;
+        margin: auto;
+        text-align: center;
+        position: relative;
+        &::after {
+            position: absolute;
+            content: '';
+            height: 100%;
+            width: 2px;
+            background: #ddd;
+            top: 0;
+            left: 50%;
+            margin-left: -1px;
+            // z-index: 2;
+        }
+        .box {
+            text-align: center;
+            padding: 1.25rem;
+        }
+        .application {
+            // pointer-events: none;
+            .icon {
+                margin-right: 0;
+                width: 13px;
+                height: 16px;
+                .fa {
+                    font-size: 1rem;
+                }
+            }
+        }
 
-			.box {
-				text-align: center;
-			}
-
-			.application{
-				width: 50%;
-				margin-left: 100px;
-				padding-top: 10px;
-				padding-left: 10px;
-				padding-right: 10px;
-				padding-bottom: 10px;
-			}
-
-			.offer{
-				width: 50%;
-				margin-left: 100px;
-				padding-top: 10px;
-				padding-left: 10px;
-				padding-right: 10px;
-				padding-bottom: 10px;
-			}
-
-			.button {
-				pointer-events: none;
-				.icon {
-					margin-right: 0.5rem;
-					.fa {
-						font-size: 1rem;
-					}
-				}
-			}
-
-			.process {
-				position: relative;
-				margin: 2rem 0;
-				z-index: 5;
-				&:first-child:before{
-					display: none;
-				}
-				&:last-child{
-					padding-top: 0.3rem;
-				}
-				&:before {
-					left: 47.5%;
-					top: -11%;
-					position: absolute;
-					width: 0;
-					height: 0;
-					border-left: 10px solid transparent;
-					border-right: 10px solid transparent;
-					border-top: 10px solid #ddd;
-					content: ' ';
-				}
-			}
-		}
+        .process {
+            position: relative;
+            margin: 2rem 0;
+            z-index: 3;
+            &:first-child:before {
+                display: none;
+            }
+            &:last-child {
+                padding-top: 0.3rem;
+            }
+            &:before {
+                left: 47.5%;
+                top: -11%;
+                position: absolute;
+                width: 0;
+                height: 0;
+                border-left: 10px solid transparent;
+                border-right: 10px solid transparent;
+                border-top: 10px solid #ddd;
+                content: ' ';
+            }
+        }
+    }
 
 		.select-all-checkbox{
 			margin-top: 0.5rem;

@@ -60,213 +60,206 @@ import RoundFullListModal from '@/components/Company/RoundFullListModal';
 import StudentPreviewModal from '@/components/Company/StudentPreviewModal';
 
 export default {
-	name: 'company-selection-rounds',
-	components: {
-		RoundFullListModal,
-		StudentPreviewModal
-	},
-	created() {
-		this.placement_id = this.$route.params.placement_id;
-		this.season_id = this.$route.params.season_id;
-		this.round_id = this.$route.params.round_id;
-		this.getRemainingStudents()
-	},
-	computed: {
-		selectAll: {
-			get:function() {
-				return this.remainingStudents ? this.selectedStudents.length == this.remainingStudents.length : false;
-			},
-			set:function(value) {
-				var selectedStudents = [];
-				if(value){
-					this.remainingStudents.forEach((rstudent)=>{
-						selectedStudents.push(rstudent.enroll_no);
-					})
-				}
-				this.selectedStudents = selectedStudents;
-			}
-		}
-	},
-	data() {
-		return {
-			placement_id: null,
-			season_id: null,
-			round_id: null,
-			showData: true,
-			remainingStudents: [],
-			selectedStudents: [],
-			allStudents: false,
-			offerStudents: false,
-			showModal: false,
-			showViewModal: false
-		};
-	},
-	methods: {
-		getRemainingStudents() {
-			company.getRemainingStudentsRoundwise(this.getUserId(), this.placement_id, this.round_id)
-			.then((response) => {
-				// console.log(response);
-				if(response.data == 'None has applied yet!'){
-					this.showData = false;
-				}
-				else if(response.data == 'All Students moved to next Round!'){
-					this.showData = false;
-					this.allStudents = true;
-				}
-				// All Students of this round moved to next Round!
-				else if(response.data == 'All Students of this round moved to next Round!'){
-					this.showData = false;
-					this.allStudents = true;
-				}
-				// All Students in Last Round got Offer!
-				else if(response.data == 'All Students in Last Round got Offer!'){
-					this.showData = false;
-					this.allStudents = false;
-					this.offerStudents = true;
-				}
-				else if(response.data == 'All Students of this round moved to Offer Layer!'){
-					this.showData = false;
-					this.allStudents = false;
-					this.offerStudents = true;
-				}
-				else {
-					this.showData = true;
-					this.allStudents = false;
-					this.remainingStudents = response.data;
-				}
-			})
-			.catch((error) => {
-				console.log(error);
-			})
-		},
-		moveStudentsToNextRound() {
-			if(this.selectedStudents.length == 0) {
-				let toast = this.$toasted.error("No student Selected.", {
-					theme: "outline",
-					position: "top-center",
-					duration : 3000
-				});
-			}
-			else {
-				company.postCompanyMoveToNextRound(this.getUserId(), this.placement_id, this.selectedStudents, this.round_id)
-				.then((response) => {
-					if(response.status == 200) {
-						if(response.data[0].package == 0) {
-							let toast = this.$toasted.success(response.data.length + " student moved to Offer Layer", {
-								theme: "outline",
-								position: "top-center",
-								duration : 3000
-							});
-						}
-						else if(response.data.length == 1) {
-							let toast = this.$toasted.success(response.data.length + " student moved to round no " + response.data[0].round_no,
-							{
-								theme: "outline",
-								position: "top-center",
-								duration : 3000
-							});
-						}
-						else {
-							let toast = this.$toasted.success(response.data.length + " students moved to round no " + response.data[0].round_no,
-							{
-								theme: "outline",
-								position: "top-center",
-								duration : 3000
-							});
-						}
-						this.getRemainingStudents();
-					}
-				})
-				.catch((error) => {
-					console.log(error);
-				})
-			}
-		},
-		getUserId() {
-			// getRemainingStudentsInApplication
-			return Auth.getUserToken();
-		}
-	},
+  name: 'company-selection-rounds',
+
+  created() {
+    this.placement_id = this.$route.params.placement_id;
+    this.season_id = this.$route.params.season_id;
+    this.round_id = this.$route.params.round_id;
+    this.getRemainingStudents()
+  },
+
+  data() {
+    return {
+      placement_id: null,
+      season_id: null,
+      round_id: null,
+      showData: true,
+      remainingStudents: [],
+      selectedStudents: [],
+      allStudents: false,
+      offerStudents: false,
+      showModal: false,
+      showViewModal: false
+    };
+  },
+  methods: {
+    getRemainingStudents() {
+      company.getRemainingStudentsRoundwise( this.getUserId(), this.placement_id, this.round_id )
+        .then( ( response ) => {
+          // console.log(response);
+          if ( response.data == 'None has applied yet!' ) {
+            this.showData = false;
+          } else if ( response.data == 'All Students moved to next Round!' ) {
+            this.showData = false;
+            this.allStudents = true;
+          }
+          // All Students of this round moved to next Round!
+          else if ( response.data == 'All Students of this round moved to next Round!' ) {
+            this.showData = false;
+            this.allStudents = true;
+          }
+          // All Students in Last Round got Offer!
+          else if ( response.data == 'All Students in Last Round got Offer!' ) {
+            this.showData = false;
+            this.allStudents = false;
+            this.offerStudents = true;
+          } else if ( response.data == 'All Students of this round moved to Offer Layer!' ) {
+            this.showData = false;
+            this.allStudents = false;
+            this.offerStudents = true;
+          } else {
+            this.showData = true;
+            this.allStudents = false;
+            this.remainingStudents = response.data;
+          }
+        } )
+        .catch( ( error ) => {
+          console.log( error );
+        } )
+    },
+    moveStudentsToNextRound() {
+      if ( this.selectedStudents.length == 0 ) {
+        let toast = this.$toasted.error( "No student Selected.", {
+          theme: "outline",
+          position: "top-center",
+          duration: 3000
+        } );
+      } else {
+        company.postCompanyMoveToNextRound( this.getUserId(), this.placement_id, this.selectedStudents, this.round_id )
+          .then( ( response ) => {
+            if ( response.status == 200 ) {
+              if ( response.data[ 0 ].package == 0 ) {
+                let toast = this.$toasted.success( response.data.length + " student moved to Offer Layer", {
+                  theme: "outline",
+                  position: "top-center",
+                  duration: 3000
+                } );
+              } else if ( response.data.length == 1 ) {
+                let toast = this.$toasted.success( response.data.length + " student moved to round no " + response.data[ 0 ].round_no, {
+                  theme: "outline",
+                  position: "top-center",
+                  duration: 3000
+                } );
+              } else {
+                let toast = this.$toasted.success( response.data.length + " students moved to round no " + response.data[ 0 ].round_no, {
+                  theme: "outline",
+                  position: "top-center",
+                  duration: 3000
+                } );
+              }
+              this.getRemainingStudents();
+            }
+          } )
+          .catch( ( error ) => {
+            console.log( error );
+          } )
+      }
+    },
+    getUserId() {
+      // getRemainingStudentsInApplication
+      return Auth.getUserToken();
+    }
+  },
+  computed: {
+    selectAll: {
+      get: function () {
+        return this.remainingStudents ? this.selectedStudents.length == this.remainingStudents.length : false;
+      },
+      set: function ( value ) {
+        var selectedStudents = [];
+        if ( value ) {
+          this.remainingStudents.forEach( ( rstudent ) => {
+            selectedStudents.push( rstudent.enroll_no );
+          } )
+        }
+        this.selectedStudents = selectedStudents;
+      }
+    }
+  },
+  components: {
+    RoundFullListModal,
+    StudentPreviewModal
+  },
 }
 </script>
 
 <style lang="scss">
 .company-selection-rounds {
 
-	.box {
-		padding: 1rem;
-		margin-top: 1.5rem;
-		margin-bottom: 2rem;
-		border-radius: 4px;
-	  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
-	}
+    .box {
+        padding: 1rem;
+        margin-top: 1.5rem;
+        margin-bottom: 2rem;
+        border-radius: 4px;
+        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+    }
 
-	.allow {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		.button {
-			margin-right: 1rem;
-		}
-	}
+    .allow {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .button {
+            margin-right: 1rem;
+        }
+    }
 
-	.title {
-		margin-bottom: 0;
-	}
+    .title {
+        margin-bottom: 0;
+    }
 
-	.selection-header {
-		padding: 1rem;
-		display: flex;
-		justify-content: space-between;
-		margin: auto;
-		border-bottom: solid 1px #ddd;
-		margin-bottom: 1rem;
-	}
+    .selection-header {
+        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+        margin: auto;
+        border-bottom: solid 1px #ddd;
+        margin-bottom: 1rem;
+    }
 
-	.checkbox {
-		margin-right: 0.5rem;
-	}
+    .checkbox {
+        margin-right: 0.5rem;
+    }
 
-	.enroll {
-		margin-right: 0.5rem;
-	}
+    .enroll {
+        margin-right: 0.5rem;
+    }
 
-	.name {
-		margin-right: 0.5rem;
-	}
+    .name {
+        margin-right: 0.5rem;
+    }
 
-	.modal-card-title {
-		padding-top: 5px;
-	}
+    .modal-card-title {
+        padding-top: 5px;
+    }
 
-	.selection-body {
-		padding: 0.5rem;
-		padding-left: 1.6rem;
-		margin-left: 1rem;
-		padding-right: 2.2rem;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		margin: auto;
-	}
+    .selection-body {
+        padding: 0.5rem 0.5rem 0.5rem 1.6rem;
+        margin-left: 1rem;
+        padding-right: 2.2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: auto;
+    }
 
-	.view-profile {
-		float: right;
-	}
+    .view-profile {
+        float: right;
+    }
 
-	.selection-checkbox {
-		padding: 0.5rem;
-		margin-left: 1rem;
-		margin-right: 1rem;
-		margin-top: 0.5rem;
-		border-top: solid 1px #ddd;
-	}
+    .selection-checkbox {
+        padding: 0.5rem;
+        margin-left: 1rem;
+        margin-right: 1rem;
+        margin-top: 0.5rem;
+        border-top: solid 1px #ddd;
+    }
 
-	.selection-footer {
-		border-top: solid 1px #ddd;
-		padding: 1rem;
-		margin-top: 1rem;
-	}
+    .selection-footer {
+        border-top: solid 1px #ddd;
+        padding: 1rem;
+        margin-top: 1rem;
+    }
 
 }
 </style>

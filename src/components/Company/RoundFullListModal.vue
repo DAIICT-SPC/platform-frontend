@@ -1,36 +1,40 @@
 <template>
-	<div class="new-modal">
+<div class="new-modal">
 
-		<div class="modal is-active">
-			<div class="modal-background"></div>
-			<div class="modal-card">
-				<header class="modal-card-head">
-					<p class="modal-card-title">Round wise Students</p>
-					<button class="delete" @click="$emit('close')"></button>
-				</header>
-				<section class="modal-card-body">
+  <div class="modal is-active">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Round wise Students</p>
+        <button class="delete" @click="$emit('close')"></button>
+      </header>
 
-					<div class="application-list">
+      <section class="modal-card-body">
 
-						<div class="company-selection-body" v-for="st in students">
-							<div class="">
-								<span class="enroll"> {{ st.enroll_no }} </span>
-								<span class="name"> {{ st.user.name }} </span>
-							</div>
-							<div class="catname">
-								<span>{{ st.category.name }}</span>
-							</div>
-						</div>
-					</div>
+        <div class="application-list" v-if="!noData">
+          <div class="company-selection-body" v-for="st in students">
+            <div class="">
+              <span class="enroll"> {{ st.enroll_no }} </span>
+              <span class="name"> {{ st.user.name }} </span>
+            </div>
+            <div class="catname">
+              <span>{{ st.category.name }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="" v-if="noData">
+          <h3 class="title">No data present at the moment.</h3>
+        </div>
 
-				</section>
+      </section>
 
-				<footer class="modal-card-foot">
-					<a class="button" @click="$emit('close')">Cancel</a>
-				</footer>
-			</div>
-		</div>
-	</div>
+      <footer class="modal-card-foot">
+        <a class="button" @click="$emit('close')">Cancel</a>
+      </footer>
+
+    </div>
+  </div>
+</div>
 </template>
 
 <script>
@@ -38,37 +42,42 @@ import company from '@/api/company';
 import Auth from '@/packages/auth/Auth';
 
 export default {
-	name: 'new-modal',
-	created() {
-		this.placement_id = this.$route.params.placement_id;
-		this.round_id = this.$route.params.round_id;
-		this.getAllStudents();
-	},
-	data() {
-		return {
-			students: [],
-			placement_id: null,
-			season_id: null,
-			round_id: null
-		};
-	},
-	methods: {
-		getAllStudents() {
-			company.getRoundwiseList(this.getUserId(), this.placement_id, this.round_id)
-			.then((response) => {
-				if(response.status == 200) {
-					console.log(this.students);
-					this.students = response.data;
-				}
-			})
-			.catch((error) => {
-				console.log(error);
-			})
-		},
-		getUserId() {
-			return Auth.getUserToken();
-		}
-	}
+  name: 'new-modal',
+  created() {
+    this.placement_id = this.$route.params.placement_id;
+    this.round_id = this.$route.params.round_id;
+    this.getAllStudents();
+  },
+  data() {
+    return {
+      students: [],
+      placement_id: null,
+      season_id: null,
+      round_id: null,
+      noData: false
+    };
+  },
+  methods: {
+    getAllStudents() {
+      company.getRoundwiseList( this.getUserId(), this.placement_id, this.round_id )
+        .then( ( response ) => {
+          if ( response.status == 200 ) {
+            if ( response.data.length == 0 ) {
+              this.noData = true;
+            } else {
+              this.students = response.data;
+              this.noData = false;
+            }
+          }
+        } )
+        .catch( ( error ) => {
+          console.log( error );
+        } )
+    },
+    getUserId() {
+      return Auth.getUserToken();
+    }
+  }
 
 }
 </script>
@@ -76,24 +85,22 @@ export default {
 <style lang="scss">
 .new-modal {
 
-	.application-list {
+    .application-list {
 
-		.company-selection-body {
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			max-width: 350px;
-			margin-left: 0;
-			padding: 0.1rem;
-			.enroll .name {
-				padding-right: 0.2rem;
-			}
-			.catname {
+        .company-selection-body {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 350px;
+            margin-left: 0;
+            padding: 0.1rem;
+            .enroll .name {
+                padding-right: 0.2rem;
+            }
+            .catname {}
+        }
 
-			}
-		}
-
-	}
+    }
 
 }
 </style>

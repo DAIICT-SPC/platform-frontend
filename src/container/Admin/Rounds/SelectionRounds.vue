@@ -7,7 +7,7 @@
 					<button @click="showModal = true" class="button is-success">View Full-List</button>
 				</div>
 
-				<application-list-modal @close="showModal = false" v-if="showModal == true"></application-list-modal>
+				<ApplicationFullList @close="showModal = false" v-if="showModal == true"></ApplicationFullList>
 
 				<div v-for="studentData in remainingStudents">
 					<div class="admin-application-selection-body" v-if="studentData.user">
@@ -18,7 +18,7 @@
 							<span class="category">{{ studentData.category.name }}</span>
 						</div>
 						<div class="part2 student-preview">
-							<student-preview :key="studentData.enroll_no" :studentData="studentData"></student-preview>
+							<StudentPreviewModal :key="studentData.enroll_no" :studentData="studentData"></StudentPreviewModal>
 						</div>
 					</div>
 				</div>
@@ -39,10 +39,10 @@
 			<div class="allow" v-if="allStudents">
 				<h3 class="title no-data">All Students moved to next Round</h3>
 				<button @click="showModal = true" class="button is-success">View Full-List</button>
-				<application-list-modal @close="showModal = false" v-if="showModal == true"></application-list-modal>
+				<ApplicationFullList @close="showModal = false" v-if="showModal == true"></ApplicationFullList>
 			</div>
 		</div>
-		<!-- <a href="D:\A\platform-backend\public\test.zip" download>Path</a> -->
+
 	</div>
 </template>
 
@@ -53,184 +53,186 @@ import ApplicationFullList from '@/components/Admin/Rounds/ApplicationFullList';
 import StudentPreviewModal from '@/components/Admin/Rounds/StudentPreviewModal';
 
 export default {
-	name: 'admin-application-selection-rounds',
-	components: {
-		'application-list-modal': ApplicationFullList,
-		'student-preview': StudentPreviewModal
-	},
-	computed: {
-		selectAll: {
-			get:function() {
-				return this.remainingStudents ? this.selectedStudents.length == this.remainingStudents.length : false;
-			},
-			set:function(value) {
-				var selectedStudents = [];
-				if(value){
-					this.remainingStudents.forEach((rstudent)=>{
-						selectedStudents.push(rstudent.enroll_no);
-					})
-				}
-				this.selectedStudents = selectedStudents;
-			}
-		}
-	},
-	created() {
-		this.placement_id = this.$route.params.placement_id;
-		this.season_id = this.$route.params.season_id;
-		this.getRemainingStudents();
+  name: 'admin-application-selection-rounds',
 
-	},
-	data() {
-		return {
-			placement_id: null,
-			season_id: null,
-			showData: false,
-			remainingStudents: [],
-			selectedStudents: [],
-			allStudents: false,
-			showModal: false,
-			modalValue: ''
-		};
-	},
-	methods: {
-		getRemainingStudents() {
-			admin.getRemainingStudentsInApplication(this.getUserId(), this.placement_id)
-			.then((response) => {
-				if(response.data == 'None has applied yet!'){
-					this.showData = false;
-				}
-				else if(response.data == 'All Students move to Rounds'){
-					this.showData = false;
-					this.allStudents = true;
-				}
-				else {
-					this.showData = true;
-					this.remainingStudents = response.data;
-				}
-			})
-			.catch((error) => {
-				console.log(error);
-			})
-		},
-		moveStudentsToNextRound() {
-			if(this.selectedStudents.length == 0) {
-				let toast = this.$toasted.show("No student Selected", {
-					theme: "outline",
-					position: "top-center",
-					duration : 3000
-				});
-			}
-			else {
-				admin.postAdminMoveToFirstRound(this.getUserId(), this.placement_id, this.selectedStudents)
-				.then((response) => {
-					if(response.status == 200) {
-						if(response.data.length == 1) {
-							let toast = this.$toasted.success(response.data.length + " student moved to round no " + response.data[0].round_no,
-							{
-								theme: "outline",
-								position: "top-center",
-								duration : 3000
-							});
-						}
-						else {
-							let toast = this.$toasted.success(response.data.length + " students moved to round no " + response.data[0].round_no,
-							{
-								theme: "outline",
-								position: "top-center",
-								duration : 3000
-							});
-						}
-						this.getRemainingStudents();
-					}
-				})
-				.catch((error) => {
-					console.log(error);
-				})
-			}
+  created() {
+    this.placement_id = this.$route.params.placement_id;
+    this.season_id = this.$route.params.season_id;
+    this.getRemainingStudents();
+  },
 
-		},
-		getUserId() {
-			// getRemainingStudentsInApplication
-			return Auth.getUserToken();
-		}
-	},
+  data() {
+    return {
+      placement_id: null,
+      season_id: null,
+      showData: false,
+      remainingStudents: [],
+      selectedStudents: [],
+      allStudents: false,
+      showModal: false,
+      modalValue: ''
+    };
+  },
+
+  methods: {
+    getRemainingStudents() {
+      admin.getRemainingStudentsInApplication( this.getUserId(), this.placement_id )
+        .then( ( response ) => {
+          if ( response.data == 'None has applied yet!' ) {
+            this.showData = false;
+          } else if ( response.data == 'All Students move to Rounds' ) {
+            this.showData = false;
+            this.allStudents = true;
+          } else {
+            this.showData = true;
+            this.remainingStudents = response.data;
+          }
+        } )
+        .catch( ( error ) => {
+          console.log( error );
+        } )
+    },
+    moveStudentsToNextRound() {
+      if ( this.selectedStudents.length == 0 ) {
+        let toast = this.$toasted.show( "No student Selected", {
+          theme: "outline",
+          position: "top-center",
+          duration: 3000
+        } );
+      } else {
+        admin.postAdminMoveToFirstRound( this.getUserId(), this.placement_id, this.selectedStudents )
+          .then( ( response ) => {
+            if ( response.status == 200 ) {
+              if ( response.data.length == 1 ) {
+                let toast = this.$toasted.success( response.data.length + " student moved to round no " + response.data[ 0 ].round_no, {
+                  theme: "outline",
+                  position: "top-center",
+                  duration: 3000
+                } );
+              } else {
+                let toast = this.$toasted.success( response.data.length + " students moved to round no " + response.data[ 0 ].round_no, {
+                  theme: "outline",
+                  position: "top-center",
+                  duration: 3000
+                } );
+              }
+              this.getRemainingStudents();
+            }
+          } )
+          .catch( ( error ) => {
+            console.log( error );
+          } )
+      }
+
+    },
+    getUserId() {
+      // getRemainingStudentsInApplication
+      return Auth.getUserToken();
+    }
+  },
+
+  computed: {
+    selectAll: {
+      get: function () {
+        return this.remainingStudents ? this.selectedStudents.length == this.remainingStudents.length : false;
+      },
+      set: function ( value ) {
+        var selectedStudents = [];
+        if ( value ) {
+          this.remainingStudents.forEach( ( rstudent ) => {
+            selectedStudents.push( rstudent.enroll_no );
+          } )
+        }
+        this.selectedStudents = selectedStudents;
+      }
+    }
+  },
+
+  components: {
+    ApplicationFullList,
+    StudentPreviewModal
+  },
 }
 </script>
 
 <style lang="scss">
 .admin-application-selection-rounds {
 
-	.allow {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		.button {
-			margin-right: 1rem;
-		}
-	}
+    .box {
+        padding: 0;
+    }
 
-	.title {
-		margin-bottom: 0;
-	}
+    .allow {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .button {
+            margin-right: 1rem;
+        }
+    }
 
-	.selection-header {
-		padding: 1rem;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		margin: auto;
-		border-bottom: solid 1px #ddd;
-		margin-bottom: 1rem;
-	}
+    .title {
+        margin-bottom: 0;
+    }
 
-	.checkbox {
-		margin-right: 0.5rem;
-	}
+    .selection-header {
+        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: auto;
+        border-bottom: solid 1px #ddd;
+        margin-bottom: 1rem;
+    }
 
-	.enroll {
-		margin-right: 0.5rem;
-	}
+    .checkbox {
+        margin-right: 0.5rem;
+    }
 
-	.name {
-		margin-right: 0.5rem;
-	}
+    .enroll {
+        margin-right: 0.5rem;
+    }
 
-	.modal-card-title {
-		padding-top: 5px;
-	}
+    .name {
+        margin-right: 0.5rem;
+    }
 
-	.admin-application-selection-body {
-		padding: 0.5rem;
-		margin-left: 1rem;
-		padding-left: 1.5rem;
-		padding-right: 2.2rem;
-		// border-bottom: solid 1px #ddd;
-		display: flex;
-		justify-content: space-between;
-		margin: auto;
-	}
+    .modal-card-title {
+        padding-top: 5px;
+    }
 
-	.view-profile {
-		float: right;
-	}
+    .admin-application-selection-body {
+        padding: 0.5rem;
+        margin-left: 1rem;
+        padding-left: 1.5rem;
+        padding-right: 2.2rem;
+        // border-bottom: solid 1px #ddd;
+        display: flex;
+        justify-content: space-between;
+        margin: auto;
+    }
 
-	.selection-checkbox {
-		padding: 0.5rem;
-		margin-left: 1rem;
-		margin-right: 1rem;
-		margin-top: 0.5rem;
-		border-top: solid 1px #ddd;
-	}
+    .view-profile {
+        float: right;
+    }
 
-	.selection-footer {
-		border-top: solid 1px #ddd;
-		padding: 1rem;
-		margin-top: 1rem;
-	}
+    .selection-checkbox {
+        padding: 0.5rem;
+        margin-left: 1rem;
+        margin-right: 1rem;
+        margin-top: 0.5rem;
+        border-top: solid 1px #ddd;
+    }
 
-	.no-data {
-		padding: 1rem;
-	}
+    .selection-footer {
+        border-top: solid 1px #ddd;
+        padding: 1rem;
+        margin-top: 1rem;
+    }
+
+    .no-data {
+        padding: 1rem;
+    }
 
 }
 </style>
