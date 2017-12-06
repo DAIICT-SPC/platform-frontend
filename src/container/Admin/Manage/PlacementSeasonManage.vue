@@ -1,7 +1,7 @@
 <template>
 <div class="placement-season-manage">
 
-  <div class="placement-season-manage-head" v-if="showData">
+  <div class="placement-season-manage-head">
     <div class="head">
       <h3 class="title">Manage</h3>
     </div>
@@ -16,9 +16,9 @@
   </div>
 
 
-  <div class="columns is-multiline">
+  <div class="columns is-multiline" v-if="showData">
 
-    <div class="column is-one-third" v-if="showData" v-for="season in seasons_list">
+    <div class="column is-one-third" v-for="season in seasons_list">
       <div class="card placement-tiles">
 
         <header class="card-header">
@@ -43,10 +43,10 @@
     </div>
 
   </div>
-  <div class="column box" v-if="!showData">
-    <h3 class="title">No Data to Show</h3>
-  </div>
 
+  <div class="noData" v-if="!showData">
+    <h3 class="title">No Season has been created yet!</h3>
+  </div>
 </div>
 </template>
 
@@ -183,6 +183,10 @@ export default {
 
     .card-header-icon {
         padding-right: 1rem;
+    }
+
+    .noData {
+        padding: 1rem;
     }
 }
 </style>

@@ -5,11 +5,15 @@
     <h2 class="title">Category</h2>
   </div>
 
-  <div class="cat-body">
+  <div class="cat-body" v-if="!noData">
     <div class="category-items" v-for="category,index in categories">
       <span> {{ category.name }}</span>
       <a class="icon is-small" @click="askForDeleteCategory(category.id)"> <i class="fa fa-trash-o"></i> </a>
     </div>
+  </div>
+
+  <div class="noData" v-if="noData">
+    <h3 class="title">No Categories has been created yet!</h3>
   </div>
 
   <div class="add-category">
@@ -37,25 +41,31 @@ export default {
   data() {
     return {
       categories: [],
-      title: ''
+      title: '',
+      noData: false
     }
   },
   methods: {
     getAllCategories() {
-      category.all().then((response) => {
-        this.categories = response.data;
-      })
+      category.all().then( ( response ) => {
+        if ( response.data.length == 0 ) {
+          this.noData = true;
+        } else {
+          this.noData = false;
+          this.categories = response.data;
+        }
+      } )
     },
     addCategory() {
-      this.validate().then(() => {
+      this.validate().then( () => {
           this.postCategoryHere();
-        })
-        .catch((error) => {
-          console.log(error);
-        })
+        } )
+        .catch( ( error ) => {
+          console.log( error );
+        } )
     },
-    askForDeleteCategory(category_id) {
-      this.swal({
+    askForDeleteCategory( category_id ) {
+      this.swal( {
         // title: 'Are you sure?',
         text: "Delete the Category?",
         // type: 'warning',
@@ -64,29 +74,29 @@ export default {
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes',
         allowOutsideClick: true
-      }).then(() => {
-        this.deleteCategory(category_id);
-      })
+      } ).then( () => {
+        this.deleteCategory( category_id );
+      } )
     },
-    deleteCategory(category_id) {
-      category.deleteCategory(category_id)
-        .then((response) => {
+    deleteCategory( category_id ) {
+      category.deleteCategory( category_id )
+        .then( ( response ) => {
           this.getAllCategories();
-        })
-        .catch((error) => {
-          console.log(error.response);
-        })
+        } )
+        .catch( ( error ) => {
+          console.log( error.response );
+        } )
     },
     postCategoryHere() {
-      category.postCategory(this.title)
-        .then((response) => {
-          if (response.status == 200) {
+      category.postCategory( this.title )
+        .then( ( response ) => {
+          if ( response.status == 200 ) {
             this.getAllCategories();
           }
-        })
-        .catch((error) => {
-          console.log(error.response);
-        })
+        } )
+        .catch( ( error ) => {
+          console.log( error.response );
+        } )
     },
     validate() {
       return this.$validator.validateAll();
@@ -115,9 +125,13 @@ export default {
         justify-content: space-between;
         align-items: center;
     }
-    
+
     .add-category {
         border-top: solid 1px #ddd;
+        padding: 1rem;
+    }
+
+    .noData {
         padding: 1rem;
     }
 

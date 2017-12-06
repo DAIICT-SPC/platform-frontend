@@ -5,11 +5,15 @@
     <h2 class="title">Education</h2>
   </div>
 
-  <div class="education-body">
+  <div class="education-body" v-if="!noData">
     <div class="education-items" v-for="ed,index in education">
       <span>{{ ed.name }}</span>
       <a class="icon is-small" @click="askForDeleteEducation(ed.id)"> <i class="fa fa-trash-o"></i> </a>
     </div>
+  </div>
+
+  <div class="noData" v-if="noData">
+    <h3 class="title">No Education has been created yet!</h3>
   </div>
 
   <div class="add-education">
@@ -37,36 +41,42 @@ export default {
   data() {
     return {
       education: [],
-      name: ''
+      name: '',
+      noData: false
     }
   },
   methods: {
     getAllEducation() {
-      education.all().then((response) => {
-        this.education = response.data;
-      })
+      education.all().then( ( response ) => {
+        if ( response.data.length == 0 ) {
+          this.noData = true;
+        } else {
+          this.noData = false;
+          this.education = response.data;
+        }
+      } )
     },
     addEducation() {
-      this.validate().then(() => {
+      this.validate().then( () => {
           this.addEdHere();
-        })
-        .catch((error) => {
-          console.log(error);
-        })
+        } )
+        .catch( ( error ) => {
+          console.log( error );
+        } )
     },
     addEdHere() {
-      education.postEducation(this.name)
-        .then((response) => {
-          if (response.status == 200) {
+      education.postEducation( this.name )
+        .then( ( response ) => {
+          if ( response.status == 200 ) {
             this.getAllEducation();
           }
-        })
-        .catch((error) => {
-          console.log(error.response);
-        })
+        } )
+        .catch( ( error ) => {
+          console.log( error.response );
+        } )
     },
-    askForDeleteEducation(education_id) {
-      this.swal({
+    askForDeleteEducation( education_id ) {
+      this.swal( {
         // title: 'Are you sure?',
         text: "Delete the Education?",
         // type: 'warning',
@@ -75,18 +85,18 @@ export default {
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes',
         allowOutsideClick: true
-      }).then(() => {
-        this.deleteEducation(education_id);
-      })
+      } ).then( () => {
+        this.deleteEducation( education_id );
+      } )
     },
-    deleteEducation(education_id) {
-      education.deleteEducation(education_id)
-        .then((response) => {
+    deleteEducation( education_id ) {
+      education.deleteEducation( education_id )
+        .then( ( response ) => {
           this.getAllEducation();
-        })
-        .catch((error) => {
-          console.log(error.response);
-        })
+        } )
+        .catch( ( error ) => {
+          console.log( error.response );
+        } )
     },
     validate() {
       return this.$validator.validateAll();
@@ -121,8 +131,12 @@ export default {
     }
 
     .add-education {
-      padding: 1rem;
-      border-top: solid 1px #ddd;
+        padding: 1rem;
+        border-top: solid 1px #ddd;
+    }
+
+    .noData {
+        padding: 1rem;
     }
 
 }

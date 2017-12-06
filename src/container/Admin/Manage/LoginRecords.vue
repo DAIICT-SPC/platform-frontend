@@ -6,11 +6,12 @@
         <h3 class="title">Login Records</h3>
       </div>
       <div class="body">
+
+      <div class="admin-records">
         <div class="body-header">
           <h3 class="title is-3">Admin</h3>
         </div>
-
-        <div class="columns is-multiline">
+        <div class="columns is-multiline" v-if="!noAdminData">
           <div class="column is-one-third" v-for="ad in admin">
             <div class="card">
               <div class="card-content">
@@ -32,10 +33,16 @@
             </div>
           </div>
         </div>
+        <div class="noAdminData" v-if="noAdminData">
+          <h3 class="title">No Records to show</h3>
+        </div>
+      </div>
+
+        <div class="company-records">
         <div class="body-header">
           <h3 class="title is-3">Company</h3>
         </div>
-        <div class="columns is-multiline">
+        <div class="columns is-multiline" v-if="!noCompanyData">
           <div class="column is-one-third" v-for="com in company">
             <div class="card">
               <div class="card-content">
@@ -56,6 +63,10 @@
               </footer>
             </div>
           </div>
+        </div>
+        <div class="noCompanyData" v-if="noCompanyData">
+          <h3 class="title">No Records to show</h3>
+        </div>
         </div>
       </div>
 
@@ -84,14 +95,21 @@ export default {
       admin: [],
       showCompany: false,
       company: [],
-      date: ''
+      date: '',
+      noAdminData: false,
+      noCompanyData: false
     };
   },
   methods: {
     getAdminRecords() {
       admin.getLoginRecordsForAdmin( this.getUserId() )
         .then( ( response ) => {
-          this.admin = response.data;
+          if ( response.data.length == 0 ) {
+            this.noAdminData = true;
+          } else {
+            this.noAdminData = false;
+            this.admin = response.data;
+          }
         } )
         .catch( ( error ) => {
           console.log( error );
@@ -100,7 +118,12 @@ export default {
     getCompanyRecords() {
       admin.getLoginRecordsForCompany( this.getUserId() )
         .then( ( response ) => {
-          this.company = response.data;
+          if ( response.data.length == 0 ) {
+            this.noCompanyData = true;
+          } else {
+            this.noCompanyData = false;
+            this.company = response.data;
+          }
         } )
         .catch( ( error ) => {
           console.log( error );
@@ -162,6 +185,16 @@ export default {
             padding-left: 1rem;
             margin: 0;
         }
+    }
+
+    .noAdminData {
+        padding: 1rem;
+        border: solid 1px #ddd;
+    }
+
+    .noCompanyData {
+        border-top: solid 1px #ddd;
+        padding: 1rem;
     }
 }
 </style>

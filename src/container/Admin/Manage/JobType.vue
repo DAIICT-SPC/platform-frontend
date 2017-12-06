@@ -5,11 +5,15 @@
     <h2 class="title">Job Type</h2>
   </div>
 
-  <div class="job-body">
+  <div class="job-body" v-if="!noData">
     <div class="job-type-items" v-for="jobType,index in jobTypes">
       <span>{{ jobType.job_type }}</span>
       <a class="icon is-small" @click="askForDeleteJobType(jobType.id)"> <i class="fa fa-trash-o"></i> </a>
     </div>
+  </div>
+
+  <div class="noData" v-if="noData">
+    <h3 class="title">No Job Types has been created yet!</h3>
   </div>
 
   <div class="job-type-footer">
@@ -40,25 +44,31 @@ export default {
     return {
       jobTypes: [],
       jobType: '',
-      duration: ''
+      duration: '',
+      noData: false
     }
   },
   methods: {
     getAllJobTypes() {
-      jobType.all().then((response) => {
-        this.jobTypes = response.data;
-      })
+      jobType.all().then( ( response ) => {
+        if ( response.data.length == 0 ) {
+          this.noData = true;
+        } else {
+          this.noData = false;
+          this.jobTypes = response.data;
+        }
+      } )
     },
     addJobType() {
-      this.validate().then(() => {
+      this.validate().then( () => {
           this.postJobTypeDetails();
-        })
-        .catch((error) => {
-          console.log(error);
-        })
+        } )
+        .catch( ( error ) => {
+          console.log( error );
+        } )
     },
-    askForDeleteJobType(job_type_id) {
-      this.swal({
+    askForDeleteJobType( job_type_id ) {
+      this.swal( {
         // title: 'Are you sure?',
         text: "Delete the Job Category?",
         // type: 'warning',
@@ -67,29 +77,29 @@ export default {
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes',
         allowOutsideClick: true
-      }).then(() => {
-        this.deleteJobType(job_type_id);
-      })
+      } ).then( () => {
+        this.deleteJobType( job_type_id );
+      } )
     },
-    deleteJobType(job_type_id) {
-      jobType.deleteJobType(job_type_id)
-        .then((response) => {
+    deleteJobType( job_type_id ) {
+      jobType.deleteJobType( job_type_id )
+        .then( ( response ) => {
           this.getAllJobTypes();
-        })
-        .catch((error) => {
-          console.log(error.response);
-        })
+        } )
+        .catch( ( error ) => {
+          console.log( error.response );
+        } )
     },
     postJobTypeDetails() {
-      jobType.postJobType(this.jobType, this.duration)
-        .then((response) => {
-          if (response.status == 200) {
+      jobType.postJobType( this.jobType, this.duration )
+        .then( ( response ) => {
+          if ( response.status == 200 ) {
             this.getAllJobTypes();
           }
-        })
-        .catch((error) => {
-          console.log(error.response);
-        })
+        } )
+        .catch( ( error ) => {
+          console.log( error.response );
+        } )
     },
     validate() {
       return this.$validator.validateAll();
@@ -130,6 +140,10 @@ export default {
 
     .control .input {
         margin-bottom: 0.4rem;
+    }
+
+    .noData {
+        padding: 1rem;
     }
 
 }
