@@ -57,10 +57,10 @@ export default {
   created() {
     this.placement_id = this.$route.params.placement_id;
     this.getStudentsOffer();
-    this.$bus.$on('refresh', () => {
+    this.$bus.$on( 'refresh', () => {
 
       this.getStudentsOffer();
-    })
+    } )
   },
   data() {
     return {
@@ -73,17 +73,17 @@ export default {
   },
   methods: {
     getStudentsOffer() {
-      company.getStudentsForOffer(this.getuserId(), this.placement_id)
-        .then((response) => {
+      company.getStudentsForOffer( this.getuserId(), this.placement_id )
+        .then( ( response ) => {
           this.remainingStudents = response.data;
-          if (response.data == 'All Students in offer layer got Offer!') {
+          if ( response.data == 'All Students in offer layer got Offer!' ) {
             this.allStudents = true;
             this.showData = false;
           }
-        })
-        .catch((error) => {
-          console.log(error);
-        })
+        } )
+        .catch( ( error ) => {
+          console.log( error );
+        } )
     },
     getuserId() {
       return Auth.getUserToken();

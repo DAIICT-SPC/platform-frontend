@@ -159,34 +159,34 @@ export default {
     this.placement_id = this.$route.params.placement_id;
     // this.getEducation();
     this.getDetails();
-    this.$bus.$on('closeDescription', () => {
+    this.$bus.$on( 'closeDescription', () => {
       this.showDesc = false;
-    });
-    this.$bus.$on('added-eligibility-criteria', () => {
+    } );
+    this.$bus.$on( 'added-eligibility-criteria', () => {
       this.showAddEligibilityCriteria = false;
       this.getDetails();
-    });
-    this.$bus.$on('close', () => {
+    } );
+    this.$bus.$on( 'close', () => {
       this.showOpenFor = false;
       this.getDetails();
-    })
-    this.$bus.$on('deleted', () => {
+    } )
+    this.$bus.$on( 'deleted', () => {
       this.getDetails();
-    });
+    } );
     // close-add-selection-round
-    this.$bus.$on('close-add-selection-round', () => {
+    this.$bus.$on( 'close-add-selection-round', () => {
       this.showAddSelection = false;
       this.getDetails();
-    })
-    this.$bus.$on('edit-selection-roundbox', () => {
+    } )
+    this.$bus.$on( 'edit-selection-roundbox', () => {
       this.getDetails();
-    })
+    } )
 
   },
 
   methods: {
     alert() {
-      this.swal({
+      this.swal( {
         // title: 'Are you sure?',
         text: "Start the Placement Drive?",
         // type: 'warning',
@@ -195,12 +195,12 @@ export default {
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes',
         allowOutsideClick: true
-      }).then(() => {
+      } ).then( () => {
         this.startPlacement();
-      })
+      } )
     },
-    askCatDelete(id) {
-      this.swal({
+    askCatDelete( id ) {
+      this.swal( {
         // title: 'Are you sure?',
         text: "Delete the Category?",
         // type: 'warning',
@@ -209,66 +209,66 @@ export default {
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes',
         allowOutsideClick: true
-      }).then(() => {
-        this.delOpenFor(id);
-      })
+      } ).then( () => {
+        this.delOpenFor( id );
+      } )
     },
     getDetails() {
-      company.getPlacementDetails(this.getUserId(), this.placement_id)
-        .then((response) => {
+      company.getPlacementDetails( this.getUserId(), this.placement_id )
+        .then( ( response ) => {
           this.lastDateRegistration = response.data.last_date_for_registration;
           this.placementDescription = response.data;
-        })
-        .catch((error) => {
-          console.log(error.message);
-        });
+        } )
+        .catch( ( error ) => {
+          console.log( error.message );
+        } );
     },
     getEducation() {
-      company.getEducationForPlacementCriteria(this.getUserId(), this.placement_id, this.category_id)
-        .then((response) => {
+      company.getEducationForPlacementCriteria( this.getUserId(), this.placement_id, this.category_id )
+        .then( ( response ) => {
           // console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-        })
+        } )
+        .catch( ( error ) => {
+          console.log( error );
+        } )
     },
     getUserId() {
       return Auth.getUserToken();
     },
-    delOpenFor(category_id) {
-      company.deleteOpenFor(this.getUserId(), this.placement_id, category_id)
-        .then((response) => {
-          if (response.status == 204) {
-            let toast = this.$toasted.error("Category Deleted", {
+    delOpenFor( category_id ) {
+      company.deleteOpenFor( this.getUserId(), this.placement_id, category_id )
+        .then( ( response ) => {
+          if ( response.status == 204 ) {
+            let toast = this.$toasted.error( "Category Deleted", {
               theme: "outline",
               position: "top-center",
               duration: 3000
-            });
+            } );
             this.getDetails();
           }
-        })
-        .catch((error) => {
-          console.log(error);
-        })
+        } )
+        .catch( ( error ) => {
+          console.log( error );
+        } )
     },
     startPlacement() {
-      company.startPlacement(this.getUserId(), this.placement_id)
-        .then((response) => {
-          let toast = this.$toasted.success("Placement Drive has been Initiated.", {
+      company.startPlacement( this.getUserId(), this.placement_id )
+        .then( ( response ) => {
+          let toast = this.$toasted.success( "Placement Drive has been Initiated.", {
             theme: "outline",
             position: "top-center",
             duration: 3000
-          });
+          } );
           this.goToHome();
-        })
-        .catch((error) => {
-          console.log(error);
-        })
+        } )
+        .catch( ( error ) => {
+          console.log( error );
+        } )
     },
     goToHome() {
-      this.$router.push({
+      this.$router.push( {
         name: 'company-home'
-      })
+      } )
     },
   }
 }
@@ -277,11 +277,9 @@ export default {
 <style lang="scss">
 .draft-placement-details {
 
-  margin-bottom: 1.5rem;
-
-  .box {
-    padding: 0;
-  }
+    .box {
+        padding: 0;
+    }
 
     .margin-set {
         margin: 0;

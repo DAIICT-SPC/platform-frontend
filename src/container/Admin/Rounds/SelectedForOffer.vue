@@ -49,10 +49,7 @@ import OfferFullList from '@/components/Admin/Rounds/OfferFullList';
 
 export default {
   name: 'admin-selection-round-offer',
-  components: {
-    OfferModal,
-    OfferFullList
-  },
+
   created() {
     this.placement_id = this.$route.params.placement_id;
     this.getStudentsOffer();
@@ -87,6 +84,12 @@ export default {
       return Auth.getUserToken();
     }
   },
+
+  components: {
+    OfferModal,
+    OfferFullList
+  },
+
 }
 </script>
 

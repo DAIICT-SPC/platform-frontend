@@ -14,7 +14,7 @@
           <h1 class="title">No Access</h1>
         </div>
       </div>
-      
+
   </div>
 </template>
 
@@ -38,18 +38,18 @@ export default {
   },
   methods: {
     callPlacementSeasons() {
-      placementSeason.all(this.getUserId())
-        .then((response) => {
-          if (response.data == 'No Placement Season Found!') {
+      placementSeason.all( this.getUserId() )
+        .then( ( response ) => {
+          if ( response.data == 'No Placement Season Found!' ) {
             this.showData = false;
           } else {
             this.showData = true;
             this.seasons = response.data;
           }
-        })
-        .catch((error) => {
-          console.log(error);
-        })
+        } )
+        .catch( ( error ) => {
+          console.log( error );
+        } )
     },
     getUserId() {
       return Auth.getUserToken();
@@ -64,7 +64,6 @@ export default {
         padding: 0;
         border-radius: 4px;
         box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
-        margin-bottom: 1rem;
     }
     .title {
         padding: 1rem;

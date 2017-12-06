@@ -8,7 +8,7 @@
         <div class="modal-background"></div>
         <div class="modal-card">
           <header class="modal-card-head">
-            <p class="modal-card-title">Offer Letter for {{studentData.user.name}} <small>({{studentData.enroll_no}})</small></p>
+            <p class="modal-card-title">Offer Package for {{studentData.user.name}} <small>({{studentData.enroll_no}})</small></p>
             <button class="delete" @click="hidden=false"></button>
           </header>
           <section class="modal-card-body">
@@ -63,62 +63,59 @@ export default {
   },
   created() {
     this.placement_id = this.$route.params.placement_id;
-    this.$bus.$on('feedback-done', () => {
+    this.$bus.$on( 'feedback-done', () => {
       // refresh
       this.feedbackModal = false;
       this.isFeedbackGiven();
-    })
+    } )
   },
   methods: {
     isFeedbackGiven() {
-      company.isFeedbackGiven(this.getUserId(), this.placement_id)
-      .then((response) => {
-        if(response.data == true) {
-          this.hidden = true;
-        }
-        else {
-          let toast = this.$toasted.show("Request you to please kindly give Feedback first.", {
-            theme: "outline",
-            position: "top-center",
-            duration : 3000
-          });
-          // open feedback Modal
-          this.feedbackModal = true;
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      })
+      company.isFeedbackGiven( this.getUserId(), this.placement_id )
+        .then( ( response ) => {
+          if ( response.data == true ) {
+            this.hidden = true;
+          } else {
+            let toast = this.$toasted.show( "Request you to please kindly give Feedback first.", {
+              theme: "outline",
+              position: "top-center",
+              duration: 3000
+            } );
+            // open feedback Modal
+            this.feedbackModal = true;
+          }
+        } )
+        .catch( ( error ) => {
+          console.log( error );
+        } )
     },
     giveOffer() {
-      company.postGiveOffer(this.getUserId(), this.placement_id, this.studentData.enroll_no, this.packageOffer)
-      .then((response) => {
-        if(response.status == 200) {
-          let toast = this.$toasted.success(this.studentData.user.name + " has been given the Offer.", {
-  					theme: "outline",
-  					position: "top-center",
-  					duration : 3000
-  				});
-          this.hidden = false;
-          this.$bus.$emit('refresh');
-        }
-        else if(response.data == 'All Students in last round got offer')
-        {
-          showAllOffer = true;
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      })
+      company.postGiveOffer( this.getUserId(), this.placement_id, this.studentData.enroll_no, this.packageOffer )
+        .then( ( response ) => {
+          if ( response.status == 200 ) {
+            let toast = this.$toasted.success( this.studentData.user.name + " has been given the Offer.", {
+              theme: "outline",
+              position: "top-center",
+              duration: 3000
+            } );
+            this.hidden = false;
+            this.$bus.$emit( 'refresh' );
+          } else if ( response.data == 'All Students in last round got offer' ) {
+            showAllOffer = true;
+          }
+        } )
+        .catch( ( error ) => {
+          console.log( error );
+        } )
     },
     getStudentsOffer() {
-      company.getStudentsForOffer(this.getuserId(), this.placement_id)
-      .then((response) => {
-        this.remainingStudents = response.data;
-      })
-      .catch((error) => {
-        console.log(error);
-      })
+      company.getStudentsForOffer( this.getuserId(), this.placement_id )
+        .then( ( response ) => {
+          this.remainingStudents = response.data;
+        } )
+        .catch( ( error ) => {
+          console.log( error );
+        } )
     },
     validate() {
       return this.$validator.validateAll();
@@ -132,6 +129,5 @@ export default {
 
 <style lang="scss">
 .offer-modal {
-
-}
+    }
 </style>

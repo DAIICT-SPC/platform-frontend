@@ -119,76 +119,76 @@ export default {
     this.checkIfSameCategory();
     this.getUserAppliedForPlacement();
     this.getUserPlacementDetails();
-    this.$bus.$on('feedback-done', () => {
+    this.$bus.$on( 'feedback-done', () => {
       this.feedbackModal = false;
       this.getUserPlacementDetails();
-    })
+    } )
   },
 
   methods: {
 
     checksEligibility() {
-      user.checksEligibility(this.getUserId(), this.placement_id)
-        .then((response) => {
-          if (response.data.status == 'eligible') {
+      user.checksEligibility( this.getUserId(), this.placement_id )
+        .then( ( response ) => {
+          if ( response.data.status == 'eligible' ) {
             this.eligible = true;
-          } else if (response.data.status == 'applied') {
+          } else if ( response.data.status == 'applied' ) {
             this.eligible = true;
             this.applyKey = 1;
-          } else if (response.data.status == 'ineligible') {
+          } else if ( response.data.status == 'ineligible' ) {
             this.eligible = false;
             this.alertIneligibility();
           }
-        })
-        .catch((error) => {
-          if (error.response.data.status == 'ineligible') {
+        } )
+        .catch( ( error ) => {
+          if ( error.response.data.status == 'ineligible' ) {
             this.eligible = false;
             this.alertIneligibility();
           } else {
             this.eligible = true;
-            console.log(error);
+            console.log( error );
           }
-        });
+        } );
     },
 
     checkIfSameCategory() {
-      user.checkIfSameCategory(this.getUserId(), this.placement_id)
-        .then((response) => {
-          if (response.data == 'category exists') {
+      user.checkIfSameCategory( this.getUserId(), this.placement_id )
+        .then( ( response ) => {
+          if ( response.data == 'category exists' ) {
             //working properly
           } else {
-            this.$router.push({
+            this.$router.push( {
               name: 'page-404'
-            });
+            } );
           }
-        })
-        .catch((error) => {
-          console.log(error.message);
-        });
+        } )
+        .catch( ( error ) => {
+          console.log( error.message );
+        } );
     },
 
     getUserPlacementDetails() {
-      user.getUserPlacementDetails(this.getUserId(), this.placement_id)
-        .then((response) => {
+      user.getUserPlacementDetails( this.getUserId(), this.placement_id )
+        .then( ( response ) => {
           this.dashboardJobDetails = response.data;
-        })
-        .catch((error) => {
-          console.log(error.message);
-        });
+        } )
+        .catch( ( error ) => {
+          console.log( error.message );
+        } );
     },
 
     getUserAppliedForPlacement() {
-      user.getUserAppliedForPlacement(this.getUserId(), this.placement_id)
-        .then((response) => {
-          if (response.data == 0) {
+      user.getUserAppliedForPlacement( this.getUserId(), this.placement_id )
+        .then( ( response ) => {
+          if ( response.data == 0 ) {
             this.applyKey = 0;
           } else {
             this.applyKey = 1;
           }
-        })
-        .catch((error) => {
-          console.log(error.message);
-        });
+        } )
+        .catch( ( error ) => {
+          console.log( error.message );
+        } );
     },
 
     getUserId() {
@@ -196,71 +196,71 @@ export default {
     },
 
     userApplyForPlacement() {
-      user.applyForPlacement(this.getUserId(), this.placement_id)
-        .then((response) => {
-          if (response.status == 200) {
-            let toast = this.$toasted.success("Applied!", {
+      user.applyForPlacement( this.getUserId(), this.placement_id )
+        .then( ( response ) => {
+          if ( response.status == 200 ) {
+            let toast = this.$toasted.success( "Applied!", {
               theme: "outline",
               position: "top-center",
               duration: 3000
-            });
+            } );
             this.applyKey = 0;
             this.checkIfSameCategory();
             this.getUserAppliedForPlacement();
             this.getUserPlacementDetails();
           }
-        })
-        .catch((error) => {
-          console.log(error);
-          let toast = this.$toasted.error(error.response.data.message, {
+        } )
+        .catch( ( error ) => {
+          console.log( error );
+          let toast = this.$toasted.error( error.response.data.message, {
             theme: "outline",
             position: "top-center",
             duration: 3000
-          });
-        })
+          } );
+        } )
     },
 
     userCancelPlacement() {
-      user.cancelPlacement(this.getUserId(), this.placement_id)
-        .then((response) => {
-          if (response.status == 204) {
-            let toast = this.$toasted.error("Registration Cancelled!", {
+      user.cancelPlacement( this.getUserId(), this.placement_id )
+        .then( ( response ) => {
+          if ( response.status == 204 ) {
+            let toast = this.$toasted.error( "Registration Cancelled!", {
               theme: "outline",
               position: "top-center",
               duration: 3000
-            });
+            } );
             this.apply = 1;
             this.checkIfSameCategory();
             this.getUserAppliedForPlacement();
             this.getUserPlacementDetails();
           }
-        })
-        .catch((error) => {
-          console.log(error);
-        })
+        } )
+        .catch( ( error ) => {
+          console.log( error );
+        } )
     },
 
     isFeedbackGiven() {
-      user.isFeedbackGiven(this.getUserId(), this.placement_id)
-        .then((response) => {
+      user.isFeedbackGiven( this.getUserId(), this.placement_id )
+        .then( ( response ) => {
           //if true then dont allow, if false then allow
-          if (response.data == false) {
+          if ( response.data == false ) {
             this.feedbackModal = true;
           } else {
-            let toast = this.$toasted.error("Feedback already Provided.", {
+            let toast = this.$toasted.error( "Feedback already Provided.", {
               theme: "outline",
               position: "top-center",
               duration: 3000
-            });
+            } );
           }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+        } )
+        .catch( ( error ) => {
+          console.log( error );
+        } );
     },
 
     askForCancellation() {
-      this.swal({
+      this.swal( {
         // title: 'Are you sure?',
         text: "Are you sure you want to cancel the Placement Application?",
         // type: 'warning',
@@ -269,13 +269,13 @@ export default {
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes',
         allowOutsideClick: true
-      }).then(() => {
+      } ).then( () => {
         this.userCancelPlacement();
-      })
+      } )
     },
 
     alertIneligibility() {
-      this.swal({
+      this.swal( {
           // title: 'Are you sure?',
           text: "Sorry, you are not Eligible to Register for the Process",
           // type: 'warning',
@@ -284,8 +284,8 @@ export default {
           confirmButtonText: 'OK',
           allowOutsideClick: true,
           timer: 3000
-        })
-        .then(() => {})
+        } )
+        .then( () => {} )
     }
   }
 }
@@ -303,7 +303,6 @@ export default {
 
     .job-section {
         border-bottom: solid 1px #ddd;
-        margin-bottom: 1.5rem;
         padding-bottom: 1.5rem;
 
         .section-header {

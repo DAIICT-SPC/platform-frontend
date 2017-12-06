@@ -28,47 +28,48 @@ export default {
   },
   created() {
     this.getCompanyDetails();
-    this.$bus.$on('logout', () => {
-      let toast = this.$toasted.success("Successfully Logged Out", {
+    this.$bus.$on( 'logout', () => {
+      let toast = this.$toasted.success( "Successfully Logged Out", {
         theme: "outline",
         position: "bottom-center",
-        duration : 3000
-      });
+        duration: 3000
+      } );
       Auth.destroyToken();
-      this.$router.push({name: 'home'});
-    });
+      this.$router.push( {
+        name: 'home'
+      } );
+    } );
   },
   methods: {
     getUserId() {
       return Auth.getUserToken();
     },
     getCompanyDetails() {
-      company.getUserDetails(this.getUserId())
-      .then((response) => {
-        this.userName = response.data.name;
-        let toast = this.$toasted.success("Welcome Back, " + this.userName, {
-          theme: "outline",
-          position: "top-center",
-          duration : 3000
-        });
-        this.userDetails = response.data;
-      })
-      .catch((error) => {
-        if(error.response == undefined) {
-            let toast = this.$toasted.error(error, {
-              theme: "outline",
-              position: "bottom-center",
-              duration : 3000
-            });
-        }
-        else if(error.response.status == 500) {
-					let toast = this.$toasted.error("Please Logout and come back again to continue.", {
+      company.getUserDetails( this.getUserId() )
+        .then( ( response ) => {
+          this.userName = response.data.name;
+          let toast = this.$toasted.success( "Welcome Back, " + this.userName, {
             theme: "outline",
             position: "top-center",
-            duration : 3000
-          });
-				}
-      })
+            duration: 3000
+          } );
+          this.userDetails = response.data;
+        } )
+        .catch( ( error ) => {
+          if ( error.response == undefined ) {
+            let toast = this.$toasted.error( error, {
+              theme: "outline",
+              position: "bottom-center",
+              duration: 3000
+            } );
+          } else if ( error.response.status == 500 ) {
+            let toast = this.$toasted.error( "Please Logout and come back again to continue.", {
+              theme: "outline",
+              position: "top-center",
+              duration: 3000
+            } );
+          }
+        } )
     },
   }
 }
@@ -76,6 +77,8 @@ export default {
 
 <style lang="scss">
 .company-dashboard-page {
-
+    .dashboard-inner {
+        margin-bottom: 1.5rem;
+    }
 }
 </style>

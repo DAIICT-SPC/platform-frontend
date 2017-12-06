@@ -81,52 +81,52 @@ export default {
     this.category_id = this.categories.id;
     this.placement_id = this.$route.params.placement_id;
 
-    this.$bus.$on('education-change', (data) => {
+    this.$bus.$on( 'education-change', ( data ) => {
       this.education_id_send = data.id;
-    });
+    } );
 
     this.getEducation();
   },
   methods: {
     getEducation() {
-      admin.getEducationForPlacementCriteria(this.getUserId(), this.placement_id, this.category_id)
-      .then((response) => {
-        console.log(response);
-        this.education = response.data;
-        this.education_id_rec = response.data[0].id;
-      })
-      .catch((error) => {
-        console.log(error);
-      })
+      admin.getEducationForPlacementCriteria( this.getUserId(), this.placement_id, this.category_id )
+        .then( ( response ) => {
+          console.log( response );
+          this.education = response.data;
+          this.education_id_rec = response.data[ 0 ].id;
+        } )
+        .catch( ( error ) => {
+          console.log( error );
+        } )
     },
     addCriteria() {
-      admin.setPlacementCriteria(this.getUserId(), this.placement_id, this.education_id_send,
-      this.category_id, this.cpi_required)
-      .then((response) => {
-        if(response.status == 200) {
-          this.$bus.$emit('added-eligibility-criteria');
-          let toast = this.$toasted.success("Criteria Added", {
-            theme: "outline",
-            position: "top-center",
-            duration : 3000
-          });
-          this.$bus.$emit('add-eligibility-criteria');
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      })
+      admin.setPlacementCriteria( this.getUserId(), this.placement_id, this.education_id_send,
+          this.category_id, this.cpi_required )
+        .then( ( response ) => {
+          if ( response.status == 200 ) {
+            this.$bus.$emit( 'added-eligibility-criteria' );
+            let toast = this.$toasted.success( "Criteria Added", {
+              theme: "outline",
+              position: "top-center",
+              duration: 3000
+            } );
+            this.$bus.$emit( 'add-eligibility-criteria' );
+          }
+        } )
+        .catch( ( error ) => {
+          console.log( error );
+        } )
     },
-    updateCriteria(education_id, category_id, cpi_required) {
-      admin.patchUpdateEligibilityCriteria(this.getUserId(), this.placement_id, education_id, category_id, cpi_required)
-      .then((response) => {
-        this.hidden = true;
-      })
-      .catch((error) => {
-        console.log(error);
-      })
+    updateCriteria( education_id, category_id, cpi_required ) {
+      admin.patchUpdateEligibilityCriteria( this.getUserId(), this.placement_id, education_id, category_id, cpi_required )
+        .then( ( response ) => {
+          this.hidden = true;
+        } )
+        .catch( ( error ) => {
+          console.log( error );
+        } )
     },
-    deleteCriteria(education_id, category_id, cpi_required) {
+    deleteCriteria( education_id, category_id, cpi_required ) {
 
     },
     getUserId() {
@@ -139,57 +139,55 @@ export default {
 <style lang="scss">
 .add-eligibility-criteria-box {
 
-  .box {
-    margin-top: 0.1rem;
-    margin-bottom: 0.5rem;
-    margin-right: 1rem;
-  }
-
-  .button.is-white {
-    display: flex;
-    justify-content: center;
-  }
-
-  .columns {
-    margin-bottom: 0;
-    .column {
-      padding-bottom: 0
+    .box {
+        margin-top: 0.1rem;
+        margin-bottom: 0.5rem;
+        margin-right: 1rem;
     }
-  }
 
-  .register-button {
-    padding-bottom: 1rem;
-  }
+    .button.is-white {
+        display: flex;
+        justify-content: center;
+    }
 
-  .input {
-    width: 170px;
-    text-align: center;
-  }
+    .columns {
+        margin-bottom: 0;
+        .column {
+            padding-bottom: 0;
+        }
+    }
 
-  .abt-input {
-    margin: 0;
-  }
+    .register-button {
+        padding-bottom: 1rem;
+    }
 
-  .field.register-button {
-    padding: 0;
-  }
+    .input {
+        width: 170px;
+        text-align: center;
+    }
 
-  .has-text-centered {
-    width: 274px;
-  }
+    .abt-input {
+        margin: 0;
+    }
 
+    .field.register-button {
+        padding: 0;
+    }
 
-  .control {
-    display: flex;
-    justify-content: center;
-    margin: auto;
-    padding-bottom: 1rem;
-  }
+    .has-text-centered {
+        width: 274px;
+    }
 
-  .label {
-    display: flex;
-    justify-content: center;
-  }
+    .control {
+        display: flex;
+        justify-content: center;
+        margin: auto;
+        padding-bottom: 1rem;
+    }
+
+    .label {
+        display: flex;
+        justify-content: center;
+    }
 }
-
 </style>

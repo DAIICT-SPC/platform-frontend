@@ -58,14 +58,14 @@ export default {
     'modal': EditAdminProfileModal
   },
   created() {
-    admin.getUserDetails(this.getUserId())
-      .then((response) => {
+    admin.getUserDetails( this.getUserId() )
+      .then( ( response ) => {
         // shows only name, email and profilepicture
         this.adminDetails = response.data;
-      })
-      .catch((error) => {
-        console.log(error);
-      })
+      } )
+      .catch( ( error ) => {
+        console.log( error );
+      } )
   },
   data() {
     return {

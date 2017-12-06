@@ -1,12 +1,10 @@
 <template lang="html">
-  <div class="myprofile-page">
       <div class="box company-profile">
         <div class="profile-head">
           <h2 class="title header">Overview</h2>
         </div>
 
         <div class="form">
-
           <div class="field is-horizontal">
             <div class="field-label">
               <p>Company Name</p>
@@ -106,8 +104,6 @@
         </div>
 
       </div>
-
-  </div>
 </template>
 
 <script>
@@ -128,15 +124,15 @@ export default {
     }
   },
   created() {
-    this.$bus.$on('close-edit-modal', () => {
+    this.$bus.$on( 'close-edit-modal', () => {
       this.showModal = false;
-    })
-    company.getUserDetails(this.getUserId()).then((response) => {
+    } )
+    company.getUserDetails( this.getUserId() ).then( ( response ) => {
         this.companyDetails = response.data;
-      })
-      .catch((error) => {
-        console.log(error.response.status);
-      })
+      } )
+      .catch( ( error ) => {
+        console.log( error.response.status );
+      } )
   },
   methods: {
     getUserId() {
@@ -147,21 +143,16 @@ export default {
 </script>
 
 <style lang="scss">
-.myprofile-page {
-    padding: 2rem;
+.company-profile {
+
+    padding: 0;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 5px #d0cfcf;
+    max-width: 1100px;
+    width: 100%;
 
     .profile-head {
         border-bottom: solid 1px #ddd;
-    }
-
-    .company-profile {
-        margin-top: 2rem;
-        padding: 0;
-        border-radius: 0.5rem;
-        box-shadow: 0 4px 5px #d0cfcf;
-        max-width: 1100px;
-        width: 100%;
-        margin: auto;
     }
 
     .title {

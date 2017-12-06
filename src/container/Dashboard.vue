@@ -23,22 +23,22 @@ export default {
   created() {
     this.getStudentDetails();
     // Listen for logout event
-    this.$bus.$on('logout', () => {
-      let toast = this.$toasted.success("Successfully Logged Out", {
+    this.$bus.$on( 'logout', () => {
+      let toast = this.$toasted.success( "Successfully Logged Out", {
         theme: "outline",
         position: "bottom-center",
-        duration : 3000
-      });
+        duration: 3000
+      } );
       Auth.destroyToken();
-      this.$router.push({
+      this.$router.push( {
         name: 'home'
-      });
-    });
+      } );
+    } );
   },
   data() {
     return {
       userName: '',
-      userDetails: { }
+      userDetails: {}
     }
   },
   methods: {
@@ -46,28 +46,27 @@ export default {
       return Auth.getUserToken();
     },
     getStudentDetails() {
-      user.getUserDetails(this.getUserId())
-      .then((response) => {
-        this.userName = response.data.name;
-        let toast = this.$toasted.success("Welcome Back, " + this.userName, {
-          theme: "outline",
-          position: "top-center",
-          duration : 3000
-        });
-        this.userDetails = response.data;
-      })
-      .catch((error) => {
-        if(error.response.status == 500) {
-					let toast = this.$toasted.error("Please Logout and come back again to continue.", {
+      user.getUserDetails( this.getUserId() )
+        .then( ( response ) => {
+          this.userName = response.data.name;
+          let toast = this.$toasted.success( "Welcome Back, " + this.userName, {
             theme: "outline",
             position: "top-center",
-            duration : 3000
-          });
-				}
-				else {
-					console.log(error);
-				}
-      })
+            duration: 3000
+          } );
+          this.userDetails = response.data;
+        } )
+        .catch( ( error ) => {
+          if ( error.response.status == 500 ) {
+            let toast = this.$toasted.error( "Please Logout and come back again to continue.", {
+              theme: "outline",
+              position: "top-center",
+              duration: 3000
+            } );
+          } else {
+            console.log( error );
+          }
+        } )
     }
   }
 }
@@ -81,9 +80,8 @@ html {
 }
 
 .dashboard {
-    margin-bottom: 20px;
     .dashboard-inner {
-        // margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
     }
 }
 </style>

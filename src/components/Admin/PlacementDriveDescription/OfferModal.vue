@@ -8,7 +8,7 @@
         <div class="modal-background"></div>
         <div class="modal-card">
           <header class="modal-card-head">
-            <p class="modal-card-title">Offer Letter for {{studentData.user.name}} <small>({{studentData.enroll_no}})</small></p>
+            <p class="modal-card-title">Offer Package for {{studentData.user.name}} <small>({{studentData.enroll_no}})</small></p>
             <button class="delete" @click="hidden=false"></button>
           </header>
           <section class="modal-card-body">
@@ -62,34 +62,32 @@ export default {
   },
   methods: {
     giveOffer() {
-      admin.postGiveOffer(this.getUserId(), this.placement_id, this.studentData.enroll_no, this.packageOffer)
-      .then((response) => {
-        if(response.status == 200) {
-          let toast = this.$toasted.success(this.studentData.user.name + " has been given the Offer.", {
-  					theme: "outline",
-  					position: "top-center",
-  					duration : 3000
-  				});
-          this.hidden = false;
-          this.$bus.$emit('refresh');
-        }
-        else if(response.data == 'All Students in last round got offer')
-        {
-          showAllOffer = true;
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      })
+      admin.postGiveOffer( this.getUserId(), this.placement_id, this.studentData.enroll_no, this.packageOffer )
+        .then( ( response ) => {
+          if ( response.status == 200 ) {
+            let toast = this.$toasted.success( this.studentData.user.name + " has been given the Offer.", {
+              theme: "outline",
+              position: "top-center",
+              duration: 3000
+            } );
+            this.hidden = false;
+            this.$bus.$emit( 'refresh' );
+          } else if ( response.data == 'All Students in last round got offer' ) {
+            showAllOffer = true;
+          }
+        } )
+        .catch( ( error ) => {
+          console.log( error );
+        } )
     },
     getStudentsOffer() {
-      admin.getStudentsForOffer(this.getuserId(), this.placement_id)
-      .then((response) => {
-        this.remainingStudents = response.data;
-      })
-      .catch((error) => {
-        console.log(error);
-      })
+      admin.getStudentsForOffer( this.getuserId(), this.placement_id )
+        .then( ( response ) => {
+          this.remainingStudents = response.data;
+        } )
+        .catch( ( error ) => {
+          console.log( error );
+        } )
     },
     validate() {
       return this.$validator.validateAll();
@@ -102,7 +100,5 @@ export default {
 </script>
 
 <style lang="scss">
-.offer-modal {
-
-}
+.offer-modal {}
 </style>

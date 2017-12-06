@@ -194,7 +194,7 @@ export default {
     });
   },
 
-  patchRoundDetails(user_id, placement_id, round_id, date_of_round, venue, date, time) {
+  patchRoundDetailsDateVenue(user_id, placement_id, round_id, date_of_round, venue, date, time) {
     // /users/{user_id}/admin/{placement_id}/update/{round_no}
     let url = '/users/' + user_id + '/admin/' + placement_id + '/update/' + round_id;
     return HTTP.patch(url, {
@@ -203,6 +203,15 @@ export default {
       date: date,
       time: time
     });
+  },
+
+  patchRoundDetails(user_id, placement_id, round_no, round_name, round_description) {
+    // /users/id/admin/updateSelectionRoundDetails/pid/rno
+    let url = '/users/' + user_id + '/admin/updateSelectionRoundDetails/' + placement_id + '/' + round_no;
+    return HTTP.patch(url, {
+      round_name: round_name,
+      round_description: round_description
+    })
   },
 
   // application modal

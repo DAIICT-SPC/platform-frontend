@@ -13,10 +13,12 @@
             <input type="hidden" v-model="category_id = cr.category_id">
 
             <p class="control">
-              <input v-on:keyup.enter="updateCriteria(cr.education_id, cr.category_id, cr.cpi_required)" v-model="cpi_required = cr.cpi_required" v-validate="'required|between:1,10'" class="input" type="text" name="job_title" placeholder="Job Title">
+              <input @keyup.enter="updateCriteria(cr.education_id, cr.category_id, cr.cpi_required)"
+              v-model="cpi_required = cr.cpi_required" v-validate="'required|numeric|between:1,10'"
+              class="input" type="number" name="job_title" placeholder="Job Title">
             </p>
             <div v-show="errors.has('job_title')" class="help is-danger">
-              The Criteria is a required field and the value should be less than 10 CPI.
+              The Criteria is a required field & the value should be less than 10 CPI.
             </div>
           </div>
           <div class="field register-button">
@@ -31,8 +33,6 @@
           </div>
         </div>
       </div>
-
-
 
     </div>
   </div>
@@ -61,45 +61,44 @@ export default {
     this.placement_id = this.$route.params.placement_id;
   },
   methods: {
-    updateCriteria(education_id, category_id, cpi_required) {
-      admin.patchUpdateEligibilityCriteria(this.getUserId(), this.placement_id, education_id, category_id, cpi_required)
-      .then((response) => {
-        //notification
-        let toast = this.$toasted.success("Details Updated", {
-          theme: "outline",
-          position: "top-center",
-          duration : 3000
-        });
-        this.hidden = true;
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-    },
-    deleteCriteria(education_id, category_id) {
-      // console.log( this.placement_id + "-" + education_id + "-" + category_id);
-      admin.deleteCriteria(this.getUserId(), this.placement_id, education_id, category_id)
-      .then((response) => {
-        if(response.data == 'Cant Fetch Education Criteria!') {
-          let toast = this.$toasted.error("Cannot Delete", {
+    updateCriteria( education_id, category_id, cpi_required ) {
+      admin.patchUpdateEligibilityCriteria( this.getUserId(), this.placement_id, education_id, category_id, cpi_required )
+        .then( ( response ) => {
+          //notification
+          let toast = this.$toasted.success( "Details Updated", {
             theme: "outline",
             position: "top-center",
-            duration : 3000
-          });
-        }
-        else {
-          let toast = this.$toasted.error("Criteria Deleted", {
-            theme: "outline",
-            position: "top-center",
-            duration : 3000
-          });
-          this.$bus.$emit('criteria-deleted');
+            duration: 3000
+          } );
           this.hidden = true;
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      })
+        } )
+        .catch( ( error ) => {
+          console.log( error );
+        } )
+    },
+    deleteCriteria( education_id, category_id ) {
+      // console.log( this.placement_id + "-" + education_id + "-" + category_id);
+      admin.deleteCriteria( this.getUserId(), this.placement_id, education_id, category_id )
+        .then( ( response ) => {
+          if ( response.data == 'Cant Fetch Education Criteria!' ) {
+            let toast = this.$toasted.error( "Cannot Delete", {
+              theme: "outline",
+              position: "top-center",
+              duration: 3000
+            } );
+          } else {
+            let toast = this.$toasted.error( "Criteria Deleted", {
+              theme: "outline",
+              position: "top-center",
+              duration: 3000
+            } );
+            this.$bus.$emit( 'criteria-deleted' );
+            this.hidden = true;
+          }
+        } )
+        .catch( ( error ) => {
+          console.log( error );
+        } )
     },
     getUserId() {
       return Auth.getUserToken();
@@ -111,50 +110,48 @@ export default {
 <style lang="scss">
 .edit-eligibility-criteria-box {
 
-  padding-bottom: 0.5rem;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
 
-  .box {
-    padding: 0.5rem;
-    border-radius: 0px;
-    box-shadow: 0px 0px 0px;
-    border: solid 1px #ddd;
-  }
-
-  .button.is-white {
-    display: flex;
-    justify-content: center;
-  }
-
-  .columns {
-      margin-bottom: 0;
-      .column {
-        padding-bottom: 0
-      }
-  }
-
-  .register-button {
-    padding-bottom: 1rem;
-  }
-
-  .input {
-    width: 170px;
-    text-align: center;
-  }
-
-
-    .control {
-      display: flex;
-      justify-content: center;
-      margin: auto;
-      padding-bottom: 1rem;
+    .box {
+        padding: 0.5rem;
+        border-radius: 0;
+        box-shadow: 0 0 0;
+        border: solid 1px #ddd;
     }
 
-  .label {
-    display: flex;
-    justify-content: center;
-  }
-}
+    .button.is-white {
+        display: flex;
+        justify-content: center;
+    }
 
+    .columns {
+        margin-bottom: 0;
+        .column {
+            padding-bottom: 0;
+        }
+    }
+
+    .register-button {
+        padding-bottom: 1rem;
+    }
+
+    .input {
+        width: 170px;
+        text-align: center;
+    }
+
+    .control {
+        display: flex;
+        justify-content: center;
+        margin: auto;
+        padding-bottom: 1rem;
+    }
+
+    .label {
+        display: flex;
+        justify-content: center;
+    }
+}
 </style>

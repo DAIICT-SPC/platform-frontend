@@ -19,7 +19,8 @@
             <div class="field">
               <label class="label">Location</label>
               <p class="control">
-                <input v-model="location = placementDescription.location" v-validate="'required'" class="input" type="text" name="location" placeholder="Job Title">
+                <input v-model="location = placementDescription.location" v-validate="'required'"
+                class="input" type="text" name="location" placeholder="Job Title">
               </p>
               <div v-show="errors.has('location')" class="help is-danger">
                 The Job Location is a required field.
@@ -29,7 +30,8 @@
             <div class="field">
               <label class="label">Package</label>
               <p class="control">
-                <input v-model="package = placementDescription.package" v-validate="'required'" class="input" type="text" name="package" placeholder="Package">
+                <input v-model="package = placementDescription.package" v-validate="'required'"
+                class="input" type="number" name="package" placeholder="Package">
               </p>
               <div v-show="errors.has('package')" class="help is-danger">
                 The Package is a required field.

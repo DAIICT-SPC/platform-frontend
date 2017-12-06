@@ -55,6 +55,7 @@
 									<input type="hidden" v-model="category_id = categories.id">
 									<a @click="askCatDelete(categories.id)" class="button is-white delete-btn">
 										Delete </a>
+										<AddEligibilityCriteria :key="categories.id" :categories="categories"></AddEligibilityCriteria>
 									</div>
 								</header>
 
@@ -64,8 +65,8 @@
 									</div>
 								</footer>
 								<div>
-									<edit-criteria-box v-if="placementDescription.status == 'application'" :key="categories.id"
-									:criterias="categories.criterias"></edit-criteria-box>
+									<EditEligibilityCriteriaBox v-if="placementDescription.status == 'application'" :key="categories.id"
+									:criterias="categories.criterias"></EditEligibilityCriteriaBox>
 								</div>
 							</div>
 						</div>
@@ -103,7 +104,7 @@
 								<a class="is-danger" @click="askDeleteSelectionRound">Delete</a>
 							</div>
 							<router-link :to="{ name: 'selection-rounds-dynamic', params: { placement_id: placement_id, round_id:round.round_no} }" class="is-success">View info</router-link><br>
-							<set-venue-date :key="round.id" :round="round"></set-venue-date>
+							<EditSelectionRounds :key="round.id" :round="round"></EditSelectionRounds>
 						</div>
 
 						<div class="process-offer process">
@@ -127,7 +128,7 @@
 	import ExternalAllow from '@/components/Admin/PlacementDriveDescription/ExternalAllow';
 	import PlacementDriveEditBox from '@/components/Admin/PlacementDriveDescription/PlacementDriveEditBox';
 	import EditEligibilityCriteriaBox from '@/components/Admin/PlacementDriveDescription/EditEligibilityCriteriaBox';
-	import SetVenueDate from '@/components/Admin/PlacementDriveDescription/SetVenueDate';
+	import EditSelectionRounds from '@/components/Admin/PlacementDriveDescription/EditSelectionRounds';
 	import OfferModal from '@/components/Admin/PlacementDriveDescription/OfferModal';
 	import OpenForModal from '@/components/Admin/PlacementDriveDescription/OpenForModal';
 	import AddEligibilityCriteria from '@/components/Admin/PlacementDriveDescription/AddEligibilityCriteria';
@@ -136,23 +137,14 @@
 	export default {
 		name: 'placement-detail-page',
 
-		components: {
-			ReOpenModal,
-			ExternalAllow,
-			PlacementDriveEditBox,
-			'edit-criteria-box': EditEligibilityCriteriaBox,
-			'set-venue-date': SetVenueDate,
-			OfferModal,
-			OpenForModal,
-			AddEligibilityCriteria,
-			AddSelectionRound
-		},
-
 		created() {
 			this.season_id = this.$route.params.season_id;
 			this.placement_id = this.$route.params.placement_id;
 			this.checkAllowListing();
 			this.getPlacementDetails();
+			this.$bus.$on( 'close-add-selection-round', () => {
+				this.showAddSelection = false;
+			} );
 			this.$bus.$on('closeDescription', () => {
 				this.showDesc = false;
 			});
@@ -309,7 +301,19 @@
 	      })
 	    },
 
-		}
+		},
+
+		components: {
+			ReOpenModal,
+			ExternalAllow,
+			PlacementDriveEditBox,
+			EditEligibilityCriteriaBox,
+			EditSelectionRounds,
+			OfferModal,
+			OpenForModal,
+			AddEligibilityCriteria,
+			AddSelectionRound
+		},
 	}
 	</script>
 
